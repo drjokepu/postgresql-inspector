@@ -1,0 +1,7 @@
+//
+// Prefix header for all source files of the 'PostgreSQL Inspector' target in the 'PostgreSQL Inspector' project
+//
+
+#ifdef __OBJC__
+    #import <Cocoa/Cocoa.h>
+#endif

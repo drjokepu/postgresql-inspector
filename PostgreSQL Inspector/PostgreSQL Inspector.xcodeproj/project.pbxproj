@@ -1,0 +1,684 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		02079FCE154DEE4700850FBB /* PGConnectionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 02079FCD154DEE4700850FBB /* PGConnectionManager.m */; };
+		021EF6A7154F41E800800157 /* PGSchemaObjectIdentifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 021EF6A6154F41E800800157 /* PGSchemaObjectIdentifier.m */; };
+		021EF6AA154F425C00800157 /* PGTableIdentifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 021EF6A9154F425C00800157 /* PGTableIdentifier.m */; };
+		021EF6AD154F463B00800157 /* PGSchemaIdentifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 021EF6AC154F463B00800157 /* PGSchemaIdentifier.m */; };
+		021EF6B0154F4FDC00800157 /* PGSchemaObjectGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 021EF6AF154F4FDC00800157 /* PGSchemaObjectGroup.m */; };
+		02501E2D155081750020896A /* icons.icns in Resources */ = {isa = PBXBuildFile; fileRef = 02CC58F515502EEA00496966 /* icons.icns */; };
+		02501E31155083B90020896A /* PGScopeBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 02501E30155083B90020896A /* PGScopeBar.m */; };
+		025F61A01551BCF7006B4D23 /* PGSchemaObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 025F619F1551BCF7006B4D23 /* PGSchemaObject.m */; };
+		025F61A31551BE09006B4D23 /* PGTable.m in Sources */ = {isa = PBXBuildFile; fileRef = 025F61A21551BE09006B4D23 /* PGTable.m */; };
+		02751E001549F778007AE07D /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02751DFF1549F778007AE07D /* Cocoa.framework */; };
+		02751E0A1549F778007AE07D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 02751E081549F778007AE07D /* InfoPlist.strings */; };
+		02751E0C1549F778007AE07D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 02751E0B1549F778007AE07D /* main.m */; };
+		02751E101549F778007AE07D /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 02751E0E1549F778007AE07D /* Credits.rtf */; };
+		02751E131549F778007AE07D /* PGAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 02751E121549F778007AE07D /* PGAppDelegate.m */; };
+		02751E161549F779007AE07D /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02751E141549F779007AE07D /* MainMenu.xib */; };
+		02751E271549F854007AE07D /* PGConnectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02751E1E1549F853007AE07D /* PGConnectionController.m */; };
+		02751E281549F854007AE07D /* PGConnectionEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = 02751E201549F853007AE07D /* PGConnectionEntry.m */; };
+		02751E291549F854007AE07D /* PGConnectionProgressWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 02751E221549F853007AE07D /* PGConnectionProgressWindow.m */; };
+		02751E2A1549F854007AE07D /* PGConnectionProgressWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02751E231549F853007AE07D /* PGConnectionProgressWindow.xib */; };
+		02751E2B1549F854007AE07D /* PGConnectionsWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 02751E251549F853007AE07D /* PGConnectionsWindow.m */; };
+		02751E2C1549F854007AE07D /* PGConnectionsWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02751E261549F853007AE07D /* PGConnectionsWindow.xib */; };
+		02751E481549F85E007AE07D /* Sqlite.m in Sources */ = {isa = PBXBuildFile; fileRef = 02751E301549F85E007AE07D /* Sqlite.m */; };
+		02751E491549F85E007AE07D /* sqlite3.c in Sources */ = {isa = PBXBuildFile; fileRef = 02751E311549F85E007AE07D /* sqlite3.c */; };
+		02751E4A1549F85E007AE07D /* SqliteError.m in Sources */ = {isa = PBXBuildFile; fileRef = 02751E351549F85E007AE07D /* SqliteError.m */; };
+		02751E4B1549F85E007AE07D /* SqliteManagedReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 02751E371549F85E007AE07D /* SqliteManagedReader.m */; };
+		02751E4C1549F85E007AE07D /* SqliteNull.m in Sources */ = {isa = PBXBuildFile; fileRef = 02751E391549F85E007AE07D /* SqliteNull.m */; };
+		02751E4D1549F85E007AE07D /* SqliteParam.m in Sources */ = {isa = PBXBuildFile; fileRef = 02751E3B1549F85E007AE07D /* SqliteParam.m */; };
+		02751E4E1549F85E007AE07D /* SqliteParamDouble.m in Sources */ = {isa = PBXBuildFile; fileRef = 02751E3D1549F85E007AE07D /* SqliteParamDouble.m */; };
+		02751E4F1549F85E007AE07D /* SqliteParamInt32.m in Sources */ = {isa = PBXBuildFile; fileRef = 02751E3F1549F85E007AE07D /* SqliteParamInt32.m */; };
+		02751E501549F85E007AE07D /* SqliteParamInt64.m in Sources */ = {isa = PBXBuildFile; fileRef = 02751E411549F85E007AE07D /* SqliteParamInt64.m */; };
+		02751E511549F85E007AE07D /* SqliteParamNull.m in Sources */ = {isa = PBXBuildFile; fileRef = 02751E431549F85E007AE07D /* SqliteParamNull.m */; };
+		02751E521549F85E007AE07D /* SqliteParamString.m in Sources */ = {isa = PBXBuildFile; fileRef = 02751E451549F85E007AE07D /* SqliteParamString.m */; };
+		02751E531549F85E007AE07D /* SqliteReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 02751E471549F85E007AE07D /* SqliteReader.m */; };
+		02751E581549F8C2007AE07D /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02751E571549F8C2007AE07D /* Security.framework */; };
+		027641BE1588CC9F003EEDDE /* PGConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 027641BD1588CC9F003EEDDE /* PGConstraint.m */; };
+		027641C81588DC3F003EEDDE /* PGConstraintColumn.m in Sources */ = {isa = PBXBuildFile; fileRef = 027641C71588DC3E003EEDDE /* PGConstraintColumn.m */; };
+		02801E70154D9BA800FCA1DE /* PGConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 02801E6F154D9BA800FCA1DE /* PGConnection.m */; };
+		02801E79154DC4F200FCA1DE /* PGAuthWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02801E77154DC4F200FCA1DE /* PGAuthWindowController.m */; };
+		02801E7A154DC4F200FCA1DE /* PGAuthWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02801E78154DC4F200FCA1DE /* PGAuthWindowController.xib */; };
+		02B172EA156E76F1002C2AA9 /* PGRelation.m in Sources */ = {isa = PBXBuildFile; fileRef = 02B172E9156E76F1002C2AA9 /* PGRelation.m */; };
+		02B83EA5154F1F380013A5F8 /* PGResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 02B83EA4154F1F370013A5F8 /* PGResult.m */; };
+		02B83EAA154F321A0013A5F8 /* PGNull.m in Sources */ = {isa = PBXBuildFile; fileRef = 02B83EA9154F321A0013A5F8 /* PGNull.m */; };
+		02B8863C1586043F00855F79 /* PGOid.m in Sources */ = {isa = PBXBuildFile; fileRef = 02B8863B1586043F00855F79 /* PGOid.m */; };
+		02B8864015862D4100855F79 /* PGRelationColumn.m in Sources */ = {isa = PBXBuildFile; fileRef = 02B8863F15862D4000855F79 /* PGRelationColumn.m */; };
+		02CB6E15154EB5450086DA2C /* PGDatabaseWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02CB6E13154EB5450086DA2C /* PGDatabaseWindowController.m */; };
+		02CB6E16154EB5450086DA2C /* PGDatabaseWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02CB6E14154EB5450086DA2C /* PGDatabaseWindowController.xib */; };
+		02CB6E19154EB9DF0086DA2C /* PGDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 02CB6E18154EB9DF0086DA2C /* PGDatabase.m */; };
+		02CB6E1C154EBA960086DA2C /* PGDatabaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 02CB6E1B154EBA950086DA2C /* PGDatabaseManager.m */; };
+		02CB6E20154ED03C0086DA2C /* PGCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = 02CB6E1F154ED03C0086DA2C /* PGCommand.m */; };
+		02CB6E28154EEFCD0086DA2C /* PGDataReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 02CB6E27154EEFCD0086DA2C /* PGDataReader.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		02079FCC154DEE4700850FBB /* PGConnectionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGConnectionManager.h; sourceTree = "<group>"; };
+		02079FCD154DEE4700850FBB /* PGConnectionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGConnectionManager.m; sourceTree = "<group>"; };
+		021EF6A5154F41E800800157 /* PGSchemaObjectIdentifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGSchemaObjectIdentifier.h; sourceTree = "<group>"; };
+		021EF6A6154F41E800800157 /* PGSchemaObjectIdentifier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGSchemaObjectIdentifier.m; sourceTree = "<group>"; };
+		021EF6A8154F425C00800157 /* PGTableIdentifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGTableIdentifier.h; sourceTree = "<group>"; };
+		021EF6A9154F425C00800157 /* PGTableIdentifier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGTableIdentifier.m; sourceTree = "<group>"; };
+		021EF6AB154F463B00800157 /* PGSchemaIdentifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGSchemaIdentifier.h; sourceTree = "<group>"; };
+		021EF6AC154F463B00800157 /* PGSchemaIdentifier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGSchemaIdentifier.m; sourceTree = "<group>"; };
+		021EF6AE154F4FDC00800157 /* PGSchemaObjectGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGSchemaObjectGroup.h; sourceTree = "<group>"; };
+		021EF6AF154F4FDC00800157 /* PGSchemaObjectGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGSchemaObjectGroup.m; sourceTree = "<group>"; };
+		021EF6B1154F50A100800157 /* PGSchemaObjectGroupType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PGSchemaObjectGroupType.h; sourceTree = "<group>"; };
+		02501E241550811E0020896A /* icons.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = icons.icns; sourceTree = "<group>"; };
+		02501E2F155083B90020896A /* PGScopeBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGScopeBar.h; sourceTree = "<group>"; };
+		02501E30155083B90020896A /* PGScopeBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGScopeBar.m; sourceTree = "<group>"; };
+		025F619E1551BCF7006B4D23 /* PGSchemaObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGSchemaObject.h; sourceTree = "<group>"; };
+		025F619F1551BCF7006B4D23 /* PGSchemaObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGSchemaObject.m; sourceTree = "<group>"; };
+		025F61A11551BE09006B4D23 /* PGTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGTable.h; sourceTree = "<group>"; };
+		025F61A21551BE09006B4D23 /* PGTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGTable.m; sourceTree = "<group>"; };
+		02751DFB1549F778007AE07D /* PostgreSQL Inspector.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "PostgreSQL Inspector.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		02751DFF1549F778007AE07D /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		02751E021549F778007AE07D /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		02751E031549F778007AE07D /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		02751E041549F778007AE07D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		02751E071549F778007AE07D /* PostgreSQL Inspector-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "PostgreSQL Inspector-Info.plist"; sourceTree = "<group>"; };
+		02751E091549F778007AE07D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		02751E0B1549F778007AE07D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		02751E0D1549F778007AE07D /* PostgreSQL Inspector-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PostgreSQL Inspector-Prefix.pch"; sourceTree = "<group>"; };
+		02751E0F1549F778007AE07D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
+		02751E111549F778007AE07D /* PGAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PGAppDelegate.h; sourceTree = "<group>"; };
+		02751E121549F778007AE07D /* PGAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PGAppDelegate.m; sourceTree = "<group>"; };
+		02751E151549F779007AE07D /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		02751E1D1549F853007AE07D /* PGConnectionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGConnectionController.h; sourceTree = "<group>"; };
+		02751E1E1549F853007AE07D /* PGConnectionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGConnectionController.m; sourceTree = "<group>"; };
+		02751E1F1549F853007AE07D /* PGConnectionEntry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGConnectionEntry.h; sourceTree = "<group>"; };
+		02751E201549F853007AE07D /* PGConnectionEntry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGConnectionEntry.m; sourceTree = "<group>"; };
+		02751E211549F853007AE07D /* PGConnectionProgressWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGConnectionProgressWindow.h; sourceTree = "<group>"; };
+		02751E221549F853007AE07D /* PGConnectionProgressWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGConnectionProgressWindow.m; sourceTree = "<group>"; };
+		02751E231549F853007AE07D /* PGConnectionProgressWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PGConnectionProgressWindow.xib; sourceTree = "<group>"; };
+		02751E241549F853007AE07D /* PGConnectionsWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGConnectionsWindow.h; sourceTree = "<group>"; };
+		02751E251549F853007AE07D /* PGConnectionsWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGConnectionsWindow.m; sourceTree = "<group>"; };
+		02751E261549F853007AE07D /* PGConnectionsWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PGConnectionsWindow.xib; sourceTree = "<group>"; };
+		02751E2E1549F85E007AE07D /* Keywords.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Keywords.h; sourceTree = "<group>"; };
+		02751E2F1549F85E007AE07D /* Sqlite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sqlite.h; sourceTree = "<group>"; };
+		02751E301549F85E007AE07D /* Sqlite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Sqlite.m; sourceTree = "<group>"; };
+		02751E311549F85E007AE07D /* sqlite3.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sqlite3.c; sourceTree = "<group>"; };
+		02751E321549F85E007AE07D /* sqlite3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sqlite3.h; sourceTree = "<group>"; };
+		02751E331549F85E007AE07D /* SqliteColumnTypeAffinity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SqliteColumnTypeAffinity.h; sourceTree = "<group>"; };
+		02751E341549F85E007AE07D /* SqliteError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SqliteError.h; sourceTree = "<group>"; };
+		02751E351549F85E007AE07D /* SqliteError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SqliteError.m; sourceTree = "<group>"; };
+		02751E361549F85E007AE07D /* SqliteManagedReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SqliteManagedReader.h; sourceTree = "<group>"; };
+		02751E371549F85E007AE07D /* SqliteManagedReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SqliteManagedReader.m; sourceTree = "<group>"; };
+		02751E381549F85E007AE07D /* SqliteNull.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SqliteNull.h; sourceTree = "<group>"; };
+		02751E391549F85E007AE07D /* SqliteNull.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SqliteNull.m; sourceTree = "<group>"; };
+		02751E3A1549F85E007AE07D /* SqliteParam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SqliteParam.h; sourceTree = "<group>"; };
+		02751E3B1549F85E007AE07D /* SqliteParam.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SqliteParam.m; sourceTree = "<group>"; };
+		02751E3C1549F85E007AE07D /* SqliteParamDouble.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SqliteParamDouble.h; sourceTree = "<group>"; };
+		02751E3D1549F85E007AE07D /* SqliteParamDouble.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SqliteParamDouble.m; sourceTree = "<group>"; };
+		02751E3E1549F85E007AE07D /* SqliteParamInt32.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SqliteParamInt32.h; sourceTree = "<group>"; };
+		02751E3F1549F85E007AE07D /* SqliteParamInt32.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SqliteParamInt32.m; sourceTree = "<group>"; };
+		02751E401549F85E007AE07D /* SqliteParamInt64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SqliteParamInt64.h; sourceTree = "<group>"; };
+		02751E411549F85E007AE07D /* SqliteParamInt64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SqliteParamInt64.m; sourceTree = "<group>"; };
+		02751E421549F85E007AE07D /* SqliteParamNull.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SqliteParamNull.h; sourceTree = "<group>"; };
+		02751E431549F85E007AE07D /* SqliteParamNull.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SqliteParamNull.m; sourceTree = "<group>"; };
+		02751E441549F85E007AE07D /* SqliteParamString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SqliteParamString.h; sourceTree = "<group>"; };
+		02751E451549F85E007AE07D /* SqliteParamString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SqliteParamString.m; sourceTree = "<group>"; };
+		02751E461549F85E007AE07D /* SqliteReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SqliteReader.h; sourceTree = "<group>"; };
+		02751E471549F85E007AE07D /* SqliteReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SqliteReader.m; sourceTree = "<group>"; };
+		02751E571549F8C2007AE07D /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		027641BC1588CC9F003EEDDE /* PGConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGConstraint.h; sourceTree = "<group>"; };
+		027641BD1588CC9F003EEDDE /* PGConstraint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGConstraint.m; sourceTree = "<group>"; };
+		027641C01588CD8B003EEDDE /* PGConstraintType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PGConstraintType.h; sourceTree = "<group>"; };
+		027641C11588CF56003EEDDE /* PGForeignKeyAction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PGForeignKeyAction.h; sourceTree = "<group>"; };
+		027641C21588D00F003EEDDE /* PGForeignKeyMatchType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PGForeignKeyMatchType.h; sourceTree = "<group>"; };
+		027641C61588DC3E003EEDDE /* PGConstraintColumn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGConstraintColumn.h; sourceTree = "<group>"; };
+		027641C71588DC3E003EEDDE /* PGConstraintColumn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGConstraintColumn.m; sourceTree = "<group>"; };
+		02801E6E154D9BA800FCA1DE /* PGConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGConnection.h; sourceTree = "<group>"; };
+		02801E6F154D9BA800FCA1DE /* PGConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGConnection.m; sourceTree = "<group>"; };
+		02801E75154DBB6D00FCA1DE /* PGConnectionDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PGConnectionDelegate.h; sourceTree = "<group>"; };
+		02801E76154DC4F200FCA1DE /* PGAuthWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGAuthWindowController.h; sourceTree = "<group>"; };
+		02801E77154DC4F200FCA1DE /* PGAuthWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGAuthWindowController.m; sourceTree = "<group>"; };
+		02801E78154DC4F200FCA1DE /* PGAuthWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PGAuthWindowController.xib; sourceTree = "<group>"; };
+		02801E7C154DCD5500FCA1DE /* PGAuthWindowControllerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PGAuthWindowControllerDelegate.h; sourceTree = "<group>"; };
+		02B172E8156E76F1002C2AA9 /* PGRelation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGRelation.h; sourceTree = "<group>"; };
+		02B172E9156E76F1002C2AA9 /* PGRelation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGRelation.m; sourceTree = "<group>"; };
+		02B83EA2154F1D510013A5F8 /* PGCommandDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PGCommandDelegate.h; sourceTree = "<group>"; };
+		02B83EA3154F1F370013A5F8 /* PGResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGResult.h; sourceTree = "<group>"; };
+		02B83EA4154F1F370013A5F8 /* PGResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGResult.m; sourceTree = "<group>"; };
+		02B83EA7154F25C60013A5F8 /* PGType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PGType.h; sourceTree = "<group>"; };
+		02B83EA8154F32190013A5F8 /* PGNull.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGNull.h; sourceTree = "<group>"; };
+		02B83EA9154F321A0013A5F8 /* PGNull.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGNull.m; sourceTree = "<group>"; };
+		02B83EAB154F3F590013A5F8 /* PGDatabaseDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PGDatabaseDelegate.h; sourceTree = "<group>"; };
+		02B8863A1586043E00855F79 /* PGOid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGOid.h; sourceTree = "<group>"; };
+		02B8863B1586043F00855F79 /* PGOid.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGOid.m; sourceTree = "<group>"; };
+		02B8863E15862D4000855F79 /* PGRelationColumn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGRelationColumn.h; sourceTree = "<group>"; };
+		02B8863F15862D4000855F79 /* PGRelationColumn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGRelationColumn.m; sourceTree = "<group>"; };
+		02CB6E0C154EAD710086DA2C /* libpq.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpq.a; path = ../ThirdParty/postgresql/src/interfaces/libpq/libpq.a; sourceTree = "<group>"; };
+		02CB6E12154EB5450086DA2C /* PGDatabaseWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGDatabaseWindowController.h; sourceTree = "<group>"; };
+		02CB6E13154EB5450086DA2C /* PGDatabaseWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGDatabaseWindowController.m; sourceTree = "<group>"; };
+		02CB6E14154EB5450086DA2C /* PGDatabaseWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PGDatabaseWindowController.xib; sourceTree = "<group>"; };
+		02CB6E17154EB9DF0086DA2C /* PGDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGDatabase.h; sourceTree = "<group>"; };
+		02CB6E18154EB9DF0086DA2C /* PGDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGDatabase.m; sourceTree = "<group>"; };
+		02CB6E1A154EBA950086DA2C /* PGDatabaseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGDatabaseManager.h; sourceTree = "<group>"; };
+		02CB6E1B154EBA950086DA2C /* PGDatabaseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGDatabaseManager.m; sourceTree = "<group>"; };
+		02CB6E1E154ED03C0086DA2C /* PGCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGCommand.h; sourceTree = "<group>"; };
+		02CB6E1F154ED03C0086DA2C /* PGCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGCommand.m; sourceTree = "<group>"; };
+		02CB6E26154EEFCC0086DA2C /* PGDataReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGDataReader.h; sourceTree = "<group>"; };
+		02CB6E27154EEFCD0086DA2C /* PGDataReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGDataReader.m; sourceTree = "<group>"; };
+		02CC58F515502EEA00496966 /* icons.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = icons.icns; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		02751DF81549F778007AE07D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				02751E581549F8C2007AE07D /* Security.framework in Frameworks */,
+				02751E001549F778007AE07D /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		021EF6A3154F418C00800157 /* Schema Identifiers */ = {
+			isa = PBXGroup;
+			children = (
+				021EF6AB154F463B00800157 /* PGSchemaIdentifier.h */,
+				021EF6AC154F463B00800157 /* PGSchemaIdentifier.m */,
+				021EF6A5154F41E800800157 /* PGSchemaObjectIdentifier.h */,
+				021EF6A6154F41E800800157 /* PGSchemaObjectIdentifier.m */,
+				021EF6AE154F4FDC00800157 /* PGSchemaObjectGroup.h */,
+				021EF6AF154F4FDC00800157 /* PGSchemaObjectGroup.m */,
+				021EF6B1154F50A100800157 /* PGSchemaObjectGroupType.h */,
+				021EF6A8154F425C00800157 /* PGTableIdentifier.h */,
+				021EF6A9154F425C00800157 /* PGTableIdentifier.m */,
+			);
+			name = "Schema Identifiers";
+			sourceTree = "<group>";
+		};
+		02501E2E155082EC0020896A /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				02501E2F155083B90020896A /* PGScopeBar.h */,
+				02501E30155083B90020896A /* PGScopeBar.m */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		025F61991551BCA2006B4D23 /* Schema Objects */ = {
+			isa = PBXGroup;
+			children = (
+				027641BC1588CC9F003EEDDE /* PGConstraint.h */,
+				027641BD1588CC9F003EEDDE /* PGConstraint.m */,
+				027641C61588DC3E003EEDDE /* PGConstraintColumn.h */,
+				027641C71588DC3E003EEDDE /* PGConstraintColumn.m */,
+				027641C01588CD8B003EEDDE /* PGConstraintType.h */,
+				027641C11588CF56003EEDDE /* PGForeignKeyAction.h */,
+				027641C21588D00F003EEDDE /* PGForeignKeyMatchType.h */,
+				025F619E1551BCF7006B4D23 /* PGSchemaObject.h */,
+				025F619F1551BCF7006B4D23 /* PGSchemaObject.m */,
+				02B172E8156E76F1002C2AA9 /* PGRelation.h */,
+				02B172E9156E76F1002C2AA9 /* PGRelation.m */,
+				025F61A11551BE09006B4D23 /* PGTable.h */,
+				025F61A21551BE09006B4D23 /* PGTable.m */,
+				02B8863E15862D4000855F79 /* PGRelationColumn.h */,
+				02B8863F15862D4000855F79 /* PGRelationColumn.m */,
+			);
+			name = "Schema Objects";
+			sourceTree = "<group>";
+		};
+		02751DF01549F778007AE07D = {
+			isa = PBXGroup;
+			children = (
+				02501E241550811E0020896A /* icons.icns */,
+				02CC58F515502EEA00496966 /* icons.icns */,
+				02751E051549F778007AE07D /* PostgreSQL Inspector */,
+				02751DFE1549F778007AE07D /* Frameworks */,
+				02751DFC1549F778007AE07D /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		02751DFC1549F778007AE07D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				02751DFB1549F778007AE07D /* PostgreSQL Inspector.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		02751DFE1549F778007AE07D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				02751E571549F8C2007AE07D /* Security.framework */,
+				02751DFF1549F778007AE07D /* Cocoa.framework */,
+				02751E011549F778007AE07D /* Other Frameworks */,
+				02CB6E0C154EAD710086DA2C /* libpq.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		02751E011549F778007AE07D /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				02751E021549F778007AE07D /* AppKit.framework */,
+				02751E031549F778007AE07D /* CoreData.framework */,
+				02751E041549F778007AE07D /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		02751E051549F778007AE07D /* PostgreSQL Inspector */ = {
+			isa = PBXGroup;
+			children = (
+				02751E1C1549F835007AE07D /* App Delegate */,
+				02751E551549F877007AE07D /* Controllers */,
+				02751E561549F883007AE07D /* Models */,
+				02751E061549F778007AE07D /* Supporting Files */,
+				02751E2D1549F85E007AE07D /* Sqlite */,
+				02751E541549F868007AE07D /* Windows */,
+				02501E2E155082EC0020896A /* Views */,
+			);
+			path = "PostgreSQL Inspector";
+			sourceTree = "<group>";
+		};
+		02751E061549F778007AE07D /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				02751E0E1549F778007AE07D /* Credits.rtf */,
+				02751E081549F778007AE07D /* InfoPlist.strings */,
+				02751E071549F778007AE07D /* PostgreSQL Inspector-Info.plist */,
+				02751E0D1549F778007AE07D /* PostgreSQL Inspector-Prefix.pch */,
+				02751E0B1549F778007AE07D /* main.m */,
+				02751E141549F779007AE07D /* MainMenu.xib */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		02751E1C1549F835007AE07D /* App Delegate */ = {
+			isa = PBXGroup;
+			children = (
+				02751E111549F778007AE07D /* PGAppDelegate.h */,
+				02751E121549F778007AE07D /* PGAppDelegate.m */,
+			);
+			name = "App Delegate";
+			sourceTree = "<group>";
+		};
+		02751E2D1549F85E007AE07D /* Sqlite */ = {
+			isa = PBXGroup;
+			children = (
+				02751E2E1549F85E007AE07D /* Keywords.h */,
+				02751E2F1549F85E007AE07D /* Sqlite.h */,
+				02751E301549F85E007AE07D /* Sqlite.m */,
+				02751E311549F85E007AE07D /* sqlite3.c */,
+				02751E321549F85E007AE07D /* sqlite3.h */,
+				02751E331549F85E007AE07D /* SqliteColumnTypeAffinity.h */,
+				02751E341549F85E007AE07D /* SqliteError.h */,
+				02751E351549F85E007AE07D /* SqliteError.m */,
+				02751E361549F85E007AE07D /* SqliteManagedReader.h */,
+				02751E371549F85E007AE07D /* SqliteManagedReader.m */,
+				02751E381549F85E007AE07D /* SqliteNull.h */,
+				02751E391549F85E007AE07D /* SqliteNull.m */,
+				02751E3A1549F85E007AE07D /* SqliteParam.h */,
+				02751E3B1549F85E007AE07D /* SqliteParam.m */,
+				02751E3C1549F85E007AE07D /* SqliteParamDouble.h */,
+				02751E3D1549F85E007AE07D /* SqliteParamDouble.m */,
+				02751E3E1549F85E007AE07D /* SqliteParamInt32.h */,
+				02751E3F1549F85E007AE07D /* SqliteParamInt32.m */,
+				02751E401549F85E007AE07D /* SqliteParamInt64.h */,
+				02751E411549F85E007AE07D /* SqliteParamInt64.m */,
+				02751E421549F85E007AE07D /* SqliteParamNull.h */,
+				02751E431549F85E007AE07D /* SqliteParamNull.m */,
+				02751E441549F85E007AE07D /* SqliteParamString.h */,
+				02751E451549F85E007AE07D /* SqliteParamString.m */,
+				02751E461549F85E007AE07D /* SqliteReader.h */,
+				02751E471549F85E007AE07D /* SqliteReader.m */,
+			);
+			path = Sqlite;
+			sourceTree = "<group>";
+		};
+		02751E541549F868007AE07D /* Windows */ = {
+			isa = PBXGroup;
+			children = (
+				02801E7B154DCD3F00FCA1DE /* Delegate */,
+				02801E76154DC4F200FCA1DE /* PGAuthWindowController.h */,
+				02801E77154DC4F200FCA1DE /* PGAuthWindowController.m */,
+				02801E78154DC4F200FCA1DE /* PGAuthWindowController.xib */,
+				02751E211549F853007AE07D /* PGConnectionProgressWindow.h */,
+				02751E221549F853007AE07D /* PGConnectionProgressWindow.m */,
+				02751E231549F853007AE07D /* PGConnectionProgressWindow.xib */,
+				02751E241549F853007AE07D /* PGConnectionsWindow.h */,
+				02751E251549F853007AE07D /* PGConnectionsWindow.m */,
+				02751E261549F853007AE07D /* PGConnectionsWindow.xib */,
+				02CB6E12154EB5450086DA2C /* PGDatabaseWindowController.h */,
+				02CB6E13154EB5450086DA2C /* PGDatabaseWindowController.m */,
+				02CB6E14154EB5450086DA2C /* PGDatabaseWindowController.xib */,
+			);
+			name = Windows;
+			sourceTree = "<group>";
+		};
+		02751E551549F877007AE07D /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				02751E1D1549F853007AE07D /* PGConnectionController.h */,
+				02751E1E1549F853007AE07D /* PGConnectionController.m */,
+				02079FCC154DEE4700850FBB /* PGConnectionManager.h */,
+				02079FCD154DEE4700850FBB /* PGConnectionManager.m */,
+				02CB6E1A154EBA950086DA2C /* PGDatabaseManager.h */,
+				02CB6E1B154EBA950086DA2C /* PGDatabaseManager.m */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		02751E561549F883007AE07D /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				02801E74154DBB5300FCA1DE /* Delegates */,
+				02CB6E1D154ECF320086DA2C /* PostgreSQL Interface */,
+				021EF6A3154F418C00800157 /* Schema Identifiers */,
+				025F61991551BCA2006B4D23 /* Schema Objects */,
+				02751E1F1549F853007AE07D /* PGConnectionEntry.h */,
+				02751E201549F853007AE07D /* PGConnectionEntry.m */,
+				02CB6E17154EB9DF0086DA2C /* PGDatabase.h */,
+				02CB6E18154EB9DF0086DA2C /* PGDatabase.m */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		02801E74154DBB5300FCA1DE /* Delegates */ = {
+			isa = PBXGroup;
+			children = (
+				02801E75154DBB6D00FCA1DE /* PGConnectionDelegate.h */,
+				02B83EAB154F3F590013A5F8 /* PGDatabaseDelegate.h */,
+			);
+			name = Delegates;
+			sourceTree = "<group>";
+		};
+		02801E7B154DCD3F00FCA1DE /* Delegate */ = {
+			isa = PBXGroup;
+			children = (
+				02801E7C154DCD5500FCA1DE /* PGAuthWindowControllerDelegate.h */,
+			);
+			name = Delegate;
+			sourceTree = "<group>";
+		};
+		02B83EA0154F1D380013A5F8 /* Delegates */ = {
+			isa = PBXGroup;
+			children = (
+				02B83EA2154F1D510013A5F8 /* PGCommandDelegate.h */,
+			);
+			name = Delegates;
+			sourceTree = "<group>";
+		};
+		02CB6E1D154ECF320086DA2C /* PostgreSQL Interface */ = {
+			isa = PBXGroup;
+			children = (
+				02B83EA0154F1D380013A5F8 /* Delegates */,
+				02CB6E1E154ED03C0086DA2C /* PGCommand.h */,
+				02CB6E1F154ED03C0086DA2C /* PGCommand.m */,
+				02801E6E154D9BA800FCA1DE /* PGConnection.h */,
+				02801E6F154D9BA800FCA1DE /* PGConnection.m */,
+				02CB6E26154EEFCC0086DA2C /* PGDataReader.h */,
+				02CB6E27154EEFCD0086DA2C /* PGDataReader.m */,
+				02B8863A1586043E00855F79 /* PGOid.h */,
+				02B8863B1586043F00855F79 /* PGOid.m */,
+				02B83EA8154F32190013A5F8 /* PGNull.h */,
+				02B83EA9154F321A0013A5F8 /* PGNull.m */,
+				02B83EA3154F1F370013A5F8 /* PGResult.h */,
+				02B83EA4154F1F370013A5F8 /* PGResult.m */,
+				02B83EA7154F25C60013A5F8 /* PGType.h */,
+			);
+			name = "PostgreSQL Interface";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		02751DFA1549F778007AE07D /* PostgreSQL Inspector */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 02751E191549F779007AE07D /* Build configuration list for PBXNativeTarget "PostgreSQL Inspector" */;
+			buildPhases = (
+				02751DF71549F778007AE07D /* Sources */,
+				02751DF81549F778007AE07D /* Frameworks */,
+				02751DF91549F778007AE07D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "PostgreSQL Inspector";
+			productName = "PostgreSQL Inspector";
+			productReference = 02751DFB1549F778007AE07D /* PostgreSQL Inspector.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		02751DF21549F778007AE07D /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = PG;
+				LastUpgradeCheck = 0430;
+			};
+			buildConfigurationList = 02751DF51549F778007AE07D /* Build configuration list for PBXProject "PostgreSQL Inspector" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 02751DF01549F778007AE07D;
+			productRefGroup = 02751DFC1549F778007AE07D /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				02751DFA1549F778007AE07D /* PostgreSQL Inspector */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		02751DF91549F778007AE07D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				02751E0A1549F778007AE07D /* InfoPlist.strings in Resources */,
+				02751E101549F778007AE07D /* Credits.rtf in Resources */,
+				02751E161549F779007AE07D /* MainMenu.xib in Resources */,
+				02751E2A1549F854007AE07D /* PGConnectionProgressWindow.xib in Resources */,
+				02751E2C1549F854007AE07D /* PGConnectionsWindow.xib in Resources */,
+				02801E7A154DC4F200FCA1DE /* PGAuthWindowController.xib in Resources */,
+				02CB6E16154EB5450086DA2C /* PGDatabaseWindowController.xib in Resources */,
+				02501E2D155081750020896A /* icons.icns in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		02751DF71549F778007AE07D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				02751E0C1549F778007AE07D /* main.m in Sources */,
+				02751E131549F778007AE07D /* PGAppDelegate.m in Sources */,
+				02751E271549F854007AE07D /* PGConnectionController.m in Sources */,
+				02751E281549F854007AE07D /* PGConnectionEntry.m in Sources */,
+				02751E291549F854007AE07D /* PGConnectionProgressWindow.m in Sources */,
+				02751E2B1549F854007AE07D /* PGConnectionsWindow.m in Sources */,
+				02751E481549F85E007AE07D /* Sqlite.m in Sources */,
+				02751E491549F85E007AE07D /* sqlite3.c in Sources */,
+				02751E4A1549F85E007AE07D /* SqliteError.m in Sources */,
+				02751E4B1549F85E007AE07D /* SqliteManagedReader.m in Sources */,
+				02751E4C1549F85E007AE07D /* SqliteNull.m in Sources */,
+				02751E4D1549F85E007AE07D /* SqliteParam.m in Sources */,
+				02751E4E1549F85E007AE07D /* SqliteParamDouble.m in Sources */,
+				02751E4F1549F85E007AE07D /* SqliteParamInt32.m in Sources */,
+				02751E501549F85E007AE07D /* SqliteParamInt64.m in Sources */,
+				02751E511549F85E007AE07D /* SqliteParamNull.m in Sources */,
+				02751E521549F85E007AE07D /* SqliteParamString.m in Sources */,
+				02751E531549F85E007AE07D /* SqliteReader.m in Sources */,
+				02801E70154D9BA800FCA1DE /* PGConnection.m in Sources */,
+				02801E79154DC4F200FCA1DE /* PGAuthWindowController.m in Sources */,
+				02079FCE154DEE4700850FBB /* PGConnectionManager.m in Sources */,
+				02CB6E15154EB5450086DA2C /* PGDatabaseWindowController.m in Sources */,
+				02CB6E19154EB9DF0086DA2C /* PGDatabase.m in Sources */,
+				02CB6E1C154EBA960086DA2C /* PGDatabaseManager.m in Sources */,
+				02CB6E20154ED03C0086DA2C /* PGCommand.m in Sources */,
+				02CB6E28154EEFCD0086DA2C /* PGDataReader.m in Sources */,
+				02B83EA5154F1F380013A5F8 /* PGResult.m in Sources */,
+				02B83EAA154F321A0013A5F8 /* PGNull.m in Sources */,
+				021EF6A7154F41E800800157 /* PGSchemaObjectIdentifier.m in Sources */,
+				021EF6AA154F425C00800157 /* PGTableIdentifier.m in Sources */,
+				021EF6AD154F463B00800157 /* PGSchemaIdentifier.m in Sources */,
+				021EF6B0154F4FDC00800157 /* PGSchemaObjectGroup.m in Sources */,
+				02501E31155083B90020896A /* PGScopeBar.m in Sources */,
+				025F61A01551BCF7006B4D23 /* PGSchemaObject.m in Sources */,
+				025F61A31551BE09006B4D23 /* PGTable.m in Sources */,
+				02B172EA156E76F1002C2AA9 /* PGRelation.m in Sources */,
+				02B8863C1586043F00855F79 /* PGOid.m in Sources */,
+				02B8864015862D4100855F79 /* PGRelationColumn.m in Sources */,
+				027641BE1588CC9F003EEDDE /* PGConstraint.m in Sources */,
+				027641C81588DC3F003EEDDE /* PGConstraintColumn.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		02751E081549F778007AE07D /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				02751E091549F778007AE07D /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		02751E0E1549F778007AE07D /* Credits.rtf */ = {
+			isa = PBXVariantGroup;
+			children = (
+				02751E0F1549F778007AE07D /* en */,
+			);
+			name = Credits.rtf;
+			sourceTree = "<group>";
+		};
+		02751E141549F779007AE07D /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				02751E151549F779007AE07D /* en */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		02751E171549F779007AE07D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		02751E181549F779007AE07D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		02751E1A1549F779007AE07D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "PostgreSQL Inspector/PostgreSQL Inspector-Prefix.pch";
+				INFOPLIST_FILE = "PostgreSQL Inspector/PostgreSQL Inspector-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					/Users/tamas/Code/libpx/src,
+					"$(inherited)",
+				);
+				OTHER_LDFLAGS = /Users/tamas/Code/libpx/src/libpx.a;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = /Users/tamas/Code/libpx/src;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		02751E1B1549F779007AE07D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "PostgreSQL Inspector/PostgreSQL Inspector-Prefix.pch";
+				INFOPLIST_FILE = "PostgreSQL Inspector/PostgreSQL Inspector-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					/Users/tamas/Code/libpx/src,
+					"$(inherited)",
+				);
+				LLVM_LTO = YES;
+				OTHER_LDFLAGS = /Users/tamas/Code/libpx/src/libpx.a;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = /Users/tamas/Code/libpx/src;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		02751DF51549F778007AE07D /* Build configuration list for PBXProject "PostgreSQL Inspector" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				02751E171549F779007AE07D /* Debug */,
+				02751E181549F779007AE07D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		02751E191549F779007AE07D /* Build configuration list for PBXNativeTarget "PostgreSQL Inspector" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				02751E1A1549F779007AE07D /* Debug */,
+				02751E1B1549F779007AE07D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 02751DF21549F778007AE07D /* Project object */;
+}
