@@ -67,10 +67,10 @@
         
         for (NSUInteger i = 0; i < columnCount; i++)
         {
-            NSString *columnName = [[NSString alloc] initWithCString:px_result_get_column_name(pxResult, i)
+            NSString *columnName = [[NSString alloc] initWithCString:px_result_get_column_name(pxResult, (unsigned int)i)
                                                             encoding:NSUTF8StringEncoding];
             [columnNames addObject:columnName];
-            columnTypes[i] = px_result_get_column_datatype(pxResult, i);
+            columnTypes[i] = px_result_get_column_datatype(pxResult, (unsigned int)i);
         }
         
         NSMutableArray *rows = [[NSMutableArray alloc] initWithCapacity:rowCount];
@@ -101,11 +101,11 @@
 
 -(id)getValueInColumn:(NSUInteger)column row:(NSUInteger)row columnTypes:(NSUInteger *)columnTypes
 {
-    if (px_result_is_db_null(pxResult, column, row))
+    if (px_result_is_db_null(pxResult, (unsigned int)column, (unsigned int)row))
         return [PGNull sharedValue];
     
-    char *cval = px_result_copy_cell_value_as_string(pxResult, column, row);
-    PGType columnType = columnTypes[column];
+    char *cval = px_result_copy_cell_value_as_string(pxResult, (unsigned int)column, (unsigned int)row);
+    PGType columnType = (PGType)columnTypes[column];
     id result = [self getValueOfTextData:cval columnType:columnType];
     free(cval);
     return result;

@@ -29,7 +29,7 @@
 		02751E2B1549F854007AE07D /* PGConnectionsWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 02751E251549F853007AE07D /* PGConnectionsWindow.m */; };
 		02751E2C1549F854007AE07D /* PGConnectionsWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02751E261549F853007AE07D /* PGConnectionsWindow.xib */; };
 		02751E481549F85E007AE07D /* Sqlite.m in Sources */ = {isa = PBXBuildFile; fileRef = 02751E301549F85E007AE07D /* Sqlite.m */; };
-		02751E491549F85E007AE07D /* sqlite3.c in Sources */ = {isa = PBXBuildFile; fileRef = 02751E311549F85E007AE07D /* sqlite3.c */; };
+		02751E491549F85E007AE07D /* sqlite3.c in Sources */ = {isa = PBXBuildFile; fileRef = 02751E311549F85E007AE07D /* sqlite3.c */; settings = {COMPILER_FLAGS = "-w"; }; };
 		02751E4A1549F85E007AE07D /* SqliteError.m in Sources */ = {isa = PBXBuildFile; fileRef = 02751E351549F85E007AE07D /* SqliteError.m */; };
 		02751E4B1549F85E007AE07D /* SqliteManagedReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 02751E371549F85E007AE07D /* SqliteManagedReader.m */; };
 		02751E4C1549F85E007AE07D /* SqliteNull.m in Sources */ = {isa = PBXBuildFile; fileRef = 02751E391549F85E007AE07D /* SqliteNull.m */; };

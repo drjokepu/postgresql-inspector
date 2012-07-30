@@ -189,7 +189,7 @@
     {
         self.selectedConnectionEntry = [connectionEntries objectAtIndex:selectedRow];
         [hostTextField setStringValue:selectedConnectionEntry.host];
-        [databaseTextField setStringValue:selectedConnectionEntry.port < 0 ? @"" : [[NSString alloc] initWithFormat:@"li", selectedConnectionEntry.port]];
+        [databaseTextField setStringValue:selectedConnectionEntry.port < 0 ? @"" : [[NSString alloc] initWithFormat:@"%li", selectedConnectionEntry.port]];
         [databaseTextField setStringValue:selectedConnectionEntry.database];
         [usernameTextField setStringValue:selectedConnectionEntry.username];
         [passwordTextField setStringValue:@""];

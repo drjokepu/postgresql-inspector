@@ -29,7 +29,7 @@
          " order by a.attnum";
         
         PGCommand *command = [[PGCommand alloc] initWithConnection:connection commandText:commandText];
-        [command addParameter:[[PGOid alloc] initWithValue:relationId]];
+        [command addParameter:[[PGOid alloc] initWithValue:(unsigned int)relationId]];
         
         PGResult *result = [[command execute] objectAtIndex:0];
         NSMutableArray *columns = [[NSMutableArray alloc] initWithCapacity:result.rows.count];

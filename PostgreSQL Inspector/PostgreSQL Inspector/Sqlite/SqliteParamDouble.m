@@ -28,7 +28,7 @@
 
 -(NSString *)description
 {
-    return [NSString stringWithFormat:@"%@ = %d", name, value];
+    return [NSString stringWithFormat:@"%@ = %f", name, value];
 }
 
 @end

@@ -206,7 +206,7 @@ static const char *keychainServiceName = "PostgreSQL Inspector";
     
     NSMutableArray *parameters = [[NSMutableArray alloc] initWithCapacity:4];
     [parameters addObject:[[SqliteParamString alloc] initWithName:@"host" stringValue:self.host]];
-    [parameters addObject:[[SqliteParamInt32 alloc] initWithName:@"port" int32Value:self.port]];
+    [parameters addObject:[[SqliteParamInt32 alloc] initWithName:@"port" int32Value:(int)self.port]];
     [parameters addObject:[[SqliteParamString alloc] initWithName:@"database" stringValue:self.database]];
     [parameters addObject:[[SqliteParamString alloc] initWithName:@"username" stringValue:self.username]];
     
@@ -238,10 +238,10 @@ static const char *keychainServiceName = "PostgreSQL Inspector";
     
     NSMutableArray *parameters = [[NSMutableArray alloc] initWithCapacity:5];
     [parameters addObject:[[SqliteParamString alloc] initWithName:@"host" stringValue:self.host]];
-    [parameters addObject:[[SqliteParamInt32 alloc] initWithName:@"port" int32Value:self.port]];
+    [parameters addObject:[[SqliteParamInt32 alloc] initWithName:@"port" int32Value:(int)self.port]];
     [parameters addObject:[[SqliteParamString alloc] initWithName:@"database" stringValue:self.database]];
     [parameters addObject:[[SqliteParamString alloc] initWithName:@"username" stringValue:self.username]];
-    [parameters addObject:[[SqliteParamInt32 alloc] initWithName:@"id" int32Value:self.objectId]];
+    [parameters addObject:[[SqliteParamInt32 alloc] initWithName:@"id" int32Value:(int)self.objectId]];
     
     [connection execute:commandText parameters:parameters action:nil error:NULL];
 }
@@ -266,7 +266,7 @@ static const char *keychainServiceName = "PostgreSQL Inspector";
         @"delete from pgconnection where id = @id";
     
     NSArray *parameters = [[NSArray alloc] initWithObjects:
-                           [[SqliteParamInt32 alloc] initWithName:@"id" int32Value:self.objectId],
+                           [[SqliteParamInt32 alloc] initWithName:@"id" int32Value:(int)self.objectId],
                            nil];
     
     [connection execute:commandText parameters:parameters action:nil error:NULL];
@@ -292,9 +292,9 @@ static const char *keychainServiceName = "PostgreSQL Inspector";
     if ([accountName length] == 0) return;
     
     OSStatus status = SecKeychainFindGenericPassword(NULL,
-                                                     strlen(keychainServiceName),
+                                                     (UInt32)strlen(keychainServiceName),
                                                      keychainServiceName,
-                                                     strlen(accountNameCString),
+                                                     (UInt32)strlen(accountNameCString),
                                                      accountNameCString,
                                                      &passwordLength,
                                                      &passwordData,
@@ -315,14 +315,14 @@ static const char *keychainServiceName = "PostgreSQL Inspector";
     else if (status == errSecItemNotFound)
     {
         const char *newPasswordCString = [thePassword cStringUsingEncoding:NSUTF8StringEncoding];
-        unsigned long newPasswordLength = strlen(newPasswordCString);
+        const size_t newPasswordLength = strlen(newPasswordCString);
         
         status = SecKeychainAddGenericPassword(NULL,
-                                               strlen(keychainServiceName),
+                                               (UInt32)strlen(keychainServiceName),
                                                keychainServiceName,
-                                               strlen(accountNameCString),
+                                               (UInt32)strlen(accountNameCString),
                                                accountNameCString,
-                                               newPasswordLength,
+                                               (UInt32)newPasswordLength,
                                                newPasswordCString, NULL);
         
         if (status != errSecSuccess)

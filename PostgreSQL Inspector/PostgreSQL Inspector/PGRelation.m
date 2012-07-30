@@ -25,7 +25,7 @@
             @"select relname, relnamespace, relowner, reltuples, relkind from pg_catalog.pg_class where oid = $1";
     
         PGCommand *command = [[PGCommand alloc] initWithConnection:connection commandText:commandText];
-        [command addParameter:[[PGOid alloc] initWithValue:self.oid]];
+        [command addParameter:[[PGOid alloc] initWithValue:(unsigned int)self.oid]];
         
         NSArray *resultSet = [command execute];
         PGResult *result = [resultSet objectAtIndex:0];

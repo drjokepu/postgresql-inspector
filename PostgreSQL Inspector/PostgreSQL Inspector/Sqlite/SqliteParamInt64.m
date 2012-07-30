@@ -29,7 +29,7 @@
 
 -(NSString *)description
 {
-    return [NSString stringWithFormat:@"%@ = %i", name, value];
+    return [NSString stringWithFormat:@"%@ = %lli", name, value];
 }
 
 @end
