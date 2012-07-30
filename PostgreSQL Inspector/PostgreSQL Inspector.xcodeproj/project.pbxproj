@@ -628,14 +628,12 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PostgreSQL Inspector/PostgreSQL Inspector-Prefix.pch";
+				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "PostgreSQL Inspector/PostgreSQL Inspector-Info.plist";
-				LIBRARY_SEARCH_PATHS = (
-					/Users/tamas/Code/libpx/src,
-					"$(inherited)",
-				);
-				OTHER_LDFLAGS = /Users/tamas/Code/libpx/src/libpx.a;
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				OTHER_LDFLAGS = /Users/tamas/Code/pg/libpx/src/libpx.a;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				USER_HEADER_SEARCH_PATHS = /Users/tamas/Code/libpx/src;
+				USER_HEADER_SEARCH_PATHS = /Users/tamas/Code/pg/libpx/src;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -646,15 +644,13 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PostgreSQL Inspector/PostgreSQL Inspector-Prefix.pch";
+				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "PostgreSQL Inspector/PostgreSQL Inspector-Info.plist";
-				LIBRARY_SEARCH_PATHS = (
-					/Users/tamas/Code/libpx/src,
-					"$(inherited)",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				LLVM_LTO = YES;
-				OTHER_LDFLAGS = /Users/tamas/Code/libpx/src/libpx.a;
+				OTHER_LDFLAGS = /Users/tamas/Code/pg/libpx/src/libpx.a;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				USER_HEADER_SEARCH_PATHS = /Users/tamas/Code/libpx/src;
+				USER_HEADER_SEARCH_PATHS = /Users/tamas/Code/pg/libpx/src;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
