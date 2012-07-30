@@ -51,6 +51,8 @@
 		02B83EAA154F321A0013A5F8 /* PGNull.m in Sources */ = {isa = PBXBuildFile; fileRef = 02B83EA9154F321A0013A5F8 /* PGNull.m */; };
 		02B8863C1586043F00855F79 /* PGOid.m in Sources */ = {isa = PBXBuildFile; fileRef = 02B8863B1586043F00855F79 /* PGOid.m */; };
 		02B8864015862D4100855F79 /* PGRelationColumn.m in Sources */ = {isa = PBXBuildFile; fileRef = 02B8863F15862D4000855F79 /* PGRelationColumn.m */; };
+		02C4DF7B15C69E6C00C78DDE /* PGQueryWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02C4DF7915C69E6C00C78DDE /* PGQueryWindowController.m */; };
+		02C4DF7C15C69E6C00C78DDE /* PGQueryWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02C4DF7A15C69E6C00C78DDE /* PGQueryWindowController.xib */; };
 		02CB6E15154EB5450086DA2C /* PGDatabaseWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02CB6E13154EB5450086DA2C /* PGDatabaseWindowController.m */; };
 		02CB6E16154EB5450086DA2C /* PGDatabaseWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02CB6E14154EB5450086DA2C /* PGDatabaseWindowController.xib */; };
 		02CB6E19154EB9DF0086DA2C /* PGDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 02CB6E18154EB9DF0086DA2C /* PGDatabase.m */; };
@@ -155,6 +157,9 @@
 		02B8863B1586043F00855F79 /* PGOid.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGOid.m; sourceTree = "<group>"; };
 		02B8863E15862D4000855F79 /* PGRelationColumn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGRelationColumn.h; sourceTree = "<group>"; };
 		02B8863F15862D4000855F79 /* PGRelationColumn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGRelationColumn.m; sourceTree = "<group>"; };
+		02C4DF7815C69E6C00C78DDE /* PGQueryWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGQueryWindowController.h; sourceTree = "<group>"; };
+		02C4DF7915C69E6C00C78DDE /* PGQueryWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGQueryWindowController.m; sourceTree = "<group>"; };
+		02C4DF7A15C69E6C00C78DDE /* PGQueryWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PGQueryWindowController.xib; sourceTree = "<group>"; };
 		02CB6E0C154EAD710086DA2C /* libpq.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpq.a; path = ../ThirdParty/postgresql/src/interfaces/libpq/libpq.a; sourceTree = "<group>"; };
 		02CB6E12154EB5450086DA2C /* PGDatabaseWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGDatabaseWindowController.h; sourceTree = "<group>"; };
 		02CB6E13154EB5450086DA2C /* PGDatabaseWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGDatabaseWindowController.m; sourceTree = "<group>"; };
@@ -355,6 +360,9 @@
 				02CB6E12154EB5450086DA2C /* PGDatabaseWindowController.h */,
 				02CB6E13154EB5450086DA2C /* PGDatabaseWindowController.m */,
 				02CB6E14154EB5450086DA2C /* PGDatabaseWindowController.xib */,
+				02C4DF7815C69E6C00C78DDE /* PGQueryWindowController.h */,
+				02C4DF7915C69E6C00C78DDE /* PGQueryWindowController.m */,
+				02C4DF7A15C69E6C00C78DDE /* PGQueryWindowController.xib */,
 			);
 			name = Windows;
 			sourceTree = "<group>";
@@ -492,6 +500,7 @@
 				02801E7A154DC4F200FCA1DE /* PGAuthWindowController.xib in Resources */,
 				02CB6E16154EB5450086DA2C /* PGDatabaseWindowController.xib in Resources */,
 				02501E2D155081750020896A /* icons.icns in Resources */,
+				02C4DF7C15C69E6C00C78DDE /* PGQueryWindowController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -542,6 +551,7 @@
 				02B8864015862D4100855F79 /* PGRelationColumn.m in Sources */,
 				027641BE1588CC9F003EEDDE /* PGConstraint.m in Sources */,
 				027641C81588DC3F003EEDDE /* PGConstraintColumn.m in Sources */,
+				02C4DF7B15C69E6C00C78DDE /* PGQueryWindowController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
