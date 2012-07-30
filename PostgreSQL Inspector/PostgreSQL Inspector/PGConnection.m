@@ -56,7 +56,7 @@ static void freeConnectionParams(px_connection_params *connectionParams);
     }
 }
 
--(void)connect
+-(void)open
 {
     px_connection_params* connectionParams = buildConnectionParams(connectionEntry);
     self->connection = px_connection_new(connectionParams);
@@ -132,7 +132,7 @@ static void freeConnectionParams(px_connection_params *connectionParams);
     }
 }
 
--(void)finish
+-(void)close
 {
     if (connection != NULL)
     {

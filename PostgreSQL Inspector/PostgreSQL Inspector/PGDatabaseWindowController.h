@@ -9,7 +9,7 @@
 #import <Cocoa/Cocoa.h>
 #import "PGDatabaseDelegate.h"
 
-@class PGConnection, PGDatabase, PGTable, PGSchemaObject;
+@class PGConnection, PGDatabase, PGTable, PGSchemaObject, PGQueryWindowController;
 
 @interface PGDatabaseWindowController : NSWindowController <NSWindowDelegate, NSOutlineViewDataSource, NSOutlineViewDelegate, PGDatabaseDelegate, NSTableViewDataSource>
 
@@ -23,8 +23,9 @@
 @property (strong) IBOutlet NSMenu *schemaMenu;
 @property (strong) IBOutlet NSTableView *tableColumnsTableView;
 
+-(void)willCloseQueryWindow:(PGQueryWindowController*)queryWindowController;
 
-
--(IBAction)didchangeSchemaPopUpButtonValue:(id)sender;
+-(IBAction)didChangeSchemaPopUpButtonValue:(id)sender;
+-(IBAction)queryDatabase:(id)sender;
 
 @end

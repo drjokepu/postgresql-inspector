@@ -17,8 +17,11 @@
 #import "PGSchemaIdentifier.h"
 #import "PGTableIdentifier.h"
 #import "PGTable.h"
+#import "PGQueryWindowController.h"
 
 @interface PGDatabaseWindowController ()
+
+@property (nonatomic, strong) NSMutableArray *queryWindowControllerList;
 
 -(void)updateSchemaMenu;
 -(PGSchemaIdentifier*)selectedSchema;
@@ -46,13 +49,14 @@
     [[self window] setTitle:[database.connectionEntry description]];
     [outlineView setFloatsGroupRows:NO];
     [database loadSchema:connection];
+    self.queryWindowControllerList = [[NSMutableArray alloc] init];
 }
 
 -(void)windowWillClose:(NSNotification *)notification
 {
     if (connection != nil)
     {
-        [connection finish];
+        [connection close];
         self.connection = nil;
     }
     [[PGDatabaseManager sharedManager] removeDatabaseWindowController:self delayed:YES];
@@ -86,7 +90,7 @@
     }
 }
 
--(void)didchangeSchemaPopUpButtonValue:(id)sender
+-(void)didChangeSchemaPopUpButtonValue:(id)sender
 {
     [outlineView reloadData];
 }
@@ -227,6 +231,22 @@
         return [[NSNumber alloc] initWithBool:[self.selectedTable isColumnInPrimaryKey:column.number]];
     else
         return @"";
+}
+
+-(void)queryDatabase:(id)sender
+{
+    PGQueryWindowController *queryWindowController = [[PGQueryWindowController alloc] init];
+    queryWindowController.parentWindowController = self;
+    [queryWindowController useConnection:[self.connection copy]];
+    [[queryWindowController window] makeKeyAndOrderFront:self];
+    [self.queryWindowControllerList addObject:queryWindowController];
+}
+
+-(void)willCloseQueryWindow:(PGQueryWindowController *)queryWindowController
+{
+    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+        [self.queryWindowControllerList removeObject:queryWindowController];
+    }];
 }
 
 @end

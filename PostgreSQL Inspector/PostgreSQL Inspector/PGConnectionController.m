@@ -64,7 +64,7 @@
     
     self.connection = [[PGConnection alloc] initWithConnectionEntry:connectionEntry];
     connection.delegate = self;
-    [connection connect];
+    [connection open];
 }
 
 -(void)connectionSuccessful:(PGConnection *)theConnection
@@ -95,7 +95,7 @@
 -(void)connectionFailed:(PGConnection *)theConnection message:(NSString *)theMessage
 {
     [self closeConnectionProgressWindowMainThread];
-    [connection finish];
+    [connection close];
     self.connection = nil;
     
     NSAlert *alert = [NSAlert alertWithMessageText:@"Connection Failed"
@@ -139,7 +139,7 @@
 
 -(void)authWindowControllerCancel:(PGAuthWindowController *)theAuthWindowController
 {
-    [connection finish];
+    [connection close];
     self.connection = nil;
     [self performSelectorOnMainThread:@selector(releaseAuthWindow) withObject:nil waitUntilDone:NO];
     [[PGConnectionManager sharedManager] removeConnectionController:self delayed:YES];
@@ -147,7 +147,7 @@
 
 -(void)authWindowControllerConnect:(PGAuthWindowController *)theAuthWindowController
 {
-    [connection finish];
+    [connection close];
     self.connection = nil;
     [self reconnectAsync];
     [self performSelectorOnMainThread:@selector(releaseAuthWindow) withObject:nil waitUntilDone:NO];

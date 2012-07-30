@@ -20,8 +20,8 @@
 @property (nonatomic, readonly) px_connection *connection;
 
 -(id)initWithConnectionEntry:(PGConnectionEntry*)theConnectionEntry;
--(void)connect;
--(void)finish;
+-(void)open;
+-(void)close;
 -(PGConnection*)copy;
 
 @end

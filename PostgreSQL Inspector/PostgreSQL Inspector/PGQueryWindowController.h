@@ -8,10 +8,14 @@
 
 #import <Cocoa/Cocoa.h>
 
-@class PGConnection;
+@class PGConnection, PGDatabaseWindowController;
 
 @interface PGQueryWindowController : NSWindowController
 
-@property (nonatomic, strong) PGConnection *connection;
+@property (nonatomic, strong) NSString *initialQueryString;
+@property (nonatomic, weak) PGDatabaseWindowController *parentWindowController;
+@property (strong) IBOutlet NSTextView *queryTextView;
+
+-(void)useConnection:(PGConnection *)theConnection;
 
 @end
