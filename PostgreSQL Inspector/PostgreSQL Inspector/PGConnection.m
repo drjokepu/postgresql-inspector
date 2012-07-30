@@ -97,29 +97,7 @@ static void freeConnectionParams(px_connection_params *connectionParams);
 
 -(void)handleFailedConnection
 {
-//    if (PQconnectionNeedsPassword(connection))
-//    {
-//        [self reportPasswordNeededBackground];
-//    }
-//    else
-    {
-//        const char *sqlCodeC = PGIlastSqlState(connection);
-//        NSString * sqlCode = [[NSString alloc] initWithBytes:sqlCodeC length:5 encoding:NSUTF8StringEncoding];
-//        
-//        if ([sqlCode isEqualToString:@"28P01"])
-//        {
-//            [self reportPasswordNeededBackground];
-//        }
-//        else
-//        {
-//            NSLog(@"Connection failed\n%s\nSQLCODE = %@", PQerrorMessage(connection), sqlCode);
-            
-        
-        
-        
-            [self reportFailedConnectionBackground:[[NSString alloc] initWithCString:px_error_get_message(px_connection_get_last_error(connection)) encoding:NSUTF8StringEncoding]];
-//        }
-    }
+    [self reportFailedConnectionBackground:[[NSString alloc] initWithCString:px_error_get_message(px_connection_get_last_error(connection)) encoding:NSUTF8StringEncoding]];
 }
 
 -(void)reportPasswordNeededBackground
@@ -171,6 +149,11 @@ static void freeConnectionParams(px_connection_params *connectionParams);
 -(px_connection *)connection
 {
     return self->connection;
+}
+
+-(PGConnection *)copy
+{
+    return [[PGConnection alloc] initWithConnectionEntry:connectionEntry];
 }
 
 @end

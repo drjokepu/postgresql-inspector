@@ -22,5 +22,6 @@
 -(id)initWithConnectionEntry:(PGConnectionEntry*)theConnectionEntry;
 -(void)connect;
 -(void)finish;
+-(PGConnection*)copy;
 
 @end
