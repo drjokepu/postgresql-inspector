@@ -460,7 +460,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = PG;
-				LastUpgradeCheck = 0430;
+				LastUpgradeCheck = 0440;
 			};
 			buildConfigurationList = 02751DF51549F778007AE07D /* Build configuration list for PBXProject "PostgreSQL Inspector" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -625,6 +625,7 @@
 		02751E1A1549F779007AE07D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PostgreSQL Inspector/PostgreSQL Inspector-Prefix.pch";
 				INFOPLIST_FILE = "PostgreSQL Inspector/PostgreSQL Inspector-Info.plist";
@@ -642,6 +643,7 @@
 		02751E1B1549F779007AE07D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PostgreSQL Inspector/PostgreSQL Inspector-Prefix.pch";
 				INFOPLIST_FILE = "PostgreSQL Inspector/PostgreSQL Inspector-Info.plist";
