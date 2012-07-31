@@ -73,7 +73,6 @@
 		021EF6AE154F4FDC00800157 /* PGSchemaObjectGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGSchemaObjectGroup.h; sourceTree = "<group>"; };
 		021EF6AF154F4FDC00800157 /* PGSchemaObjectGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGSchemaObjectGroup.m; sourceTree = "<group>"; };
 		021EF6B1154F50A100800157 /* PGSchemaObjectGroupType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PGSchemaObjectGroupType.h; sourceTree = "<group>"; };
-		02501E241550811E0020896A /* icons.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = icons.icns; sourceTree = "<group>"; };
 		02501E2F155083B90020896A /* PGScopeBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGScopeBar.h; sourceTree = "<group>"; };
 		02501E30155083B90020896A /* PGScopeBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGScopeBar.m; sourceTree = "<group>"; };
 		025F619E1551BCF7006B4D23 /* PGSchemaObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGSchemaObject.h; sourceTree = "<group>"; };
@@ -238,7 +237,6 @@
 		02751DF01549F778007AE07D = {
 			isa = PBXGroup;
 			children = (
-				02501E241550811E0020896A /* icons.icns */,
 				02CC58F515502EEA00496966 /* icons.icns */,
 				02751E051549F778007AE07D /* PostgreSQL Inspector */,
 				02751DFE1549F778007AE07D /* Frameworks */,
