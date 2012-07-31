@@ -9,13 +9,17 @@
 #import "PGQueryWindowController.h"
 #import "PGConnection.h"
 
+static const NSInteger executeQueryTag = 4001;
+
 @interface PGQueryWindowController ()
+
 @property (nonatomic, strong) PGConnection *connection;
+@property (nonatomic, assign) BOOL connectionIsOpen;
 
 @end
 
 @implementation PGQueryWindowController
-@synthesize connection, initialQueryString, queryTextView;
+@synthesize connection, connectionIsOpen, initialQueryString, queryTextView;
 
 -(NSString *)windowNibName
 {
@@ -35,6 +39,27 @@
     if (connection != nil) [connection close];
 }
 
+-(BOOL)validateMenuItem:(NSMenuItem *)menuItem
+{
+    return [self validateItem:menuItem.tag];
+}
+
+-(BOOL)validateToolbarItem:(NSToolbarItem *)theItem
+{
+    return [self validateItem:theItem.tag];
+}
+
+-(BOOL)validateItem:(NSInteger)tag
+{
+    switch (tag)
+    {
+        case executeQueryTag:
+            return connectionIsOpen;
+        default:
+            return YES;
+    }
+}
+
 -(void)useConnection:(PGConnection *)theConnection
 {
     self.connection = theConnection;
@@ -48,6 +73,12 @@
 }
 
 -(void)didOpenConnection
+{
+    self.connectionIsOpen = YES;
+    [[self window] update];
+}
+
+-(void)executeQuery:(id)sender
 {
     
 }

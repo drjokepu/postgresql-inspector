@@ -18,4 +18,6 @@
 
 -(void)useConnection:(PGConnection *)theConnection;
 
+-(IBAction)executeQuery:(id)sender;
+
 @end
