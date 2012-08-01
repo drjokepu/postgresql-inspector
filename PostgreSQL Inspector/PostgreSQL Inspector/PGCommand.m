@@ -10,6 +10,7 @@
 #import "px.h"
 #import "PGConnection.h"
 #import "PGDataReader.h"
+#import "PGError+Internal.h"
 #import "PGResult.h"
 #import "PGOid.h"
 
@@ -125,6 +126,11 @@ static NSOperationQueue *sharedCommandOperationQueue = nil;
 
 -(void)executeAsyncWithResultCallback:(void (^)(PGResult *))resultCallback noMoreResultsCallback:(void (^)())noMoreResultsCallback
 {
+    [self executeAsyncWithResultCallback:resultCallback noMoreResultsCallback:noMoreResultsCallback errorCallback:nil];
+}
+
+-(void)executeAsyncWithResultCallback:(void (^)(PGResult *))resultCallback noMoreResultsCallback:(void (^)())noMoreResultsCallback errorCallback:(void (^)(PGError *))errorCallback
+{
     [sharedCommandOperationQueue addOperationWithBlock:^{
         const char *commandTextC = [commandText cStringUsingEncoding:NSUTF8StringEncoding];
         
@@ -134,9 +140,19 @@ static NSOperationQueue *sharedCommandOperationQueue = nil;
         px_result_list *resultList = px_query_execute(query);
         px_query_delete(query);
         
-        if (resultList == NULL)
+        if (resultList == NULL || resultList->count == 0)
         {
-            NSLog(@"px_query_execute failed");
+            if (errorCallback == nil)
+            {
+                NSLog(@"px_query_execute failed");
+            }
+            else
+            {
+                PGError *pgError = [[PGError alloc] initWithPxError:px_connection_get_last_error(connection.connection)];
+                [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                    errorCallback(pgError);
+                }];
+            }
         }
         else
         {
@@ -151,7 +167,7 @@ static NSOperationQueue *sharedCommandOperationQueue = nil;
                         reader.sequenceNumber = i;
                         PGResult *result = [reader result];
                         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                            resultCallback(result); 
+                            resultCallback(result);
                         }];
                     }
                 }

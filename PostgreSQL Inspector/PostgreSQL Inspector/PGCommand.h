@@ -12,7 +12,7 @@
 void PGCommandInitOperationQueue(void);
 void PGCommandDestroyOperationQueue(void);
 
-@class PGConnection, PGDataReader, PGResult;
+@class PGConnection, PGDataReader, PGError, PGResult;
 
 @interface PGCommand : NSObject
 
@@ -30,6 +30,7 @@ void PGCommandDestroyOperationQueue(void);
 -(void)executeAsyncWithFinishedCallback:(void(^)())finishedCallback;
 -(void)executeAsyncWithResultCallback:(void(^)(PGResult* r))resultCallback;
 -(void)executeAsyncWithResultCallback:(void(^)(PGResult* r))resultCallback noMoreResultsCallback:(void(^)())noMoreResultsCallback;
+-(void)executeAsyncWithResultCallback:(void(^)(PGResult* r))resultCallback noMoreResultsCallback:(void(^)())noMoreResultsCallback errorCallback:(void(^)(PGError *error))errorCallback;
 
 -(NSArray*)execute;
 
