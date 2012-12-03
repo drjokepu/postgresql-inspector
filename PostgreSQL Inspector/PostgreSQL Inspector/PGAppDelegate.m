@@ -37,6 +37,15 @@ static PGConnectionsWindow *connectionWindow = nil;
     return NO;
 }
 
+-(BOOL)applicationShouldHandleReopen:(NSApplication *)sender hasVisibleWindows:(BOOL)flag
+{
+    if (!flag)
+    {
+        [self showConnectionsWindow];
+    }
+    return YES;
+}
+
 -(void)showConnectionsWindow
 {
     if (connectionWindow == nil)
