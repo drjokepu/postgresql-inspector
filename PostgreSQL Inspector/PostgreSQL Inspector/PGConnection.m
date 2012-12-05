@@ -8,13 +8,13 @@
 
 #import "PGConnection.h"
 #import "PGConnectionEntry.h"
+#import "NSDictionary+PGDictionary.h"
 
-static px_connection_params* buildConnectionParams(PGConnectionEntry *connectionEntry);
-static void freeConnectionParams(px_connection_params *connectionParams);
+static static bool syncWaitConnectionToOpen(PGconn *conn);
 
 @interface PGConnection()
 {
-    px_connection *connection; 
+    PGconn *connection;
 }
  
 -(void)handleSuccessfulConnection;
@@ -51,17 +51,21 @@ static void freeConnectionParams(px_connection_params *connectionParams);
     if (connection != NULL)
     {
         // close connection
-        px_connection_delete(connection);
+        PQfinish(connection);
         connection = NULL;
     }
 }
 
 -(void)open
 {
-    px_connection_params* connectionParams = buildConnectionParams(connectionEntry);
-    self->connection = px_connection_new(connectionParams);
-    freeConnectionParams(connectionParams);
-    if (px_connection_open(connection) == px_connection_attempt_result_success)
+    PGNullTerminatedKeysAndValues *keysValues = [[connectionEntry connectionParams] copyToNullTerminatedArrays];
+    PGconn *conn = PQconnectStartParams((const char**)keysValues->keys,
+                                        (const char**)keysValues->values,
+                                        0);
+    PGFreeNullTerminatedKeysAndValues(keysValues);
+    self->connection = conn;
+    
+    if (PQstatus(conn) != CONNECTION_BAD && syncWaitConnectionToOpen(conn))
     {
         [self handleSuccessfulConnection];
     }
@@ -70,7 +74,6 @@ static void freeConnectionParams(px_connection_params *connectionParams);
         [self handleFailedConnection];
     }
 }
-
 
 -(void)handleSuccessfulConnection
 {
@@ -97,7 +100,7 @@ static void freeConnectionParams(px_connection_params *connectionParams);
 
 -(void)handleFailedConnection
 {
-    [self reportFailedConnectionBackground:[[NSString alloc] initWithCString:px_error_get_message(px_connection_get_last_error(connection)) encoding:NSUTF8StringEncoding]];
+    [self reportFailedConnectionBackground:@"Connection error"];
 }
 
 -(void)reportPasswordNeededBackground
@@ -136,7 +139,7 @@ static void freeConnectionParams(px_connection_params *connectionParams);
 {
     if (connection != NULL)
     {
-        px_connection_close(connection);
+        PQfinish(connection);
         connection = NULL;
     }
 }
@@ -146,7 +149,7 @@ static void freeConnectionParams(px_connection_params *connectionParams);
     
 }
 
--(px_connection *)connection
+-(PGconn *)connection
 {
     return self->connection;
 }
@@ -156,30 +159,44 @@ static void freeConnectionParams(px_connection_params *connectionParams);
     return [[PGConnection alloc] initWithConnectionEntry:connectionEntry];
 }
 
+static bool syncWaitConnectionToOpen(PGconn *conn)
+{
+    fd_set fds;
+    FD_ZERO(&fds);
+    FD_SET(PQsocket(conn), &fds);
+    struct timeval timeout;
+    
+    PostgresPollingStatusType status = PGRES_POLLING_WRITING;
+    bool shouldPoll = false;
+    while (true)
+    {
+        timeout.tv_sec =  1;
+        timeout.tv_usec = 0;
+        
+        switch (status)
+        {
+            case PGRES_POLLING_READING:
+                if (select(1, &fds, NULL, NULL, &timeout) == 1)
+                    shouldPoll = true;
+                break;
+            case PGRES_POLLING_WRITING:
+                if (select(1, NULL, &fds, NULL, &timeout) == 1)
+                    shouldPoll = true;
+                break;
+            case PGRES_POLLING_OK:
+                return true;
+            case PGRES_POLLING_FAILED:
+            default:
+                return false;
+        }
+        
+        if (shouldPoll)
+        {
+            shouldPoll = false;
+            status = PQconnectPoll(conn);
+        }
+    }
+}
+
 @end
 
-static struct px_connection_params* buildConnectionParams(PGConnectionEntry *connectionEntry)
-{
-    px_connection_params *connectionParams = px_connection_params_new();
-    
-    if ([connectionEntry.username length] != 0)
-        px_connection_params_set_username(connectionParams, [connectionEntry.username cStringUsingEncoding:NSUTF8StringEncoding]);
-    
-    if ([connectionEntry.host length] != 0)
-        px_connection_params_set_hostname(connectionParams, [connectionEntry.host cStringUsingEncoding:NSUTF8StringEncoding]);
-    
-    if (connectionEntry.port > 0)
-        px_connection_params_set_port(connectionParams, (unsigned int)connectionEntry.port);
-    else
-        px_connection_params_set_port(connectionParams, 5432);
-    
-    if ([connectionEntry.database length] != 0)
-        px_connection_params_set_database(connectionParams, [connectionEntry.database cStringUsingEncoding:NSUTF8StringEncoding]);
-    
-    return connectionParams;
-}
-
-static void freeConnectionParams(px_connection_params *connectionParams)
-{
-    px_connection_params_delete(connectionParams);
-}

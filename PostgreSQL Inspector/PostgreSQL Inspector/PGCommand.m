@@ -7,7 +7,7 @@
 //
 
 #import "PGCommand.h"
-#import "px.h"
+#import <libpq-fe.h>
 #import "PGConnection.h"
 #import "PGDataReader.h"
 #import "PGError+Internal.h"

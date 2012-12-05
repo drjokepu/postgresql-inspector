@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "px.h"
+#import <libpq-fe.h>
 
 @class PGResult;
 

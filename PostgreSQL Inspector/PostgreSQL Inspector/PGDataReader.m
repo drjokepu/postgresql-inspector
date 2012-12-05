@@ -7,7 +7,7 @@
 //
 
 #import "PGDataReader.h"
-#import "px.h"
+#import <libpq-fe.h>
 #import "PGNull.h"
 #import "PGResult.h"
 

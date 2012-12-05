@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "px.h"
+#import <libpq-fe.h>
 #import "PGConnectionDelegate.h"
 
 @class PGConnectionEntry;
@@ -17,7 +17,7 @@
 @property (nonatomic, strong) PGConnectionEntry *connectionEntry;
 @property (nonatomic, weak) id<PGConnectionDelegate> delegate;
 
-@property (nonatomic, readonly) px_connection *connection;
+@property (nonatomic, readonly) PGconn *connection;
 
 -(id)initWithConnectionEntry:(PGConnectionEntry*)theConnectionEntry;
 -(void)open;
