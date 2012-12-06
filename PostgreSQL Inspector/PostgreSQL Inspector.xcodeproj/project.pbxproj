@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		02079FCE154DEE4700850FBB /* PGConnectionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 02079FCD154DEE4700850FBB /* PGConnectionManager.m */; };
+		021E3D981670FED400935EF1 /* libpq.5.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 021E3D971670FED400935EF1 /* libpq.5.5.dylib */; };
+		021E3D991670FF4F00935EF1 /* libpq.5.5.dylib in Resources */ = {isa = PBXBuildFile; fileRef = 021E3D971670FED400935EF1 /* libpq.5.5.dylib */; };
 		021EF6A7154F41E800800157 /* PGSchemaObjectIdentifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 021EF6A6154F41E800800157 /* PGSchemaObjectIdentifier.m */; };
 		021EF6AA154F425C00800157 /* PGTableIdentifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 021EF6A9154F425C00800157 /* PGTableIdentifier.m */; };
 		021EF6AD154F463B00800157 /* PGSchemaIdentifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 021EF6AC154F463B00800157 /* PGSchemaIdentifier.m */; };
@@ -49,7 +51,6 @@
 		02801E79154DC4F200FCA1DE /* PGAuthWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02801E77154DC4F200FCA1DE /* PGAuthWindowController.m */; };
 		02801E7A154DC4F200FCA1DE /* PGAuthWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02801E78154DC4F200FCA1DE /* PGAuthWindowController.xib */; };
 		02B172EA156E76F1002C2AA9 /* PGRelation.m in Sources */ = {isa = PBXBuildFile; fileRef = 02B172E9156E76F1002C2AA9 /* PGRelation.m */; };
-		02B83EA5154F1F380013A5F8 /* PGResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 02B83EA4154F1F370013A5F8 /* PGResult.m */; };
 		02B83EAA154F321A0013A5F8 /* PGNull.m in Sources */ = {isa = PBXBuildFile; fileRef = 02B83EA9154F321A0013A5F8 /* PGNull.m */; };
 		02B8863C1586043F00855F79 /* PGOid.m in Sources */ = {isa = PBXBuildFile; fileRef = 02B8863B1586043F00855F79 /* PGOid.m */; };
 		02B8864015862D4100855F79 /* PGRelationColumn.m in Sources */ = {isa = PBXBuildFile; fileRef = 02B8863F15862D4000855F79 /* PGRelationColumn.m */; };
@@ -59,13 +60,12 @@
 		02CB6E16154EB5450086DA2C /* PGDatabaseWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02CB6E14154EB5450086DA2C /* PGDatabaseWindowController.xib */; };
 		02CB6E19154EB9DF0086DA2C /* PGDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 02CB6E18154EB9DF0086DA2C /* PGDatabase.m */; };
 		02CB6E1C154EBA960086DA2C /* PGDatabaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 02CB6E1B154EBA950086DA2C /* PGDatabaseManager.m */; };
-		02CB6E20154ED03C0086DA2C /* PGCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = 02CB6E1F154ED03C0086DA2C /* PGCommand.m */; };
-		02CB6E28154EEFCD0086DA2C /* PGDataReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 02CB6E27154EEFCD0086DA2C /* PGDataReader.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		02079FCC154DEE4700850FBB /* PGConnectionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGConnectionManager.h; sourceTree = "<group>"; };
 		02079FCD154DEE4700850FBB /* PGConnectionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGConnectionManager.m; sourceTree = "<group>"; };
+		021E3D971670FED400935EF1 /* libpq.5.5.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libpq.5.5.dylib; path = /opt/local/lib/postgresql92/libpq.5.5.dylib; sourceTree = "<absolute>"; };
 		021EF6A5154F41E800800157 /* PGSchemaObjectIdentifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGSchemaObjectIdentifier.h; sourceTree = "<group>"; };
 		021EF6A6154F41E800800157 /* PGSchemaObjectIdentifier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGSchemaObjectIdentifier.m; sourceTree = "<group>"; };
 		021EF6A8154F425C00800157 /* PGTableIdentifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGTableIdentifier.h; sourceTree = "<group>"; };
@@ -153,8 +153,6 @@
 		02B172E8156E76F1002C2AA9 /* PGRelation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGRelation.h; sourceTree = "<group>"; };
 		02B172E9156E76F1002C2AA9 /* PGRelation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGRelation.m; sourceTree = "<group>"; };
 		02B83EA2154F1D510013A5F8 /* PGCommandDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PGCommandDelegate.h; sourceTree = "<group>"; };
-		02B83EA3154F1F370013A5F8 /* PGResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGResult.h; sourceTree = "<group>"; };
-		02B83EA4154F1F370013A5F8 /* PGResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGResult.m; sourceTree = "<group>"; };
 		02B83EA7154F25C60013A5F8 /* PGType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PGType.h; sourceTree = "<group>"; };
 		02B83EA8154F32190013A5F8 /* PGNull.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGNull.h; sourceTree = "<group>"; };
 		02B83EA9154F321A0013A5F8 /* PGNull.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGNull.m; sourceTree = "<group>"; };
@@ -173,10 +171,6 @@
 		02CB6E18154EB9DF0086DA2C /* PGDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGDatabase.m; sourceTree = "<group>"; };
 		02CB6E1A154EBA950086DA2C /* PGDatabaseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGDatabaseManager.h; sourceTree = "<group>"; };
 		02CB6E1B154EBA950086DA2C /* PGDatabaseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGDatabaseManager.m; sourceTree = "<group>"; };
-		02CB6E1E154ED03C0086DA2C /* PGCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGCommand.h; sourceTree = "<group>"; };
-		02CB6E1F154ED03C0086DA2C /* PGCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGCommand.m; sourceTree = "<group>"; };
-		02CB6E26154EEFCC0086DA2C /* PGDataReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGDataReader.h; sourceTree = "<group>"; };
-		02CB6E27154EEFCD0086DA2C /* PGDataReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGDataReader.m; sourceTree = "<group>"; };
 		02CC58F515502EEA00496966 /* icons.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = icons.icns; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -185,6 +179,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				021E3D981670FED400935EF1 /* libpq.5.5.dylib in Frameworks */,
 				02751E581549F8C2007AE07D /* Security.framework in Frameworks */,
 				02751E001549F778007AE07D /* Cocoa.framework in Frameworks */,
 			);
@@ -280,6 +275,7 @@
 		02751E011549F778007AE07D /* Other Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				021E3D971670FED400935EF1 /* libpq.5.5.dylib */,
 				02751E021549F778007AE07D /* AppKit.framework */,
 				02751E031549F778007AE07D /* CoreData.framework */,
 				02751E041549F778007AE07D /* Foundation.framework */,
@@ -437,12 +433,8 @@
 			isa = PBXGroup;
 			children = (
 				02B83EA0154F1D380013A5F8 /* Delegates */,
-				02CB6E1E154ED03C0086DA2C /* PGCommand.h */,
-				02CB6E1F154ED03C0086DA2C /* PGCommand.m */,
 				02801E6E154D9BA800FCA1DE /* PGConnection.h */,
 				02801E6F154D9BA800FCA1DE /* PGConnection.m */,
-				02CB6E26154EEFCC0086DA2C /* PGDataReader.h */,
-				02CB6E27154EEFCD0086DA2C /* PGDataReader.m */,
 				024D4F7015C9422B004508AD /* PGError.h */,
 				024D4F7115C9422C004508AD /* PGError.m */,
 				024D4F7415C943A2004508AD /* PGError+Internal.h */,
@@ -450,8 +442,6 @@
 				02B8863B1586043F00855F79 /* PGOid.m */,
 				02B83EA8154F32190013A5F8 /* PGNull.h */,
 				02B83EA9154F321A0013A5F8 /* PGNull.m */,
-				02B83EA3154F1F370013A5F8 /* PGResult.h */,
-				02B83EA4154F1F370013A5F8 /* PGResult.m */,
 				02B83EA7154F25C60013A5F8 /* PGType.h */,
 			);
 			name = "PostgreSQL Interface";
@@ -508,6 +498,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				021E3D991670FF4F00935EF1 /* libpq.5.5.dylib in Resources */,
 				02751E0A1549F778007AE07D /* InfoPlist.strings in Resources */,
 				02751E101549F778007AE07D /* Credits.rtf in Resources */,
 				02751E161549F779007AE07D /* MainMenu.xib in Resources */,
@@ -551,9 +542,6 @@
 				02CB6E15154EB5450086DA2C /* PGDatabaseWindowController.m in Sources */,
 				02CB6E19154EB9DF0086DA2C /* PGDatabase.m in Sources */,
 				02CB6E1C154EBA960086DA2C /* PGDatabaseManager.m in Sources */,
-				02CB6E20154ED03C0086DA2C /* PGCommand.m in Sources */,
-				02CB6E28154EEFCD0086DA2C /* PGDataReader.m in Sources */,
-				02B83EA5154F1F380013A5F8 /* PGResult.m in Sources */,
 				02B83EAA154F321A0013A5F8 /* PGNull.m in Sources */,
 				021EF6A7154F41E800800157 /* PGSchemaObjectIdentifier.m in Sources */,
 				021EF6AA154F425C00800157 /* PGTableIdentifier.m in Sources */,
@@ -658,7 +646,10 @@
 				GCC_PREFIX_HEADER = "PostgreSQL Inspector/PostgreSQL Inspector-Prefix.pch";
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "PostgreSQL Inspector/PostgreSQL Inspector-Info.plist";
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/opt/local/lib/postgresql92,
+				);
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "";
@@ -674,7 +665,10 @@
 				GCC_PREFIX_HEADER = "PostgreSQL Inspector/PostgreSQL Inspector-Prefix.pch";
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "PostgreSQL Inspector/PostgreSQL Inspector-Info.plist";
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/opt/local/lib/postgresql92,
+				);
 				LLVM_LTO = YES;
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";

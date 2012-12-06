@@ -9,6 +9,7 @@
 #import "PGConnection.h"
 #import "PGConnectionEntry.h"
 #import "NSDictionary+PGDictionary.h"
+#import <sys/socket.h>
 
 static static bool syncWaitConnectionToOpen(PGconn *conn);
 
@@ -64,8 +65,7 @@ static static bool syncWaitConnectionToOpen(PGconn *conn);
                                         0);
     PGFreeNullTerminatedKeysAndValues(keysValues);
     self->connection = conn;
-    
-    if (PQstatus(conn) != CONNECTION_BAD && syncWaitConnectionToOpen(conn))
+    if (conn != NULL && PQstatus(conn) != CONNECTION_BAD && syncWaitConnectionToOpen(conn))
     {
         [self handleSuccessfulConnection];
     }
@@ -100,7 +100,7 @@ static static bool syncWaitConnectionToOpen(PGconn *conn);
 
 -(void)handleFailedConnection
 {
-    [self reportFailedConnectionBackground:@"Connection error"];
+    [self reportFailedConnectionBackground:[[NSString alloc] initWithUTF8String:PQerrorMessage(self->connection)]];
 }
 
 -(void)reportPasswordNeededBackground
@@ -161,26 +161,30 @@ static static bool syncWaitConnectionToOpen(PGconn *conn);
 
 static bool syncWaitConnectionToOpen(PGconn *conn)
 {
+    const int fd = PQsocket(conn);
     fd_set fds;
-    FD_ZERO(&fds);
-    FD_SET(PQsocket(conn), &fds);
     struct timeval timeout;
     
     PostgresPollingStatusType status = PGRES_POLLING_WRITING;
     bool shouldPoll = false;
     while (true)
     {
-        timeout.tv_sec =  1;
+        if (PQstatus(conn) == CONNECTION_BAD)
+            return false;
+        
+        timeout.tv_sec =  5;
         timeout.tv_usec = 0;
+        FD_ZERO(&fds);
+        FD_SET(fd, &fds);
         
         switch (status)
         {
             case PGRES_POLLING_READING:
-                if (select(1, &fds, NULL, NULL, &timeout) == 1)
+                if (select(fd + 1, &fds, NULL, NULL, &timeout) == 1)
                     shouldPoll = true;
                 break;
             case PGRES_POLLING_WRITING:
-                if (select(1, NULL, &fds, NULL, &timeout) == 1)
+                if (select(fd + 1, NULL, &fds, NULL, &timeout) == 1)
                     shouldPoll = true;
                 break;
             case PGRES_POLLING_OK:

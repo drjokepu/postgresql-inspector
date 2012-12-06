@@ -11,7 +11,6 @@
 #import "PGAppDelegate.h"
 #import "PGConnectionManager.h"
 #import "PGDatabaseManager.h"
-#import "PGCommand.h"
 
 static void sanityChecks(void);
 static void libPqSanityCheck(void);
@@ -39,20 +38,26 @@ static void sanityChecks()
 static void libPqSanityCheck()
 {
     const int pqLibVersion = PQlibVersion();
-    const int requiredLibPqVersion = 90102; // 9.1.2 or later
+    const int requiredLibPqVersion = 90201; // 9.2.1 or later
     
-    if (pqLibVersion < 90102)
+    if (pqLibVersion < requiredLibPqVersion)
     {
         fprintf(stderr, "Unsupported libpq version: %i, required: %i or later.\n", pqLibVersion, requiredLibPqVersion);
         exit(1);
     }
+#ifdef DEBUG
+    else
+    {
+        printf("libpq %i\n", pqLibVersion);
+    }
+#endif /* DEBUg */
 }
 
 void setup(void)
 {
     PGConnectionManagerInitMutexes();
     PGDatabaseManagerInitMutexes();
-    PGCommandInitOperationQueue();
+//    PGCommandInitOperationQueue();
     PGAppDelegateInitSharedBackgroundQueue();
 }
 
@@ -60,6 +65,6 @@ static void teardown(void)
 {
     PGConnectionManagerDestroyMutexes();
     PGDatabaseManagerDestroyMutexes();
-    PGCommandDestroyOperationQueue();
+//    PGCommandDestroyOperationQueue();
     PGAppDelegateDestroySharedBackgroundQueue();
 }

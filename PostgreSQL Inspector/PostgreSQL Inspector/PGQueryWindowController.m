@@ -7,10 +7,8 @@
 //
 
 #import "PGQueryWindowController.h"
-#import "PGCommand.h"
 #import "PGConnection.h"
 #import "PGError.h"
-#import "PGResult.h"
 
 static const NSInteger executeQueryTag = 4001;
 
@@ -84,25 +82,25 @@ static const NSInteger executeQueryTag = 4001;
 
 -(void)executeQuery:(id)sender
 {
-    const NSString *commandText = self.queryTextView.string;
-    if ([commandText length] == 0) return;
-    
-    PGCommand *command = [[PGCommand alloc] initWithConnection:connection commandText:commandText];
-    self.queryInProgress = YES;
-    
-    [command executeAsyncWithResultCallback:^(PGResult *r) {
-        [[self window] update];
-    } noMoreResultsCallback:^{
-        self.queryInProgress = false;
-        [[self window] update];
-    } errorCallback:^(PGError *error) {
-        self.queryInProgress = false;
-        [self.queryTextView setSpellingState:NSSpellingStateSpellingFlag range:[self findErrorRange:error.errorPosition]];
-        [self showError:error];
-        [[self window] update];
-    }];
-    
-    [[self window] update];
+//    const NSString *commandText = self.queryTextView.string;
+//    if ([commandText length] == 0) return;
+//    
+//    PGCommand *command = [[PGCommand alloc] initWithConnection:connection commandText:commandText];
+//    self.queryInProgress = YES;
+//    
+//    [command executeAsyncWithResultCallback:^(PGResult *r) {
+//        [[self window] update];
+//    } noMoreResultsCallback:^{
+//        self.queryInProgress = false;
+//        [[self window] update];
+//    } errorCallback:^(PGError *error) {
+//        self.queryInProgress = false;
+//        [self.queryTextView setSpellingState:NSSpellingStateSpellingFlag range:[self findErrorRange:error.errorPosition]];
+//        [self showError:error];
+//        [[self window] update];
+//    }];
+//    
+//    [[self window] update];
 }
 
 -(void)showError:(PGError *)error

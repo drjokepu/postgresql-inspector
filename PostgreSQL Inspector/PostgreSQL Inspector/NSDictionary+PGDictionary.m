@@ -27,7 +27,7 @@ static char *strclone(NSString *source);
         if ([key isKindOfClass:[NSString class]] && [value isKindOfClass:[NSString class]])
         {
             obj->keys[i] = strclone(key);
-            obj->values[i] = strclone(key);
+            obj->values[i] = strclone(value);
         }
     }
     return obj;

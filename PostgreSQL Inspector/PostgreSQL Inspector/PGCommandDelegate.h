@@ -13,9 +13,9 @@
 @protocol PGCommandDelegate <NSObject>
 
 @required
--(void)command:(PGCommand*)command receivedResult:(PGDataReader*)reader;
+//-(void)command:(PGCommand*)command receivedResult:(PGDataReader*)reader;
 
 @optional
--(void)commandHasNoMoreResults:(PGCommand*)command;
+//-(void)commandHasNoMoreResults:(PGCommand*)command;
 
 @end
