@@ -11,6 +11,7 @@
 #import "PGUserDefaults.h"
 #import "NSDictionary+PGDictionary.h"
 #import <netdb.h>
+#import <pthread.h>
 #import <arpa/inet.h>
 #import <sys/types.h>
 #import <sys/socket.h>
@@ -20,6 +21,7 @@ static static bool syncWaitConnectionToOpen(PGconn *conn);
 @interface PGConnection()
 {
     PGconn *connection;
+    pthread_mutex_t mutex;
 }
  
 -(void)handleSuccessfulConnection;
@@ -40,6 +42,7 @@ static static bool syncWaitConnectionToOpen(PGconn *conn);
 
 @implementation PGConnection
 @synthesize connectionEntry;
+@synthesize operationQueue;
 @synthesize delegate;
 
 -(id)initWithConnectionEntry:(PGConnectionEntry *)theConnectionEntry
@@ -47,6 +50,8 @@ static static bool syncWaitConnectionToOpen(PGconn *conn);
     if ((self = [super init]))
     {
         self.connectionEntry = theConnectionEntry;
+        pthread_mutex_init(&self->mutex, NULL);
+        self.operationQueue = [[NSOperationQueue alloc] init];
     }
     return self;
 }
@@ -59,10 +64,20 @@ static static bool syncWaitConnectionToOpen(PGconn *conn);
         PQfinish(connection);
         connection = NULL;
     }
+    pthread_mutex_destroy(&self->mutex);
+}
+
+-(void)openAsync
+{
+    NSInvocationOperation *operation = [[NSInvocationOperation alloc] initWithTarget:self
+                                                                            selector:@selector(open)
+                                                                              object:nil];
+    [operationQueue addOperation:operation];
 }
 
 -(void)open
 {
+    [self lock];
     [connectionEntry lock];
     NSString *host = [[NSString alloc] initWithString:connectionEntry.host];
     [connectionEntry unlock];
@@ -152,6 +167,7 @@ static static bool syncWaitConnectionToOpen(PGconn *conn);
 
 -(void)handleSuccessfulConnection
 {
+    [self unlock];
     [self reportSuccesfulConnectionBackground];
 }
 
@@ -175,6 +191,7 @@ static static bool syncWaitConnectionToOpen(PGconn *conn);
 
 -(void)handleFailedConnection
 {
+    [self unlock];
     [self reportFailedConnectionBackground:[[NSString alloc] initWithUTF8String:PQerrorMessage(self->connection)]];
 }
 
@@ -214,7 +231,9 @@ static static bool syncWaitConnectionToOpen(PGconn *conn);
 {
     if (connection != NULL)
     {
+        [self lock];
         PQfinish(connection);
+        [self unlock];
         connection = NULL;
     }
 }
@@ -233,6 +252,31 @@ static static bool syncWaitConnectionToOpen(PGconn *conn);
 {
     return [[PGConnection alloc] initWithConnectionEntry:connectionEntry];
 }
+
+-(void)lock
+{
+    pthread_mutex_lock(&self->mutex);
+}
+
+-(void)unlock
+{
+    pthread_mutex_unlock(&self->mutex);
+}
+
+-(BOOL)locked
+{
+    if (pthread_mutex_trylock(&self->mutex) == 0)
+    {
+        pthread_mutex_unlock(&self->mutex);
+        return NO;
+    }
+    else
+    {
+        return YES;
+    }
+}
+
+@end
 
 static bool syncWaitConnectionToOpen(PGconn *conn)
 {
@@ -276,6 +320,3 @@ static bool syncWaitConnectionToOpen(PGconn *conn)
         }
     }
 }
-
-@end
-

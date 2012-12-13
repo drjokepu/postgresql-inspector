@@ -21,6 +21,7 @@
 		025F61A01551BCF7006B4D23 /* PGSchemaObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 025F619F1551BCF7006B4D23 /* PGSchemaObject.m */; };
 		025F61A31551BE09006B4D23 /* PGTable.m in Sources */ = {isa = PBXBuildFile; fileRef = 025F61A21551BE09006B4D23 /* PGTable.m */; };
 		0273B95C167A25CA009CA33D /* PGUserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 0273B95B167A25C9009CA33D /* PGUserDefaults.m */; };
+		0273B960167A2DED009CA33D /* PGCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = 0273B95F167A2DED009CA33D /* PGCommand.m */; };
 		02751E001549F778007AE07D /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02751DFF1549F778007AE07D /* Cocoa.framework */; };
 		02751E0A1549F778007AE07D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 02751E081549F778007AE07D /* InfoPlist.strings */; };
 		02751E0C1549F778007AE07D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 02751E0B1549F778007AE07D /* main.m */; };
@@ -61,6 +62,8 @@
 		02CB6E16154EB5450086DA2C /* PGDatabaseWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02CB6E14154EB5450086DA2C /* PGDatabaseWindowController.xib */; };
 		02CB6E19154EB9DF0086DA2C /* PGDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 02CB6E18154EB9DF0086DA2C /* PGDatabase.m */; };
 		02CB6E1C154EBA960086DA2C /* PGDatabaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 02CB6E1B154EBA950086DA2C /* PGDatabaseManager.m */; };
+		02E5B4FD167A43D5008471B4 /* PGCommandExecutor.m in Sources */ = {isa = PBXBuildFile; fileRef = 02E5B4FC167A43D5008471B4 /* PGCommandExecutor.m */; };
+		02E5B500167A4CE0008471B4 /* PGResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 02E5B4FF167A4CE0008471B4 /* PGResult.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -89,6 +92,8 @@
 		025F61A21551BE09006B4D23 /* PGTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGTable.m; sourceTree = "<group>"; };
 		0273B95A167A25C9009CA33D /* PGUserDefaults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGUserDefaults.h; sourceTree = "<group>"; };
 		0273B95B167A25C9009CA33D /* PGUserDefaults.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGUserDefaults.m; sourceTree = "<group>"; };
+		0273B95E167A2DED009CA33D /* PGCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGCommand.h; sourceTree = "<group>"; };
+		0273B95F167A2DED009CA33D /* PGCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGCommand.m; sourceTree = "<group>"; };
 		02751DFB1549F778007AE07D /* PostgreSQL Inspector.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "PostgreSQL Inspector.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		02751DFF1549F778007AE07D /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		02751E021549F778007AE07D /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -175,6 +180,10 @@
 		02CB6E1A154EBA950086DA2C /* PGDatabaseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGDatabaseManager.h; sourceTree = "<group>"; };
 		02CB6E1B154EBA950086DA2C /* PGDatabaseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGDatabaseManager.m; sourceTree = "<group>"; };
 		02CC58F515502EEA00496966 /* icons.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = icons.icns; sourceTree = "<group>"; };
+		02E5B4FB167A43D5008471B4 /* PGCommandExecutor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGCommandExecutor.h; sourceTree = "<group>"; };
+		02E5B4FC167A43D5008471B4 /* PGCommandExecutor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGCommandExecutor.m; sourceTree = "<group>"; };
+		02E5B4FE167A4CE0008471B4 /* PGResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGResult.h; sourceTree = "<group>"; };
+		02E5B4FF167A4CE0008471B4 /* PGResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGResult.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -438,6 +447,10 @@
 			isa = PBXGroup;
 			children = (
 				02B83EA0154F1D380013A5F8 /* Delegates */,
+				0273B95E167A2DED009CA33D /* PGCommand.h */,
+				0273B95F167A2DED009CA33D /* PGCommand.m */,
+				02E5B4FB167A43D5008471B4 /* PGCommandExecutor.h */,
+				02E5B4FC167A43D5008471B4 /* PGCommandExecutor.m */,
 				02801E6E154D9BA800FCA1DE /* PGConnection.h */,
 				02801E6F154D9BA800FCA1DE /* PGConnection.m */,
 				024D4F7015C9422B004508AD /* PGError.h */,
@@ -448,6 +461,8 @@
 				02B83EA8154F32190013A5F8 /* PGNull.h */,
 				02B83EA9154F321A0013A5F8 /* PGNull.m */,
 				02B83EA7154F25C60013A5F8 /* PGType.h */,
+				02E5B4FE167A4CE0008471B4 /* PGResult.h */,
+				02E5B4FF167A4CE0008471B4 /* PGResult.m */,
 			);
 			name = "PostgreSQL Interface";
 			sourceTree = "<group>";
@@ -564,6 +579,9 @@
 				024D4F7215C9422C004508AD /* PGError.m in Sources */,
 				023DEA54166F7D3800A6E8A1 /* NSDictionary+PGDictionary.m in Sources */,
 				0273B95C167A25CA009CA33D /* PGUserDefaults.m in Sources */,
+				0273B960167A2DED009CA33D /* PGCommand.m in Sources */,
+				02E5B4FD167A43D5008471B4 /* PGCommandExecutor.m in Sources */,
+				02E5B500167A4CE0008471B4 /* PGResult.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -650,7 +668,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PostgreSQL Inspector/PostgreSQL Inspector-Prefix.pch";
-				HEADER_SEARCH_PATHS = "";
+				HEADER_SEARCH_PATHS = /opt/local/include/postgresql92;
 				INFOPLIST_FILE = "PostgreSQL Inspector/PostgreSQL Inspector-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -669,7 +687,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PostgreSQL Inspector/PostgreSQL Inspector-Prefix.pch";
-				HEADER_SEARCH_PATHS = "";
+				HEADER_SEARCH_PATHS = /opt/local/include/postgresql92;
 				INFOPLIST_FILE = "PostgreSQL Inspector/PostgreSQL Inspector-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",

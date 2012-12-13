@@ -22,9 +22,7 @@
 @property (nonatomic, strong) PGConnectionProgressWindow *progressWindow;
 @property (nonatomic, strong) PGAuthWindowController *authWindow;
 
--(void)connectAsyncBackground;
 -(void)showConnectionProgressWindow;
--(void)showConnectionProgressWindowMainThread;
 -(void)closeConnectionProgressWindow;
 -(void)closeConnectionProgressWindowMainThread;
 -(void)releaseAuthWindow;
@@ -50,21 +48,15 @@
 -(void)connectAsync
 {
     [[PGConnectionManager sharedManager] addConnectionController:self];
-    [self performSelectorInBackground:@selector(connectAsyncBackground) withObject:nil];
+    [self showConnectionProgressWindow];
+    self.connection = [[PGConnection alloc] initWithConnectionEntry:connectionEntry];
+    connection.delegate = self;
+    [connection openAsync];
 }
 
 -(void)reconnectAsync
 {
-    [self performSelectorInBackground:@selector(connectAsyncBackground) withObject:nil];
-}
-
--(void)connectAsyncBackground
-{
-    [self showConnectionProgressWindow];
-    
-    self.connection = [[PGConnection alloc] initWithConnectionEntry:connectionEntry];
-    connection.delegate = self;
-    [connection open];
+    [self connectAsync];
 }
 
 -(void)connectionSuccessful:(PGConnection *)theConnection
@@ -115,11 +107,6 @@
 }
 
 -(void)showConnectionProgressWindow
-{
-    [self performSelectorOnMainThread:@selector(showConnectionProgressWindowMainThread) withObject:nil waitUntilDone:YES];
-}
-
--(void)showConnectionProgressWindowMainThread
 {
     self.progressWindow = [[PGConnectionProgressWindow alloc] init];
     progressWindow.connectionEntry = connectionEntry;
