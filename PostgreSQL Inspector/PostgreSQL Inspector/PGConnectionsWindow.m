@@ -90,7 +90,9 @@
     NSTableCellView *cellView = [tableView makeViewWithIdentifier:@"cellView" owner:self];
     
     NSTextField *mainTextField = [cellView viewWithTag:6000];
+    [entry lock];
     [mainTextField setStringValue:[entry description]];
+    [entry unlock];
     
     return cellView;
 }
@@ -121,11 +123,14 @@
 -(void)addConnection:(id)sender
 {
     PGConnectionEntry *entry = [[PGConnectionEntry alloc] init];
+    [entry lock];
     entry.host = @"";
     entry.database = entry.host;
     entry.username = entry.host;
     entry.port = -1;
     [entry insert];
+    [entry unlock];
+    
     [connectionEntries addObject:entry];
     [connectionsTableView reloadData];
     
@@ -139,7 +144,9 @@
 {
     if (selectedConnectionEntry == nil) return;
     [connectionEntries removeObject:selectedConnectionEntry];
+    [selectedConnectionEntry lock];
     [selectedConnectionEntry delete];
+    [selectedConnectionEntry unlock];
     self.selectedConnectionEntry = nil;
     [connectionsTableView reloadData];
     [connectionsTableView selectRowIndexes:[[NSIndexSet alloc] init] byExtendingSelection:NO];
@@ -148,6 +155,7 @@
 
 -(void)didChangeConnectionProperty:(id)sender
 {
+    [selectedConnectionEntry lock];
     selectedConnectionEntry.host = hostTextField.stringValue;
     NSInteger port = portTextField.stringValue.intValue;
     if (port == 0) port = -1;
@@ -156,6 +164,7 @@
     selectedConnectionEntry.username = usernameTextField.stringValue;
     
     [selectedConnectionEntry update];
+    [selectedConnectionEntry unlock];
     
     [connectionsTableView reloadDataForRowIndexes:[connectionsTableView selectedRowIndexes]
                                     columnIndexes:[[NSIndexSet alloc] initWithIndex:0]];
@@ -188,11 +197,13 @@
     else
     {
         self.selectedConnectionEntry = [connectionEntries objectAtIndex:selectedRow];
+        [selectedConnectionEntry lock];
         [hostTextField setStringValue:selectedConnectionEntry.host];
         [databaseTextField setStringValue:selectedConnectionEntry.port < 0 ? @"" : [[NSString alloc] initWithFormat:@"%li", selectedConnectionEntry.port]];
         [databaseTextField setStringValue:selectedConnectionEntry.database];
         [usernameTextField setStringValue:selectedConnectionEntry.username];
         [passwordTextField setStringValue:@""];
+        [selectedConnectionEntry unlock];
         
         [hostTextField setEnabled:YES];
         [portTextField setEnabled:YES];
@@ -219,16 +230,15 @@
 
 -(void)updateConnectButton
 {
-    if (selectedConnectionEntry == nil ||
-        [selectedConnectionEntry.host length] == 0 ||
-        [selectedConnectionEntry.database length] == 0)
+    BOOL canConnect = NO;
+    if (selectedConnectionEntry != nil)
     {
-        [connectButton setEnabled:NO];
+        [selectedConnectionEntry lock];
+        canConnect = [selectedConnectionEntry.host length] > 0 && [selectedConnectionEntry.database length] > 0;
+        [selectedConnectionEntry unlock];
     }
-    else
-    {
-        [connectButton setEnabled:YES];
-    }
+    
+    [connectButton setEnabled:canConnect];
 }
 
 -(void)didDoubleClickedOnConnectionsTableView:(id)sender

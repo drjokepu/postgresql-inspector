@@ -59,7 +59,10 @@ static static bool syncWaitConnectionToOpen(PGconn *conn);
 
 -(void)open
 {
+    [connectionEntry lock];
     PGNullTerminatedKeysAndValues *keysValues = [[connectionEntry connectionParams] copyToNullTerminatedArrays];
+    [connectionEntry unlock];
+    
     PGconn *conn = PQconnectStartParams((const char**)keysValues->keys,
                                         (const char**)keysValues->values,
                                         0);
