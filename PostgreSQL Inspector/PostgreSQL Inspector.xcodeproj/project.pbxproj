@@ -20,6 +20,7 @@
 		02501E31155083B90020896A /* PGScopeBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 02501E30155083B90020896A /* PGScopeBar.m */; };
 		025F61A01551BCF7006B4D23 /* PGSchemaObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 025F619F1551BCF7006B4D23 /* PGSchemaObject.m */; };
 		025F61A31551BE09006B4D23 /* PGTable.m in Sources */ = {isa = PBXBuildFile; fileRef = 025F61A21551BE09006B4D23 /* PGTable.m */; };
+		0273B95C167A25CA009CA33D /* PGUserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 0273B95B167A25C9009CA33D /* PGUserDefaults.m */; };
 		02751E001549F778007AE07D /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02751DFF1549F778007AE07D /* Cocoa.framework */; };
 		02751E0A1549F778007AE07D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 02751E081549F778007AE07D /* InfoPlist.strings */; };
 		02751E0C1549F778007AE07D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 02751E0B1549F778007AE07D /* main.m */; };
@@ -86,6 +87,8 @@
 		025F619F1551BCF7006B4D23 /* PGSchemaObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGSchemaObject.m; sourceTree = "<group>"; };
 		025F61A11551BE09006B4D23 /* PGTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGTable.h; sourceTree = "<group>"; };
 		025F61A21551BE09006B4D23 /* PGTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGTable.m; sourceTree = "<group>"; };
+		0273B95A167A25C9009CA33D /* PGUserDefaults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGUserDefaults.h; sourceTree = "<group>"; };
+		0273B95B167A25C9009CA33D /* PGUserDefaults.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGUserDefaults.m; sourceTree = "<group>"; };
 		02751DFB1549F778007AE07D /* PostgreSQL Inspector.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "PostgreSQL Inspector.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		02751DFF1549F778007AE07D /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		02751E021549F778007AE07D /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -400,6 +403,8 @@
 				02751E201549F853007AE07D /* PGConnectionEntry.m */,
 				02CB6E17154EB9DF0086DA2C /* PGDatabase.h */,
 				02CB6E18154EB9DF0086DA2C /* PGDatabase.m */,
+				0273B95A167A25C9009CA33D /* PGUserDefaults.h */,
+				0273B95B167A25C9009CA33D /* PGUserDefaults.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -558,6 +563,7 @@
 				02C4DF7B15C69E6C00C78DDE /* PGQueryWindowController.m in Sources */,
 				024D4F7215C9422C004508AD /* PGError.m in Sources */,
 				023DEA54166F7D3800A6E8A1 /* NSDictionary+PGDictionary.m in Sources */,
+				0273B95C167A25CA009CA33D /* PGUserDefaults.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -45,12 +45,6 @@ static void libPqSanityCheck()
         fprintf(stderr, "Unsupported libpq version: %i, required: %i or later.\n", pqLibVersion, requiredLibPqVersion);
         exit(1);
     }
-#ifdef DEBUG
-    else
-    {
-        printf("libpq %i\n", pqLibVersion);
-    }
-#endif /* DEBUg */
 }
 
 void setup(void)

@@ -8,6 +8,7 @@
 
 #import "PGConnection.h"
 #import "PGConnectionEntry.h"
+#import "PGUserDefaults.h"
 #import "NSDictionary+PGDictionary.h"
 #import <netdb.h>
 #import <arpa/inet.h>
@@ -66,20 +67,17 @@ static static bool syncWaitConnectionToOpen(PGconn *conn);
     NSString *host = [[NSString alloc] initWithString:connectionEntry.host];
     [connectionEntry unlock];
     
-    printf("lookup started\n");
     NSString *ip = [PGConnection resolveHost:host];
     if (ip == nil)
     {
         [self handleFailedConnection];
     }
-    printf("lookup done\n");
     
     [connectionEntry lock];
     connectionEntry.hostaddr = ip;
     PGNullTerminatedKeysAndValues *keysValues = [[connectionEntry connectionParams] copyToNullTerminatedArrays];
     [connectionEntry unlock];
     
-    printf("connecting\n");
     PGconn *conn = PQconnectStartParams((const char**)keysValues->keys,
                                         (const char**)keysValues->values,
                                         0);
@@ -99,7 +97,7 @@ static static bool syncWaitConnectionToOpen(PGconn *conn);
 {
     const struct addrinfo hints =
     {
-        .ai_family = PF_INET,
+        .ai_family = [PGUserDefaults isIPv6Enabled] ? PF_UNSPEC : PF_INET,
         .ai_socktype = 0,
         .ai_protocol = IPPROTO_TCP,
         .ai_flags = AI_ADDRCONFIG,
@@ -136,7 +134,6 @@ static static bool syncWaitConnectionToOpen(PGconn *conn);
                           addr,
                           ip_char,
                           address_max_length);
-                printf("ip: %s\n", ip_char);
                 NSString *ip = [[NSString alloc] initWithUTF8String:ip_char];
                 free(ip_char);
                 freeaddrinfo(res);
@@ -239,7 +236,6 @@ static static bool syncWaitConnectionToOpen(PGconn *conn);
 
 static bool syncWaitConnectionToOpen(PGconn *conn)
 {
-    printf("syncWaitConnectionToOpen\n");
     const int fd = PQsocket(conn);
     fd_set fds;
     struct timeval timeout;
