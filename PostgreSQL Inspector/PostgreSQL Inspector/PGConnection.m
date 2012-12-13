@@ -161,6 +161,7 @@ static static bool syncWaitConnectionToOpen(PGconn *conn);
 
 static bool syncWaitConnectionToOpen(PGconn *conn)
 {
+    printf("syncWaitConnectionToOpen\n");
     const int fd = PQsocket(conn);
     fd_set fds;
     struct timeval timeout;

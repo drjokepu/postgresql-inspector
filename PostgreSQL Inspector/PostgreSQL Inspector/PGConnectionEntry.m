@@ -6,6 +6,7 @@
 //  Copyright (c) 2012 Tamas Czinege. All rights reserved.
 //
 
+#import <pthread.h>
 #import <unistd.h>
 #import <sys/stat.h>
 #import <Security/Security.h>
@@ -15,6 +16,9 @@
 static const char *keychainServiceName = "PostgreSQL Inspector";
 
 @interface PGConnectionEntry()
+{
+    pthread_mutex_t mutex;
+}
 
 -(NSString*)accountName;
 
@@ -38,6 +42,30 @@ static const char *keychainServiceName = "PostgreSQL Inspector";
 @synthesize password;
 @synthesize passwordRetreivedFromKeychain;
 @synthesize userAskedForStroingPasswordInKeychain;
+
+-(id)init
+{
+    if ((self = [super init]))
+    {
+        pthread_mutex_init(&self->mutex, NULL);
+    }
+    return self;
+}
+
+-(void)dealloc
+{
+    pthread_mutex_destroy(&self->mutex);
+}
+
+-(void)lock
+{
+    pthread_mutex_lock(&self->mutex);
+}
+
+-(void)unlock
+{
+    pthread_mutex_unlock(&self->mutex);
+}
 
 +(NSString *)connectionEntryListDatabaseFile
 {

@@ -24,6 +24,8 @@
 -(void)insert;
 -(void)update;
 -(void)delete;
+-(void)lock;
+-(void)unlock;
 
 +(NSUInteger)defaultConnectionPort;
 +(NSArray *)getConnectionEntries;
