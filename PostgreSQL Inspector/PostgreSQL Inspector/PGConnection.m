@@ -9,6 +9,9 @@
 #import "PGConnection.h"
 #import "PGConnectionEntry.h"
 #import "NSDictionary+PGDictionary.h"
+#import <netdb.h>
+#import <arpa/inet.h>
+#import <sys/types.h>
 #import <sys/socket.h>
 
 static static bool syncWaitConnectionToOpen(PGconn *conn);
@@ -60,9 +63,23 @@ static static bool syncWaitConnectionToOpen(PGconn *conn);
 -(void)open
 {
     [connectionEntry lock];
+    NSString *host = [[NSString alloc] initWithString:connectionEntry.host];
+    [connectionEntry unlock];
+    
+    printf("lookup started\n");
+    NSString *ip = [PGConnection resolveHost:host];
+    if (ip == nil)
+    {
+        [self handleFailedConnection];
+    }
+    printf("lookup done\n");
+    
+    [connectionEntry lock];
+    connectionEntry.hostaddr = ip;
     PGNullTerminatedKeysAndValues *keysValues = [[connectionEntry connectionParams] copyToNullTerminatedArrays];
     [connectionEntry unlock];
     
+    printf("connecting\n");
     PGconn *conn = PQconnectStartParams((const char**)keysValues->keys,
                                         (const char**)keysValues->values,
                                         0);
@@ -75,6 +92,64 @@ static static bool syncWaitConnectionToOpen(PGconn *conn);
     else
     {
         [self handleFailedConnection];
+    }
+}
+
++(NSString*)resolveHost:(NSString*)host
+{
+    const struct addrinfo hints =
+    {
+        .ai_family = PF_INET,
+        .ai_socktype = 0,
+        .ai_protocol = IPPROTO_TCP,
+        .ai_flags = AI_ADDRCONFIG,
+        .ai_addrlen = 0,
+        .ai_addr = NULL,
+        .ai_canonname = NULL,
+        .ai_next = NULL
+    };
+    struct addrinfo *res = NULL;
+    const int lookup_success = getaddrinfo([host UTF8String], "postgresql", &hints, &res);
+    if (lookup_success == 0) // success
+    {
+        struct addrinfo *cursor = res;
+        while (cursor != NULL)
+        {
+            void *addr = NULL;
+            unsigned int address_max_length = 0;
+            switch (cursor->ai_addr->sa_family)
+            {
+                case AF_INET:
+                    addr = &(((struct sockaddr_in*)(cursor->ai_addr))->sin_addr);
+                    address_max_length = INET_ADDRSTRLEN;
+                    break;
+                case AF_INET6:
+                    addr = &(((struct sockaddr_in6*)(cursor->ai_addr))->sin6_addr);
+                    address_max_length = INET6_ADDRSTRLEN;
+                    break;
+            }
+            
+            if (addr != NULL)
+            {
+                char *ip_char = calloc(address_max_length + 1, sizeof(char));
+                inet_ntop(cursor->ai_addr->sa_family,
+                          addr,
+                          ip_char,
+                          address_max_length);
+                printf("ip: %s\n", ip_char);
+                NSString *ip = [[NSString alloc] initWithUTF8String:ip_char];
+                free(ip_char);
+                freeaddrinfo(res);
+                return ip;
+            }
+        }
+        freeaddrinfo(res);
+        return nil;
+    }
+    else
+    {
+        fprintf(stderr, "getaddrinfo failed: %i %s\n", lookup_success, gai_strerror(lookup_success));
+        return nil;
     }
 }
 

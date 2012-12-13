@@ -36,6 +36,7 @@ static const char *keychainServiceName = "PostgreSQL Inspector";
 
 @synthesize objectId;
 @synthesize host;
+@synthesize hostaddr;
 @synthesize port;
 @synthesize database;
 @synthesize username;
@@ -96,6 +97,7 @@ static const char *keychainServiceName = "PostgreSQL Inspector";
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
     
     [dict setObject:host forKey:@"host"];
+    if (hostaddr != nil) [dict setObject:hostaddr forKey:@"hostaddr"];
     if (port > 0) [dict setObject:[[NSString alloc] initWithFormat:@"%li", port] forKey:@"port"];
     [dict setObject:database forKey:@"dbname"];
     if ([username length] > 0) [dict setObject:username forKey:@"user"];

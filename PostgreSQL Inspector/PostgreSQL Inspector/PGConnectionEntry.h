@@ -12,6 +12,7 @@
 
 @property (nonatomic, assign) NSUInteger objectId;
 @property (nonatomic, strong) NSString *host;
+@property (nonatomic, strong) NSString *hostaddr;
 @property (nonatomic, assign) NSInteger port;
 @property (nonatomic, strong) NSString *database;
 @property (nonatomic, strong) NSString *username;
