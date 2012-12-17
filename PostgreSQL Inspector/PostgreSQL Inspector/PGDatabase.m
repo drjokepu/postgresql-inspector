@@ -61,7 +61,6 @@
 
 -(void)loadSchema:(PGConnection *)connection
 {
-    printf("loadSchema:\n");
     PGCommand *command = [[PGCommand alloc] init];
     command.connection = connection;
     command.commandText =

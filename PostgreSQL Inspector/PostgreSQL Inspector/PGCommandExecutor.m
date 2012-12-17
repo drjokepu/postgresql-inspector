@@ -73,6 +73,7 @@
             fprintf(stderr, "PQsendQuery failed: %s\n", PQerrorMessage(conn));
             [command.connection unlock];
         }
+        [command.connection unlock];
     }];
 }
 
