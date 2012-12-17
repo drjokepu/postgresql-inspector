@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@class PGConnection, PGResult;
+@class PGConnection, PGError, PGResult;
 
 @interface PGCommand : NSObject
 
@@ -16,5 +16,6 @@
 @property (nonatomic, strong) PGConnection *connection;
 
 -(void)execAsyncWithCallback:(void(^)(PGResult *result))resultCallback;
+-(void)execAsyncWithCallback:(void(^)(PGResult *result))resultCallback noMoreResultsCallback:(void(^)(void))noMoreResultsCallback errorCallback:(void(^)(PGError *error))errorCallback;
 
 @end

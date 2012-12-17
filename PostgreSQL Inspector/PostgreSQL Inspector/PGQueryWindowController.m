@@ -7,6 +7,7 @@
 //
 
 #import "PGQueryWindowController.h"
+#import "PGCommand.h"
 #import "PGConnection.h"
 #import "PGError.h"
 
@@ -82,25 +83,35 @@ static const NSInteger executeQueryTag = 4001;
 
 -(void)executeQuery:(id)sender
 {
-//    const NSString *commandText = self.queryTextView.string;
-//    if ([commandText length] == 0) return;
-//    
-//    PGCommand *command = [[PGCommand alloc] initWithConnection:connection commandText:commandText];
-//    self.queryInProgress = YES;
-//    
-//    [command executeAsyncWithResultCallback:^(PGResult *r) {
-//        [[self window] update];
-//    } noMoreResultsCallback:^{
-//        self.queryInProgress = false;
-//        [[self window] update];
-//    } errorCallback:^(PGError *error) {
-//        self.queryInProgress = false;
-//        [self.queryTextView setSpellingState:NSSpellingStateSpellingFlag range:[self findErrorRange:error.errorPosition]];
-//        [self showError:error];
-//        [[self window] update];
-//    }];
-//    
-//    [[self window] update];
+    if (connection == nil)
+    {
+        fprintf(stderr, "executeQuery failed: connection pointer is nil\n");
+        return;
+    }
+    
+    NSString *commandText = self.queryTextView.string;
+    if ([commandText length] == 0) return;
+
+    PGCommand *command = [[PGCommand alloc] init];
+    command.connection = connection;
+    command.commandText = [[NSString alloc] initWithString:commandText];
+    self.queryInProgress = YES;
+    
+    [command execAsyncWithCallback:^(PGResult *result){
+        [[self window] update];
+    } noMoreResultsCallback:^
+    {
+        self.queryInProgress = NO;
+        [[self window] update];
+    } errorCallback:^(PGError *error) {
+        self.queryInProgress = NO;
+        [self.queryTextView setSpellingState:NSSpellingStateSpellingFlag
+                                       range:[self findErrorRange:error.errorPosition]];
+        [self showError:error];
+        [[self window] update];
+    }];
+    
+    [[self window] update];
 }
 
 -(void)showError:(PGError *)error

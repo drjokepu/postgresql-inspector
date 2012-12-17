@@ -23,7 +23,7 @@
 -(void)updateConnectButton;
 
 -(void)connectTo:(PGConnectionEntry*)connectionEntry;
--(IBAction)didDoubleClickedOnConnectionsTableView:(id)sender;
+-(IBAction)didDoubleClickOnConnectionsTableView:(id)sender;
 
 @end
 
@@ -241,7 +241,7 @@
     [connectButton setEnabled:canConnect];
 }
 
--(void)didDoubleClickedOnConnectionsTableView:(id)sender
+-(void)didDoubleClickOnConnectionsTableView:(id)sender
 {
     NSInteger row = [connectionsTableView clickedRow];
     if (row == -1) return;
