@@ -18,11 +18,6 @@
 
 @interface PGDatabase()
 
--(BOOL)hideSystemSchemas;
--(BOOL)isSystemSchema:(NSString*)schemaName;
-//-(void)readSchemasFrom:(PGResult*)result;
-//-(void)readClassesFrom:(PGResult*)result;
-
 @end
 
 @implementation PGDatabase
@@ -70,55 +65,58 @@
         switch (result.index)
         {
             case 0:
+                [self readSchemasFrom:result];
                 break;
             case 1:
+                [self readClassesFrom:result];
                 break;
         }
+        [delegate databaseDidUpdateSchema:self];
     }];
 }
 
-//-(void)readSchemasFrom:(PGResult *)result
-//{
-//    NSMutableArray *localSchemaNames = [[NSMutableArray alloc] initWithCapacity:result.rowCount];
-//    NSMutableDictionary *localSchemaLookup = [[NSMutableDictionary alloc] initWithCapacity:result.rowCount];
-//    
-//    for (NSUInteger i = 0; i < result.rowCount; i++)
-//    {
-//        NSString *schemaName = [[result.rows objectAtIndex:i] objectAtIndex:0];
-//        NSInteger oid = [[[result.rows objectAtIndex:i] objectAtIndex:1] integerValue];
-//        if ([schemaName isEqualToString:@"public"]) publicSchemaIndex = i;
-//        
-//        if (![self hideSystemSchemas] || ![self isSystemSchema:schemaName])
-//        {
-//            PGSchemaIdentifier *schema = [[PGSchemaIdentifier alloc] initWithName:schemaName oid:oid];
-//            [localSchemaNames addObject:schema];
-//            [localSchemaLookup setObject:schema forKey:schemaName];
-//        }
-//    }
-//    self.schemaNames = localSchemaNames;
-//    self.schemaNameLookup = localSchemaLookup;
-//}
+-(void)readSchemasFrom:(PGResult *)result
+{
+    NSMutableArray *localSchemaNames = [[NSMutableArray alloc] initWithCapacity:result.rowCount];
+    NSMutableDictionary *localSchemaLookup = [[NSMutableDictionary alloc] initWithCapacity:result.rowCount];
+    
+    for (NSUInteger i = 0; i < result.rowCount; i++)
+    {
+        NSString *schemaName = [[result.rows objectAtIndex:i] objectAtIndex:0];
+        NSInteger oid = [[[result.rows objectAtIndex:i] objectAtIndex:1] integerValue];
+        if ([schemaName isEqualToString:@"public"]) publicSchemaIndex = i;
+        
+        if (![self hideSystemSchemas] || ![self isSystemSchema:schemaName])
+        {
+            PGSchemaIdentifier *schema = [[PGSchemaIdentifier alloc] initWithName:schemaName oid:oid];
+            [localSchemaNames addObject:schema];
+            [localSchemaLookup setObject:schema forKey:schemaName];
+        }
+    }
+    self.schemaNames = localSchemaNames;
+    self.schemaNameLookup = localSchemaLookup;
+}
 
-//-(void)readClassesFrom:(PGResult *)result
-//{
-//    for (NSUInteger i = 0; i < result.rowCount; i++)
-//    {
-//        NSArray *row = [result.rows objectAtIndex:i];
-//        NSString *relName = [row objectAtIndex:0];
-//        NSString *relKind = [row objectAtIndex:1];
-//        NSInteger relOid = [[row objectAtIndex:2] integerValue];
-//        NSString *schemaName = [row objectAtIndex:3];
-//        
-//        switch ([relKind characterAtIndex:0])
-//        {
-//            case 'r':
-//                [[[schemaNameLookup valueForKey:schemaName] tableNames] addObject:[[PGTableIdentifier alloc] initWithName:relName oid:relOid]];
-//                break;
-//            case 'v':
-//                [[[schemaNameLookup valueForKey:schemaName] viewNames] addObject:[[PGTableIdentifier alloc] initWithName:relName oid:relOid]];
-//                break;
-//        }
-//    }
-//}
+-(void)readClassesFrom:(PGResult *)result
+{
+    for (NSUInteger i = 0; i < result.rowCount; i++)
+    {
+        NSArray *row = [result.rows objectAtIndex:i];
+        NSString *relName = [row objectAtIndex:0];
+        NSNumber *relKind = [row objectAtIndex:1];
+        NSInteger relOid = [[row objectAtIndex:2] integerValue];
+        NSString *schemaName = [row objectAtIndex:3];
+        
+        switch ([relKind charValue])
+        {
+            case 'r':
+                [[[schemaNameLookup valueForKey:schemaName] tableNames] addObject:[[PGTableIdentifier alloc] initWithName:relName oid:relOid]];
+                break;
+            case 'v':
+                [[[schemaNameLookup valueForKey:schemaName] viewNames] addObject:[[PGTableIdentifier alloc] initWithName:relName oid:relOid]];
+                break;
+        }
+    }
+}
 
 @end

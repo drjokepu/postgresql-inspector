@@ -20,4 +20,9 @@
     return self;
 }
 
+-(NSInteger)integerValue
+{
+    return (NSInteger)type;
+}
+
 @end

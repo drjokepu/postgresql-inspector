@@ -14,5 +14,6 @@
 @property (nonatomic, assign) PGType type;
 
 -(id)initWithType:(PGType)theType;
+-(NSInteger)integerValue;
 
 @end

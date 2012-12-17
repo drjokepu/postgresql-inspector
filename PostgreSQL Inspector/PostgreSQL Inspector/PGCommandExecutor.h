@@ -14,7 +14,7 @@
 
 @property (nonatomic, weak) PGCommand *command;
 @property (nonatomic, assign) BOOL rowByRow;
-@property (nonatomic, weak) void (^onTuplesOk)(PGResult *result);
+@property (nonatomic, strong) void (^onTuplesOk)(PGResult *result);
 
 -(id)initWithCommand:(PGCommand*)theCommand;
 -(void)execute;

@@ -117,6 +117,7 @@
         result.columnTypes = columnTypes;
         
         const int numberOfRows = PQntuples(pgResult);
+        result.rowCount = (NSUInteger)numberOfRows;
         NSMutableArray *rows = [[NSMutableArray alloc] initWithCapacity:numberOfRows];
         for (int rowIndex = 0; rowIndex < numberOfRows; rowIndex++)
         {
@@ -130,6 +131,7 @@
                 [rows addObject:row];
             }
         }
+        result.rows = rows;
         
         return result;
     }
