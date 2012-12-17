@@ -7,11 +7,13 @@
 //
 
 #import "PGDatabase.h"
+#import "PGCommand.h"
 #import "PGConnectionEntry.h"
 #import "PGConnection.h"
 #import "PGSchemaObjectIdentifier.h"
 #import "PGSchemaObjectGroup.h"
 #import "PGSchemaIdentifier.h"
+#import "PGResult.h"
 #import "PGTableIdentifier.h"
 
 @interface PGDatabase()
@@ -59,18 +61,21 @@
 
 -(void)loadSchema:(PGConnection *)connection
 {
-//    PGCommand *command = [[PGCommand alloc] init];
-//    command.connection = connection;
-//    command.commandText =
-//        @"select nspname, oid from pg_catalog.pg_namespace order by nspname;"
-//         "select c.relname, c.relkind, c.oid, n.nspname from pg_catalog.pg_class c inner join pg_catalog.pg_namespace n on n.oid = c.relnamespace order by c.relname";
-//    command.delegate = self;
-//    [command executeAsync];
-}
-
--(void)commandHasNoMoreResults:(PGCommand *)command
-{
-    if (delegate != nil) [delegate databaseDidUpdateSchema:self];
+    printf("loadSchema:\n");
+    PGCommand *command = [[PGCommand alloc] init];
+    command.connection = connection;
+    command.commandText =
+        @"select nspname, oid from pg_catalog.pg_namespace order by nspname;"
+         "select c.relname, c.relkind, c.oid, n.nspname from pg_catalog.pg_class c inner join pg_catalog.pg_namespace n on n.oid = c.relnamespace order by c.relname";
+    [command execAsyncWithCallback:^(PGResult *result) {
+        switch (result.index)
+        {
+            case 0:
+                break;
+            case 1:
+                break;
+        }
+    }];
 }
 
 //-(void)readSchemasFrom:(PGResult *)result

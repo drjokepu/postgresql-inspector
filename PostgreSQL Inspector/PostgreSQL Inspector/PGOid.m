@@ -9,13 +9,13 @@
 #import "PGOid.h"
 
 @implementation PGOid
-@synthesize value;
+@synthesize type;
 
--(id)initWithValue:(unsigned int)theValue
+-(id)initWithType:(PGType)theType
 {
     if ((self = [super init]))
     {
-        self.value = theValue;
+        self.type = theType;
     }
     return self;
 }

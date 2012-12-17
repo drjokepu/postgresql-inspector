@@ -8,13 +8,13 @@
 
 #import <Foundation/Foundation.h>
 
-@class PGConnection;
+@class PGConnection, PGResult;
 
 @interface PGCommand : NSObject
 
 @property (nonatomic, strong) NSString* commandText;
 @property (nonatomic, strong) PGConnection *connection;
 
--(void)execAsync;
+-(void)execAsyncWithCallback:(void(^)(PGResult *result))resultCallback;
 
 @end

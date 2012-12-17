@@ -7,11 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "PGType.h"
 
 @interface PGOid : NSObject
 
-@property (nonatomic, assign) unsigned int value;
+@property (nonatomic, assign) PGType type;
 
--(id)initWithValue:(unsigned int)theValue;
+-(id)initWithType:(PGType)theType;
 
 @end

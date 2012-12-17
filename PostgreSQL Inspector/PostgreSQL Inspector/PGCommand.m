@@ -7,6 +7,7 @@
 //
 
 #import "PGCommand.h"
+#import "PGCommandExecutor.h"
 #import "PGConnection.h"
 #import <libpq-fe.h>
 
@@ -14,9 +15,12 @@
 @synthesize commandText;
 @synthesize connection;
 
--(void)execAsync
+-(void)execAsyncWithCallback:(void (^)(PGResult *))resultCallback
 {
-    
+    PGCommandExecutor *executor = [[PGCommandExecutor alloc] initWithCommand:self];
+    executor.rowByRow = NO;
+    executor.onTuplesOk = resultCallback;
+    [executor execute];
 }
 
 @end
