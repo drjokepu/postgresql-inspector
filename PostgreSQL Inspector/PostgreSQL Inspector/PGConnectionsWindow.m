@@ -50,7 +50,7 @@
 {
     [super windowDidLoad];
     
-    [connectionsTableView setDoubleAction:@selector(didDoubleClickedOnConnectionsTableView:)];
+    [connectionsTableView setDoubleAction:@selector(didDoubleClickOnConnectionsTableView:)];
     
     NSButtonCell* spaceButtonCell = [spaceButton cell];
     [spaceButtonCell setHighlightsBy:NSNoCellMask];

@@ -14,6 +14,10 @@
 #import "PGType.h"
 #import <libpq-fe.h>
 
+@interface PGCommandExecutor ()
+
+@end
+
 @implementation PGCommandExecutor
 @synthesize command;
 @synthesize rowByRow;
@@ -134,7 +138,9 @@
                 NSMutableArray *row = [[NSMutableArray alloc] initWithCapacity:numberOfColumns];
                 for (int columnIndex = 0; columnIndex < numberOfColumns; columnIndex++)
                 {
-                    [row addObject:[PGCommandExecutor getValue:pgResult columnIndex:columnIndex rowIndex:rowIndex]];
+                    id value = [PGCommandExecutor getValue:pgResult columnIndex:columnIndex rowIndex:rowIndex];
+                    if (value == nil) value = [NSNull null];
+                    [row addObject:value];
                 }
                 [rows addObject:row];
             }
@@ -148,7 +154,7 @@
 +(id)getValue:(PGresult*)pgResult columnIndex:(int)columnIndex rowIndex:(int)rowIndex
 {
     if (PQgetisnull(pgResult, rowIndex, columnIndex))
-        return [NSNull null];
+        return nil;
     
     const Oid oid = PQftype(pgResult, columnIndex);
     const char* value = PQgetvalue(pgResult, rowIndex, columnIndex);
@@ -157,16 +163,45 @@
         case PGTypeChar:
             return [[NSNumber alloc] initWithChar:value[0]];
         case PGTypeName:
+        case PGTypeVarCharN:
+        case PGTypeVarCharU:
             return [[NSString alloc] initWithUTF8String:value];
         case PGTypeOid:
             return [[PGOid alloc]initWithType:(PGType)strtoul(value, NULL, 10)];
+        case PGTypeInt32:
+            return [[NSNumber alloc] initWithLong:strtol(value, NULL, 10)];
         case PGTypeInt64:
             return [[NSNumber alloc] initWithLongLong:strtoll(value, NULL, 10)];
+        case PGTypeTimestampZ:
+            return [PGCommandExecutor parseTimestampWithTimezone:value];
+        case PGTypeUuid:
+            return [[NSUUID alloc] initWithUUIDString:[[NSString alloc] initWithUTF8String:value]];
         default:
             //if (rowIndex == 0)
-                fprintf(stderr, "Unknown OID: %i\n", oid);
-            return [NSNull null];
+                fprintf(stderr, "Unknown OID: %i, value = %s\n", oid, value);
+            return nil;
     }
+}
+
++(NSDate*)parseTimestampWithTimezone:(const char*)string
+{
+    // 2012-10-19 16:19:05.536+01
+    const unsigned long year = strtol(string, NULL, 10);
+    const unsigned long month = strtol(string + 5, NULL, 10);
+    const unsigned long day = strtol(string + 8, NULL, 10);
+    const unsigned long hour = strtol(string + 11, NULL, 10);
+    const unsigned long minute = strtol(string + 14, NULL, 10);
+    const unsigned long second = strtol(string + 17, NULL, 10);
+//    const unsigned long fragment = strtol(string + 20, NULL, 10);
+    
+    NSDateComponents *components = [[NSDateComponents alloc] init];
+    [components setYear:year];
+    [components setMonth:month];
+    [components setDay:day];
+    [components setHour:hour];
+    [components setMinute:minute];
+    [components setSecond:second];
+    return [[[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar] dateFromComponents:components];
 }
 
 @end
