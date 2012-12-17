@@ -7,10 +7,11 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "PGConnectionDelegate.h"
 
 @class PGConnection, PGDatabaseWindowController;
 
-@interface PGQueryWindowController : NSWindowController
+@interface PGQueryWindowController : NSWindowController <PGConnectionDelegate>
 
 @property (nonatomic, strong) NSString *initialQueryString;
 @property (nonatomic, weak) PGDatabaseWindowController *parentWindowController;

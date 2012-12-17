@@ -66,16 +66,16 @@ static const NSInteger executeQueryTag = 4001;
 -(void)useConnection:(PGConnection *)theConnection
 {
     self.connection = theConnection;
+    self.connection.delegate = self;
     [self performSelectorInBackground:@selector(openConnection:) withObject:theConnection];
 }
 
 -(void)openConnection:(PGConnection *)theConnection
 {
-    [theConnection open];
-    [self performSelectorOnMainThread:@selector(didOpenConnection) withObject:nil waitUntilDone:NO];
+    [theConnection openAsync];
 }
 
--(void)didOpenConnection
+-(void)connectionSuccessful:(PGConnection *)theConnection
 {
     self.connectionIsOpen = YES;
     [[self window] update];

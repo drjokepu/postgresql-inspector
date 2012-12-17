@@ -29,16 +29,24 @@
 
 -(void)execute
 {
-    if (command == nil)
+    __block PGCommand *executedCommand = self.command;
+    
+    if (executedCommand == nil)
     {
         NSLog(@"[PGCommandExecutor execute]: command is nil.");
         return;
     }
-    
-    [command.connection.operationQueue addOperationWithBlock:^{
-        [command.connection lock];
-        PGconn *conn = command.connection.connection;
-        const int sendQueryResult = PQsendQuery(conn, [command.commandText UTF8String]);
+
+    [executedCommand.connection.operationQueue addOperationWithBlock:^{
+        [executedCommand.connection lock];
+        PGconn *conn = executedCommand.connection.connection;
+        if (conn == NULL)
+        {
+            fprintf(stderr, "execute: command.connection.connection is NULL\n");
+            return;
+        }
+            
+        const int sendQueryResult = PQsendQuery(conn, [executedCommand.commandText UTF8String]);
         if (sendQueryResult == 1) // success
         {
             if (rowByRow)
@@ -71,9 +79,9 @@
         else
         {
             fprintf(stderr, "PQsendQuery failed: %s\n", PQerrorMessage(conn));
-            [command.connection unlock];
+            [executedCommand.connection unlock];
         }
-        [command.connection unlock];
+        [executedCommand.connection unlock];
     }];
 }
 

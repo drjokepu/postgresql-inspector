@@ -421,7 +421,6 @@
 		02801E74154DBB5300FCA1DE /* Delegates */ = {
 			isa = PBXGroup;
 			children = (
-				02801E75154DBB6D00FCA1DE /* PGConnectionDelegate.h */,
 				02B83EAB154F3F590013A5F8 /* PGDatabaseDelegate.h */,
 			);
 			name = Delegates;
@@ -438,6 +437,7 @@
 		02B83EA0154F1D380013A5F8 /* Delegates */ = {
 			isa = PBXGroup;
 			children = (
+				02801E75154DBB6D00FCA1DE /* PGConnectionDelegate.h */,
 				02B83EA2154F1D510013A5F8 /* PGCommandDelegate.h */,
 			);
 			name = Delegates;
