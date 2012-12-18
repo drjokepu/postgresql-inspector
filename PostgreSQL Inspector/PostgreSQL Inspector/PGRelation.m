@@ -7,35 +7,43 @@
 //
 
 #import "PGRelation.h"
+#import "PGCommand.h"
 #import "PGConnection.h"
 #import "PGOid.h"
 #import "PGRelationColumn.h"
+#import "PGResult.h"
 
 @implementation PGRelation
 
-@synthesize namespace, tablespace, owner, tuples, kind, columns;
+@synthesize namespace, tablespace, owner, tuples, kind, schemaName, columns;
 
--(void)loadRelationFromCatalog:(PGConnection *)connection
+-(void)loadRelationFromCatalog:(PGConnection *)connection asyncCallback:(void (^)(void))asyncCallback
 {
-//    @autoreleasepool
-//    {
-//        static const NSString *commandText =
-//            @"select relname, relnamespace, relowner, reltuples, relkind from pg_catalog.pg_class where oid = $1";
-//    
-//        PGCommand *command = [[PGCommand alloc] initWithConnection:connection commandText:commandText];
-//        [command addParameter:[[PGOid alloc] initWithValue:(unsigned int)self.oid]];
-//        
-//        NSArray *resultSet = [command execute];
-//        PGResult *result = [resultSet objectAtIndex:0];
-//        resultSet = nil;
-//        
-//        self.name = (NSString*)[[result.rows objectAtIndex:0] objectAtIndex:0];
-//        self.namespace = [(NSNumber*)[[result.rows objectAtIndex:0] objectAtIndex:1] integerValue];
-//        self.owner = [(NSNumber*)[[result.rows objectAtIndex:0] objectAtIndex:2] unsignedIntegerValue];
-//        self.kind = [(NSString*)[[result.rows objectAtIndex:0] objectAtIndex:0] characterAtIndex:0];
-//        
-//        self.columns = [[NSMutableArray alloc] initWithArray:[PGRelationColumn loadColumnsInRelation:self.oid fromCatalog:connection]];
-//    }
+    @autoreleasepool
+    {
+        NSString *commandText = [[NSString alloc] initWithFormat:
+                                 @"select c.relname, c.relnamespace, c.relowner, c.reltuples, c.relkind, n.nspname from pg_catalog.pg_class c inner join pg_catalog.pg_namespace n on n.oid = c.relnamespace where c.oid = %li", self.oid];
+    
+        PGCommand *command = [[PGCommand alloc] init];
+        command.connection = connection;
+        command.commandText = commandText;
+        
+        [command execAsyncWithCallback:^(PGResult *result) {
+            self.name = (NSString*)result.rows[0][0];
+            self.namespace = [(NSNumber*)result.rows[0][1] integerValue];
+            self.owner = [(NSNumber*)result.rows[0][2] unsignedIntegerValue];
+            self.kind = [(NSNumber*)result.rows[0][4] charValue];
+            self.schemaName = (NSString*)result.rows[0][5];
+            self.columns = [[NSMutableArray alloc] initWithArray:[PGRelationColumn loadColumnsInRelation:self.oid fromCatalog:connection]];
+            
+            if (asyncCallback != nil) asyncCallback();
+        }];
+    }
+}
+
+-(NSString *)description
+{
+    return [[NSString alloc] initWithFormat:@"%@.%@", self.schemaName, self.name];
 }
 
 @end

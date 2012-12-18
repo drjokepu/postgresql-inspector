@@ -25,4 +25,9 @@
     return (NSInteger)type;
 }
 
+-(NSUInteger)unsignedIntegerValue
+{
+    return (NSUInteger)type;
+}
+
 @end

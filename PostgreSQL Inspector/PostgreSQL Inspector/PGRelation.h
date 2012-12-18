@@ -17,8 +17,9 @@
 @property (nonatomic, assign) NSInteger owner;
 @property (nonatomic, assign) NSUInteger tuples;
 @property (nonatomic, assign) char kind;
+@property (nonatomic, strong) NSString *schemaName;
 @property (nonatomic, strong) NSMutableArray *columns;
 
--(void)loadRelationFromCatalog:(PGConnection*)connection;
+-(void)loadRelationFromCatalog:(PGConnection*)connection asyncCallback:(void(^)(void))asyncCallback;
 
 @end

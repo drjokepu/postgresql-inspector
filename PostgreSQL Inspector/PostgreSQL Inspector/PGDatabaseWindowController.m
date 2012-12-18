@@ -192,6 +192,7 @@
         {
             PGTableIdentifier *selectedTableIdentifier = (PGTableIdentifier*)selectedItem;
             [PGTable load:selectedTableIdentifier.oid fromConnection:connection callback:^(PGTable *table) {
+                NSLog(@"table loaded: %@", table);
                 self.selectedSchemaObject = table;
                 [tableColumnsTableView reloadData];
             }];

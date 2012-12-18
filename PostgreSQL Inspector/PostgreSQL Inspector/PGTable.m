@@ -13,9 +13,6 @@
 #import "PGConstraintColumn.h"
 
 @interface PGTable()
-
-+(PGTable*)loadInBackground:(NSInteger)oid fromConnection:(PGConnection*)connection;
-
 @end
 
 @implementation PGTable
@@ -24,24 +21,15 @@
 +(void)load:(NSInteger)oid fromConnection:(PGConnection*)connection callback:(void(^)(PGTable* table))asyncCallback
 {
     [[PGAppDelegate sharedBackgroundQueue] addOperationWithBlock:^{
-        PGTable *table = [PGTable loadInBackground:oid fromConnection:connection];
-        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-            if (asyncCallback != NULL) asyncCallback(table);
+        PGTable *table = [[PGTable alloc] initWithOid:oid];
+        [table loadRelationFromCatalog:connection asyncCallback:^{
+//            table.constraints = [[NSMutableArray alloc] initWithArray:[PGConstraint loadConstraintsInRelation:oid fromCatalog:connection]];
+            
+            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                if (asyncCallback != NULL) asyncCallback(table);
+            }];
         }];
     }];
-}
-
-+(PGTable*)loadInBackground:(NSInteger)oid fromConnection:(PGConnection *)connection
-{
-    @autoreleasepool
-    {
-        PGTable *table = [[PGTable alloc] initWithOid:oid];
-        [table loadRelationFromCatalog:connection];
-        
-        table.constraints = [[NSMutableArray alloc] initWithArray:[PGConstraint loadConstraintsInRelation:oid fromCatalog:connection]];
-        
-        return table;
-    }
 }
 
 -(BOOL)isColumnInPrimaryKey:(NSInteger)columnNumber

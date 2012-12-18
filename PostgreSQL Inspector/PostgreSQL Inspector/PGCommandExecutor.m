@@ -84,7 +84,6 @@
         else
         {
             fprintf(stderr, "PQsendQuery failed: %s\n", PQerrorMessage(conn));
-            [executedCommand.connection unlock];
         }
         [executedCommand.connection unlock];
     }];
@@ -186,6 +185,10 @@
             return [[NSNumber alloc] initWithLong:strtol(value, NULL, 10)];
         case PGTypeInt64:
             return [[NSNumber alloc] initWithLongLong:strtoll(value, NULL, 10)];
+        case PGTypeSingle:
+            return [[NSNumber alloc] initWithFloat:strtof(value, NULL)];
+        case PGTypeDouble:
+            return [[NSNumber alloc] initWithDouble:strtod(value, NULL)];
         case PGTypeTimestampZ:
             return [PGCommandExecutor parseTimestampWithTimezone:value];
         case PGTypeUuid:

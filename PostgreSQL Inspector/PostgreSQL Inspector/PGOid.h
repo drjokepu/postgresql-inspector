@@ -15,5 +15,6 @@
 
 -(id)initWithType:(PGType)theType;
 -(NSInteger)integerValue;
+-(NSUInteger)unsignedIntegerValue;
 
 @end
