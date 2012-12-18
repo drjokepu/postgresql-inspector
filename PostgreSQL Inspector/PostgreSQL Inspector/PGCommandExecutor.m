@@ -79,6 +79,7 @@
                 }
                 PQclear(result);
             }
+            [self noMoreResults];
         }
         else
         {
@@ -96,7 +97,15 @@
 
 -(void)commandOk
 {
-    
+    NSLog(@"command ok");
+}
+
+-(void)noMoreResults
+{
+    if (self.onNoMoreResults != nil)
+    {
+        [[NSOperationQueue mainQueue] addOperationWithBlock:self.onNoMoreResults];
+    }
 }
 
 -(void)tuplesOk:(PGresult*)pgResult index:(NSUInteger)index
@@ -105,7 +114,12 @@
     {
         if (self.onTuplesOk != nil)
         {
-            self.onTuplesOk([PGCommandExecutor getResult:pgResult withIndex:index]);
+            __block void (^onTuplesOk)(PGResult *result) = self.onTuplesOk;
+            __block PGResult *result = [PGCommandExecutor getResult:pgResult withIndex:index];
+            
+            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                onTuplesOk(result);
+            }];
         }
     }
 }

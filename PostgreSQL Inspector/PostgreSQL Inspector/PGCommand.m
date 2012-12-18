@@ -28,6 +28,7 @@
     PGCommandExecutor *executor = [[PGCommandExecutor alloc] initWithCommand:self];
     executor.rowByRow = NO;
     executor.onTuplesOk = resultCallback;
+    executor.onNoMoreResults = noMoreResultsCallback;
     [executor execute];
 }
 
