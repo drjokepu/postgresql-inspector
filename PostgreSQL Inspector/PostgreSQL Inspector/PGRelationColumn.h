@@ -23,6 +23,4 @@
 @property (nonatomic, assign) BOOL notNull;
 @property (nonatomic, strong) id defaultValue;
 
-+(NSArray*)loadColumnsInRelation:(NSUInteger)relationId fromCatalog:(PGConnection*)connection;
-
 @end

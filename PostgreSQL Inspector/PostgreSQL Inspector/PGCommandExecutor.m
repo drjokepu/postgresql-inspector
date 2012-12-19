@@ -173,6 +173,8 @@
     const char* value = PQgetvalue(pgResult, rowIndex, columnIndex);
     switch ((PGType)oid)
     {
+        case PGTypeBool:
+            return [[NSNumber alloc] initWithBool:value[0] == 't'];
         case PGTypeChar:
             return [[NSNumber alloc] initWithChar:value[0]];
         case PGTypeName:
@@ -181,6 +183,8 @@
             return [[NSString alloc] initWithUTF8String:value];
         case PGTypeOid:
             return [[PGOid alloc]initWithType:(PGType)strtoul(value, NULL, 10)];
+        case PGTypeInt16:
+            return [[NSNumber alloc] initWithShort:(short)strtol(value, NULL, 10)];
         case PGTypeInt32:
             return [[NSNumber alloc] initWithLong:strtol(value, NULL, 10)];
         case PGTypeInt64:
