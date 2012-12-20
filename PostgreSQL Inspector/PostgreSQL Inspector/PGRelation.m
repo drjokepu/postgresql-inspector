@@ -10,6 +10,7 @@
 #import "PGCommand.h"
 #import "PGConnection.h"
 #import "PGConstraint.h"
+#import "PGConstraintColumn.h"
 #import "PGIndex.h"
 #import "PGOid.h"
 #import "PGRelationColumn.h"
@@ -18,8 +19,6 @@
 static BOOL isNull(const id obj);
 
 @implementation PGRelation
-
-@synthesize namespace, tablespace, owner, tuples, kind, schemaName, columns;
 
 -(void)loadRelationFromCatalog:(PGConnection *)connection asyncCallback:(void (^)(void))asyncCallback
 {
@@ -100,6 +99,7 @@ static BOOL isNull(const id obj);
         "        r.conpfeqop, "
         "        r.conppeqop, "
         "        r.conffeqop, "
+        "        r.conexclop, "
         "        r.conbin, "
         "        r.consrc "
         "   from pg_catalog.pg_constraint r "
@@ -107,7 +107,7 @@ static BOOL isNull(const id obj);
         "                     on cref.oid = r.confrelid "
         "        left outer join pg_catalog.pg_namespace sref "
         "                     on sref.oid = cref.relnamespace "
-        "  where r.conrelid = %li";
+        "  where r.conrelid = %li;";
 
         const NSInteger relationId = self.oid;
         NSString *queryText = [[NSString alloc] initWithFormat:(NSString*)commandText,
@@ -202,26 +202,62 @@ static BOOL isNull(const id obj);
     self.constraints = [[NSMutableArray alloc] initWithCapacity:result.rowCount];
     for (NSUInteger i = 0; i < result.rowCount; i++)
     {
-        NSArray *row = result.rows[i];
-        PGConstraint *constraint = [[PGConstraint alloc] initWithOid:[row[0] integerValue]];
-        constraint.name = row[1];
-        constraint.definition = row[2];
-        constraint.type = (PGConstraintType)[row[3] charValue];
-        constraint.deferrable = [row[4] boolValue];
-        constraint.deferred = [row[5] boolValue];
-        constraint.validated = [row[6] boolValue];
-        constraint.relationId = [row[7] unsignedIntegerValue];
-        constraint.relationName = isNull(row[8]) ? nil : row[8];
-        constraint.relationNamespaceId = isNull(row[9]) ? 0 : [row[9] unsignedIntegerValue];
-        constraint.relationNamespaceName = isNull(row[10]) ? nil : row[10];
-        constraint.foreignKeyUpdateAction = isNull(row[11]) ? PGForeignKeyActionNone : (PGForeignKeyAction)[row[11] charValue];
-        constraint.foreignKeyDeleteAction = isNull(row[12]) ? PGForeignKeyActionNone : (PGForeignKeyAction)[row[12] charValue];
-        constraint.foreignKeyMatchType = isNull(row[13]) ? PGForeignKeyMatchTypeNone : (PGForeignKeyMatchType)[row[13] charValue];
-        constraint.local = [row[14] boolValue];
-        constraint.inheritanceAncestorCount = [row[15] unsignedIntegerValue];
-        constraint.noInherit = [row[16] boolValue];
-        
-        [self.constraints addObject:constraint];
+        @autoreleasepool
+        {
+            NSArray *row = result.rows[i];
+            PGConstraint *constraint = [[PGConstraint alloc] initWithOid:[row[0] integerValue]];
+            constraint.name = row[1];
+            constraint.definition = row[2];
+            constraint.type = (PGConstraintType)[row[3] charValue];
+            constraint.deferrable = [row[4] boolValue];
+            constraint.deferred = [row[5] boolValue];
+            constraint.validated = [row[6] boolValue];
+            constraint.relationId = [row[7] unsignedIntegerValue];
+            constraint.relationName = isNull(row[8]) ? nil : row[8];
+            constraint.relationNamespaceId = isNull(row[9]) ? 0 : [row[9] unsignedIntegerValue];
+            constraint.relationNamespaceName = isNull(row[10]) ? nil : row[10];
+            constraint.foreignKeyUpdateAction = isNull(row[11]) ? PGForeignKeyActionNone : (PGForeignKeyAction)[row[11] charValue];
+            constraint.foreignKeyDeleteAction = isNull(row[12]) ? PGForeignKeyActionNone : (PGForeignKeyAction)[row[12] charValue];
+            constraint.foreignKeyMatchType = isNull(row[13]) ? PGForeignKeyMatchTypeNone : (PGForeignKeyMatchType)[row[13] charValue];
+            constraint.local = [row[14] boolValue];
+            constraint.inheritanceAncestorCount = [row[15] unsignedIntegerValue];
+            constraint.noInherit = [row[16] boolValue];
+            
+            NSArray *constraintColumnNumbers = row[17];
+            NSArray *pkFkOperators = row[18];
+            NSArray *pkPkOperators = row[19];
+            NSArray *fkFkOperators = row[20];
+            NSArray *exclusionOperators = row[21];
+            
+            if (isNull(constraintColumnNumbers)) constraintColumnNumbers = [[NSArray alloc] init];
+            if (isNull(pkFkOperators)) pkFkOperators = [[NSArray alloc] init];
+            if (isNull(pkPkOperators)) pkPkOperators = [[NSArray alloc] init];
+            if (isNull(fkFkOperators)) fkFkOperators = [[NSArray alloc] init];
+            if (isNull(exclusionOperators)) exclusionOperators = [[NSArray alloc] init];
+            
+            NSUInteger columnCount = [constraintColumnNumbers count];
+            if ([pkFkOperators count] > columnCount) columnCount = [pkFkOperators count];
+            if ([pkPkOperators count] > columnCount) columnCount = [pkPkOperators count];
+            if ([fkFkOperators count] > columnCount) columnCount = [fkFkOperators count];
+            if ([exclusionOperators count] > columnCount) columnCount = [exclusionOperators count];
+            
+            NSMutableArray *columns = [[NSMutableArray alloc] initWithCapacity:columnCount];
+            
+            for (NSUInteger i = 0; i < columnCount; i++)
+            {
+                PGConstraintColumn *column = [[PGConstraintColumn alloc] init];
+                if ([constraintColumnNumbers count] > i) column.columnNumber = [constraintColumnNumbers[i] integerValue];
+                if ([pkFkOperators count] > i) column.foreignKeyPKFKEqualityOperator = [pkFkOperators[i] integerValue];
+                if ([pkPkOperators count] > i) column.foreignKeyPKFKEqualityOperator = [pkPkOperators[i] integerValue];
+                if ([fkFkOperators count] > i) column.foreignKeyFKFKEqualityOperator = [fkFkOperators[i] integerValue];
+                if ([exclusionOperators count] > i) column.exclusionOperator = [exclusionOperators[i] integerValue];
+                [columns addObject:column];
+            }
+            
+            constraint.columns = columns;
+            
+            [self.constraints addObject:constraint];
+        }
     }
 }
 
