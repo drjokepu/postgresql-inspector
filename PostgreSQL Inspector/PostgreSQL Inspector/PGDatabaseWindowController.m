@@ -9,6 +9,8 @@
 #import "PGDatabaseWindowController.h"
 #import "PGConnection.h"
 #import "PGConnectionEntry.h"
+#import "PGConstraint.h"
+#import "PGConstraintColumn.h"
 #import "PGDatabase.h"
 #import "PGDatabaseManager.h"
 #import "PGRelationColumn.h"
@@ -20,13 +22,7 @@
 #import "PGQueryWindowController.h"
 
 @interface PGDatabaseWindowController ()
-
 @property (nonatomic, strong) NSMutableArray *queryWindowControllerList;
-
--(void)updateSchemaMenu;
--(PGSchemaIdentifier*)selectedSchema;
--(id)tableColumnsTableViewObjectValueForColumn:(NSString*)identifier row:(NSUInteger)row;
-
 @end
 
 @implementation PGDatabaseWindowController
@@ -35,6 +31,7 @@
 @synthesize schemaPopUpButton;
 @synthesize schemaMenu;
 @synthesize tableColumnsTableView;
+@synthesize constraintsTableView;
 
 @synthesize connection, database;
 
@@ -193,16 +190,24 @@
             PGTableIdentifier *selectedTableIdentifier = (PGTableIdentifier*)selectedItem;
             [PGTable load:selectedTableIdentifier.oid fromConnection:connection callback:^(PGTable *table) {
                 self.selectedSchemaObject = table;
-                [tableColumnsTableView reloadData];
+                [self reloadTableData];
             }];
         }
     }
+}
+
+-(void)reloadTableData
+{
+    [tableColumnsTableView reloadData];
+    [constraintsTableView reloadData];
 }
 
 -(NSInteger)numberOfRowsInTableView:(NSTableView *)tableView
 {
     if (tableView == tableColumnsTableView)
         return self.selectedTable.columns.count;
+    else if (tableView == constraintsTableView)
+        return self.selectedTable.constraints.count;
     else
         return 0;
 }
@@ -211,13 +216,15 @@
 {
     if (tableView == tableColumnsTableView)
         return [self tableColumnsTableViewObjectValueForColumn:tableColumn.identifier row:row];
+    else if (tableView == constraintsTableView)
+        return [self constraintsTableViewObjectValieForColumn:tableColumn.identifier row:row];
     else
         return nil;
 }
 
 -(id)tableColumnsTableViewObjectValueForColumn:(NSString *)identifier row:(NSUInteger)row
 {
-    PGRelationColumn *column = [self.selectedTable.columns objectAtIndex:row];
+    PGRelationColumn *column = self.selectedTable.columns[row];
     
     if ([identifier isEqualToString:@"name"])
         return column.name;
@@ -231,6 +238,34 @@
         return [[NSNumber alloc] initWithBool:[self.selectedTable isColumnInPrimaryKey:column.number]];
     else
         return @"";
+}
+
+-(id)constraintsTableViewObjectValieForColumn:(NSString *)identifier row:(NSUInteger)row
+{
+    PGConstraint *constraint = self.selectedTable.constraints[row];
+    
+    if ([identifier isEqualToString:@"type"])
+        return [constraint constraintTypeDescription];
+    else if ([identifier isEqualToString:@"name"])
+        return [constraint name];
+    else if ([identifier isEqualToString:@"columns"])
+        return [PGDatabaseWindowController listOfColumnsNamesOfConstraint:constraint inTable:self.selectedTable];
+    else if ([identifier isEqualToString:@"referencedTable"])
+        return [constraint referencedTableDescription];
+    else
+        return @"";
+}
+
++(NSString*)listOfColumnsNamesOfConstraint:(PGConstraint*)constraint inTable:(PGTable*)table
+{
+    if (constraint == nil || [constraint.columns count] == 0) return @"";
+    
+    NSMutableArray *columnNames = [[NSMutableArray alloc] initWithCapacity:[constraint.columns count]];
+    for (NSUInteger i = 0; i < [constraint.columns count]; i++)
+    {
+        [columnNames addObject:((PGRelationColumn*)table.columns[i]).name];
+    }
+    return [columnNames componentsJoinedByString:@", "];
 }
 
 -(void)queryDatabase:(id)sender

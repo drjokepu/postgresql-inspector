@@ -32,4 +32,8 @@
 @property (nonatomic, strong) NSMutableArray *columns;
 @property (nonatomic, strong) NSString *src;
 
+-(NSString*) constraintTypeDescription;
+-(NSString*) referencedTableDescription;
++(NSString*) describeContraintType:(PGConstraintType)constraintType;
+
 @end

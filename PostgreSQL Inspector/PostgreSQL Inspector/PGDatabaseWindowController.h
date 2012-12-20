@@ -22,6 +22,7 @@
 @property (strong) IBOutlet NSPopUpButton *schemaPopUpButton;
 @property (strong) IBOutlet NSMenu *schemaMenu;
 @property (strong) IBOutlet NSTableView *tableColumnsTableView;
+@property (strong) IBOutlet NSTableView *constraintsTableView;
 
 -(void)willCloseQueryWindow:(PGQueryWindowController*)queryWindowController;
 
