@@ -12,8 +12,6 @@
 
 @interface PGTable : PGRelation
 
-@property (nonatomic, strong) NSMutableArray *constraints;
-
 -(BOOL)isColumnInPrimaryKey:(NSInteger)columnNumber;
 
 +(void)load:(NSInteger)oid fromConnection:(PGConnection*)connection callback:(void(^)(PGTable* table))asyncCallback;

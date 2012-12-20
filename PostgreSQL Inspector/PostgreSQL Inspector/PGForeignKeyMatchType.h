@@ -11,6 +11,7 @@
 
 typedef enum
 {
+    PGForeignKeyMatchTypeNone = 0,
     PGForeignKeyMatchTypeFull = 'f',
     PGForeignKeyMatchTypePartial = 'p',
     PGForeignKeyMatchTypeSimple = 'u'

@@ -14,22 +14,22 @@
 
 @interface PGConstraint : PGSchemaObject
 
-@property (nonatomic, assign) NSUInteger namespaceId;
+@property (nonatomic, strong) NSString* definition;
 @property (nonatomic, assign) PGConstraintType type;
 @property (nonatomic, assign) BOOL deferrable;
 @property (nonatomic, assign) BOOL deferred;
+@property (nonatomic, assign) BOOL validated;
 @property (nonatomic, assign) NSUInteger relationId;
-@property (nonatomic, assign) NSUInteger domainId;
-@property (nonatomic, assign) NSUInteger indexId;
-@property (nonatomic, assign) NSUInteger foreignKeyReferencedTableId;
+@property (nonatomic, strong) NSString *relationName;
+@property (nonatomic, assign) NSUInteger relationNamespaceId;
+@property (nonatomic, strong) NSString *relationNamespaceName;
 @property (nonatomic, assign) PGForeignKeyAction foreignKeyUpdateAction;
 @property (nonatomic, assign) PGForeignKeyAction foreignKeyDeleteAction;
 @property (nonatomic, assign) PGForeignKeyMatchType foreignKeyMatchType;
 @property (nonatomic, assign) BOOL local;
 @property (nonatomic, assign) NSUInteger inheritanceAncestorCount;
+@property (nonatomic, assign) BOOL noInherit;
 @property (nonatomic, strong) NSMutableArray *columns;
 @property (nonatomic, strong) NSString *src;
-
-+(NSArray*)loadConstraintsInRelation:(NSUInteger)relationId fromCatalog:(PGConnection*)connection;
 
 @end

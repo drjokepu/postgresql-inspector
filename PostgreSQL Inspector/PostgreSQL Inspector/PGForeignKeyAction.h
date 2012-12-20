@@ -11,7 +11,8 @@
 
 typedef enum
 {
-    PGForeignKeyActionNone = 'a',
+    PGForeignKeyActionNone = 0,
+    PGForeignKeyActionNoAction = 'a',
     PGForeignKeyActionRestrict = 'r',
     PGForeignKeyActionCascade = 'c',
     PGForeignKeyActionSetNull = 'n',

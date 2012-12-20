@@ -19,6 +19,8 @@
 @property (nonatomic, assign) char kind;
 @property (nonatomic, strong) NSString *schemaName;
 @property (nonatomic, strong) NSMutableArray *columns;
+@property (nonatomic, strong) NSMutableArray *indexes;
+@property (nonatomic, strong) NSMutableArray *constraints;
 
 -(void)loadRelationFromCatalog:(PGConnection*)connection asyncCallback:(void(^)(void))asyncCallback;
 

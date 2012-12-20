@@ -16,15 +16,12 @@
 @end
 
 @implementation PGTable
-@synthesize constraints;
 
 +(void)load:(NSInteger)oid fromConnection:(PGConnection*)connection callback:(void(^)(PGTable* table))asyncCallback
 {
     [[PGAppDelegate sharedBackgroundQueue] addOperationWithBlock:^{
         PGTable *table = [[PGTable alloc] initWithOid:oid];
         [table loadRelationFromCatalog:connection asyncCallback:^{
-//            table.constraints = [[NSMutableArray alloc] initWithArray:[PGConstraint loadConstraintsInRelation:oid fromCatalog:connection]];
-            
             [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                 if (asyncCallback != NULL) asyncCallback(table);
             }];

@@ -11,6 +11,7 @@
 
 typedef enum
 {
+    PGConstraintTypeNone = 0,
     PGConstraintTypeCheck = 'c',
     PGConstraintTypeForeignKey = 'f',
     PGConstraintTypePrimaryKey = 'p',

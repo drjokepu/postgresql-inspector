@@ -180,6 +180,7 @@
         case PGTypeName:
         case PGTypeVarCharN:
         case PGTypeVarCharU:
+        case PGTypeNodeTree:
             return [[NSString alloc] initWithUTF8String:value];
         case PGTypeOid:
             return [[PGOid alloc]initWithType:(PGType)strtoul(value, NULL, 10)];
@@ -197,10 +198,16 @@
             return [PGCommandExecutor parseTimestampWithTimezone:value];
         case PGTypeUuid:
             return [[NSUUID alloc] initWithUUIDString:[[NSString alloc] initWithUTF8String:value]];
+        case PGTypeInt16A:
+        case PGTypeInt16AU:
+        case PGTypeInt32A:
+        case PGTypeOidA:
+        case PGTypeOidAU:
+            return [PGCommandExecutor parseArrayOfIntegers:[[NSString alloc] initWithUTF8String:value]];
         default:
             //if (rowIndex == 0)
                 fprintf(stderr, "Unknown OID: %i, value = %s\n", oid, value);
-            return nil;
+            return [[NSString alloc] initWithUTF8String:value];;
     }
 }
 
@@ -223,6 +230,29 @@
     [components setMinute:minute];
     [components setSecond:second];
     return [[[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar] dateFromComponents:components];
+}
+
++(NSArray *)parseArrayOfIntegers:(NSString *)text
+{
+    if ([text length] == 0) return [[NSArray alloc] init];
+    
+    NSMutableArray *results = [[NSMutableArray alloc] init];
+    NSScanner *scanner = [[NSScanner alloc] initWithString:text];
+    [scanner scanString:@"{" intoString:NULL];
+    
+    do
+    {
+        @autoreleasepool
+        {
+            NSString *numericString = nil;
+            [scanner scanCharactersFromSet:[NSCharacterSet decimalDigitCharacterSet] intoString:&numericString];
+            const NSInteger value = [numericString integerValue];
+            NSNumber *numberValue = [[NSNumber alloc] initWithInteger:value];
+            [results addObject:numberValue];
+        }
+    } while ([scanner scanString:@"," intoString:NULL]);
+    
+    return results;
 }
 
 @end
