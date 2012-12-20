@@ -7,7 +7,6 @@
 //
 
 #import "PGConstraint.h"
-#import "PGNull.h"
 #import "PGOid.h"
 #import "PGConstraintColumn.h"
 
@@ -27,11 +26,11 @@
     NSArray *fkFkOperators = [row objectAtIndex:18];
     NSArray *exclusionOperators = [row objectAtIndex:19];
     
-    if ([columnNumbers isKindOfClass:[PGNull class]]) columnNumbers = [[NSArray alloc] init];
-    if ([pkFkOperators isKindOfClass:[PGNull class]]) pkFkOperators = [[NSArray alloc] init];
-    if ([pkPkOperators isKindOfClass:[PGNull class]]) pkPkOperators = [[NSArray alloc] init];
-    if ([fkFkOperators isKindOfClass:[PGNull class]]) fkFkOperators = [[NSArray alloc] init];
-    if ([exclusionOperators isKindOfClass:[PGNull class]]) exclusionOperators = [[NSArray alloc] init];
+    if ([columnNumbers isKindOfClass:[NSNull class]]) columnNumbers = [[NSArray alloc] init];
+    if ([pkFkOperators isKindOfClass:[NSNull class]]) pkFkOperators = [[NSArray alloc] init];
+    if ([pkPkOperators isKindOfClass:[NSNull class]]) pkPkOperators = [[NSArray alloc] init];
+    if ([fkFkOperators isKindOfClass:[NSNull class]]) fkFkOperators = [[NSArray alloc] init];
+    if ([exclusionOperators isKindOfClass:[NSNull class]]) exclusionOperators = [[NSArray alloc] init];
     
     NSUInteger columnCount = [columnNumbers count];
     if ([pkFkOperators count] > columnCount) columnCount = [pkFkOperators count];

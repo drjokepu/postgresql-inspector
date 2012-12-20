@@ -54,7 +54,6 @@
 		02801E79154DC4F200FCA1DE /* PGAuthWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02801E77154DC4F200FCA1DE /* PGAuthWindowController.m */; };
 		02801E7A154DC4F200FCA1DE /* PGAuthWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02801E78154DC4F200FCA1DE /* PGAuthWindowController.xib */; };
 		02B172EA156E76F1002C2AA9 /* PGRelation.m in Sources */ = {isa = PBXBuildFile; fileRef = 02B172E9156E76F1002C2AA9 /* PGRelation.m */; };
-		02B83EAA154F321A0013A5F8 /* PGNull.m in Sources */ = {isa = PBXBuildFile; fileRef = 02B83EA9154F321A0013A5F8 /* PGNull.m */; };
 		02B8863C1586043F00855F79 /* PGOid.m in Sources */ = {isa = PBXBuildFile; fileRef = 02B8863B1586043F00855F79 /* PGOid.m */; };
 		02B8864015862D4100855F79 /* PGRelationColumn.m in Sources */ = {isa = PBXBuildFile; fileRef = 02B8863F15862D4000855F79 /* PGRelationColumn.m */; };
 		02C4DF7B15C69E6C00C78DDE /* PGQueryWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02C4DF7915C69E6C00C78DDE /* PGQueryWindowController.m */; };
@@ -165,8 +164,6 @@
 		02B172E9156E76F1002C2AA9 /* PGRelation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGRelation.m; sourceTree = "<group>"; };
 		02B83EA2154F1D510013A5F8 /* PGCommandDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PGCommandDelegate.h; sourceTree = "<group>"; };
 		02B83EA7154F25C60013A5F8 /* PGType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PGType.h; sourceTree = "<group>"; };
-		02B83EA8154F32190013A5F8 /* PGNull.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGNull.h; sourceTree = "<group>"; };
-		02B83EA9154F321A0013A5F8 /* PGNull.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGNull.m; sourceTree = "<group>"; };
 		02B83EAB154F3F590013A5F8 /* PGDatabaseDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PGDatabaseDelegate.h; sourceTree = "<group>"; };
 		02B8863A1586043E00855F79 /* PGOid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGOid.h; sourceTree = "<group>"; };
 		02B8863B1586043F00855F79 /* PGOid.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGOid.m; sourceTree = "<group>"; };
@@ -463,8 +460,6 @@
 				024D4F7415C943A2004508AD /* PGError+Internal.h */,
 				02B8863A1586043E00855F79 /* PGOid.h */,
 				02B8863B1586043F00855F79 /* PGOid.m */,
-				02B83EA8154F32190013A5F8 /* PGNull.h */,
-				02B83EA9154F321A0013A5F8 /* PGNull.m */,
 				02B83EA7154F25C60013A5F8 /* PGType.h */,
 				02E5B4FE167A4CE0008471B4 /* PGResult.h */,
 				02E5B4FF167A4CE0008471B4 /* PGResult.m */,
@@ -567,7 +562,6 @@
 				02CB6E15154EB5450086DA2C /* PGDatabaseWindowController.m in Sources */,
 				02CB6E19154EB9DF0086DA2C /* PGDatabase.m in Sources */,
 				02CB6E1C154EBA960086DA2C /* PGDatabaseManager.m in Sources */,
-				02B83EAA154F321A0013A5F8 /* PGNull.m in Sources */,
 				021EF6A7154F41E800800157 /* PGSchemaObjectIdentifier.m in Sources */,
 				021EF6AA154F425C00800157 /* PGTableIdentifier.m in Sources */,
 				021EF6AD154F463B00800157 /* PGSchemaIdentifier.m in Sources */,
