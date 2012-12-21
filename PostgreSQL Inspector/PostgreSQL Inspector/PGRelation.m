@@ -102,7 +102,6 @@ static NSComparisonResult compareConstraintTypes(const PGConstraintType c1, cons
         "        r.conppeqop, "
         "        r.conffeqop, "
         "        r.conexclop, "
-        "        r.conbin, "
         "        r.consrc "
         "   from pg_catalog.pg_constraint r "
         "        left outer join pg_catalog.pg_class cref "
@@ -258,6 +257,7 @@ static NSComparisonResult compareConstraintTypes(const PGConstraintType c1, cons
             
             constraint.columns = columns;
             
+            constraint.src = isNull(row[23]) ? @"" : row[23];
             [self.constraints addObject:constraint];
         }
     }

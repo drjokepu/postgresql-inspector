@@ -258,8 +258,14 @@
 {
     if (tableView == tableColumnsTableView)
         return [self tableColumnsTableViewObjectValueForColumn:tableColumn.identifier row:row];
-    else if (tableView == constraintsTableView)
-        return [self constraintsTableViewObjectValieForColumn:tableColumn.identifier row:row];
+    else
+        return nil;
+}
+
+-(NSView *)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row
+{
+    if (tableView == constraintsTableView)
+        return [self constraintsTableViewViewForRow:(NSUInteger)row];
     else
         return nil;
 }
@@ -282,20 +288,81 @@
         return @"";
 }
 
--(id)constraintsTableViewObjectValieForColumn:(NSString *)identifier row:(NSUInteger)row
+-(NSView*)constraintsTableViewViewForRow:(NSUInteger)row
 {
     PGConstraint *constraint = self.selectedTable.constraints[row];
+    NSTableCellView *cellView = [self.constraintsTableView makeViewWithIdentifier:@"constraintCellView" owner:self];
     
-    if ([identifier isEqualToString:@"type"])
-        return [constraint constraintTypeDescription];
-    else if ([identifier isEqualToString:@"name"])
-        return [constraint name];
-    else if ([identifier isEqualToString:@"columns"])
-        return [PGDatabaseWindowController listOfColumnsNamesOfConstraint:constraint inTable:self.selectedTable];
-    else if ([identifier isEqualToString:@"referencedTable"])
-        return [constraint referencedTableDescription];
+    NSImageView *imageView = [cellView viewWithTag:7000];
+    [imageView setImage:[PGDatabaseWindowController imageForConstraintType:constraint.type]];
+    
+    NSTextField *cellConstraintNameTextField = [cellView viewWithTag:7001];
+    [cellConstraintNameTextField setStringValue:constraint.name];
+    
+    NSTextField *cellConstraintTypeTextField = [cellView viewWithTag:7002];
+    [cellConstraintTypeTextField setStringValue:[constraint constraintTypeDescription]];
+    
+    NSTextField *cellConstraintDescriptionTextField = [cellView viewWithTag:7003];
+    [cellConstraintDescriptionTextField setStringValue:[self constraintUIDefinition:constraint]];
+    
+    return cellView;
+}
+
++(NSImage*)imageForConstraintType:(PGConstraintType)constraintType
+{
+    NSString *imageName = [PGDatabaseWindowController imageNameForConstraintType:constraintType];
+    if (imageName == nil)
+    {
+        imageName = NSImageNameAdvanced;
+    }
+    return [NSImage imageNamed:imageName];
+}
+
++(NSString*)imageNameForConstraintType:(PGConstraintType)constraintType
+{
+    switch (constraintType)
+    {
+        case PGConstraintTypePrimaryKey:
+            return @"primary_key";
+        case PGConstraintTypeUniqueKey:
+            return @"unique_key";
+        case PGConstraintTypeForeignKey:
+            return @"foreign_key";
+        case PGConstraintTypeCheck:
+            return @"check";
+        default:
+            return nil;
+    }
+}
+
+-(NSString*)constraintUIDefinition:(PGConstraint *)constraint
+{
+    switch (constraint.type)
+    {
+        case PGConstraintTypePrimaryKey:
+        case PGConstraintTypeUniqueKey:
+            return [PGDatabaseWindowController listOfColumnsNamesOfConstraint:constraint inTable:self.selectedTable];
+        case PGConstraintTypeForeignKey:
+            return [PGDatabaseWindowController foreignKeyUIDescription:constraint inTable:self.selectedTable];
+        case PGConstraintTypeCheck:
+            return constraint.src;
+        default:
+            return @"";
+    }
+}
+
++(NSString*)foreignKeyUIDescription:(PGConstraint*)constraint inTable:(PGTable*)table
+{
+    NSString *columnList = [PGDatabaseWindowController listOfColumnsNamesOfConstraint:constraint
+                                                                              inTable:table];
+    if ([constraint.relationNamespaceName isEqualToString:@"public"])
+    {
+        return [NSString stringWithFormat:@"%@, referencing %@", columnList, constraint.relationName];
+    }
     else
-        return @"";
+    {
+        return [NSString stringWithFormat:@"%@, referencing %@.%@", columnList, constraint.relationNamespaceName, constraint.relationName];
+    }
 }
 
 +(NSString*)listOfColumnsNamesOfConstraint:(PGConstraint*)constraint inTable:(PGTable*)table

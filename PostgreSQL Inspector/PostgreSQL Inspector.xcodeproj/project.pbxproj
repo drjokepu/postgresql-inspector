@@ -53,6 +53,10 @@
 		02801E70154D9BA800FCA1DE /* PGConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 02801E6F154D9BA800FCA1DE /* PGConnection.m */; };
 		02801E79154DC4F200FCA1DE /* PGAuthWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02801E77154DC4F200FCA1DE /* PGAuthWindowController.m */; };
 		02801E7A154DC4F200FCA1DE /* PGAuthWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02801E78154DC4F200FCA1DE /* PGAuthWindowController.xib */; };
+		02A2EB731684B0CD0067852E /* primary_key.png in Resources */ = {isa = PBXBuildFile; fileRef = 02A2EB721684B0CD0067852E /* primary_key.png */; };
+		02A2EB751684B4B40067852E /* unique_key.png in Resources */ = {isa = PBXBuildFile; fileRef = 02A2EB741684B4B40067852E /* unique_key.png */; };
+		02A2EB771684C66D0067852E /* foreign_key.png in Resources */ = {isa = PBXBuildFile; fileRef = 02A2EB761684C66D0067852E /* foreign_key.png */; };
+		02A2EB791684C8D80067852E /* check.png in Resources */ = {isa = PBXBuildFile; fileRef = 02A2EB781684C8D80067852E /* check.png */; };
 		02B172EA156E76F1002C2AA9 /* PGRelation.m in Sources */ = {isa = PBXBuildFile; fileRef = 02B172E9156E76F1002C2AA9 /* PGRelation.m */; };
 		02B8863C1586043F00855F79 /* PGOid.m in Sources */ = {isa = PBXBuildFile; fileRef = 02B8863B1586043F00855F79 /* PGOid.m */; };
 		02B8864015862D4100855F79 /* PGRelationColumn.m in Sources */ = {isa = PBXBuildFile; fileRef = 02B8863F15862D4000855F79 /* PGRelationColumn.m */; };
@@ -160,6 +164,10 @@
 		02801E77154DC4F200FCA1DE /* PGAuthWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGAuthWindowController.m; sourceTree = "<group>"; };
 		02801E78154DC4F200FCA1DE /* PGAuthWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PGAuthWindowController.xib; sourceTree = "<group>"; };
 		02801E7C154DCD5500FCA1DE /* PGAuthWindowControllerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PGAuthWindowControllerDelegate.h; sourceTree = "<group>"; };
+		02A2EB721684B0CD0067852E /* primary_key.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = primary_key.png; path = ../Content/primary_key.png; sourceTree = "<group>"; };
+		02A2EB741684B4B40067852E /* unique_key.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = unique_key.png; path = ../Content/unique_key.png; sourceTree = "<group>"; };
+		02A2EB761684C66D0067852E /* foreign_key.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = foreign_key.png; path = ../Content/foreign_key.png; sourceTree = "<group>"; };
+		02A2EB781684C8D80067852E /* check.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = check.png; path = ../Content/check.png; sourceTree = "<group>"; };
 		02B172E8156E76F1002C2AA9 /* PGRelation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGRelation.h; sourceTree = "<group>"; };
 		02B172E9156E76F1002C2AA9 /* PGRelation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGRelation.m; sourceTree = "<group>"; };
 		02B83EA2154F1D510013A5F8 /* PGCommandDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PGCommandDelegate.h; sourceTree = "<group>"; };
@@ -263,6 +271,7 @@
 			children = (
 				02CC58F515502EEA00496966 /* icons.icns */,
 				02751E051549F778007AE07D /* PostgreSQL Inspector */,
+				02A2EB701684B0B20067852E /* Resources */,
 				02751DFE1549F778007AE07D /* Frameworks */,
 				02751DFC1549F778007AE07D /* Products */,
 			);
@@ -436,6 +445,17 @@
 			name = Delegate;
 			sourceTree = "<group>";
 		};
+		02A2EB701684B0B20067852E /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				02A2EB781684C8D80067852E /* check.png */,
+				02A2EB761684C66D0067852E /* foreign_key.png */,
+				02A2EB741684B4B40067852E /* unique_key.png */,
+				02A2EB721684B0CD0067852E /* primary_key.png */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
 		02B83EA0154F1D380013A5F8 /* Delegates */ = {
 			isa = PBXGroup;
 			children = (
@@ -528,6 +548,10 @@
 				02CB6E16154EB5450086DA2C /* PGDatabaseWindowController.xib in Resources */,
 				02501E2D155081750020896A /* icons.icns in Resources */,
 				02C4DF7C15C69E6C00C78DDE /* PGQueryWindowController.xib in Resources */,
+				02A2EB731684B0CD0067852E /* primary_key.png in Resources */,
+				02A2EB751684B4B40067852E /* unique_key.png in Resources */,
+				02A2EB771684C66D0067852E /* foreign_key.png in Resources */,
+				02A2EB791684C8D80067852E /* check.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
