@@ -89,9 +89,22 @@
     
     NSTableCellView *cellView = [tableView makeViewWithIdentifier:@"cellView" owner:self];
     
-    NSTextField *mainTextField = [cellView viewWithTag:6000];
     [entry lock];
-    [mainTextField setStringValue:[entry description]];
+    NSString *database = [[NSString alloc] initWithString:entry.database];
+    NSString *host = [[NSString alloc] initWithString:entry.host];
+    NSUInteger port = entry.port;
+    [entry unlock];
+    
+    NSTextField *cellMainTextField = [cellView viewWithTag:6000];
+    [cellMainTextField setStringValue:database];
+    
+    if (port > 0 && port != 5432)
+    {
+        host = [[NSString alloc] initWithFormat:@"%@:%li", host, port];
+    }
+    
+    NSTextField *cellHostTextField = [cellView viewWithTag:6001];
+    [cellHostTextField setStringValue:entry.host];
     [entry unlock];
     
     return cellView;
