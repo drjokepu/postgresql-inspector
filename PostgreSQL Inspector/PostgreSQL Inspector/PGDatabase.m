@@ -61,6 +61,7 @@
     command.commandText =
         @"select nspname, oid from pg_catalog.pg_namespace order by nspname;"
          "select c.relname, c.relkind, c.oid, n.nspname from pg_catalog.pg_class c inner join pg_catalog.pg_namespace n on n.oid = c.relnamespace order by c.relname";
+
     [command execAsyncWithCallback:^(PGResult *result) {
         switch (result.index)
         {
@@ -71,7 +72,10 @@
                 [self readClassesFrom:result];
                 break;
         }
+    } noMoreResultsCallback:^{
         [delegate databaseDidUpdateSchema:self];
+    } errorCallback:^(PGError *error) {
+        
     }];
 }
 

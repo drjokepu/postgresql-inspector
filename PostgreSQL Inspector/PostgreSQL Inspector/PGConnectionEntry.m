@@ -43,6 +43,7 @@ static const char *keychainServiceName = "PostgreSQL Inspector";
 @synthesize password;
 @synthesize passwordRetreivedFromKeychain;
 @synthesize userAskedForStroingPasswordInKeychain;
+@synthesize defaultNamespaceOid;
 
 -(id)init
 {
@@ -160,7 +161,7 @@ static const char *keychainServiceName = "PostgreSQL Inspector";
         [PGConnectionEntry ensureTableExists:connection];
         
         static const NSString *commandText =
-            @"select id, host, port, database, username \n"
+            @"select id, host, port, database, username, default_namespace_oid \n"
              "  from pgconnection \n"
              " order by host, database, username";
         
@@ -173,6 +174,7 @@ static const char *keychainServiceName = "PostgreSQL Inspector";
             entry.port = [r isDBNull:2] ? -1 : [r getInt32:2];
             entry.database = [r getString:3];
             entry.username = [r isDBNull:4] ? nil : [r getString:4];
+            entry.defaultNamespaceOid = [r getInt32:5];
             
             return entry;
         }];
@@ -201,6 +203,7 @@ static const char *keychainServiceName = "PostgreSQL Inspector";
          "  port     INTEGER, \n"
          "  \"database\" \"VARCHAR(63)\" not null, \n"
          "  username \"VARCHAR(128)\", \n"
+         "  default_namespace_oid integer default -1 not null, \n"
          "  constraint UK_PGCONNECTION unique (username, host, database, port) \n"
          ");";
     
@@ -263,7 +266,8 @@ static const char *keychainServiceName = "PostgreSQL Inspector";
     [PGConnectionEntry ensureTableExists:connection];
     
     static const NSString *commandText =
-        @"update pgconnection set host = @host, port = @port, database = @database, username = @username "
+        @"update pgconnection set host = @host, port = @port, database = @database, username = @username, "
+         " default_namespace_oid = @ns "
          "where id = @id";
     
     NSMutableArray *parameters = [[NSMutableArray alloc] initWithCapacity:5];
@@ -271,6 +275,7 @@ static const char *keychainServiceName = "PostgreSQL Inspector";
     [parameters addObject:[[SqliteParamInt32 alloc] initWithName:@"port" int32Value:(int)self.port]];
     [parameters addObject:[[SqliteParamString alloc] initWithName:@"database" stringValue:self.database]];
     [parameters addObject:[[SqliteParamString alloc] initWithName:@"username" stringValue:self.username]];
+    [parameters addObject:[[SqliteParamInt32 alloc] initWithName:@"ns" int32Value:(int)self.defaultNamespaceOid]];
     [parameters addObject:[[SqliteParamInt32 alloc] initWithName:@"id" int32Value:(int)self.objectId]];
     
     [connection execute:commandText parameters:parameters action:nil error:NULL];

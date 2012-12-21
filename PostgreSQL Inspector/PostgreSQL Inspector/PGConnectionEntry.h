@@ -19,6 +19,7 @@
 @property (nonatomic, strong) NSString *password;
 @property (nonatomic, assign) BOOL passwordRetreivedFromKeychain;
 @property (nonatomic, assign) BOOL userAskedForStroingPasswordInKeychain;
+@property (nonatomic, assign) NSInteger defaultNamespaceOid;
 
 -(NSDictionary*)connectionParams;
 

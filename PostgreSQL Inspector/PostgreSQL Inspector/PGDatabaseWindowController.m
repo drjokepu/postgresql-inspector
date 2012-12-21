@@ -23,6 +23,7 @@
 
 @interface PGDatabaseWindowController ()
 @property (nonatomic, strong) NSMutableArray *queryWindowControllerList;
+@property (nonatomic, assign) BOOL schemaHasBeenLoadedPreviously;
 @end
 
 @implementation PGDatabaseWindowController
@@ -45,6 +46,7 @@
     [super windowDidLoad];
     [[self window] setTitle:[database.connectionEntry description]];
     [outlineView setFloatsGroupRows:NO];
+    self.schemaHasBeenLoadedPreviously = NO;
     [database loadSchema:connection];
     self.queryWindowControllerList = [[NSMutableArray alloc] init];
 }
@@ -57,6 +59,25 @@
         self.connection = nil;
     }
     [[PGDatabaseManager sharedManager] removeDatabaseWindowController:self delayed:YES];
+}
+
+-(void)selectDefaultSchema
+{
+    [self selectSchemaWithOid:self.connection.connectionEntry.defaultNamespaceOid];
+}
+
+-(void)selectSchemaWithOid:(NSInteger)oid
+{
+    const NSUInteger schemaCount = [database.schemaNames count];
+    for (NSUInteger i = 0; i < schemaCount; i++)
+    {
+        PGSchemaIdentifier *schemaIdentifier = database.schemaNames[i];
+        if (schemaIdentifier.oid == oid)
+        {
+            [schemaPopUpButton selectItemAtIndex:i];
+            return;
+        }
+    }
 }
 
 -(PGSchemaIdentifier *)selectedSchema
@@ -89,7 +110,14 @@
 
 -(void)didChangeSchemaPopUpButtonValue:(id)sender
 {
+    [self selectedSchemaChanged];
+}
+
+-(void)selectedSchemaChanged
+{
     [outlineView reloadData];
+    self.connection.connectionEntry.defaultNamespaceOid = self.selectedSchema.oid;
+    [self.connection.connectionEntry update];
 }
 
 -(NSInteger)outlineView:(NSOutlineView *)outlineView numberOfChildrenOfItem:(id)item
@@ -165,14 +193,28 @@
 
 -(void)updateSchemaMenu
 {
+    NSString *selectedSchemaName = self.schemaHasBeenLoadedPreviously ? [[schemaPopUpButton selectedItem] title] : nil;
+    
     [schemaMenu removeAllItems];
     for (PGSchemaIdentifier *schema in database.schemaNames)
     {
         [schemaMenu addItemWithTitle:schema.name action:nil keyEquivalent:@""];
     }
     
-    if ([database.schemaNames count] > 0)
-        [schemaPopUpButton selectItemAtIndex:database.publicSchemaIndex];
+    if (self.schemaHasBeenLoadedPreviously)
+    {
+        if (selectedSchemaName != nil)
+        {
+            [schemaPopUpButton selectItemWithTitle:selectedSchemaName];
+        }
+    }
+    else
+    {
+        self.schemaHasBeenLoadedPreviously = YES;
+        if ([database.schemaNames count] > 0)
+            [schemaPopUpButton selectItemAtIndex:database.publicSchemaIndex];
+        [self selectDefaultSchema];
+    }
 }
 
 -(void)outlineViewSelectionDidChange:(NSNotification *)notification
