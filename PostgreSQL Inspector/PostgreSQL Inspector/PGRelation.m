@@ -17,6 +17,8 @@
 #import "PGResult.h"
 
 static BOOL isNull(const id obj);
+static unsigned int getConstraintTypePriority(const PGConstraintType constraintType);
+static NSComparisonResult compareConstraintTypes(const PGConstraintType c1, const PGConstraintType c2);
 
 @implementation PGRelation
 
@@ -259,6 +261,22 @@ static BOOL isNull(const id obj);
             [self.constraints addObject:constraint];
         }
     }
+    [self sortConstraints];
+}
+
+-(void)sortConstraints
+{
+    [self.constraints sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        const NSComparisonResult typeComparisonResult = compareConstraintTypes(((PGConstraint*)obj1).type, ((PGConstraint*)obj2).type);
+        if (typeComparisonResult == NSOrderedSame)
+        {
+            return [((PGConstraint*)obj1).name compare:((PGConstraint*)obj2).name];
+        }
+        else
+        {
+            return typeComparisonResult;
+        }
+    }];
 }
 
 -(NSString *)description
@@ -271,4 +289,46 @@ static BOOL isNull(const id obj);
 static BOOL isNull(const id obj)
 {
     return obj == nil || [obj isMemberOfClass:[NSNull class]];
+}
+
+static NSComparisonResult compareConstraintTypes(const PGConstraintType c1, const PGConstraintType c2)
+{
+    const unsigned int p1 = getConstraintTypePriority(c1);
+    const unsigned int p2 = getConstraintTypePriority(c2);
+    
+    if (p1 == p2)
+    {
+        return NSOrderedSame;
+    }
+    else if (p1 < p2)
+    {
+        return NSOrderedAscending;
+    }
+    else
+    {
+        return NSOrderedDescending;
+    }
+}
+
+static unsigned int getConstraintTypePriority(const PGConstraintType constraintType)
+{
+    switch (constraintType)
+    {
+        case PGConstraintTypePrimaryKey:
+            return 0;
+        case PGConstraintTypeUniqueKey:
+            return 1;
+        case PGConstraintTypeForeignKey:
+            return 2;
+        case PGConstraintTypeCheck:
+            return 3;
+        case PGConstraintTypeExclusion:
+            return 4;
+        case PGConstraintTypeTrigger:
+            return 5;
+        case PGConstraintTypeNone:
+            return 10;
+        default:
+            return 100;
+    }
 }
