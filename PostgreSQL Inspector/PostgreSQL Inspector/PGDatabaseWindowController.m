@@ -254,17 +254,11 @@
         return 0;
 }
 
--(id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row
-{
-    if (tableView == tableColumnsTableView)
-        return [self tableColumnsTableViewObjectValueForColumn:tableColumn.identifier row:row];
-    else
-        return nil;
-}
-
 -(NSView *)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row
 {
-    if (tableView == constraintsTableView)
+    if (tableView == tableColumnsTableView)
+        return [self columnsTableViewViewForRow:(NSUInteger)row];
+    else if (tableView == constraintsTableView)
         return [self constraintsTableViewViewForRow:(NSUInteger)row];
     else
         return nil;
@@ -288,22 +282,35 @@
         return @"";
 }
 
+-(NSView*)columnsTableViewViewForRow:(NSUInteger)row
+{
+    PGRelationColumn *column = self.selectedTable.columns[row];
+    NSTableCellView *cellView = [self.tableColumnsTableView makeViewWithIdentifier:@"columnCellView" owner:self];
+    
+    [[cellView viewWithTag:7500] setStringValue:column.name];
+    
+    NSMutableArray *typeInfoList = [[NSMutableArray alloc] init];
+    [typeInfoList addObject:column.typeName];
+    if ([self.selectedTable isColumnInPrimaryKey:column.number])
+        [typeInfoList addObject:@"primary key"];
+    if (column.notNull)
+        [typeInfoList addObject:@"not null"];
+    [[cellView viewWithTag:7501] setStringValue:[typeInfoList componentsJoinedByString:@", "]];
+    if (column.defaultValue != [NSNull null])
+        [typeInfoList addObject:[[NSString alloc] initWithFormat:@"default: %@", column.defaultValue]];
+    
+    return cellView;
+}
+
 -(NSView*)constraintsTableViewViewForRow:(NSUInteger)row
 {
     PGConstraint *constraint = self.selectedTable.constraints[row];
     NSTableCellView *cellView = [self.constraintsTableView makeViewWithIdentifier:@"constraintCellView" owner:self];
     
-    NSImageView *imageView = [cellView viewWithTag:7000];
-    [imageView setImage:[PGDatabaseWindowController imageForConstraintType:constraint.type]];
-    
-    NSTextField *cellConstraintNameTextField = [cellView viewWithTag:7001];
-    [cellConstraintNameTextField setStringValue:constraint.name];
-    
-    NSTextField *cellConstraintTypeTextField = [cellView viewWithTag:7002];
-    [cellConstraintTypeTextField setStringValue:[constraint constraintTypeDescription]];
-    
-    NSTextField *cellConstraintDescriptionTextField = [cellView viewWithTag:7003];
-    [cellConstraintDescriptionTextField setStringValue:[self constraintUIDefinition:constraint]];
+    [[cellView viewWithTag:7000] setImage:[PGDatabaseWindowController imageForConstraintType:constraint.type]];
+    [[cellView viewWithTag:7001] setStringValue:constraint.name];
+    [[cellView viewWithTag:7002] setStringValue:[constraint constraintTypeDescription]];
+    [[cellView viewWithTag:7003] setStringValue:[self constraintUIDefinition:constraint]];
     
     return cellView;
 }

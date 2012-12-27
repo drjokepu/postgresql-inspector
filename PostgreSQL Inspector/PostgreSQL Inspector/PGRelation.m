@@ -288,7 +288,7 @@ static NSComparisonResult compareConstraintTypes(const PGConstraintType c1, cons
 
 static BOOL isNull(const id obj)
 {
-    return obj == nil || [obj isMemberOfClass:[NSNull class]];
+    return obj == nil || obj == [NSNull null];
 }
 
 static NSComparisonResult compareConstraintTypes(const PGConstraintType c1, const PGConstraintType c2)
