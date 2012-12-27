@@ -16,6 +16,7 @@
 @property (nonatomic, strong) NSString *initialQueryString;
 @property (nonatomic, weak) PGDatabaseWindowController *parentWindowController;
 @property (strong) IBOutlet NSTextView *queryTextView;
+@property (strong) IBOutlet NSPopUpButton *resultSelectorPopUpButton;
 
 -(void)useConnection:(PGConnection *)theConnection;
 
