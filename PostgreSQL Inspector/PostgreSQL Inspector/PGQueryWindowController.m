@@ -11,6 +11,7 @@
 #import "PGConnection.h"
 #import "PGError.h"
 #import "PGResult.h"
+#import "PGSQLParser.h"
 
 static const NSInteger executeQueryTag = 4001;
 
@@ -181,6 +182,19 @@ static const NSInteger executeQueryTag = 4001;
     }
     
     return NSMakeRange(errorPosition, MAX(length, 1));
+}
+
+-(void)textDidChange:(NSNotification *)notification
+{
+    if ([notification object] == self.queryTextView)
+    {
+        [self queryTextChanged];
+    }
+}
+
+-(void)queryTextChanged
+{
+    [PGSQLParser parse:self.queryTextView.string];
 }
 
 @end

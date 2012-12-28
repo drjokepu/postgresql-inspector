@@ -18,6 +18,10 @@
 		024D4F7215C9422C004508AD /* PGError.m in Sources */ = {isa = PBXBuildFile; fileRef = 024D4F7115C9422C004508AD /* PGError.m */; };
 		02501E2D155081750020896A /* icons.icns in Resources */ = {isa = PBXBuildFile; fileRef = 02CC58F515502EEA00496966 /* icons.icns */; };
 		02501E31155083B90020896A /* PGScopeBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 02501E30155083B90020896A /* PGScopeBar.m */; };
+		0257420E168CA58A0062F27D /* sql.l in Sources */ = {isa = PBXBuildFile; fileRef = 02574208168CA3F80062F27D /* sql.l */; };
+		02574210168CA6020062F27D /* sql.y in Sources */ = {isa = PBXBuildFile; fileRef = 0257420F168CA6020062F27D /* sql.y */; };
+		02574216168CB6120062F27D /* PGSQLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 02574215168CB6120062F27D /* PGSQLParser.m */; };
+		0257421F168DC6EB0062F27D /* sql_parse.c in Sources */ = {isa = PBXBuildFile; fileRef = 0257421E168DC6EB0062F27D /* sql_parse.c */; };
 		025F61A01551BCF7006B4D23 /* PGSchemaObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 025F619F1551BCF7006B4D23 /* PGSchemaObject.m */; };
 		025F61A31551BE09006B4D23 /* PGTable.m in Sources */ = {isa = PBXBuildFile; fileRef = 025F61A21551BE09006B4D23 /* PGTable.m */; };
 		0273B95C167A25CA009CA33D /* PGUserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 0273B95B167A25C9009CA33D /* PGUserDefaults.m */; };
@@ -90,6 +94,13 @@
 		024D4F7415C943A2004508AD /* PGError+Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PGError+Internal.h"; sourceTree = "<group>"; };
 		02501E2F155083B90020896A /* PGScopeBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGScopeBar.h; sourceTree = "<group>"; };
 		02501E30155083B90020896A /* PGScopeBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGScopeBar.m; sourceTree = "<group>"; };
+		02574208168CA3F80062F27D /* sql.l */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.lex; name = sql.l; path = parsing/sql.l; sourceTree = "<group>"; };
+		0257420F168CA6020062F27D /* sql.y */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.yacc; name = sql.y; path = parsing/sql.y; sourceTree = "<group>"; };
+		02574214168CB6120062F27D /* PGSQLParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGSQLParser.h; sourceTree = "<group>"; };
+		02574215168CB6120062F27D /* PGSQLParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGSQLParser.m; sourceTree = "<group>"; };
+		02574218168CB6530062F27D /* sql_parse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = sql_parse.h; path = parsing/sql_parse.h; sourceTree = "<group>"; };
+		0257421E168DC6EB0062F27D /* sql_parse.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = sql_parse.c; path = parsing/sql_parse.c; sourceTree = "<group>"; };
+		02574220168DF7430062F27D /* parsing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = parsing.h; path = parsing/parsing.h; sourceTree = "<group>"; };
 		025F619E1551BCF7006B4D23 /* PGSchemaObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGSchemaObject.h; sourceTree = "<group>"; };
 		025F619F1551BCF7006B4D23 /* PGSchemaObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGSchemaObject.m; sourceTree = "<group>"; };
 		025F61A11551BE09006B4D23 /* PGTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGTable.h; sourceTree = "<group>"; };
@@ -240,6 +251,20 @@
 				02501E30155083B90020896A /* PGScopeBar.m */,
 			);
 			name = Views;
+			sourceTree = "<group>";
+		};
+		02574204168CA1BE0062F27D /* Parsing */ = {
+			isa = PBXGroup;
+			children = (
+				02574214168CB6120062F27D /* PGSQLParser.h */,
+				02574215168CB6120062F27D /* PGSQLParser.m */,
+				02574220168DF7430062F27D /* parsing.h */,
+				0257420F168CA6020062F27D /* sql.y */,
+				02574208168CA3F80062F27D /* sql.l */,
+				02574218168CB6530062F27D /* sql_parse.h */,
+				0257421E168DC6EB0062F27D /* sql_parse.c */,
+			);
+			name = Parsing;
 			sourceTree = "<group>";
 		};
 		025F61991551BCA2006B4D23 /* Schema Objects */ = {
@@ -415,6 +440,7 @@
 		02751E561549F883007AE07D /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				02574204168CA1BE0062F27D /* Parsing */,
 				02801E74154DBB5300FCA1DE /* Delegates */,
 				02CB6E1D154ECF320086DA2C /* PostgreSQL Interface */,
 				021EF6A3154F418C00800157 /* Schema Identifiers */,
@@ -562,6 +588,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0257420E168CA58A0062F27D /* sql.l in Sources */,
+				02574210168CA6020062F27D /* sql.y in Sources */,
 				02751E0C1549F778007AE07D /* main.m in Sources */,
 				02751E131549F778007AE07D /* PGAppDelegate.m in Sources */,
 				02751E271549F854007AE07D /* PGConnectionController.m in Sources */,
@@ -606,6 +634,8 @@
 				02E5B4FD167A43D5008471B4 /* PGCommandExecutor.m in Sources */,
 				02E5B500167A4CE0008471B4 /* PGResult.m in Sources */,
 				0279A7E61681DDFB005AEE91 /* PGIndex.m in Sources */,
+				02574216168CB6120062F27D /* PGSQLParser.m in Sources */,
+				0257421F168DC6EB0062F27D /* sql_parse.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

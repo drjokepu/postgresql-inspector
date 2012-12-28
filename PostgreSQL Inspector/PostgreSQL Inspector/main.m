@@ -11,6 +11,7 @@
 #import "PGAppDelegate.h"
 #import "PGConnectionManager.h"
 #import "PGDatabaseManager.h"
+#import "parsing/parsing.h"
 
 static void sanityChecks(void);
 static void libPqSanityCheck(void);
@@ -24,9 +25,8 @@ int main(int argc, char *argv[])
     @autoreleasepool
     {
         setup();
-        int result = NSApplicationMain(argc, (const char **)argv);
-        teardown();
-        return result;
+        atexit(teardown);
+        return NSApplicationMain(argc, (const char **)argv);
     }
 }
 
@@ -47,18 +47,18 @@ static void libPqSanityCheck()
     }
 }
 
-void setup(void)
+static void setup(void)
 {
     PGConnectionManagerInitMutexes();
     PGDatabaseManagerInitMutexes();
-//    PGCommandInitOperationQueue();
     PGAppDelegateInitSharedBackgroundQueue();
+    sql_parser_static_init();
 }
 
 static void teardown(void)
 {
     PGConnectionManagerDestroyMutexes();
     PGDatabaseManagerDestroyMutexes();
-//    PGCommandDestroyOperationQueue();
     PGAppDelegateDestroySharedBackgroundQueue();
+    sql_parser_static_destroy();
 }

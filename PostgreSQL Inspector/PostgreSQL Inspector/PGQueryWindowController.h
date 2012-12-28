@@ -11,7 +11,7 @@
 
 @class PGConnection, PGDatabaseWindowController;
 
-@interface PGQueryWindowController : NSWindowController <PGConnectionDelegate>
+@interface PGQueryWindowController : NSWindowController <PGConnectionDelegate, NSTextViewDelegate>
 
 @property (nonatomic, strong) NSString *initialQueryString;
 @property (nonatomic, weak) PGDatabaseWindowController *parentWindowController;
