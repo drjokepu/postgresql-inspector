@@ -36,7 +36,7 @@ void sql_parse(const char *const restrict sql)
     const bool parse_succesful = (sql_yyparse() == 0);
     if (parse_succesful)
     {
-        print_node_tree(sql_parse_result);
+//        print_node_tree(sql_parse_result);
     }
     sql_node_array_reset(&node_array);
     sql_allocations_free();

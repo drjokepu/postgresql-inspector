@@ -123,6 +123,15 @@ static const NSInteger executeQueryTag = 4001;
 {
     [self.queryResults removeAllObjects];
     [self clearResultSelectorMenu];
+    [self removeAllColumnsFromResultsTable];
+}
+
+-(void)removeAllColumnsFromResultsTable
+{
+    while([[self.resultsTableView tableColumns] count] > 0)
+    {
+        [self.resultsTableView removeTableColumn:[[self.resultsTableView tableColumns] lastObject]];
+    }
 }
 
 -(void)clearResultSelectorMenu
@@ -132,6 +141,8 @@ static const NSInteger executeQueryTag = 4001;
 
 -(void)addResult:(PGResult*)result
 {
+    BOOL isFirst = [self.queryResults count] == 0;
+    
     [self.queryResults addObject:result];
     
     // updating existing menu items
@@ -145,11 +156,35 @@ static const NSInteger executeQueryTag = 4001;
                                                                                                     of:(index + 1)]];
     
     [[self window] update];
+    if (isFirst)
+    {
+        [self.resultSelectorPopUpButton selectItemAtIndex:0];
+        [self presentResult];
+    }
 }
 
 +(NSString*)menuItemTitleForResultAt:(NSUInteger)index of:(NSUInteger)max
 {
     return [NSString stringWithFormat:@"Result %lu of %lu", (index + 1), max];
+}
+
+-(void)presentResult
+{
+    [self removeAllColumnsFromResultsTable];
+    PGResult *result = [self selectedResult];
+    for (NSUInteger i = 0; i < [result.columnNames count]; i++)
+    {
+        NSString *columnName = result.columnNames[i];
+        NSTableColumn *column = [[NSTableColumn alloc] initWithIdentifier:[NSString stringWithFormat:@"%lu", i]];
+        
+//        NSCell *dataCell = [[NSCell alloc] init];
+//        [dataCell setEditable:YES];
+//        [column setDataCell:dataCell];
+        [[column headerCell] setStringValue:[[NSString alloc] initWithString:columnName]];
+        [self.resultsTableView addTableColumn:column];
+    }
+    
+    [self.resultsTableView reloadData];
 }
 
 -(void)showError:(PGError *)error
@@ -195,6 +230,39 @@ static const NSInteger executeQueryTag = 4001;
 -(void)queryTextChanged
 {
     [PGSQLParser parse:self.queryTextView.string];
+}
+
+-(NSInteger)numberOfRowsInTableView:(NSTableView *)tableView
+{
+    if (tableView == self.resultsTableView)
+        return [self numberOfRowsInResult];
+    else
+        return 0;
+}
+
+-(id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row
+{
+    return [self resultValueForTableColumn:[tableColumn.identifier integerValue] row:row];
+}
+
+-(NSInteger)numberOfRowsInResult
+{
+    return [[self selectedResult] rowCount];
+}
+
+-(id)resultValueForTableColumn:(NSInteger)column row:(NSInteger)row
+{
+    const PGResult *result = [self selectedResult];
+    const id value = [result rows][row][column];
+    return value;
+}
+
+-(PGResult*)selectedResult
+{
+    if ([self.queryResults count] == 0)
+        return nil;
+    else
+        return self.queryResults[[self.resultSelectorPopUpButton indexOfSelectedItem]];
 }
 
 @end

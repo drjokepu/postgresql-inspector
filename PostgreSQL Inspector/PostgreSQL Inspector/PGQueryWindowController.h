@@ -11,12 +11,13 @@
 
 @class PGConnection, PGDatabaseWindowController;
 
-@interface PGQueryWindowController : NSWindowController <PGConnectionDelegate, NSTextViewDelegate>
+@interface PGQueryWindowController : NSWindowController <PGConnectionDelegate, NSTextViewDelegate, NSTableViewDataSource, NSTableViewDelegate>
 
 @property (nonatomic, strong) NSString *initialQueryString;
 @property (nonatomic, weak) PGDatabaseWindowController *parentWindowController;
 @property (strong) IBOutlet NSTextView *queryTextView;
 @property (strong) IBOutlet NSPopUpButton *resultSelectorPopUpButton;
+@property (strong) IBOutlet NSTableView *resultsTableView;
 
 -(void)useConnection:(PGConnection *)theConnection;
 
