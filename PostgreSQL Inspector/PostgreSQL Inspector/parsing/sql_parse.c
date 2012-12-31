@@ -233,6 +233,8 @@ static const char *const node_name(const enum sql_ast_node_type node_type)
             return "TABLE-REFERENCE-NAME";
         case sql_ast_reference_schema_name:
             return "SCHEMA-REFERENCE-NAME";
+        case sql_ast_reference_all_fields:
+            return "ALL-FIELDS";
         case sql_ast_expression_list:
             return "EXPRESSION-LIST";
         case sql_ast_expression:

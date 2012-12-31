@@ -55,6 +55,7 @@ static struct sql_ast_node* node_new_with_child_3(
 %token T_SYM_COMMAND_SEPARATOR
 %token T_SYM_EXPR_SEPARATOR
 %token T_SYM_NAME_SEPARATOR
+%token T_SYM_ALL_FIELDS
 
 %token T_STRING_LITERAL
 %token T_NUMERIC_LITERAL
@@ -141,6 +142,9 @@ column_reference:
     identifier { $$ = NEW_WITH_CHILD(sql_ast_reference_column, NEW_WITH_CHILD(sql_ast_reference_column_name, $1)); }
   | identifier T_SYM_NAME_SEPARATOR identifier { $$ = NEW_WITH_CHILD_2(sql_ast_reference_column, NEW_WITH_CHILD(sql_ast_reference_table_name, $1), NEW_WITH_CHILD(sql_ast_reference_column_name, $3)); }
   | identifier T_SYM_NAME_SEPARATOR identifier T_SYM_NAME_SEPARATOR identifier { $$ = NEW_WITH_CHILD_3(sql_ast_reference_column, NEW_WITH_CHILD(sql_ast_reference_schema_name, $1), NEW_WITH_CHILD(sql_ast_reference_table_name, $3), NEW_WITH_CHILD(sql_ast_reference_column_name, $5)); }
+  | T_SYM_ALL_FIELDS { $$ = NEW_WITH_CHILD(sql_ast_reference_column, NEW_WITH_CHILD(sql_ast_reference_column_name, $1)); }
+  | identifier T_SYM_NAME_SEPARATOR T_SYM_ALL_FIELDS { $$ = NEW_WITH_CHILD_2(sql_ast_reference_column, NEW_WITH_CHILD(sql_ast_reference_table_name, $1), NEW_WITH_CHILD(sql_ast_reference_column_name, $3)); }
+  | identifier T_SYM_NAME_SEPARATOR identifier T_SYM_NAME_SEPARATOR T_SYM_ALL_FIELDS { $$ = NEW_WITH_CHILD_3(sql_ast_reference_column, NEW_WITH_CHILD(sql_ast_reference_schema_name, $1), NEW_WITH_CHILD(sql_ast_reference_table_name, $3), NEW_WITH_CHILD(sql_ast_reference_column_name, $5)); }
 ;
 
 table_reference:

@@ -27,6 +27,7 @@ enum sql_ast_node_type
     sql_ast_reference_column_name,
     sql_ast_reference_table_name,
     sql_ast_reference_schema_name,
+    sql_ast_reference_all_fields,
     sql_ast_from_item,
     sql_ast_expression_list,
     sql_ast_expression,

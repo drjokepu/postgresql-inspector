@@ -45,6 +45,7 @@ digit   [0-9]
 ";"                 { T(T_SYM_COMMAND_SEPARATOR); }
 ","                 { T(T_SYM_EXPR_SEPARATOR); }
 "."                 { T(T_SYM_NAME_SEPARATOR); }
+"*"                 { T(T_SYM_ALL_FIELDS); }
 
 [ \t\n\r]
 
@@ -146,6 +147,8 @@ static enum sql_ast_node_type nt(const enum yytokentype token)
             return sql_ast_select;
         case T_STRING_LITERAL:
             return sql_ast_literal_string;
+        case T_SYM_ALL_FIELDS:
+            return sql_ast_reference_all_fields;
         case T_WORK:
             return sql_ast_work;
         case T_TRANSACTION:
