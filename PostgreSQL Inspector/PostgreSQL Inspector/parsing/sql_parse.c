@@ -161,6 +161,14 @@ extern off_t sql_node_offset(const struct sql_ast_node *restrict node)
     return sql_node_index_global(node);
 }
 
+extern void sql_node_add_child(struct sql_ast_node *restrict node, const struct sql_ast_node *const restrict child)
+{
+    if (node != NULL && child != NULL && node->link_count < 8)
+    {
+        node->links[node->link_count++] = sql_node_index_global(child);
+    }
+}
+
 static void print_node_tree(const struct sql_ast_node *restrict root_node)
 {
     print_node(root_node, 0);
@@ -217,6 +225,8 @@ static const char *const node_name(const enum sql_ast_node_type node_type)
             return "STRING-LITERAL";
         case sql_ast_reference_column:
             return "COLUMN-REFERENCE";
+        case sql_ast_reference_table:
+            return "TABLE-REFERENCE";
         case sql_ast_reference_column_name:
             return "COLUMN-REFERENCE-NAME";
         case sql_ast_reference_table_name:
@@ -227,8 +237,12 @@ static const char *const node_name(const enum sql_ast_node_type node_type)
             return "EXPRESSION-LIST";
         case sql_ast_expression:
             return "EXPRESSION";
+        case sql_ast_from_item:
+            return "FROM-ITEM";
         case sql_ast_abort:
             return "ABORT";
+        case sql_ast_from:
+            return "FROM";
         case sql_ast_load:
             return "LOAD";
         case sql_ast_rollback:
@@ -256,8 +270,7 @@ struct sql_ast_node *sql_create_node_0(const enum sql_ast_node_type node_type)
 struct sql_ast_node *sql_create_node_l1(const enum sql_ast_node_type node_type, const struct sql_ast_node *const restrict l0)
 {
     struct sql_ast_node *node = sql_create_node_0(node_type);
-    node->link_count = 1;
-    node->links[0] = sql_node_index_global(l0);
+    sql_node_add_child(node, l0);
     return node;
 }
 
@@ -269,9 +282,8 @@ struct sql_ast_node *sql_create_node_l1_(const enum sql_ast_node_type node_type,
 struct sql_ast_node *sql_create_node_l2(const enum sql_ast_node_type node_type, const struct sql_ast_node *const restrict l0, const struct sql_ast_node *const restrict l1)
 {
     struct sql_ast_node *node = sql_create_node_0(node_type);
-    node->link_count = 2;
-    node->links[0] = sql_node_index_global(l0);
-    node->links[1] = sql_node_index_global(l1);
+    sql_node_add_child(node, l0);
+    sql_node_add_child(node, l1);
     return node;
 }
 

@@ -23,12 +23,15 @@ enum sql_ast_node_type
     sql_ast_literal_numeric,
     sql_ast_literal_string,
     sql_ast_reference_column,
+    sql_ast_reference_table,
     sql_ast_reference_column_name,
     sql_ast_reference_table_name,
     sql_ast_reference_schema_name,
+    sql_ast_from_item,
     sql_ast_expression_list,
     sql_ast_expression,
     sql_ast_abort,
+    sql_ast_from,
     sql_ast_load,
     sql_ast_rollback,
     sql_ast_select,
@@ -69,6 +72,7 @@ extern int sql_yyparse(void);
 extern struct sql_ast_node *sql_parse_result;
 
 extern off_t sql_node_offset(const struct sql_ast_node *restrict node);
+extern void sql_node_add_child(struct sql_ast_node *restrict node, const struct sql_ast_node *const restrict child);
 
 extern struct sql_ast_node *sql_create_node_0(const enum sql_ast_node_type node_type);
 struct sql_ast_node *sql_create_node_l1(const enum sql_ast_node_type node_type,

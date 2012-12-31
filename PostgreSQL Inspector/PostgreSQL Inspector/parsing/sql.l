@@ -35,6 +35,7 @@ digit   [0-9]
 %%
 
 "abort"             { T(T_ABORT); }
+"from"              { T(T_FROM); }
 "load"              { T(T_LOAD); }
 "rollback"          { T(T_ROLLBACK); }
 "select"            { T(T_SELECT); }
@@ -135,6 +136,8 @@ static enum sql_ast_node_type nt(const enum yytokentype token)
             return sql_ast_identifier_unquoted;
         case T_LOAD:
             return sql_ast_load;
+        case T_FROM:
+            return sql_ast_from;
         case T_NUMERIC_LITERAL:
             return sql_ast_literal_numeric;
         case T_ROLLBACK:
