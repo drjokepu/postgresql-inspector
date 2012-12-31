@@ -10,8 +10,11 @@
 #import "PGCommand.h"
 #import "PGConnection.h"
 #import "PGError.h"
+#import "PGOid.h"
 #import "PGResult.h"
 #import "PGSQLParser.h"
+#import "PGType.h"
+#import "PGUUIDFormatter.h"
 
 static const NSInteger executeQueryTag = 4001;
 
@@ -181,6 +184,13 @@ static const NSInteger executeQueryTag = 4001;
 //        [dataCell setEditable:YES];
 //        [column setDataCell:dataCell];
         [[column headerCell] setStringValue:[[NSString alloc] initWithString:columnName]];
+        
+        // formatters
+        if (((PGOid*)result.columnTypes[i]).type == PGTypeUuid)
+        {
+            [[column dataCell] setFormatter: [[PGUUIDFormatter alloc] init]];
+        }
+        
         [self.resultsTableView addTableColumn:column];
     }
     

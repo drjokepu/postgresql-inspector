@@ -16,4 +16,7 @@
 +(BOOL)isIPv6Enabled;
 +(void)setIPv6Enabled:(BOOL)isEnabled;
 
++(BOOL)uppercaseUUIDs;
++(void)setUppercaseUUIDs:(BOOL)areEnabled;
+
 @end

@@ -9,6 +9,7 @@
 #import "PGUserDefaults.h"
 
 static NSString *isIPv6EnabledKey = @"isIPv6Enabled";
+static NSString *uppercaseUUIDsKey = @"uppercaseUUIDs";
 
 @implementation PGUserDefaults
 
@@ -33,6 +34,16 @@ static NSString *isIPv6EnabledKey = @"isIPv6Enabled";
 +(void)setIPv6Enabled:(BOOL)isEnabled
 {
     [[NSUserDefaults standardUserDefaults] setBool:isEnabled forKey:isIPv6EnabledKey];
+}
+
++(BOOL)uppercaseUUIDs
+{
+    return [[NSUserDefaults standardUserDefaults] boolForKey:uppercaseUUIDsKey];
+}
+
++(void)setUppercaseUUIDs:(BOOL)areEnabled
+{
+    [[NSUserDefaults standardUserDefaults] setBool:areEnabled forKey:uppercaseUUIDsKey];
 }
 
 @end

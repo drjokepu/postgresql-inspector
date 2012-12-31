@@ -15,6 +15,7 @@
 		021EF6AD154F463B00800157 /* PGSchemaIdentifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 021EF6AC154F463B00800157 /* PGSchemaIdentifier.m */; };
 		021EF6B0154F4FDC00800157 /* PGSchemaObjectGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 021EF6AF154F4FDC00800157 /* PGSchemaObjectGroup.m */; };
 		023DEA54166F7D3800A6E8A1 /* NSDictionary+PGDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = 023DEA53166F7D3800A6E8A1 /* NSDictionary+PGDictionary.m */; };
+		0241C54E1691E496002EEDB7 /* PGUUIDFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0241C54D1691E496002EEDB7 /* PGUUIDFormatter.m */; };
 		024D4F7215C9422C004508AD /* PGError.m in Sources */ = {isa = PBXBuildFile; fileRef = 024D4F7115C9422C004508AD /* PGError.m */; };
 		02501E2D155081750020896A /* icons.icns in Resources */ = {isa = PBXBuildFile; fileRef = 02CC58F515502EEA00496966 /* icons.icns */; };
 		02501E31155083B90020896A /* PGScopeBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 02501E30155083B90020896A /* PGScopeBar.m */; };
@@ -89,6 +90,8 @@
 		021EF6B1154F50A100800157 /* PGSchemaObjectGroupType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PGSchemaObjectGroupType.h; sourceTree = "<group>"; };
 		023DEA52166F7D3800A6E8A1 /* NSDictionary+PGDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+PGDictionary.h"; sourceTree = "<group>"; };
 		023DEA53166F7D3800A6E8A1 /* NSDictionary+PGDictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+PGDictionary.m"; sourceTree = "<group>"; };
+		0241C54C1691E496002EEDB7 /* PGUUIDFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGUUIDFormatter.h; sourceTree = "<group>"; };
+		0241C54D1691E496002EEDB7 /* PGUUIDFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGUUIDFormatter.m; sourceTree = "<group>"; };
 		024D4F7015C9422B004508AD /* PGError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGError.h; sourceTree = "<group>"; };
 		024D4F7115C9422C004508AD /* PGError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGError.m; sourceTree = "<group>"; };
 		024D4F7415C943A2004508AD /* PGError+Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PGError+Internal.h"; sourceTree = "<group>"; };
@@ -244,6 +247,15 @@
 			name = Categories;
 			sourceTree = "<group>";
 		};
+		0241C54A1691E47C002EEDB7 /* Formatters */ = {
+			isa = PBXGroup;
+			children = (
+				0241C54C1691E496002EEDB7 /* PGUUIDFormatter.h */,
+				0241C54D1691E496002EEDB7 /* PGUUIDFormatter.m */,
+			);
+			name = Formatters;
+			sourceTree = "<group>";
+		};
 		02501E2E155082EC0020896A /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -337,6 +349,7 @@
 				02751E1C1549F835007AE07D /* App Delegate */,
 				023DEA51166F7C4400A6E8A1 /* Categories */,
 				02751E551549F877007AE07D /* Controllers */,
+				0241C54A1691E47C002EEDB7 /* Formatters */,
 				02751E561549F883007AE07D /* Models */,
 				02751E061549F778007AE07D /* Supporting Files */,
 				02751E2D1549F85E007AE07D /* Sqlite */,
@@ -636,6 +649,7 @@
 				0279A7E61681DDFB005AEE91 /* PGIndex.m in Sources */,
 				02574216168CB6120062F27D /* PGSQLParser.m in Sources */,
 				0257421F168DC6EB0062F27D /* sql_parse.c in Sources */,
+				0241C54E1691E496002EEDB7 /* PGUUIDFormatter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
