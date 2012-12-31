@@ -190,6 +190,8 @@ static void print_node_value(const struct sql_ast_node *restrict node)
 {
     switch (node->node_type)
     {
+        case sql_ast_identifier_unquoted:
+        case sql_ast_identifier_quoted:
         case sql_ast_literal_numeric:
         case sql_ast_literal_string:
             printf("%s: %s\n", node_name(node->node_type), node->value.string);
@@ -206,10 +208,25 @@ static const char *const node_name(const enum sql_ast_node_type node_type)
     {
         case sql_ast_node_link:
             return "NODE-LINK";
+        case sql_ast_identifier_unquoted:
+        case sql_ast_identifier_quoted:
+            return "IDENTIFIER";
         case sql_ast_literal_numeric:
             return "NUMERIC-LITERAL";
         case sql_ast_literal_string:
             return "STRING-LITERAL";
+        case sql_ast_reference_column:
+            return "COLUMN-REFERENCE";
+        case sql_ast_reference_column_name:
+            return "COLUMN-REFERENCE-NAME";
+        case sql_ast_reference_table_name:
+            return "TABLE-REFERENCE-NAME";
+        case sql_ast_reference_schema_name:
+            return "SCHEMA-REFERENCE-NAME";
+        case sql_ast_expression_list:
+            return "EXPRESSION-LIST";
+        case sql_ast_expression:
+            return "EXPRESSION";
         case sql_ast_abort:
             return "ABORT";
         case sql_ast_load:
@@ -261,6 +278,15 @@ struct sql_ast_node *sql_create_node_l2(const enum sql_ast_node_type node_type, 
 struct sql_ast_node *sql_create_node_link(const struct sql_ast_node *const restrict value, const struct sql_ast_node *const restrict tail)
 {
     return sql_create_node_l2(sql_ast_node_link, value, tail);
+}
+
+const char *sql_unquoted_identifier_string(const char *const restrict yytext)
+{
+    const size_t length = strlen(yytext);
+    char *copy = sql_malloc(length + 1);
+    memcpy(copy, yytext, length);
+    copy[length] = 0;
+    return copy;
 }
 
 const char *sql_literal_string(const char *const restrict yytext)

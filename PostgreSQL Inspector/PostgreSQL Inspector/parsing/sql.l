@@ -13,6 +13,7 @@
     static int sql_read_input(char *restrict buffer, yy_size_t *restrict num_bytes_read, const yy_size_t max_bytes_to_read);
     static inline int yywrap(void);
     static enum yytokentype set_token(const enum yytokentype token_type);
+    static enum yytokentype set_token_with_unquoted_identifier(const enum yytokentype token_type, const char* string_value);
     static enum yytokentype set_token_with_string(const enum yytokentype token_type, const char* string_value);
     static enum yytokentype set_token_with_numeric(const enum yytokentype token_type, const char* string_value);
     static enum sql_ast_node_type nt(const enum yytokentype token);
@@ -24,9 +25,12 @@
     #define YY_INPUT(b,r,s) sql_read_input((b), &(r), s)
     
     #define T(token) return set_token(token)
+    #define T_ID_UQ(token, string_value) return set_token_with_unquoted_identifier(token, string_value)
     #define T_STR(token, string_value) return set_token_with_string(token, string_value)
     #define T_NUM(token, string_value) return set_token_with_numeric(token, string_value)
 %}
+
+digit   [0-9]
 
 %%
 
@@ -39,11 +43,14 @@
 
 ";"                 { T(T_SYM_COMMAND_SEPARATOR); }
 ","                 { T(T_SYM_EXPR_SEPARATOR); }
+"."                 { T(T_SYM_NAME_SEPARATOR); }
 
 [ \t\n\r]
 
 \'((\'\')|[^\'])*\'      { T_STR(T_STRING_LITERAL, yytext); }
-[0-9]+                   { T_NUM(T_NUMERIC_LITERAL, yytext); }
+{digit}+                 { T_NUM(T_NUMERIC_LITERAL, yytext); }
+
+[a-z_][a-z0-9_$]*        { T_ID_UQ(T_IDENTIFIER_UNQUOTED, yytext); }
 
 %%
 
@@ -95,6 +102,13 @@ static enum yytokentype set_token(const enum yytokentype token_type)
     return token_type;
 }
 
+static enum yytokentype set_token_with_unquoted_identifier(const enum yytokentype token_type, const char* string_value)
+{
+    set_token(token_type);
+    sql_yylval->value.string = sql_unquoted_identifier_string(string_value);
+    return token_type;
+}
+
 static enum yytokentype set_token_with_string(const enum yytokentype token_type, const char* string_value)
 {
     set_token(token_type);
@@ -115,6 +129,10 @@ static enum sql_ast_node_type nt(const enum yytokentype token)
     {
         case T_ABORT:
             return sql_ast_abort;
+        case T_IDENTIFIER_QUOTED:
+            return sql_ast_identifier_quoted;
+        case T_IDENTIFIER_UNQUOTED:
+            return sql_ast_identifier_unquoted;
         case T_LOAD:
             return sql_ast_load;
         case T_NUMERIC_LITERAL:

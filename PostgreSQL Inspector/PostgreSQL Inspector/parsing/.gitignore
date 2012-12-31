@@ -1,3 +1,5 @@
 lex.yy.c
+lex.sql_yy.c
 sql.tab.c
 sql.tab.h
+sql.output
