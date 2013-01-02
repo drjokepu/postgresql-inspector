@@ -13,6 +13,8 @@
 #import "PGOid.h"
 #import "PGResult.h"
 #import "PGSQLParser.h"
+#import "PGSQLParsingResult.h"
+#import "PGSQLToken.h"
 #import "PGType.h"
 #import "PGUUIDFormatter.h"
 
@@ -180,9 +182,6 @@ static const NSInteger executeQueryTag = 4001;
         NSString *columnName = result.columnNames[i];
         NSTableColumn *column = [[NSTableColumn alloc] initWithIdentifier:[NSString stringWithFormat:@"%lu", i]];
         
-//        NSCell *dataCell = [[NSCell alloc] init];
-//        [dataCell setEditable:YES];
-//        [column setDataCell:dataCell];
         [[column headerCell] setStringValue:[[NSString alloc] initWithString:columnName]];
         
         // formatters
@@ -239,7 +238,35 @@ static const NSInteger executeQueryTag = 4001;
 
 -(void)queryTextChanged
 {
-    [PGSQLParser parse:self.queryTextView.string];
+    @autoreleasepool
+    {
+        PGSQLParsingResult *result = [PGSQLParser parse:self.queryTextView.string];
+        [self highlightSyntaxWithParsingResult:result];
+    }
+}
+
+-(void)highlightSyntaxWithParsingResult:(PGSQLParsingResult*)result
+{
+    [queryTextView setTextColor:[NSColor textColor]];
+    for (PGSQLToken *token in result.tokens)
+    {
+        [queryTextView setTextColor:[PGQueryWindowController tokenColor:[token tokenType]] range:NSMakeRange(token.start, token.length)];
+    }
+}
+
++(NSColor*)tokenColor:(enum sql_token_type)tokenType
+{
+    switch (tokenType)
+    {
+        case sql_token_type_keyword:
+            return [NSColor colorWithCalibratedRed:0.667 green:0.051 blue:0.569 alpha:1.000];
+        case sql_token_type_identifier:
+            return [NSColor colorWithCalibratedRed:0.247 green:0.431 blue:0.455 alpha:1.000];
+        case sql_token_type_literal:
+            return [NSColor colorWithCalibratedRed:0.769 green:0.102 blue:0.086 alpha:1.000];
+        default:
+            return [NSColor textColor];
+    }
 }
 
 -(NSInteger)numberOfRowsInTableView:(NSTableView *)tableView

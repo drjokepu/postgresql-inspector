@@ -1,6 +1,7 @@
 %name-prefix="sql_yy"
 %error-verbose
 %defines
+%locations
 %start root
 
 %{

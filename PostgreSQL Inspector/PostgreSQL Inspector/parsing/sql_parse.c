@@ -2,13 +2,22 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include "parsing_result.h"
 
 static const size_t sql_node_array_default_capacity = 1024;
 static const size_t sql_allocations_default_capacity = 1024;
+static const size_t sql_line_positions_default_capacity = 32;
 
 static struct sql_node_array *node_array = NULL;
 static struct sql_allocations *allocations = NULL;
 struct sql_ast_node *sql_parse_result;
+struct sql_line_positions *line_positions;
+
+static void sql_line_positions_init(void);
+static void sql_line_positions_free(void);
+static inline size_t sql_line_positions_size(const size_t capacity);
+static void sql_line_positions_add_position(const off_t position);
+static void sql_scan_line_positions(const char *const restrict sql);
 
 static struct sql_node_array *sql_node_array_init(void);
 static void sql_node_array_free(struct sql_node_array *array);
@@ -29,17 +38,28 @@ static void sql_allocations_expand_if_necessary(void);
 static inline size_t sql_allocations_size(const size_t capacity);
 static void *sql_malloc(size_t size);
 
-void sql_parse(const char *const restrict sql)
+static struct parsing_result *create_result(void);
+static void build_token_list(const struct sql_ast_node *const restrict node, struct parsing_result *restrict result);
+
+struct parsing_result *sql_parse(const char *const restrict sql)
 {
     sql_allocations_init();
+    sql_line_positions_init();
+    sql_scan_line_positions(sql);
     sql_lexer_init_with_input(sql);
     const bool parse_succesful = (sql_yyparse() == 0);
     if (parse_succesful)
     {
 //        print_node_tree(sql_parse_result);
     }
+    
+    struct parsing_result *result = create_result();
+    
     sql_node_array_reset(&node_array);
     sql_allocations_free();
+    sql_line_positions_free();
+    
+    return result;
 }
 
 void sql_parser_static_init(void)
@@ -106,6 +126,55 @@ static void *sql_malloc(size_t size)
         allocations->list[allocations->count++] = memory;
     }
     return memory;
+}
+
+static void sql_line_positions_init(void)
+{
+    if (line_positions != NULL)
+        sql_line_positions_free();
+    
+    line_positions = malloc(sql_line_positions_size(sql_line_positions_default_capacity));
+    line_positions->capacity = sql_line_positions_default_capacity;
+    line_positions->count = 0;
+}
+
+static void sql_line_positions_free(void)
+{
+    if (line_positions != NULL)
+    {
+        free(line_positions);
+        line_positions = NULL;
+    }
+}
+
+static void sql_line_positions_add_position(const off_t position)
+{
+    if (line_positions->capacity == line_positions->count)
+    {
+        const off_t new_capacity = line_positions->capacity * 2;
+        line_positions = realloc(line_positions, sql_line_positions_size(new_capacity));
+        line_positions->capacity = new_capacity;
+    }
+    
+    line_positions->positions[line_positions->count++] = position;
+}
+
+static inline size_t sql_line_positions_size(const size_t capacity)
+{
+    return sizeof(struct sql_line_positions) + (capacity * sizeof(off_t));
+}
+
+static void sql_scan_line_positions(const char *const restrict sql)
+{
+    sql_line_positions_add_position(0);
+    
+    for (const char *cursor = sql; *cursor != 0; cursor++)
+    {
+        if (*cursor == '\n')
+        {
+            sql_line_positions_add_position(cursor - sql);
+        }
+    }
 }
 
 struct sql_node_array *sql_node_array_init(void)
@@ -320,4 +389,28 @@ const char *sql_numeric_string(const char *const restrict yytext)
     memcpy(copy, yytext, length);
     copy[length] = 0;
     return copy;
+}
+
+static struct parsing_result *create_result(void)
+{
+    struct parsing_result *result = parsing_result_init();
+    build_token_list(sql_parse_result, result);
+    
+    return result;
+}
+
+static void build_token_list(const struct sql_ast_node *const restrict node, struct parsing_result *restrict result)
+{
+    if (node == NULL) return;
+ 
+    for (unsigned int i = 0; i < node->link_count; i++)
+    {
+        const struct sql_ast_node *const child_node = node_array->nodes + node->links[i];
+        build_token_list(child_node, result);
+    }
+    
+    if (is_node_token(node->node_type))
+    {
+        parsing_result_add_token(result, node->start, node->length, node->node_type);
+    }
 }
