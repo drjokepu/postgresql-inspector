@@ -17,13 +17,13 @@
 		021EF6AA154F425C00800157 /* PGTableIdentifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 021EF6A9154F425C00800157 /* PGTableIdentifier.m */; };
 		021EF6AD154F463B00800157 /* PGSchemaIdentifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 021EF6AC154F463B00800157 /* PGSchemaIdentifier.m */; };
 		021EF6B0154F4FDC00800157 /* PGSchemaObjectGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 021EF6AF154F4FDC00800157 /* PGSchemaObjectGroup.m */; };
+		02362DFA1695E50F00B9094B /* sql.c in Sources */ = {isa = PBXBuildFile; fileRef = 02362DF81695E50F00B9094B /* sql.c */; };
+		02362E041695EA1400B9094B /* sql_lexer.c in Sources */ = {isa = PBXBuildFile; fileRef = 02362E021695EA1400B9094B /* sql_lexer.c */; };
 		023DEA54166F7D3800A6E8A1 /* NSDictionary+PGDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = 023DEA53166F7D3800A6E8A1 /* NSDictionary+PGDictionary.m */; };
 		0241C54E1691E496002EEDB7 /* PGUUIDFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0241C54D1691E496002EEDB7 /* PGUUIDFormatter.m */; };
 		024D4F7215C9422C004508AD /* PGError.m in Sources */ = {isa = PBXBuildFile; fileRef = 024D4F7115C9422C004508AD /* PGError.m */; };
 		02501E2D155081750020896A /* icons.icns in Resources */ = {isa = PBXBuildFile; fileRef = 02CC58F515502EEA00496966 /* icons.icns */; };
 		02501E31155083B90020896A /* PGScopeBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 02501E30155083B90020896A /* PGScopeBar.m */; };
-		0257420E168CA58A0062F27D /* sql.l in Sources */ = {isa = PBXBuildFile; fileRef = 02574208168CA3F80062F27D /* sql.l */; };
-		02574210168CA6020062F27D /* sql.y in Sources */ = {isa = PBXBuildFile; fileRef = 0257420F168CA6020062F27D /* sql.y */; };
 		02574216168CB6120062F27D /* PGSQLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 02574215168CB6120062F27D /* PGSQLParser.m */; };
 		0257421F168DC6EB0062F27D /* sql_parse.c in Sources */ = {isa = PBXBuildFile; fileRef = 0257421E168DC6EB0062F27D /* sql_parse.c */; };
 		025F61A01551BCF7006B4D23 /* PGSchemaObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 025F619F1551BCF7006B4D23 /* PGSchemaObject.m */; };
@@ -98,6 +98,11 @@
 		021EF6AE154F4FDC00800157 /* PGSchemaObjectGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGSchemaObjectGroup.h; sourceTree = "<group>"; };
 		021EF6AF154F4FDC00800157 /* PGSchemaObjectGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGSchemaObjectGroup.m; sourceTree = "<group>"; };
 		021EF6B1154F50A100800157 /* PGSchemaObjectGroupType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PGSchemaObjectGroupType.h; sourceTree = "<group>"; };
+		02362DF81695E50F00B9094B /* sql.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = sql.c; path = parsing/lemon/sql.c; sourceTree = "<group>"; };
+		02362DF91695E50F00B9094B /* sql.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = sql.h; path = parsing/lemon/sql.h; sourceTree = "<group>"; };
+		02362DFC1695E80100B9094B /* sql.y */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.yacc; name = sql.y; path = parsing/lemon/sql.y; sourceTree = "<group>"; };
+		02362E021695EA1400B9094B /* sql_lexer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = sql_lexer.c; path = parsing/sql_lexer.c; sourceTree = "<group>"; };
+		02362E031695EA1400B9094B /* sql_lexer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = sql_lexer.h; path = parsing/sql_lexer.h; sourceTree = "<group>"; };
 		023DEA52166F7D3800A6E8A1 /* NSDictionary+PGDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+PGDictionary.h"; sourceTree = "<group>"; };
 		023DEA53166F7D3800A6E8A1 /* NSDictionary+PGDictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+PGDictionary.m"; sourceTree = "<group>"; };
 		0241C54C1691E496002EEDB7 /* PGUUIDFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGUUIDFormatter.h; sourceTree = "<group>"; };
@@ -107,8 +112,6 @@
 		024D4F7415C943A2004508AD /* PGError+Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PGError+Internal.h"; sourceTree = "<group>"; };
 		02501E2F155083B90020896A /* PGScopeBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGScopeBar.h; sourceTree = "<group>"; };
 		02501E30155083B90020896A /* PGScopeBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGScopeBar.m; sourceTree = "<group>"; };
-		02574208168CA3F80062F27D /* sql.l */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.lex; name = sql.l; path = parsing/sql.l; sourceTree = "<group>"; };
-		0257420F168CA6020062F27D /* sql.y */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.yacc; name = sql.y; path = parsing/sql.y; sourceTree = "<group>"; };
 		02574214168CB6120062F27D /* PGSQLParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGSQLParser.h; sourceTree = "<group>"; };
 		02574215168CB6120062F27D /* PGSQLParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGSQLParser.m; sourceTree = "<group>"; };
 		02574218168CB6530062F27D /* sql_parse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = sql_parse.h; path = parsing/sql_parse.h; sourceTree = "<group>"; };
@@ -248,6 +251,44 @@
 			name = "Schema Identifiers";
 			sourceTree = "<group>";
 		};
+		02362DFB1695E51300B9094B /* lemon */ = {
+			isa = PBXGroup;
+			children = (
+				02362DFC1695E80100B9094B /* sql.y */,
+				02362DF81695E50F00B9094B /* sql.c */,
+				02362DF91695E50F00B9094B /* sql.h */,
+			);
+			name = lemon;
+			sourceTree = "<group>";
+		};
+		02362E001695E9D900B9094B /* C */ = {
+			isa = PBXGroup;
+			children = (
+				02574220168DF7430062F27D /* parsing.h */,
+				0208112116945D3500A6F2B0 /* parsing_data_types.h */,
+				0208111E1694416F00A6F2B0 /* parsing_result.h */,
+				0208111D1694416F00A6F2B0 /* parsing_result.c */,
+				02362E031695EA1400B9094B /* sql_lexer.h */,
+				02362E021695EA1400B9094B /* sql_lexer.c */,
+				02574218168CB6530062F27D /* sql_parse.h */,
+				0257421E168DC6EB0062F27D /* sql_parse.c */,
+			);
+			name = C;
+			sourceTree = "<group>";
+		};
+		02362E011695E9E000B9094B /* Objective-C */ = {
+			isa = PBXGroup;
+			children = (
+				02574214168CB6120062F27D /* PGSQLParser.h */,
+				02574215168CB6120062F27D /* PGSQLParser.m */,
+				02081122169472B000A6F2B0 /* PGSQLParsingResult.h */,
+				02081123169472B000A6F2B0 /* PGSQLParsingResult.m */,
+				0208112516947F7700A6F2B0 /* PGSQLToken.h */,
+				0208112616947F7700A6F2B0 /* PGSQLToken.m */,
+			);
+			name = "Objective-C";
+			sourceTree = "<group>";
+		};
 		023DEA51166F7C4400A6E8A1 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
@@ -278,20 +319,9 @@
 		02574204168CA1BE0062F27D /* Parsing */ = {
 			isa = PBXGroup;
 			children = (
-				02574214168CB6120062F27D /* PGSQLParser.h */,
-				02574215168CB6120062F27D /* PGSQLParser.m */,
-				02081122169472B000A6F2B0 /* PGSQLParsingResult.h */,
-				02081123169472B000A6F2B0 /* PGSQLParsingResult.m */,
-				0208112516947F7700A6F2B0 /* PGSQLToken.h */,
-				0208112616947F7700A6F2B0 /* PGSQLToken.m */,
-				02574220168DF7430062F27D /* parsing.h */,
-				0208112116945D3500A6F2B0 /* parsing_data_types.h */,
-				0208111E1694416F00A6F2B0 /* parsing_result.h */,
-				0208111D1694416F00A6F2B0 /* parsing_result.c */,
-				0257420F168CA6020062F27D /* sql.y */,
-				02574208168CA3F80062F27D /* sql.l */,
-				02574218168CB6530062F27D /* sql_parse.h */,
-				0257421E168DC6EB0062F27D /* sql_parse.c */,
+				02362E011695E9E000B9094B /* Objective-C */,
+				02362E001695E9D900B9094B /* C */,
+				02362DFB1695E51300B9094B /* lemon */,
 			);
 			name = Parsing;
 			sourceTree = "<group>";
@@ -618,8 +648,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0257420E168CA58A0062F27D /* sql.l in Sources */,
-				02574210168CA6020062F27D /* sql.y in Sources */,
 				02751E0C1549F778007AE07D /* main.m in Sources */,
 				02751E131549F778007AE07D /* PGAppDelegate.m in Sources */,
 				02751E271549F854007AE07D /* PGConnectionController.m in Sources */,
@@ -670,6 +698,8 @@
 				0208111F1694416F00A6F2B0 /* parsing_result.c in Sources */,
 				02081124169472B100A6F2B0 /* PGSQLParsingResult.m in Sources */,
 				0208112716947F7700A6F2B0 /* PGSQLToken.m in Sources */,
+				02362DFA1695E50F00B9094B /* sql.c in Sources */,
+				02362E041695EA1400B9094B /* sql_lexer.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

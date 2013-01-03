@@ -17,9 +17,16 @@
 +(PGSQLParsingResult*)parse:(NSString *)sql
 {
     struct parsing_result *result = sql_parse([sql UTF8String]);
-    PGSQLParsingResult *resultObject = [PGSQLParser createResultObject:result];
-    parsing_result_free(result);
-    return resultObject;
+    if (result != NULL)
+    {
+        PGSQLParsingResult *resultObject = [PGSQLParser createResultObject:result];
+        parsing_result_free(result);
+        return resultObject;
+    }
+    else
+    {
+        return nil;
+    }
 }
 
 +(PGSQLParsingResult*)createResultObject:(struct parsing_result*)result

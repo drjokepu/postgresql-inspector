@@ -20,6 +20,7 @@ struct parsing_result *parsing_result_init(void)
 
 void parsing_result_free(struct parsing_result *result)
 {
+    if (result == NULL) return;
     parsing_result_destroy(result);
     free(result);
 }

@@ -248,6 +248,7 @@ static const NSInteger executeQueryTag = 4001;
 -(void)highlightSyntaxWithParsingResult:(PGSQLParsingResult*)result
 {
     [queryTextView setTextColor:[NSColor textColor]];
+    if (result == nil) return;
     for (PGSQLToken *token in result.tokens)
     {
         [queryTextView setTextColor:[PGQueryWindowController tokenColor:[token tokenType]] range:NSMakeRange(token.start, token.length)];

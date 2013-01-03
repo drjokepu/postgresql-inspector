@@ -52,7 +52,6 @@ static void setup(void)
     PGConnectionManagerInitMutexes();
     PGDatabaseManagerInitMutexes();
     PGAppDelegateInitSharedBackgroundQueue();
-    sql_parser_static_init();
 }
 
 static void teardown(void)
@@ -60,5 +59,4 @@ static void teardown(void)
     PGConnectionManagerDestroyMutexes();
     PGDatabaseManagerDestroyMutexes();
     PGAppDelegateDestroySharedBackgroundQueue();
-    sql_parser_static_destroy();
 }
