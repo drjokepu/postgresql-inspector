@@ -38,6 +38,7 @@ static inline void skip_whitespace(struct sql_lexer *restrict lexer);
 static int sql_lexer_scan_keyword(struct sql_lexer *restrict lexer, off_t *restrict out_start, size_t *restrict out_length);
 static int sql_lexer_scan_identifier(struct sql_lexer *restrict lexer, off_t *restrict out_start, size_t *restrict out_length);
 static int sql_lexer_scan_identifier_unquoted(struct sql_lexer *restrict lexer, off_t *restrict out_start, size_t *restrict out_length);
+static int sql_lexer_scan_identifier_quoted(struct sql_lexer *restrict lexer, off_t *restrict out_start, size_t *restrict out_length);
 static int sql_lexer_scan_literal(struct sql_lexer *restrict lexer, off_t *restrict out_start, size_t *restrict out_length);
 static int sql_lexer_scan_numeric_literal(struct sql_lexer *restrict lexer, off_t *restrict out_start, size_t *restrict out_length);
 static int sql_lexer_scan_string_literal(struct sql_lexer *restrict lexer, off_t *restrict out_start, size_t *restrict out_length);
@@ -173,6 +174,10 @@ static int sql_lexer_scan_identifier(struct sql_lexer *restrict lexer, off_t *re
     if (unquoted_identifier_token_id > 0)
         return unquoted_identifier_token_id;
     
+    const int quoted_identifier_token_id = sql_lexer_scan_identifier_quoted(lexer, out_start, out_length);
+    if (quoted_identifier_token_id > 0)
+        return quoted_identifier_token_id;
+    
     return T_UNKNOWN;
 }
 
@@ -217,6 +222,36 @@ static int sql_lexer_scan_identifier_unquoted(struct sql_lexer *restrict lexer, 
             }
         }
     }
+    return T_UNKNOWN;
+}
+
+static int sql_lexer_scan_identifier_quoted(struct sql_lexer *restrict lexer, off_t *restrict out_start, size_t *restrict out_length)
+{
+    if (peek(lexer) != '"') // must start with "
+    {
+        return T_UNKNOWN;
+    }
+    
+    for(off_t position = lexer->position + 1; position <= lexer->length; position++)
+    {
+        const char input_char = lexer->text[position];
+        if (input_char == '"')
+        {
+            if (lexer->text[position + 1] == '"')
+            {
+                position++;
+            }
+            else
+            {
+                position++;
+                *out_start = lexer->position;
+                *out_length = position - lexer->position;
+                lexer->position = position;
+                return T_IDENTIFIER_QUOTED;
+            }
+        }
+    }
+    
     return T_UNKNOWN;
 }
 
