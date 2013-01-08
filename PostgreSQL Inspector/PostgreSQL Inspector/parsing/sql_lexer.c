@@ -16,6 +16,7 @@ static const struct token_lookup_item const token_lookup[] =
     (struct token_lookup_item){ .text = ";", .value = T_SYM_COMMAND_SEPARATOR },
     (struct token_lookup_item){ .text = ".", .value = T_SYM_NAME_SEPARATOR },
     (struct token_lookup_item){ .text = ",", .value = T_SYM_EXPR_SEPARATOR },
+    (struct token_lookup_item){ .text = "*", .value = T_SYM_ALL_FIELDS },
     (struct token_lookup_item){ .text = "ABORT", .value = T_ABORT },
     (struct token_lookup_item){ .text = "FROM", .value = T_FROM },
     (struct token_lookup_item){ .text = "LOAD", .value = T_LOAD },
