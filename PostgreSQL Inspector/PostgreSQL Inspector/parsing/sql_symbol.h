@@ -56,9 +56,10 @@ extern struct sql_symbol *sql_symbol_init_with_symbol_type(const enum sql_symbol
 extern struct sql_symbol *sql_symbol_init_with_token_id(const int token_id);
 
 extern void sql_symbol_free(struct sql_symbol *symbol);
-extern void sql_symbol_free_resursive(struct sql_symbol *symbol);
+extern void sql_symbol_free_recursive(struct sql_symbol *symbol);
 
 void sql_symbol_add_child(struct sql_symbol *restrict symbol, struct sql_symbol *restrict child);
+enum sql_symbol_type get_symbol_type_by_token_id(const int token_id);
 void print_symbol(const struct sql_symbol *restrict symbol, const char *const full_text);
 
 #endif /* __SQL_SYMBOL_H__ */

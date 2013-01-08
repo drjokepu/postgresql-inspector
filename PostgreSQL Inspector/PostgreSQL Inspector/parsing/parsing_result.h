@@ -20,6 +20,11 @@ struct parsing_result
         size_t capacity;
         struct parsing_token* tokens;
     } token_list;
+    struct
+    {
+        size_t count;
+        enum sql_symbol_type *symbol_types;
+    } possible_symbol_list;
 };
 
 extern struct parsing_result *parsing_result_init(void);

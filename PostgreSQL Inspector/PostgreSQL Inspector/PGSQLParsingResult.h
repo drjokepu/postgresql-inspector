@@ -10,5 +10,6 @@
 
 @interface PGSQLParsingResult : NSObject
 @property (nonatomic, strong) NSArray *tokens;
+@property (nonatomic, strong) NSArray *possibleTokens;
 
 @end

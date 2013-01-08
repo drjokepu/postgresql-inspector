@@ -5,7 +5,6 @@
 #include "sql_lexer.h"
 
 static inline void sql_symbol_destroy(struct sql_symbol *restrict symbol);
-static enum sql_symbol_type get_symbol_type_by_token_id(const int token_id);
 static const char* get_symbol_name(const enum sql_symbol_type symbol_type);
 
 struct sql_symbol *sql_symbol_init(void)
@@ -37,12 +36,12 @@ void sql_symbol_free(struct sql_symbol *symbol)
     free(symbol);
 }
 
-void sql_symbol_free_resursive(struct sql_symbol *symbol)
+void sql_symbol_free_recursive(struct sql_symbol *symbol)
 {
     if (symbol == NULL) return;
     for (unsigned int i = 0; i < symbol->child_count; i++)
     {
-        sql_symbol_free_resursive(symbol->children[i]);
+        sql_symbol_free_recursive(symbol->children[i]);
     }
     sql_symbol_destroy(symbol);
     free(symbol);
@@ -68,7 +67,7 @@ void print_symbol(const struct sql_symbol *restrict symbol, const char *const fu
     printf("scanned: %s (%lli + %zi) %s\n", get_symbol_name(symbol->symbol_type), symbol->start, symbol->length, value);
 }
 
-static enum sql_symbol_type get_symbol_type_by_token_id(const int token_id)
+enum sql_symbol_type get_symbol_type_by_token_id(const int token_id)
 {
     switch (token_id)
     {

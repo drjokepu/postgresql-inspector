@@ -15,5 +15,6 @@
 @property (nonatomic, assign) NSUInteger length;
 
 -(enum sql_token_type)tokenType;
+-(NSArray*)expandToCompletions;
 
 @end

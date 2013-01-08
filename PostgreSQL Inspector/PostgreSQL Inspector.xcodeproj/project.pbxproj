@@ -11,6 +11,7 @@
 		0208111F1694416F00A6F2B0 /* parsing_result.c in Sources */ = {isa = PBXBuildFile; fileRef = 0208111D1694416F00A6F2B0 /* parsing_result.c */; };
 		02081124169472B100A6F2B0 /* PGSQLParsingResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 02081123169472B000A6F2B0 /* PGSQLParsingResult.m */; };
 		0208112716947F7700A6F2B0 /* PGSQLToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 0208112616947F7700A6F2B0 /* PGSQLToken.m */; };
+		021331DD169C4B37002FA927 /* sql_context.c in Sources */ = {isa = PBXBuildFile; fileRef = 021331DC169C4B37002FA927 /* sql_context.c */; };
 		021E3D981670FED400935EF1 /* libpq.5.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 021E3D971670FED400935EF1 /* libpq.5.5.dylib */; };
 		021E3D991670FF4F00935EF1 /* libpq.5.5.dylib in Resources */ = {isa = PBXBuildFile; fileRef = 021E3D971670FED400935EF1 /* libpq.5.5.dylib */; };
 		021EF6A7154F41E800800157 /* PGSchemaObjectIdentifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 021EF6A6154F41E800800157 /* PGSchemaObjectIdentifier.m */; };
@@ -88,6 +89,7 @@
 		02081123169472B000A6F2B0 /* PGSQLParsingResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGSQLParsingResult.m; sourceTree = "<group>"; };
 		0208112516947F7700A6F2B0 /* PGSQLToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGSQLToken.h; sourceTree = "<group>"; };
 		0208112616947F7700A6F2B0 /* PGSQLToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGSQLToken.m; sourceTree = "<group>"; };
+		021331DC169C4B37002FA927 /* sql_context.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = sql_context.c; path = parsing/sql_context.c; sourceTree = "<group>"; };
 		021E3D971670FED400935EF1 /* libpq.5.5.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libpq.5.5.dylib; path = /opt/local/lib/postgresql92/libpq.5.5.dylib; sourceTree = "<absolute>"; };
 		021EF6A5154F41E800800157 /* PGSchemaObjectIdentifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGSchemaObjectIdentifier.h; sourceTree = "<group>"; };
 		021EF6A6154F41E800800157 /* PGSchemaObjectIdentifier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGSchemaObjectIdentifier.m; sourceTree = "<group>"; };
@@ -271,6 +273,7 @@
 				0208111E1694416F00A6F2B0 /* parsing_result.h */,
 				0208111D1694416F00A6F2B0 /* parsing_result.c */,
 				02362E0916971C0A00B9094B /* sql_context.h */,
+				021331DC169C4B37002FA927 /* sql_context.c */,
 				02362E031695EA1400B9094B /* sql_lexer.h */,
 				02362E021695EA1400B9094B /* sql_lexer.c */,
 				02574218168CB6530062F27D /* sql_parse.h */,
@@ -706,6 +709,7 @@
 				02362DFA1695E50F00B9094B /* sql.c in Sources */,
 				02362E041695EA1400B9094B /* sql_lexer.c in Sources */,
 				02362E071696FAF000B9094B /* sql_symbol.c in Sources */,
+				021331DD169C4B37002FA927 /* sql_context.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

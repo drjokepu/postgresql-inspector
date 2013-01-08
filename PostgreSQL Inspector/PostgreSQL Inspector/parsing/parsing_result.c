@@ -15,6 +15,8 @@ struct parsing_result *parsing_result_init(void)
     result->token_list.capacity = initial_token_list_capacity;
     result->token_list.count = 0;
     result->token_list.tokens = calloc(initial_token_list_capacity, sizeof(struct parsing_token));
+    result->possible_symbol_list.count = 0;
+    result->possible_symbol_list.symbol_types = NULL;
     
     return result;
 }
@@ -34,6 +36,13 @@ static void parsing_result_destroy(struct parsing_result *restrict result)
         result->token_list.tokens = NULL;
         result->token_list.capacity = 0;
         result->token_list.count = 0;
+    }
+    
+    if (result->possible_symbol_list.symbol_types != NULL)
+    {
+        free(result->possible_symbol_list.symbol_types);
+        result->possible_symbol_list.symbol_types = NULL;
+        result->possible_symbol_list.count = 0;
     }
 }
 

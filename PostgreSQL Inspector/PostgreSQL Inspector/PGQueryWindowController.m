@@ -26,6 +26,7 @@ static const NSInteger executeQueryTag = 4001;
 @property (nonatomic, assign) BOOL connectionIsOpen;
 @property (nonatomic, assign) BOOL queryInProgress;
 @property (nonatomic, strong) NSMutableArray *queryResults;
+@property (nonatomic, strong) NSArray *completions;
 
 @end
 
@@ -242,7 +243,33 @@ static const NSInteger executeQueryTag = 4001;
     {
         PGSQLParsingResult *result = [PGSQLParser parse:self.queryTextView.string];
         [self highlightSyntaxWithParsingResult:result];
+        self.completions = nil;
+        [self expandPossibleTokens:result.possibleTokens];
     }
+}
+
+-(void)expandPossibleTokens:(NSArray*)possibleTokens
+{
+    NSMutableArray *expandedTokens = [[NSMutableArray alloc] init];
+    for (PGSQLToken *token in possibleTokens)
+    {
+        [expandedTokens addObjectsFromArray:[token expandToCompletions]];
+    }
+    
+    expandedTokens = [[NSMutableArray alloc] initWithArray:[[[NSSet alloc] initWithArray:expandedTokens] allObjects]];
+    [expandedTokens sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        return [((NSString*)obj1) compare:obj2];
+    }];
+    self.completions = expandedTokens;
+    [self.queryTextView complete:self];
+}
+
+-(NSArray *)textView:(NSTextView *)textView completions:(NSArray *)words forPartialWordRange:(NSRange)charRange indexOfSelectedItem:(NSInteger *)index
+{
+    NSString *prefix = [queryTextView.string substringWithRange:charRange];
+    return [self.completions filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
+        return [evaluatedObject hasPrefix:prefix];
+    }]];
 }
 
 -(void)highlightSyntaxWithParsingResult:(PGSQLParsingResult*)result

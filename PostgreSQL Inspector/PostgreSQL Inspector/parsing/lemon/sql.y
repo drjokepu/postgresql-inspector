@@ -18,7 +18,19 @@
 
 }
 
-start ::= command_list(L). { context->root_symbol = L; }
+%syntax_error {
+    const int n = sizeof(yyTokenName) / sizeof(yyTokenName[0]);
+    for (int i = 0; i < n; i++)
+    {
+        const int a = yy_find_shift_action(yypParser, (YYCODETYPE)i);
+        if (a < YYNSTATE + YYNRULE)
+        {
+            sql_context_possible_token_list_add_token(context->parser_state->possible_token_list, i);
+        }
+    }
+}
+
+start ::= command_list(L). { context->parser_state->root_symbol = L; }
 
 command_list(X) ::= command(A).                                         { X = A; }
 command_list(X) ::= command(A) SYM_COMMAND_SEPARATOR.                   { X = A; }

@@ -33,6 +33,7 @@
 {
     PGSQLParsingResult *resultObject = [[PGSQLParsingResult alloc] init];
     [PGSQLParser populateTokenListInResultObject:resultObject fromResult:result];
+    [PGSQLParser populatePossibleTokenListInResultObject:resultObject fromResult:result];
     
     return resultObject;
 }
@@ -50,6 +51,20 @@
         [tokenList addObject:tokenObject];
     }
     resultObject.tokens = tokenList;
+}
+
++(void)populatePossibleTokenListInResultObject:(PGSQLParsingResult*)resultObject fromResult:(struct parsing_result*)result
+{
+    NSMutableArray *tokenList = [[NSMutableArray alloc] initWithCapacity:result->possible_symbol_list.count];
+    for (NSUInteger i = 0; i < result->possible_symbol_list.count; i++)
+    {
+        PGSQLToken *tokenObject = [[PGSQLToken alloc] init];
+        tokenObject.nodeType = result->possible_symbol_list.symbol_types[i];
+        tokenObject.start = 0;
+        tokenObject.length = 0;
+        [tokenList addObject:tokenObject];
+    }
+    resultObject.possibleTokens = tokenList;
 }
 
 @end
