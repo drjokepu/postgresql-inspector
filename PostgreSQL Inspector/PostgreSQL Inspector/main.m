@@ -11,7 +11,6 @@
 #import "PGAppDelegate.h"
 #import "PGConnectionManager.h"
 #import "PGDatabaseManager.h"
-#import "parsing/parsing.h"
 
 static void sanityChecks(void);
 static void libPqSanityCheck(void);

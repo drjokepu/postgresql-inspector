@@ -7,10 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "parsing/parsing_data_types.h"
+#import "parsing/sql_symbol.h"
 
 @interface PGSQLToken : NSObject
-@property (nonatomic, assign) enum sql_ast_node_type nodeType;
+@property (nonatomic, assign) enum sql_symbol_type nodeType;
 @property (nonatomic, assign) NSUInteger start;
 @property (nonatomic, assign) NSUInteger length;
 

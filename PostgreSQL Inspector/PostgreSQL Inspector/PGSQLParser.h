@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "parsing/parsing_data_types.h"
 
 @class PGSQLParsingResult;
 @interface PGSQLParser : NSObject

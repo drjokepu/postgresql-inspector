@@ -9,7 +9,7 @@
 #import "PGSQLParser.h"
 #import "PGSQLParsingResult.h"
 #import "PGSQLToken.h"
-#import "parsing/parsing.h"
+#import "parsing/sql_parse.h"
 #import "parsing/parsing_result.h"
 
 @implementation PGSQLParser
