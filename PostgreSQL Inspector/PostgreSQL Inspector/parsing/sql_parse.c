@@ -37,13 +37,12 @@ struct parsing_result *sql_parse(const char *const restrict sql)
         const int token_id = sql_lexer_get_next_token(lexer, &token_start, &token_length);
         struct sql_context context = { .symbol_start = token_start, .symbol_length = token_length, .root_symbol = NULL };
         struct sql_symbol *symbol = get_symbol_from_token_id(token_id, &context);
-        print_symbol(symbol, sql);
+        // print_symbol(symbol, sql);
         
         SqlParse(parser, token_id, symbol, &context);
         
         if (context.root_symbol != NULL)
         {
-            printf("accepted!\n");
             accepted = true;
             result = create_result(context.root_symbol);
             sql_symbol_free_resursive(context.root_symbol);
