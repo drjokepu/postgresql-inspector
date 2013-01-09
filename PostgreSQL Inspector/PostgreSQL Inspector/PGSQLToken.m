@@ -41,6 +41,12 @@
 {
     switch (symbolType)
     {
+        case sql_symbol_all_fields:
+            return @"*";
+        case sql_symbol_name_separator:
+            return @".";
+        case sql_symbol_expression_separator:
+            return @",";
         case sql_symbol_token_abort:
             return @"abort";
         case sql_symbol_token_load:
