@@ -48,8 +48,10 @@
     }
 }
 
+%nonassoc COMMENT.
+%nonassoc WRENCH.
+
 start ::= command_list(L). { if (context->accept_grammar) { context->parser_state->root_symbol = L; } }
-start ::= IMPOSSIBLE WRENCH.
 
 command_list(X) ::= command(A).                                         { X = A; }
 command_list(X) ::= command(A) SYM_COMMAND_SEPARATOR.                   { X = A; }

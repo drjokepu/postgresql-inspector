@@ -77,6 +77,8 @@ enum sql_symbol_type get_symbol_type_by_token_id(const int token_id)
             return sql_symbol_token_abort;
         case T_AND:
             return sql_symbol_operator_and;
+        case T_COMMENT:
+            return sql_symbol_comment;
         case T_FROM:
             return sql_symbol_token_from;
         case T_IDENTIFIER_QUOTED:
@@ -126,6 +128,8 @@ static const char* get_symbol_name(const enum sql_symbol_type symbol_type)
             return "command";
         case sql_symbol_command_list_tail:
             return "command_list_tail";
+        case sql_symbol_comment:
+            return "comment";
         case sql_symbol_expression_list_tail:
             return "sql_symbol_expression_list_tail";
         case sql_symbol_from_list_tail:

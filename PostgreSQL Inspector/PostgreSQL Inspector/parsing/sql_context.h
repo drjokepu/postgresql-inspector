@@ -24,6 +24,13 @@ struct sql_context_possible_token_list
     int *tokens;
 };
 
+struct sql_comment_list
+{
+    size_t count;
+    size_t capacity;
+    struct sql_symbol **comments;
+};
+
 struct sql_parser_state
 {
     bool accepted;
@@ -32,10 +39,15 @@ struct sql_parser_state
     bool has_parsed_wrench;
     struct sql_symbol *root_symbol;
     struct sql_context_possible_token_list *possible_token_list;
+    struct sql_comment_list *comment_list;
 };
 
 struct sql_context_possible_token_list *sql_context_possible_token_list_init(void);
 void sql_context_possible_token_list_free(struct sql_context_possible_token_list *list);
 void sql_context_possible_token_list_add_token(struct sql_context_possible_token_list *restrict list, const int token);
+
+struct sql_comment_list *sql_comment_list_init(void);
+void sql_comment_list_free(struct sql_comment_list *list);
+void sql_comment_list_add_token(struct sql_comment_list *restrict list, struct sql_symbol *restrict comment_symbol);
 
 #endif /* __SQL_CONTEXT_H__ */

@@ -8,6 +8,7 @@
 
 enum sql_symbol_type
 {
+    sql_symbol_comment,
     sql_symbol_command,
     sql_symbol_command_list_tail,
     sql_symbol_expression_list_tail,
@@ -44,6 +45,7 @@ enum sql_token_type
     sql_token_type_literal,
     sql_token_type_keyword,
     sql_token_type_operator,
+    sql_token_type_comment,
     sql_token_type_unknown
 };
 

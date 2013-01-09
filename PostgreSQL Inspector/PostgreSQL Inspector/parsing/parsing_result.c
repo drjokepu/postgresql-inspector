@@ -98,6 +98,8 @@ enum sql_token_type get_sql_token_type(const enum sql_symbol_type symbol_type)
         case sql_symbol_operator_not:
         case sql_symbol_operator_or:
             return sql_token_type_operator;
+        case sql_symbol_comment:
+            return sql_token_type_comment;
         default:
             return sql_token_type_unknown;
     }

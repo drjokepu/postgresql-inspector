@@ -39,6 +39,9 @@ static inline char peek(const struct sql_lexer *const restrict lexer);
 static inline char char_to_upper(const char input);
 static inline void skip_whitespace(struct sql_lexer *restrict lexer);
 
+static int sql_lexer_scan_comment(struct sql_lexer *restrict lexer, off_t *restrict out_start, size_t *restrict out_length);
+static int sql_lexer_scan_single_line_comment(struct sql_lexer *restrict lexer, off_t *restrict out_start, size_t *restrict out_length);
+static int sql_lexer_scan_multi_line_comment(struct sql_lexer *restrict lexer, off_t *restrict out_start, size_t *restrict out_length);
 static int sql_lexer_scan_keyword(struct sql_lexer *restrict lexer, off_t *restrict out_start, size_t *restrict out_length);
 static int sql_lexer_scan_operator(struct sql_lexer *restrict lexer, off_t *restrict out_start, size_t *restrict out_length);
 static int sql_lexer_scan_identifier(struct sql_lexer *restrict lexer, off_t *restrict out_start, size_t *restrict out_length);
@@ -110,6 +113,10 @@ int sql_lexer_get_next_token(struct sql_lexer *restrict lexer, off_t *restrict o
     skip_whitespace(lexer);
     if (is_eof(lexer)) return T_EOF;
     
+    const int comment_token_id = sql_lexer_scan_comment(lexer, out_start, out_length);
+    if (comment_token_id > 0)
+        return comment_token_id;
+    
     const int keyword_token_id = sql_lexer_scan_keyword(lexer, out_start, out_length);
     if (keyword_token_id > 0)
         return keyword_token_id;
@@ -132,6 +139,81 @@ int sql_lexer_get_next_token(struct sql_lexer *restrict lexer, off_t *restrict o
 static inline void skip_whitespace(struct sql_lexer *restrict lexer)
 {
     while (!is_eof(lexer) && is_whitespace(peek(lexer))) lexer->position++;
+}
+
+static int sql_lexer_scan_comment(struct sql_lexer *restrict lexer, off_t *restrict out_start, size_t *restrict out_length)
+{
+    const int single_line_comment_id = sql_lexer_scan_single_line_comment(lexer, out_start, out_length);
+    if (single_line_comment_id > 0)
+        return single_line_comment_id;
+    
+    const int multi_line_comment_id = sql_lexer_scan_multi_line_comment(lexer, out_start, out_length);
+    if (multi_line_comment_id > 0)
+        return multi_line_comment_id;
+    
+    return T_UNKNOWN;
+}
+
+static int sql_lexer_scan_single_line_comment(struct sql_lexer *restrict lexer, off_t *restrict out_start, size_t *restrict out_length)
+{
+    if (lexer->text[lexer->position] == '-' && lexer->text[lexer->position + 1] == '-')
+    {
+        off_t position;
+        for (position = lexer->position + 2; position < lexer->length && lexer->text[position] != '\n'; position++);
+        
+        *out_start = lexer->position;
+        *out_length = position - lexer->position;
+        lexer->position = position;
+        return T_COMMENT;
+    }
+    
+    return T_UNKNOWN;
+}
+
+static int sql_lexer_scan_multi_line_comment(struct sql_lexer *restrict lexer, off_t *restrict out_start, size_t *restrict out_length)
+{
+    if (lexer->text[lexer->position] == '/' && lexer->text[lexer->position + 1] == '*')
+    {
+        unsigned int depth = 1;
+        off_t position = lexer->position + 2;
+        while (true)
+        {
+            for (; position < lexer->length && lexer->text[position] != '*'; position++);
+            if (position >= lexer->length)
+            {
+                *out_start = lexer->position;
+                *out_length = position - lexer->position;
+                lexer->position = position;
+                return T_COMMENT;
+            }
+            
+            if (lexer->text[position - 1] == '/')
+            {
+                depth++;
+            }
+            else if (lexer->text[position + 1] == '/')
+            {
+                depth--;
+            }
+            position++;
+            
+            if (depth == 0)
+            {
+                position++;
+                *out_start = lexer->position;
+                *out_length = position - lexer->position;
+                lexer->position = position;
+                return T_COMMENT;
+            }
+        }
+        
+        *out_start = lexer->position;
+        *out_length = position - lexer->position;
+        lexer->position = position;
+        return T_COMMENT;
+    }
+    
+    return T_UNKNOWN;
 }
 
 static int sql_lexer_scan_keyword(struct sql_lexer *restrict lexer, off_t *restrict out_start, size_t *restrict out_length)
