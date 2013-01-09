@@ -27,11 +27,12 @@ static const NSInteger executeQueryTag = 4001;
 @property (nonatomic, assign) BOOL queryInProgress;
 @property (nonatomic, strong) NSMutableArray *queryResults;
 @property (nonatomic, strong) NSArray *completions;
+@property (nonatomic, assign) BOOL completionInProgress;
 
 @end
 
 @implementation PGQueryWindowController
-@synthesize connection, connectionIsOpen, initialQueryString, queryTextView, queryInProgress;
+@synthesize connection, connectionIsOpen, initialQueryString, queryTextView, queryInProgress, completionInProgress;
 
 -(NSString *)windowNibName
 {
@@ -241,10 +242,13 @@ static const NSInteger executeQueryTag = 4001;
 {
     @autoreleasepool
     {
-        PGSQLParsingResult *result = [PGSQLParser parse:self.queryTextView.string];
-        [self highlightSyntaxWithParsingResult:result];
-        self.completions = nil;
-        [self expandPossibleTokens:result.possibleTokens];
+        if (!completionInProgress)
+        {
+            PGSQLParsingResult *result = [PGSQLParser parse:self.queryTextView.string cursorPosition:[queryTextView selectedRange].location];
+            self.completions = nil;
+            [self expandPossibleTokens:result.possibleTokens];
+            [self highlightSyntaxWithParsingResult:result];
+        }
     }
 }
 
@@ -261,7 +265,9 @@ static const NSInteger executeQueryTag = 4001;
         return [((NSString*)obj1) compare:obj2];
     }];
     self.completions = expandedTokens;
+    self.completionInProgress = YES;
     [self.queryTextView complete:self];
+    self.completionInProgress = NO;
 }
 
 -(NSArray *)textView:(NSTextView *)textView completions:(NSArray *)words forPartialWordRange:(NSRange)charRange indexOfSelectedItem:(NSInteger *)index

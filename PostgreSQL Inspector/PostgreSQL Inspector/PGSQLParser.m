@@ -14,9 +14,9 @@
 
 @implementation PGSQLParser
 
-+(PGSQLParsingResult*)parse:(NSString *)sql
++(PGSQLParsingResult*)parse:(NSString *)sql cursorPosition:(NSUInteger)cursorPosition
 {
-    struct parsing_result *result = sql_parse([sql UTF8String]);
+    struct parsing_result *result = sql_parse([sql UTF8String], (unsigned int)cursorPosition);
     if (result != NULL)
     {
         PGSQLParsingResult *resultObject = [PGSQLParser createResultObject:result];

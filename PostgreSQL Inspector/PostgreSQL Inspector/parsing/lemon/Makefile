@@ -1,10 +1,26 @@
-LEMON_OPTIONS=-s
-LEMON_OUTPUT=lemon.c lemon.h lemon.out
-OUTPUT=$(LEMON_OUTPUT)
+LEMON_EXECUTABLE=./lemon
+LEMON_OBJECTS=lemon.o
+LEMON_TEMPLATE=./lempar.c
+LEMON_OPTIONS=-s T=$(LEMON_TEMPLATE)
+LEMON_INPUT=sql.y
+LEMON_OUTPUT=sql.c sql.h sql.out
+CC=clang
+CFLAGS=-O4
+LDFLAGS=-O4
 
-$(LEMON_OUTPUT):
-	lemon $(LEMON_OPTIONS) sql.y
+all: $(LEMON_OUTPUT)
 
-all: $(OUTPUT)
+$(LEMON_EXECUTABLE): $(LEMON_OBJECTS)
+	$(CC) $(LDFLAGS) $(LEMON_OBJECTS) -o $@
+
+%.o: %.c
+	$(CC) $(CFLAGS) -c -o $@ $<
+
+$(LEMON_OUTPUT): $(LEMON_EXECUTABLE) $(LEMON_INPUT)
+	$(LEMON_EXECUTABLE) $(LEMON_OPTIONS) $(LEMON_INPUT)	
+
 clean:
-	rm -rf $(OUTPUT)
+	rm -rf $(LEMON_OUTPUT)
+
+clean_all: clean
+	rm -rf $(LEMON_EXECUTABLE) $(LEMON_OBJECTS)

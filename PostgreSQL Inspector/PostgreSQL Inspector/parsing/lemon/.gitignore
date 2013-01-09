@@ -1,3 +1,5 @@
 sql.c
 sql.h
 sql.out
+lemon
+lemon.o

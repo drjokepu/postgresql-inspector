@@ -11,6 +11,6 @@
 @class PGSQLParsingResult;
 @interface PGSQLParser : NSObject
 
-+(PGSQLParsingResult*)parse:(NSString*)sql;
++(PGSQLParsingResult*)parse:(NSString *)sql cursorPosition:(NSUInteger)cursorPosition;
 
 @end

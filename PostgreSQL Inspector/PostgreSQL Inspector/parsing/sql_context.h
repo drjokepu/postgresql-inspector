@@ -10,6 +10,8 @@ struct sql_context_possible_token_list;
 
 struct sql_context
 {
+    bool report_errors;
+    bool accept_grammar;
     off_t symbol_start;
     size_t symbol_length;
     struct sql_parser_state *parser_state;
@@ -25,6 +27,9 @@ struct sql_context_possible_token_list
 struct sql_parser_state
 {
     bool accepted;
+    bool failed;
+    bool has_error;
+    bool has_parsed_wrench;
     struct sql_symbol *root_symbol;
     struct sql_context_possible_token_list *possible_token_list;
 };

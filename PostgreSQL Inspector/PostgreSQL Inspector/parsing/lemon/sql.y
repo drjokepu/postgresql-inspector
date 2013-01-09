@@ -10,27 +10,43 @@
 %extra_argument { struct sql_context* context }
 
 %include {
+#include <assert.h>
 #include <stdlib.h>
 #include <string.h>
 #include "../sql_context.h"
 #include "../sql_symbol.h"
 #include "functions.h"
+#include "sql.h"
 
 }
 
+%parse_accept {
+    context->parser_state->accepted = true;
+}
+
+%parse_failure {
+    context->parser_state->accepted = true;
+}
+
 %syntax_error {
-    const int n = sizeof(yyTokenName) / sizeof(yyTokenName[0]);
-    for (int i = 0; i < n; i++)
+    context->parser_state->has_error = true;
+    if (context->report_errors)
     {
-        const int a = yy_find_shift_action(yypParser, (YYCODETYPE)i);
-        if (a < YYNSTATE + YYNRULE)
+        const int n = sizeof(yyTokenName) / sizeof(yyTokenName[0]);
+        for (int i = 0; i < n; i++)
         {
-            sql_context_possible_token_list_add_token(context->parser_state->possible_token_list, i);
+            const int a = yy_find_shift_action(yypParser, (YYCODETYPE)i);
+            if (a < YYNSTATE + YYNRULE)
+            {
+                sql_context_possible_token_list_add_token(context->parser_state->possible_token_list, i);
+                //printf("possible token: %s\n", yyTokenName[i]);
+            }
         }
     }
 }
 
 start ::= command_list(L). { context->parser_state->root_symbol = L; }
+start ::= IMPOSSIBLE WRENCH.
 
 command_list(X) ::= command(A).                                         { X = A; }
 command_list(X) ::= command(A) SYM_COMMAND_SEPARATOR.                   { X = A; }
@@ -86,3 +102,4 @@ constant(X) ::= NUMERIC_LITERAL(A).       { X = A; }
 
 identifier(X) ::= IDENTIFIER_UNQUOTED(A). { X = A; }
 identifier(X) ::= IDENTIFIER_QUOTED(A).   { X = A; }
+

@@ -6,6 +6,7 @@
 #include "sql_context.h"
 #include "sql_lexer.h"
 #include "sql_symbol.h"
+#include "lemon/sql.h"
 
 #define SqlParseTOKENTYPE  struct sql_symbol* 
 #define SqlParseARG_PDECL , struct sql_context* context 
@@ -18,15 +19,15 @@ extern void SqlParse(
               SqlParseTOKENTYPE yyminor       /* The value for the token */
               SqlParseARG_PDECL               /* Optional %extra_argument parameter */
               );
+extern void SqlParseTrace(FILE *stream, char *zPrefix);
 
 static struct sql_symbol *get_symbol_from_token_id(const int token_id, const struct sql_context *const restrict context);
 static struct parsing_result *create_result(const struct sql_parser_state *const restrict parser_state);
 static void add_tokens_to_parsing_result(const struct sql_symbol *const restrict symbol, struct parsing_result *restrict result);
 static void add_possible_tokens_to_parsing_result(const struct sql_context_possible_token_list *const restrict list, struct parsing_result *restrict result);
 
-struct parsing_result *sql_parse(const char *const restrict sql)
+struct parsing_result *sql_parse(const char *const restrict sql, unsigned int cursor_position)
 {
-    bool accepted = false;
     void *parser = SqlParseAlloc(malloc);
     struct sql_lexer *lexer = sql_lexer_init(sql);
     struct parsing_result *result = NULL;
@@ -34,17 +35,23 @@ struct parsing_result *sql_parse(const char *const restrict sql)
     struct sql_parser_state parser_state =
     {
         .accepted = false,
+        .failed = false,
+        .has_error = false,
+        .has_parsed_wrench = false,
         .root_symbol = NULL,
         .possible_token_list = possible_token_list
     };
     
-    do
+    unsigned int token_counter = 0;
+    while (!parser_state.accepted)
     {
         off_t token_start = 0;
         size_t token_length = 0;
         const int token_id = sql_lexer_get_next_token(lexer, &token_start, &token_length);
         struct sql_context context =
         {
+            .report_errors = false,
+            .accept_grammar = true,
             .parser_state = &parser_state,
             .symbol_start = token_start,
             .symbol_length = token_length
@@ -54,24 +61,58 @@ struct parsing_result *sql_parse(const char *const restrict sql)
         
         SqlParse(parser, token_id, symbol, &context);
         
-        if (parser_state.root_symbol != NULL)
-        {
-            parser_state.accepted = true;
-        }
-        
         if (token_id == T_EOF)
         {
             sql_symbol_free(symbol);
         }
         
         if (token_id == T_UNKNOWN || token_id == T_EOF) break;
-    } while (!accepted);
+        if (!parser_state.has_error)
+        {
+            token_counter++;
+        }
+    }
+    
+    // we need to reparse the whole thing to trigger a fake T_EOF
+    char *reparse_sql = strdup(sql);
+    if (cursor_position < strlen(sql))
+    {
+        reparse_sql[cursor_position] = 0;
+    }
+    lexer = sql_lexer_init(reparse_sql);
+    free(reparse_sql);
+    reparse_sql = NULL;
+    
+//    SqlParseTrace(stderr, "reparse: ");
+    unsigned int reparse_token_counter = 0;
+    while (true)
+    {
+        off_t token_start = 0;
+        size_t token_length = 0;
+        int token_id = sql_lexer_get_next_token(lexer, &token_start, &token_length);
+        if (reparse_token_counter == token_counter) token_id = T_WRENCH;
+        struct sql_context context =
+        {
+            .report_errors = true,
+            .accept_grammar = false,
+            .parser_state = &parser_state,
+            .symbol_start = token_start,
+            .symbol_length = token_length
+        };
+        struct sql_symbol *symbol = get_symbol_from_token_id(token_id, &context);
+        SqlParse(parser, token_id, symbol, &context);
+        if (token_id == T_WRENCH || token_id == T_UNKNOWN || token_id == T_EOF) break;
+        reparse_token_counter++;
+    }
+//    SqlParseTrace(NULL, NULL);
+    sql_lexer_free(lexer);
+    lexer = NULL;
     
     sql_symbol_free_recursive(parser_state.root_symbol);
     result = create_result(&parser_state);
     
     SqlParseFree(parser, free);
-    sql_lexer_free(lexer);
+    
     sql_context_possible_token_list_free(possible_token_list);
     
     return result;

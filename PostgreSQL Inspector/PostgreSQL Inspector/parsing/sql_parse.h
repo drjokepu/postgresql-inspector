@@ -11,6 +11,6 @@
 
 #include "parsing_result.h"
 
-extern struct parsing_result *sql_parse(const char *const restrict sql);
+extern struct parsing_result *sql_parse(const char *const restrict sql, unsigned int cursor_position);
 
 #endif /* __SQL_PARSE_H__ */
