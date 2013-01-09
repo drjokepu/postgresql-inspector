@@ -75,6 +75,8 @@ enum sql_symbol_type get_symbol_type_by_token_id(const int token_id)
             return sql_symbol_eof;
         case T_ABORT:
             return sql_symbol_token_abort;
+        case T_AND:
+            return sql_symbol_operator_and;
         case T_FROM:
             return sql_symbol_token_from;
         case T_IDENTIFIER_QUOTED:
@@ -83,8 +85,14 @@ enum sql_symbol_type get_symbol_type_by_token_id(const int token_id)
             return sql_symbol_identifier_unquoted;
         case T_LOAD:
             return sql_symbol_token_load;
+        case T_NOT:
+            return sql_symbol_operator_not;
         case T_NUMERIC_LITERAL:
             return sql_symbol_literal_numeric;
+        case T_OPERATOR:
+            return sql_symbol_operator;
+        case T_OR:
+            return sql_symbol_operator_or;
         case T_ROLLBACK:
             return sql_symbol_token_rollback;
         case T_SELECT:

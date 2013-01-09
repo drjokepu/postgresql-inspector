@@ -18,8 +18,11 @@ static const struct token_lookup_item const token_lookup[] =
     (struct token_lookup_item){ .text = ",", .value = T_SYM_EXPR_SEPARATOR },
     (struct token_lookup_item){ .text = "*", .value = T_SYM_ALL_FIELDS },
     (struct token_lookup_item){ .text = "ABORT", .value = T_ABORT },
+    (struct token_lookup_item){ .text = "AND", .value = T_AND },
     (struct token_lookup_item){ .text = "FROM", .value = T_FROM },
+    (struct token_lookup_item){ .text = "OR", .value = T_OR },
     (struct token_lookup_item){ .text = "LOAD", .value = T_LOAD },
+    (struct token_lookup_item){ .text = "NOT", .value = T_NOT },
     (struct token_lookup_item){ .text = "ROLLBACK", .value = T_ROLLBACK },
     (struct token_lookup_item){ .text = "SELECT", .value = T_SELECT },
     (struct token_lookup_item){ .text = "TRANSACTION", .value = T_TRANSACTION },
@@ -37,12 +40,15 @@ static inline char char_to_upper(const char input);
 static inline void skip_whitespace(struct sql_lexer *restrict lexer);
 
 static int sql_lexer_scan_keyword(struct sql_lexer *restrict lexer, off_t *restrict out_start, size_t *restrict out_length);
+static int sql_lexer_scan_operator(struct sql_lexer *restrict lexer, off_t *restrict out_start, size_t *restrict out_length);
 static int sql_lexer_scan_identifier(struct sql_lexer *restrict lexer, off_t *restrict out_start, size_t *restrict out_length);
 static int sql_lexer_scan_identifier_unquoted(struct sql_lexer *restrict lexer, off_t *restrict out_start, size_t *restrict out_length);
 static int sql_lexer_scan_identifier_quoted(struct sql_lexer *restrict lexer, off_t *restrict out_start, size_t *restrict out_length);
 static int sql_lexer_scan_literal(struct sql_lexer *restrict lexer, off_t *restrict out_start, size_t *restrict out_length);
 static int sql_lexer_scan_numeric_literal(struct sql_lexer *restrict lexer, off_t *restrict out_start, size_t *restrict out_length);
 static int sql_lexer_scan_string_literal(struct sql_lexer *restrict lexer, off_t *restrict out_start, size_t *restrict out_length);
+
+static bool is_operator_char(const char c);
 
 struct sql_lexer *sql_lexer_init(const char *const restrict text)
 {
@@ -108,6 +114,10 @@ int sql_lexer_get_next_token(struct sql_lexer *restrict lexer, off_t *restrict o
     if (keyword_token_id > 0)
         return keyword_token_id;
     
+    const int operator_token_id = sql_lexer_scan_operator(lexer, out_start, out_length);
+    if (operator_token_id > 0)
+        return operator_token_id;
+    
     const int identifier_token_id = sql_lexer_scan_identifier(lexer, out_start, out_length);
     if (identifier_token_id > 0)
         return identifier_token_id;
@@ -166,6 +176,39 @@ static int sql_lexer_scan_keyword(struct sql_lexer *restrict lexer, off_t *restr
         }
     }
     
+    return T_UNKNOWN;
+}
+
+static bool is_operator_char(const char c)
+{
+    static const char operator_chars[] = "+-*/<>=~!@#%^&|`?";
+    for (unsigned int i = 0; i < sizeof(operator_chars) - 1; i++)
+    {
+        if (operator_chars[i] == c) return true;
+    }
+    return false;
+}
+
+static int sql_lexer_scan_operator(struct sql_lexer *restrict lexer, off_t *restrict out_start, size_t *restrict out_length)
+{
+    for(off_t position = lexer->position; position <= lexer->length; position++)
+    {
+        const char input_char = lexer->text[position];
+        if (!is_operator_char(input_char))
+        {
+            if (position != lexer->position)
+            {
+                *out_start = lexer->position;
+                *out_length = position - lexer->position;
+                lexer->position = position;
+                return T_OPERATOR;
+            }
+            else
+            {
+                return T_UNKNOWN;
+            }
+        }
+    }
     return T_UNKNOWN;
 }
 

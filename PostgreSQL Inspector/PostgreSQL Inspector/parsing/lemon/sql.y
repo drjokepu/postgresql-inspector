@@ -74,8 +74,13 @@ select_body(X) ::= SELECT(SEL) expression_list(COL) from_clause(FROM). { X = wit
 
 expression_list(X) ::= expression_list_1(A). { X = A; }
 
-expression_list_1(X) ::= expression(A). { X = A; }
-expression_list_1(X) ::= expression(A) SYM_EXPR_SEPARATOR expression_list_1(T). { X = new_with_children(sql_symbol_expression_list_tail, 2, A, T); }
+expression_list_1(X) ::= expression_op(A). { X = A; }
+expression_list_1(X) ::= expression_op(A) SYM_EXPR_SEPARATOR expression_list_1(T). { X = new_with_children(sql_symbol_expression_list_tail, 2, A, T); }
+
+expression_op(X) ::= expression_op(A) operator(O) expression(B). { X = new_with_children(sql_symbol_operator_expression, 3, A, O, B); }
+expression_op(X) ::= expression_op(A) operator(O). { X = new_with_children(sql_symbol_operator_expression, 2, A, O); }
+expression_op(X) ::= operator(O) expression(A). { X = new_with_children(sql_symbol_operator_expression, 2, O, A); }
+expression_op(X) ::= expression(A).     { X = A; }
 
 expression(X) ::= constant(A).          { X = A; }
 expression(X) ::= column_reference(A).  { X = A; }
@@ -105,4 +110,9 @@ constant(X) ::= NUMERIC_LITERAL(A).       { X = A; }
 
 identifier(X) ::= IDENTIFIER_UNQUOTED(A). { X = A; }
 identifier(X) ::= IDENTIFIER_QUOTED(A).   { X = A; }
+
+operator(X) ::= OPERATOR(A).    { X = A; }
+operator(X) ::= AND(A).         { X = A; }
+operator(X) ::= OR(A).          { X = A; }
+operator(X) ::= NOT(A).         { X = A; }
 

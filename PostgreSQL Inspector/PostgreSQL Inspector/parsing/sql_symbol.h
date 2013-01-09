@@ -12,6 +12,11 @@ enum sql_symbol_type
     sql_symbol_command_list_tail,
     sql_symbol_expression_list_tail,
     sql_symbol_from_list_tail,
+    sql_symbol_operator_expression,
+    sql_symbol_operator,
+    sql_symbol_operator_and,
+    sql_symbol_operator_not,
+    sql_symbol_operator_or,
     sql_symbol_identifier_quoted,
     sql_symbol_identifier_unquoted,
     sql_symbol_literal_numeric,
@@ -38,6 +43,7 @@ enum sql_token_type
     sql_token_type_identifier,
     sql_token_type_literal,
     sql_token_type_keyword,
+    sql_token_type_operator,
     sql_token_type_unknown
 };
 

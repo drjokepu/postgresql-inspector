@@ -304,6 +304,8 @@ static const NSInteger executeQueryTag = 4001;
             return [NSColor colorWithCalibratedRed:0.247 green:0.431 blue:0.455 alpha:1.000];
         case sql_token_type_literal:
             return [NSColor colorWithCalibratedRed:0.769 green:0.102 blue:0.086 alpha:1.000];
+        case sql_token_type_operator:
+            return [NSColor blueColor];
         default:
             return [NSColor textColor];
     }
