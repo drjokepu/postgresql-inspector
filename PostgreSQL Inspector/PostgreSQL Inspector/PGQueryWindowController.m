@@ -28,11 +28,12 @@ static const NSInteger executeQueryTag = 4001;
 @property (nonatomic, strong) NSMutableArray *queryResults;
 @property (nonatomic, strong) NSArray *completions;
 @property (nonatomic, assign) BOOL completionInProgress;
+@property (nonatomic, assign) NSUInteger previousTextLength;
 
 @end
 
 @implementation PGQueryWindowController
-@synthesize connection, connectionIsOpen, initialQueryString, queryTextView, queryInProgress, completionInProgress;
+@synthesize connection, connectionIsOpen, initialQueryString, queryTextView, queryInProgress, completionInProgress, previousTextLength;
 
 -(NSString *)windowNibName
 {
@@ -242,13 +243,18 @@ static const NSInteger executeQueryTag = 4001;
 {
     @autoreleasepool
     {
-        if (!completionInProgress)
+        PGSQLParsingResult *result = [PGSQLParser parse:self.queryTextView.string cursorPosition:[queryTextView selectedRange].location];
+        if (!self.completionInProgress)
         {
-            PGSQLParsingResult *result = [PGSQLParser parse:self.queryTextView.string cursorPosition:[queryTextView selectedRange].location];
             self.completions = nil;
-            [self expandPossibleTokens:result.possibleTokens];
-            [self highlightSyntaxWithParsingResult:result];
+            // only autocomplete when text was added
+            if (self.previousTextLength < [[queryTextView string] length] - [queryTextView selectedRange].length)
+            {
+                [self expandPossibleTokens:result.possibleTokens];
+            }
         }
+        [self highlightSyntaxWithParsingResult:result];
+        self.previousTextLength = [[queryTextView string] length] - [queryTextView selectedRange].length;
     }
 }
 
