@@ -22,7 +22,7 @@ static struct sql_symbol *with_children(struct sql_symbol *restrict parent, cons
 static struct sql_symbol *new_with_children(const enum sql_symbol_type symbol_type, const unsigned int number_of_children, ...)
 {
     va_list ap;
-    struct sql_symbol *symbol = sql_symbol_init_with_symbol_type(number_of_children);
+    struct sql_symbol *symbol = sql_symbol_init_with_symbol_type(symbol_type);
     va_start(ap, number_of_children);
     for (unsigned int i = 0;  i < number_of_children; i++)
     {

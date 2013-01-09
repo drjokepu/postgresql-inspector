@@ -251,7 +251,7 @@ static const NSInteger executeQueryTag = 4001;
             if (self.previousTextLength < [[queryTextView string] length] - [queryTextView selectedRange].length)
             {
                 [self expandPossibleTokens:result.possibleTokens];
-            }
+            }     
         }
         [self highlightSyntaxWithParsingResult:result];
         self.previousTextLength = [[queryTextView string] length] - [queryTextView selectedRange].length;
@@ -286,8 +286,8 @@ static const NSInteger executeQueryTag = 4001;
 
 -(void)highlightSyntaxWithParsingResult:(PGSQLParsingResult*)result
 {
-    [queryTextView setTextColor:[NSColor textColor]];
     if (result == nil) return;
+    [queryTextView setTextColor:[NSColor textColor]];
     for (PGSQLToken *token in result.tokens)
     {
         [queryTextView setTextColor:[PGQueryWindowController tokenColor:[token tokenType]] range:NSMakeRange(token.start, token.length)];

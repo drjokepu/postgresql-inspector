@@ -21,7 +21,10 @@
 }
 
 %parse_accept {
-    context->parser_state->accepted = true;
+    if (context->accept_grammar)
+    {
+        context->parser_state->accepted = true;
+    }
 }
 
 %parse_failure {
@@ -45,12 +48,12 @@
     }
 }
 
-start ::= command_list(L). { context->parser_state->root_symbol = L; }
+start ::= command_list(L). { if (context->accept_grammar) { context->parser_state->root_symbol = L; } }
 start ::= IMPOSSIBLE WRENCH.
 
 command_list(X) ::= command(A).                                         { X = A; }
 command_list(X) ::= command(A) SYM_COMMAND_SEPARATOR.                   { X = A; }
-command_list(X) ::= command(A) SYM_COMMAND_SEPAROTOR command_list(T).   { X = new_with_children(sql_symbol_command_list_tail, 2, A, T); }
+command_list(X) ::= command(A) SYM_COMMAND_SEPARATOR command_list(T).   { X = new_with_children(sql_symbol_command_list_tail, 2, A, T); }
 
 command(X) ::= load(A).             { X = new_with_children(sql_symbol_command, 1, A); }
 command(X) ::= rollback(A).         { X = new_with_children(sql_symbol_command, 1, A); }

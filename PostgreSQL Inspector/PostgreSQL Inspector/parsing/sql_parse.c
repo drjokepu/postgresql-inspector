@@ -43,7 +43,7 @@ struct parsing_result *sql_parse(const char *const restrict sql, unsigned int cu
     };
     
     unsigned int token_counter = 0;
-    while (!parser_state.accepted)
+    while (true)
     {
         off_t token_start = 0;
         size_t token_length = 0;
@@ -73,6 +73,8 @@ struct parsing_result *sql_parse(const char *const restrict sql, unsigned int cu
         }
     }
     
+    sql_lexer_free(lexer);
+    lexer = NULL;
     // we need to reparse the whole thing to trigger a fake T_EOF
     char *reparse_sql = strdup(sql);
     if (cursor_position < strlen(sql))
@@ -83,7 +85,6 @@ struct parsing_result *sql_parse(const char *const restrict sql, unsigned int cu
     free(reparse_sql);
     reparse_sql = NULL;
     
-//    SqlParseTrace(stderr, "reparse: ");
     unsigned int reparse_token_counter = 0;
     while (true)
     {
@@ -104,12 +105,11 @@ struct parsing_result *sql_parse(const char *const restrict sql, unsigned int cu
         if (token_id == T_WRENCH || token_id == T_UNKNOWN || token_id == T_EOF) break;
         reparse_token_counter++;
     }
-//    SqlParseTrace(NULL, NULL);
     sql_lexer_free(lexer);
     lexer = NULL;
     
-    sql_symbol_free_recursive(parser_state.root_symbol);
     result = create_result(&parser_state);
+    sql_symbol_free_recursive(parser_state.root_symbol);
     
     SqlParseFree(parser, free);
     
