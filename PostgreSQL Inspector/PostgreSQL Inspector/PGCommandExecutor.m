@@ -9,6 +9,7 @@
 #import "PGCommandExecutor.h"
 #import "PGCommand.h"
 #import "PGConnection.h"
+#import "PGError.h"
 #import "PGOid.h"
 #import "PGResult.h"
 #import "PGType.h"
@@ -74,6 +75,9 @@
                     case PGRES_TUPLES_OK:
                         [self tuplesOk:result index:resultIndex++];
                         break;
+                    case PGRES_FATAL_ERROR:
+                        [self fatalError:result];
+                        break;
                     default:
                         fprintf(stderr, "Unknown result status: %i %s\n", (int)resultStatus, PQresStatus(resultStatus));
                 }
@@ -118,6 +122,30 @@
             
             [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                 onTuplesOk(result);
+            }];
+        }
+    }
+}
+
+-(void)fatalError:(PGresult*)result
+{
+    @autoreleasepool
+    {
+        if (self.onError != nil)
+        {
+            PGError *error = [[PGError alloc] init];
+            error.sqlErrorMessage = [[NSString alloc] initWithUTF8String:PQresultErrorField(result, PG_DIAG_MESSAGE_PRIMARY)];
+
+            const char *const errorPositionString = PQresultErrorField(result, PG_DIAG_STATEMENT_POSITION);
+            if (errorPositionString && *errorPositionString)
+            {
+                long errorPosition = strtol(errorPositionString, NULL, 10);
+                if (errorPosition > 0) errorPosition--;
+                error.errorPosition = errorPosition;
+            }
+            
+            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                self.onError(error);
             }];
         }
     }

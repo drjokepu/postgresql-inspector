@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@class PGCommand, PGResult;
+@class PGCommand, PGError, PGResult;
 
 @interface PGCommandExecutor : NSObject
 
@@ -16,6 +16,7 @@
 @property (nonatomic, assign) BOOL rowByRow;
 @property (nonatomic, strong) void (^onTuplesOk)(PGResult *result);
 @property (nonatomic, strong) void (^onNoMoreResults)(void);
+@property (nonatomic, strong) void (^onError)(PGError *error);
 
 -(id)initWithCommand:(PGCommand*)theCommand;
 -(void)execute;

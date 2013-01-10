@@ -29,6 +29,7 @@
     executor.rowByRow = NO;
     executor.onTuplesOk = resultCallback;
     executor.onNoMoreResults = noMoreResultsCallback;
+    executor.onError = errorCallback;
     [executor execute];
 }
 
