@@ -219,7 +219,7 @@ static const NSInteger executeQueryTag = 4001;
             maxWidth = MAX(maxWidth, cellWidth);
         }
         
-        CGFloat headerCellWidth = [[[[tableView tableColumns] objectAtIndex:column] headerCell] cellSize].width;
+        const CGFloat headerCellWidth = [[[[tableView tableColumns] objectAtIndex:column] headerCell] cellSize].width;
         
         maxWidth = MAX(maxWidth, headerCellWidth);
         maxWidth = MIN(maxWidth, 350.0); // max width is 350 pixels
