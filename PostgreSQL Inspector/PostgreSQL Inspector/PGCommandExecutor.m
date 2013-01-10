@@ -95,12 +95,10 @@
 
 -(void)emptyQuery
 {
-    NSLog(@"empty query");
 }
 
 -(void)commandOk
 {
-    NSLog(@"command ok");
 }
 
 -(void)noMoreResults
