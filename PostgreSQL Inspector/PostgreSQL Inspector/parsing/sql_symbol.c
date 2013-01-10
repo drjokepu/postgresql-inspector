@@ -77,28 +77,46 @@ enum sql_symbol_type get_symbol_type_by_token_id(const int token_id)
             return sql_symbol_token_abort;
         case T_AND:
             return sql_symbol_operator_and;
+        case T_BEGIN:
+            return sql_symbol_token_begin;
         case T_COMMENT:
             return sql_symbol_comment;
+        case T_COMMITTED:
+            return sql_symbol_token_committed;
+        case T_DEFERRABLE:
+            return sql_symbol_token_deferrable;
         case T_FROM:
             return sql_symbol_token_from;
         case T_IDENTIFIER_QUOTED:
             return sql_symbol_identifier_quoted;
         case T_IDENTIFIER_UNQUOTED:
             return sql_symbol_identifier_unquoted;
+        case T_ISOLATION:
+            return sql_symbol_token_isolation;
+        case T_LEVEL:
+            return sql_symbol_token_level;
         case T_LOAD:
             return sql_symbol_token_load;
         case T_NOT:
             return sql_symbol_operator_not;
         case T_NUMERIC_LITERAL:
             return sql_symbol_literal_numeric;
+        case T_ONLY:
+            return sql_symbol_token_only;
         case T_OPERATOR:
             return sql_symbol_operator;
         case T_OR:
             return sql_symbol_operator_or;
+        case T_READ:
+            return sql_symbol_token_read;
+        case T_REPEATABLE:
+            return sql_symbol_token_repeatable;
         case T_ROLLBACK:
             return sql_symbol_token_rollback;
         case T_SELECT:
             return sql_symbol_token_select;
+        case T_SERIALIZABLE:
+            return sql_symbol_token_serializable;
         case T_STRING_LITERAL:
             return sql_symbol_literal_string;
         case T_SYM_ALL_FIELDS:
@@ -111,8 +129,12 @@ enum sql_symbol_type get_symbol_type_by_token_id(const int token_id)
             return sql_symbol_name_separator;
         case T_TRANSACTION:
             return sql_symbol_token_transaction;
+        case T_UNCOMMITTED:
+            return sql_symbol_token_uncommitted;
         case T_WORK:
             return sql_symbol_token_work;
+        case T_WRITE:
+            return sql_symbol_token_write;
         default:
             return sql_symbol_unknown;
     }

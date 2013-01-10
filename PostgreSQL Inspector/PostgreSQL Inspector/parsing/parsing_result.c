@@ -86,12 +86,23 @@ enum sql_token_type get_sql_token_type(const enum sql_symbol_type symbol_type)
         case sql_symbol_literal_string:
             return sql_token_type_literal;
         case sql_symbol_token_abort:
+        case sql_symbol_token_begin:
+        case sql_symbol_token_committed:
+        case sql_symbol_token_deferrable:
         case sql_symbol_token_from:
+        case sql_symbol_token_isolation:
+        case sql_symbol_token_level:
         case sql_symbol_token_load:
+        case sql_symbol_token_only:
+        case sql_symbol_token_read:
+        case sql_symbol_token_repeatable:
         case sql_symbol_token_rollback:
         case sql_symbol_token_select:
+        case sql_symbol_token_serializable:
         case sql_symbol_token_transaction:
+        case sql_symbol_token_uncommitted:
         case sql_symbol_token_work:
+        case sql_symbol_token_write:
             return sql_token_type_keyword;
         case sql_symbol_operator:
         case sql_symbol_operator_and:
