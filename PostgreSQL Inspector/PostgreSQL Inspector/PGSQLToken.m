@@ -90,6 +90,8 @@
             return @"serializable";
         case sql_symbol_token_show:
             return @"show";
+        case sql_symbol_token_table:
+            return @"table";
         case sql_symbol_token_transaction:
             return @"transaction";
         case sql_symbol_token_uncommitted:

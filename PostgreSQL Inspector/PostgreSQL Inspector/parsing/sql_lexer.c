@@ -38,6 +38,7 @@ static const struct token_lookup_item const token_lookup[] =
     (struct token_lookup_item){ .text = "SELECT", .value = T_SELECT },
     (struct token_lookup_item){ .text = "SERIALIZABLE", .value = T_SERIALIZABLE },
     (struct token_lookup_item){ .text = "SHOW", .value = T_SHOW },
+    (struct token_lookup_item){ .text = "TABLE", .value = T_TABLE },
     (struct token_lookup_item){ .text = "TRANSACTION", .value = T_TRANSACTION },
     (struct token_lookup_item){ .text = "UNCOMMITTED", .value = T_UNCOMMITTED },
     (struct token_lookup_item){ .text = "WORK", .value = T_WORK },

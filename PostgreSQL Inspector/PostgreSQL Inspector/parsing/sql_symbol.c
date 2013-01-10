@@ -135,6 +135,8 @@ enum sql_symbol_type get_symbol_type_by_token_id(const int token_id)
             return sql_symbol_expression_separator;
         case T_SYM_NAME_SEPARATOR:
             return sql_symbol_name_separator;
+        case T_TABLE:
+            return sql_symbol_token_table;
         case T_TRANSACTION:
             return sql_symbol_token_transaction;
         case T_UNCOMMITTED:

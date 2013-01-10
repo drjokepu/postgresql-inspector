@@ -103,6 +103,7 @@ enum sql_token_type get_sql_token_type(const enum sql_symbol_type symbol_type)
         case sql_symbol_token_select:
         case sql_symbol_token_serializable:
         case sql_symbol_token_show:
+        case sql_symbol_token_table:
         case sql_symbol_token_transaction:
         case sql_symbol_token_uncommitted:
         case sql_symbol_token_work:

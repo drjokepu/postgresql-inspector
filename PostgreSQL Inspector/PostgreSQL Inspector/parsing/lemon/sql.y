@@ -63,6 +63,7 @@ command(X) ::= load(A).             { X = new_with_children(sql_symbol_command, 
 command(X) ::= rollback(A).         { X = new_with_children(sql_symbol_command, 1, A); }
 command(X) ::= select(A).           { X = new_with_children(sql_symbol_command, 1, A); }
 command(X) ::= show(A).             { X = new_with_children(sql_symbol_command, 1, A); }
+command(X) ::= table(A).            { X = new_with_children(sql_symbol_command, 1, A); }
 
 load ::= LOAD STRING_LITERAL.
 
@@ -151,3 +152,8 @@ isolation_level(X) ::= READ(A) UNCOMMITTED(B).  { X = with_children(A, 1, B); }
 
 show(X) ::= SHOW(A) ALL(B).         { X = with_children(A, 1, B); }
 show(X) ::= SHOW(A) identifier(B).  { X = with_children(A, 1, B); }
+
+table(X) ::= TABLE(T) ONLY(O) table_reference(N) SYM_ALL_FIELDS(S). { X = with_children(T, 3, O, N, S); }
+table(X) ::= TABLE(T) ONLY(O) table_reference(N).                   { X = with_children(T, 2, O, N); }
+table(X) ::= TABLE(T) table_reference(N) SYM_ALL_FIELDS(S).         { X = with_children(T, 2, N, S); }
+table(X) ::= TABLE(T) table_reference(N).                           { X = with_children(T, 1, N); }

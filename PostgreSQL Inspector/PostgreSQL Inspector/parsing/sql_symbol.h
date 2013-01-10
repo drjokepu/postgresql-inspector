@@ -48,6 +48,7 @@ enum sql_symbol_type
     sql_symbol_token_serializable,
     sql_symbol_token_select,
     sql_symbol_token_show,
+    sql_symbol_token_table,
     sql_symbol_token_transaction,
     sql_symbol_token_work,
     sql_symbol_token_write,
