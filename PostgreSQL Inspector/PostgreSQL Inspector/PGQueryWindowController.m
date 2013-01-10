@@ -213,9 +213,8 @@ static const NSInteger executeQueryTag = 4001;
         
         for (NSInteger row = 0; row < rowCount; row++)
         {
-            NSCell *cell = [tableView preparedCellAtColumn:column row:row];
-            
-            CGFloat cellWidth = [cell cellSize].width + 10.0;
+            const NSCell *cell = [tableView preparedCellAtColumn:column row:row];
+            const CGFloat cellWidth = [cell cellSize].width + 10.0;
             maxWidth = MAX(maxWidth, cellWidth);
         }
         
