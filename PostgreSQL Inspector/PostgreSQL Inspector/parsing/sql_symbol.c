@@ -81,10 +81,14 @@ enum sql_symbol_type get_symbol_type_by_token_id(const int token_id)
             return sql_symbol_token_begin;
         case T_COMMENT:
             return sql_symbol_comment;
+        case T_COMMIT:
+            return sql_symbol_token_commit;
         case T_COMMITTED:
             return sql_symbol_token_committed;
         case T_DEFERRABLE:
             return sql_symbol_token_deferrable;
+        case T_END:
+            return sql_symbol_token_end;
         case T_FROM:
             return sql_symbol_token_from;
         case T_IDENTIFIER_QUOTED:

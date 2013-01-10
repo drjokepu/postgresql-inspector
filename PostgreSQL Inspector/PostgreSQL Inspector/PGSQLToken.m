@@ -58,10 +58,14 @@
             return @"abort";
         case sql_symbol_token_begin:
             return @"begin";
+        case sql_symbol_token_commit:
+            return @"commit";
         case sql_symbol_token_committed:
             return @"committed";
         case sql_symbol_token_deferrable:
             return @"deferrable";
+        case sql_symbol_token_end:
+            return @"end";
         case sql_symbol_token_from:
             return @"from";
         case sql_symbol_token_isolation:

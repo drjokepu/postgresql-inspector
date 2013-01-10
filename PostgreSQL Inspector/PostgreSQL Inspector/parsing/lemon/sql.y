@@ -58,6 +58,7 @@ command_list(X) ::= command(A) SYM_COMMAND_SEPARATOR.                   { X = A;
 command_list(X) ::= command(A) SYM_COMMAND_SEPARATOR command_list(T).   { X = new_with_children(sql_symbol_command_list_tail, 2, A, T); }
 
 command(X) ::= begin(A).            { X = new_with_children(sql_symbol_command, 1, A); }
+command(X) ::= commit(A).           { X = new_with_children(sql_symbol_command, 1, A); }
 command(X) ::= load(A).             { X = new_with_children(sql_symbol_command, 1, A); }
 command(X) ::= rollback(A).         { X = new_with_children(sql_symbol_command, 1, A); }
 command(X) ::= select(A).           { X = new_with_children(sql_symbol_command, 1, A); }
@@ -122,6 +123,13 @@ operator(X) ::= NOT(A).         { X = A; }
 begin(X) ::= BEGIN(A) transaction_mode_list(B).                 { X = with_children(A, 1, B); }
 begin(X) ::= BEGIN(A) WORK(B) transaction_mode_list(C).         { X = with_children(A, 2, B, C); }
 begin(X) ::= BEGIN(A) TRANSACTION(B) transaction_mode_list(C).  { X = with_children(A, 2, B, C); }
+
+commit(X) ::= COMMIT(A).                { X = A; }
+commit(X) ::= COMMIT(A) WORK(B).        { X = with_children(A, 1, B); }
+commit(X) ::= COMMIT(A) TRANSACTION(B). { X = with_children(A, 1, B); }
+commit(X) ::= END(A).                   { X = A; }
+commit(X) ::= END(A) WORK(B).           { X = with_children(A, 1, B); }
+commit(X) ::= END(A) TRANSACTION(B).    { X = with_children(A, 1, B); }
 
 transaction_mode_list ::= .
 transaction_mode_list(X) ::= transaction_mode_list_1(A). { X = A; }

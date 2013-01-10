@@ -87,8 +87,10 @@ enum sql_token_type get_sql_token_type(const enum sql_symbol_type symbol_type)
             return sql_token_type_literal;
         case sql_symbol_token_abort:
         case sql_symbol_token_begin:
+        case sql_symbol_token_commit:
         case sql_symbol_token_committed:
         case sql_symbol_token_deferrable:
+        case sql_symbol_token_end:
         case sql_symbol_token_from:
         case sql_symbol_token_isolation:
         case sql_symbol_token_level:
