@@ -29,11 +29,12 @@ static const NSInteger executeQueryTag = 4001;
 @property (nonatomic, strong) NSArray *completions;
 @property (nonatomic, assign) BOOL completionInProgress;
 @property (nonatomic, assign) NSUInteger previousTextLength;
+@property (nonatomic, assign) NSFont *presentationFont;
 
 @end
 
 @implementation PGQueryWindowController
-@synthesize connection, connectionIsOpen, initialQueryString, queryTextView, queryInProgress, completionInProgress, previousTextLength;
+@synthesize connection, connectionIsOpen, initialQueryString, queryTextView, queryInProgress, completionInProgress, previousTextLength, presentationFont;
 
 -(NSString *)windowNibName
 {
@@ -46,7 +47,8 @@ static const NSInteger executeQueryTag = 4001;
     if (self.initialQueryString == nil) self.initialQueryString = @"";
     self.queryResults = [[NSMutableArray alloc] init];
     [queryTextView setString:initialQueryString];
-    [queryTextView setFont:[NSFont fontWithName:@"Menlo" size:12]];
+    self.presentationFont = [NSFont fontWithName:@"Menlo" size:12];
+    [queryTextView setFont:presentationFont];
 }
 
 -(void)dealloc
@@ -192,6 +194,7 @@ static const NSInteger executeQueryTag = 4001;
         {
             [[column dataCell] setFormatter: [[PGUUIDFormatter alloc] init]];
         }
+        [[column dataCell] setFont:presentationFont];
         
         [self.resultsTableView addTableColumn:column];
     }
