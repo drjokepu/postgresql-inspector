@@ -62,6 +62,7 @@ command(X) ::= commit(A).           { X = new_with_children(sql_symbol_command, 
 command(X) ::= load(A).             { X = new_with_children(sql_symbol_command, 1, A); }
 command(X) ::= rollback(A).         { X = new_with_children(sql_symbol_command, 1, A); }
 command(X) ::= select(A).           { X = new_with_children(sql_symbol_command, 1, A); }
+command(X) ::= show(A).             { X = new_with_children(sql_symbol_command, 1, A); }
 
 load ::= LOAD STRING_LITERAL.
 
@@ -147,3 +148,6 @@ isolation_level(X) ::= SERIALIZABLE(A).         { X = A; }
 isolation_level(X) ::= REPEATABLE(A) READ(B).   { X = with_children(A, 1, B); }
 isolation_level(X) ::= READ(A) COMMITTED(B).    { X = with_children(A, 1, B); }
 isolation_level(X) ::= READ(A) UNCOMMITTED(B).  { X = with_children(A, 1, B); }
+
+show(X) ::= SHOW(A) ALL(B).         { X = with_children(A, 1, B); }
+show(X) ::= SHOW(A) identifier(B).  { X = with_children(A, 1, B); }

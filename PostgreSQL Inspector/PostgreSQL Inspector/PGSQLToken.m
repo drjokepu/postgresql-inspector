@@ -56,6 +56,8 @@
             return @"not";
         case sql_symbol_token_abort:
             return @"abort";
+        case sql_symbol_token_all:
+            return @"all";
         case sql_symbol_token_begin:
             return @"begin";
         case sql_symbol_token_commit:
@@ -86,6 +88,8 @@
             return @"select";
         case sql_symbol_token_serializable:
             return @"serializable";
+        case sql_symbol_token_show:
+            return @"show";
         case sql_symbol_token_transaction:
             return @"transaction";
         case sql_symbol_token_uncommitted:
