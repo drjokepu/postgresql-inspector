@@ -185,7 +185,7 @@ static const NSInteger executeQueryTag = 4001;
     for (NSUInteger i = 0; i < [result.columnNames count]; i++)
     {
         NSString *columnName = result.columnNames[i];
-        NSTableColumn *column = [[NSTableColumn alloc] initWithIdentifier:[NSString stringWithFormat:@"%lu", i]];
+        NSTableColumn *column = [[NSTableColumn alloc] initWithIdentifier:[[NSString alloc] initWithFormat:@"%lu", i]];
         
         [[column headerCell] setStringValue:[[NSString alloc] initWithString:columnName]];
         
