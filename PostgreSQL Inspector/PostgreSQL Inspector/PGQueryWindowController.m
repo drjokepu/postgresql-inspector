@@ -197,6 +197,35 @@ static const NSInteger executeQueryTag = 4001;
     }
     
     [self.resultsTableView reloadData];
+    [self resizeColumns];
+}
+
+-(void)resizeColumns
+{
+    const NSTableView *tableView = self.resultsTableView;
+    
+    const NSInteger columnCount = [tableView numberOfColumns];
+    const NSInteger rowCount = [tableView numberOfRows];
+    
+    for (NSInteger column = 0; column < columnCount; column++)
+    {
+        CGFloat maxWidth = 0.0;
+        
+        for (NSInteger row = 0; row < rowCount; row++)
+        {
+            NSCell *cell = [tableView preparedCellAtColumn:column row:row];
+            
+            CGFloat cellWidth = [cell cellSize].width + 10.0;
+            maxWidth = MAX(maxWidth, cellWidth);
+        }
+        
+        CGFloat headerCellWidth = [[[[tableView tableColumns] objectAtIndex:column] headerCell] cellSize].width;
+        
+        maxWidth = MAX(maxWidth, headerCellWidth);
+        maxWidth = MIN(maxWidth, 350.0); // max width is 350 pixels
+        
+        [[[tableView tableColumns] objectAtIndex:column] setWidth:maxWidth];
+    }
 }
 
 -(void)showError:(PGError *)error
