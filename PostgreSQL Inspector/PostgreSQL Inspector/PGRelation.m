@@ -281,7 +281,15 @@ static NSComparisonResult compareConstraintTypes(const PGConstraintType c1, cons
 
 -(NSString *)description
 {
-    return [[NSString alloc] initWithFormat:@"%@.%@", self.schemaName, self.name];
+    return [self schemaQualifiedName];
+}
+
+-(NSString *)schemaQualifiedName
+{
+    if ([self.schemaName isEqualToString:@"public"])
+        return [PGSchemaObject escapeIdentifier:self.name];
+    else
+        return [[NSString alloc] initWithFormat:@"%@.%@", [PGSchemaObject escapeIdentifier:self.schemaName], [PGSchemaObject escapeIdentifier:self.name]];
 }
 
 @end

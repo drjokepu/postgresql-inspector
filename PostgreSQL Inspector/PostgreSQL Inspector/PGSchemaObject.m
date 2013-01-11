@@ -9,6 +9,8 @@
 #import "PGSchemaObject.h"
 #import "PGConnection.h"
 
+static inline bool identifier_needs_escaping(const char *const restrict identifier);
+
 @implementation PGSchemaObject
 @synthesize oid, name;
 
@@ -21,4 +23,34 @@
     return self;
 }
 
++(NSString *)escapeIdentifier:(NSString *)identifier
+{
+    if (identifier_needs_escaping([identifier UTF8String]))
+    {
+        return [[NSString alloc] initWithFormat:@"\"%@\"", [identifier stringByReplacingOccurrencesOfString:@"\"" withString:@"\"\""]];
+    }
+    else
+    {
+        return identifier;
+    }
+}
+
 @end
+
+static inline bool identifier_needs_escaping(const char *const restrict identifier)
+{
+    if (identifier == NULL || *identifier == 0) return true;
+    
+    for (const char *cursor = identifier; *cursor != 0; cursor++)
+    {
+        const char input_char = *cursor;
+        if ((input_char < 'a' || input_char > 'z') &&
+            (input_char < 'A' || input_char > 'Z') &&
+            input_char != '_')
+        {
+            return true;
+        }
+    }
+    
+    return false;
+}

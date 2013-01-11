@@ -389,4 +389,24 @@
     [[queryWindowController window] makeKeyAndOrderFront:self];
 }
 
+-(void)querySelectedRelation:(id)sender
+{
+    if (self.selectedTable != nil)
+    {
+        [self queryRelation:self.selectedTable];
+    }
+}
+
+-(void)queryRelation:(PGRelation*)relation
+{
+    if (relation == nil) return;
+    
+    PGQueryWindowController *queryWindowController = [[PGQueryWindowController alloc] init];
+    
+    queryWindowController.initialQueryString = [[NSString alloc] initWithFormat:@"select t.* from %@ t;", [relation schemaQualifiedName]];
+    
+    [queryWindowController useConnection:[self.connection copy]];
+    [[queryWindowController window] makeKeyAndOrderFront:self];
+}
+
 @end

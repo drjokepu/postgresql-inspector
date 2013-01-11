@@ -26,5 +26,6 @@
 
 -(IBAction)didChangeSchemaPopUpButtonValue:(id)sender;
 -(IBAction)queryDatabase:(id)sender;
+-(IBAction)querySelectedRelation:(id)sender;
 
 @end

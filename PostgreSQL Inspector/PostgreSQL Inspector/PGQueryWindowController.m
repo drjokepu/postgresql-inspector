@@ -59,6 +59,12 @@ static NSMutableArray *windowList = nil;
     [queryTextView setFont:self.textEditorFont];
     
     [windowList addObject:self];
+    
+    if ([self.initialQueryString length] > 0)
+    {
+        [self highlightSyntax];
+        [self executeQuery:self];
+    }
 }
 
 -(void)windowWillClose:(NSNotification *)notification
@@ -340,6 +346,11 @@ static NSMutableArray *windowList = nil;
     return [self.completions filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
         return [evaluatedObject hasPrefix:prefix];
     }]];
+}
+
+-(void)highlightSyntax
+{
+    [self highlightSyntaxWithParsingResult:[PGSQLParser parse:self.queryTextView.string cursorPosition:[queryTextView selectedRange].location]];
 }
 
 -(void)highlightSyntaxWithParsingResult:(PGSQLParsingResult*)result

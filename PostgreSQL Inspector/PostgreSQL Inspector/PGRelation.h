@@ -23,5 +23,6 @@
 @property (nonatomic, strong) NSMutableArray *constraints;
 
 -(void)loadRelationFromCatalog:(PGConnection*)connection asyncCallback:(void(^)(void))asyncCallback;
+-(NSString*)schemaQualifiedName;
 
 @end

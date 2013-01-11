@@ -16,5 +16,6 @@
 @property (nonatomic, strong) NSString *name;
 
 -(id)initWithOid:(NSInteger)theOid;
++(NSString*)escapeIdentifier:(NSString*)identifier;
 
 @end
