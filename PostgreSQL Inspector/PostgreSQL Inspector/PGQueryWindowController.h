@@ -9,12 +9,11 @@
 #import <Cocoa/Cocoa.h>
 #import "PGConnectionDelegate.h"
 
-@class PGConnection, PGDatabaseWindowController;
+@class PGConnection;
 
-@interface PGQueryWindowController : NSWindowController <PGConnectionDelegate, NSTextViewDelegate, NSTableViewDataSource, NSTableViewDelegate>
+@interface PGQueryWindowController : NSWindowController <NSWindowDelegate, PGConnectionDelegate, NSTextViewDelegate, NSTableViewDataSource, NSTableViewDelegate>
 
 @property (nonatomic, strong) NSString *initialQueryString;
-@property (nonatomic, weak) PGDatabaseWindowController *parentWindowController;
 @property (strong) IBOutlet NSTextView *queryTextView;
 @property (strong) IBOutlet NSPopUpButton *resultSelectorPopUpButton;
 @property (strong) IBOutlet NSTableView *resultsTableView;

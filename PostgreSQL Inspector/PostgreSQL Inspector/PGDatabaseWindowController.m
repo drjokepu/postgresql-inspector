@@ -22,7 +22,6 @@
 #import "PGQueryWindowController.h"
 
 @interface PGDatabaseWindowController ()
-@property (nonatomic, strong) NSMutableArray *queryWindowControllerList;
 @property (nonatomic, assign) BOOL schemaHasBeenLoadedPreviously;
 @end
 
@@ -48,7 +47,6 @@
     [outlineView setFloatsGroupRows:NO];
     self.schemaHasBeenLoadedPreviously = NO;
     [database loadSchema:connection];
-    self.queryWindowControllerList = [[NSMutableArray alloc] init];
 }
 
 -(void)windowWillClose:(NSNotification *)notification
@@ -387,17 +385,8 @@
 -(void)queryDatabase:(id)sender
 {
     PGQueryWindowController *queryWindowController = [[PGQueryWindowController alloc] init];
-    queryWindowController.parentWindowController = self;
     [queryWindowController useConnection:[self.connection copy]];
     [[queryWindowController window] makeKeyAndOrderFront:self];
-    [self.queryWindowControllerList addObject:queryWindowController];
-}
-
--(void)willCloseQueryWindow:(PGQueryWindowController *)queryWindowController
-{
-    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-        [self.queryWindowControllerList removeObject:queryWindowController];
-    }];
 }
 
 @end

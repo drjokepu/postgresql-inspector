@@ -24,8 +24,6 @@
 @property (strong) IBOutlet NSTableView *tableColumnsTableView;
 @property (strong) IBOutlet NSTableView *constraintsTableView;
 
--(void)willCloseQueryWindow:(PGQueryWindowController*)queryWindowController;
-
 -(IBAction)didChangeSchemaPopUpButtonValue:(id)sender;
 -(IBAction)queryDatabase:(id)sender;
 

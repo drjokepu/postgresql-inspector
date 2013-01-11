@@ -19,6 +19,7 @@
 #import "PGUUIDFormatter.h"
 
 static const NSInteger executeQueryTag = 4001;
+static NSMutableArray *windowList = nil;
 
 @interface PGQueryWindowController ()
 
@@ -37,6 +38,11 @@ static const NSInteger executeQueryTag = 4001;
 @implementation PGQueryWindowController
 @synthesize connection, connectionIsOpen, initialQueryString, queryTextView, queryInProgress, completionInProgress, previousTextLength;
 
++(void)initialize
+{
+    windowList = [[NSMutableArray alloc] init];
+}
+
 -(NSString *)windowNibName
 {
     return @"PGQueryWindowController";
@@ -51,6 +57,13 @@ static const NSInteger executeQueryTag = 4001;
     self.textEditorFont = [NSFont fontWithName:@"Menlo" size:12];
     self.cellFont = [NSFont fontWithName:@"Menlo" size:11];
     [queryTextView setFont:self.textEditorFont];
+    
+    [windowList addObject:self];
+}
+
+-(void)windowWillClose:(NSNotification *)notification
+{
+    [windowList removeObject:self];
 }
 
 -(void)dealloc
