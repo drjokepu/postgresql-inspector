@@ -29,12 +29,13 @@ static const NSInteger executeQueryTag = 4001;
 @property (nonatomic, strong) NSArray *completions;
 @property (nonatomic, assign) BOOL completionInProgress;
 @property (nonatomic, assign) NSUInteger previousTextLength;
-@property (nonatomic, assign) NSFont *presentationFont;
+@property (nonatomic, strong) NSFont *textEditorFont;
+@property (nonatomic, strong) NSFont *cellFont;
 
 @end
 
 @implementation PGQueryWindowController
-@synthesize connection, connectionIsOpen, initialQueryString, queryTextView, queryInProgress, completionInProgress, previousTextLength, presentationFont;
+@synthesize connection, connectionIsOpen, initialQueryString, queryTextView, queryInProgress, completionInProgress, previousTextLength;
 
 -(NSString *)windowNibName
 {
@@ -47,8 +48,9 @@ static const NSInteger executeQueryTag = 4001;
     if (self.initialQueryString == nil) self.initialQueryString = @"";
     self.queryResults = [[NSMutableArray alloc] init];
     [queryTextView setString:initialQueryString];
-    self.presentationFont = [NSFont fontWithName:@"Menlo" size:12];
-    [queryTextView setFont:presentationFont];
+    self.textEditorFont = [NSFont fontWithName:@"Menlo" size:12];
+    self.cellFont = [NSFont fontWithName:@"Menlo" size:11];
+    [queryTextView setFont:self.textEditorFont];
 }
 
 -(void)dealloc
@@ -194,7 +196,7 @@ static const NSInteger executeQueryTag = 4001;
         {
             [[column dataCell] setFormatter: [[PGUUIDFormatter alloc] init]];
         }
-        [[column dataCell] setFont:presentationFont];
+        [[column dataCell] setFont:self.cellFont];
         
         [self.resultsTableView addTableColumn:column];
     }
@@ -217,7 +219,7 @@ static const NSInteger executeQueryTag = 4001;
         for (NSInteger row = 0; row < rowCount; row++)
         {
             const NSCell *cell = [tableView preparedCellAtColumn:column row:row];
-            const CGFloat cellWidth = [cell cellSize].width + 10.0;
+            const CGFloat cellWidth = [cell cellSize].width + 20.0;
             maxWidth = MAX(maxWidth, cellWidth);
         }
         
