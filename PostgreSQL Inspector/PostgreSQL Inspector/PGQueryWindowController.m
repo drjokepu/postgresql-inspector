@@ -108,6 +108,10 @@ static const NSInteger executeQueryTag = 4001;
     [self removeAllResults];
     NSString *commandText = self.queryTextView.string;
     if ([commandText length] == 0) return;
+    
+    [self.queryTextView setEditable:NO];
+    [self.resultsTableView setEnabled:NO];
+    [self.resultSelectorPopUpButton setEnabled:NO];
 
     PGCommand *command = [[PGCommand alloc] init];
     command.connection = connection;
@@ -116,11 +120,19 @@ static const NSInteger executeQueryTag = 4001;
     
     [command execAsyncWithCallback:^(PGResult *result){
         [self addResult:result];
+        [self.resultsTableView setEnabled:YES];
+        [self.resultSelectorPopUpButton setEnabled:YES];
     } noMoreResultsCallback:^
     {
+        [self.queryTextView setEditable:YES];
+        [self.resultsTableView setEnabled:YES];
+        [self.resultSelectorPopUpButton setEnabled:YES];
         self.queryInProgress = NO;
         [[self window] update];
     } errorCallback:^(PGError *error) {
+        [self.queryTextView setEditable:YES];
+        [self.resultsTableView setEnabled:YES];
+        [self.resultSelectorPopUpButton setEnabled:YES];
         self.queryInProgress = NO;
         [self.queryTextView setSpellingState:NSSpellingStateSpellingFlag
                                        range:[self findErrorRange:error.errorPosition]];
