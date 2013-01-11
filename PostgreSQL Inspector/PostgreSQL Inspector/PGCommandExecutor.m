@@ -207,6 +207,8 @@
         case PGTypeVarCharN:
         case PGTypeVarCharU:
         case PGTypeNodeTree:
+        case PGTypeJson:
+        case PGTypeVarCharNA:
             return [[NSString alloc] initWithUTF8String:value];
         case PGTypeOid:
             return [[PGOid alloc]initWithType:(PGType)strtoul(value, NULL, 10)];
@@ -231,8 +233,7 @@
         case PGTypeOidAU:
             return [PGCommandExecutor parseArrayOfIntegers:[[NSString alloc] initWithUTF8String:value]];
         default:
-            //if (rowIndex == 0)
-                fprintf(stderr, "Unknown OID: %i, value = %s\n", oid, value);
+//            fprintf(stderr, "Unknown OID: %i, value = %s\n", oid, value);
             return [[NSString alloc] initWithUTF8String:value];;
     }
 }
