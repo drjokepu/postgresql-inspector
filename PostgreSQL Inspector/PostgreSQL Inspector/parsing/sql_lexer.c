@@ -11,7 +11,7 @@ struct token_lookup_item
     int value;
 };
 
-static const struct token_lookup_item const token_lookup[] =
+static const struct token_lookup_item token_lookup[] =
 {
     (struct token_lookup_item){ .text = ";", .value = T_SYM_COMMAND_SEPARATOR },
     (struct token_lookup_item){ .text = ".", .value = T_SYM_NAME_SEPARATOR },

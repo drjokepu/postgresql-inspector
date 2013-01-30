@@ -118,6 +118,19 @@
     [self.connection.connectionEntry update];
 }
 
+-(BOOL)validateMenuItem:(NSMenuItem *)menuItem
+{
+    switch ([menuItem tag])
+    {
+        case 2000:
+            return YES;
+        case 2001:
+            return [self selectedTable] != nil;
+        default:
+            return YES;
+    }
+}
+
 -(NSInteger)outlineView:(NSOutlineView *)outlineView numberOfChildrenOfItem:(id)item
 {
     if (item == NULL)
@@ -220,7 +233,9 @@
     const NSInteger selectedRow = [outlineView selectedRow];
     if (selectedRow == -1)
     {
-        
+        self.selectedSchemaObject = nil;
+        [self reloadTableData];
+        [[self window] update];
     }
     else
     {
@@ -233,6 +248,7 @@
                 [self reloadTableData];
             }];
         }
+        [[self window] update];
     }
 }
 

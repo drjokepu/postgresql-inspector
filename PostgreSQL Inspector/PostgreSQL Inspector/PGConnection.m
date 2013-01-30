@@ -16,7 +16,7 @@
 #import <sys/types.h>
 #import <sys/socket.h>
 
-static static bool syncWaitConnectionToOpen(PGconn *conn);
+static bool syncWaitConnectionToOpen(PGconn *conn);
 
 @interface PGConnection()
 {
