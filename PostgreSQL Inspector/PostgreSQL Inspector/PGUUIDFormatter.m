@@ -33,14 +33,14 @@
     NSUUID *uuid = [[NSUUID alloc] initWithUUIDString:string];
     if (uuid == nil)
     {
-        *obj = nil;
-        *error = @"Invalid UUID.";
+        if (obj != NULL) *obj = nil;
+        if (error != NULL) *error = @"Invalid UUID.";
         return NO;
     }
     else
     {
-        *obj = uuid;
-        *error = nil;
+        if (obj != NULL) *obj = uuid;
+        if (error != NULL) *error = nil;
         return YES;
     }
 }
