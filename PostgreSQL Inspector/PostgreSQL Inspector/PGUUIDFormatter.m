@@ -8,12 +8,13 @@
 
 #import "PGUUIDFormatter.h"
 #import "PGUserDefaults.h"
+#import "PGUUID.h"
 
 @implementation PGUUIDFormatter
 
 -(NSString *)stringForObjectValue:(id)obj
 {
-    if ([obj isKindOfClass:[NSUUID class]])
+    if ([obj isKindOfClass:[NSUUID class]] || [obj isKindOfClass:[PGUUID class]])
     {
         NSString *str = [obj UUIDString];
         if (![PGUserDefaults uppercaseUUIDs])
@@ -30,7 +31,8 @@
 
 -(BOOL)getObjectValue:(out __autoreleasing id *)obj forString:(NSString *)string errorDescription:(out NSString *__autoreleasing *)error
 {
-    NSUUID *uuid = [[NSUUID alloc] initWithUUIDString:string];
+    id uuid = system_has_NSUUID() ? [[NSUUID alloc] initWithUUIDString:string] :  [[PGUUID alloc] initWithUUIDString:string];
+    
     if (uuid == nil)
     {
         if (obj != NULL) *obj = nil;

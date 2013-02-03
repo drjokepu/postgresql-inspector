@@ -13,6 +13,7 @@
 #import "PGOid.h"
 #import "PGResult.h"
 #import "PGType.h"
+#import "PGUUID.h"
 #import <libpq-fe.h>
 
 @interface PGCommandExecutor ()
@@ -225,7 +226,10 @@
         case PGTypeTimestampZ:
             return [PGCommandExecutor parseTimestampWithTimezone:value];
         case PGTypeUuid:
-            return [[NSUUID alloc] initWithUUIDString:[[NSString alloc] initWithUTF8String:value]];
+            if (system_has_NSUUID())
+                return [[NSUUID alloc] initWithUUIDString:[[NSString alloc] initWithUTF8String:value]];
+            else
+                return [[PGUUID alloc] initWithUUIDString:[[NSString alloc] initWithUTF8String:value]];
         case PGTypeInt16A:
         case PGTypeInt16AU:
         case PGTypeInt32A:

@@ -72,6 +72,7 @@
 		02B8864015862D4100855F79 /* PGRelationColumn.m in Sources */ = {isa = PBXBuildFile; fileRef = 02B8863F15862D4000855F79 /* PGRelationColumn.m */; };
 		02C4DF7B15C69E6C00C78DDE /* PGQueryWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02C4DF7915C69E6C00C78DDE /* PGQueryWindowController.m */; };
 		02C4DF7C15C69E6C00C78DDE /* PGQueryWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02C4DF7A15C69E6C00C78DDE /* PGQueryWindowController.xib */; };
+		02C9205216BEE24800319486 /* PGUUID.m in Sources */ = {isa = PBXBuildFile; fileRef = 02C9205116BEE24800319486 /* PGUUID.m */; };
 		02CB6E15154EB5450086DA2C /* PGDatabaseWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02CB6E13154EB5450086DA2C /* PGDatabaseWindowController.m */; };
 		02CB6E16154EB5450086DA2C /* PGDatabaseWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02CB6E14154EB5450086DA2C /* PGDatabaseWindowController.xib */; };
 		02CB6E19154EB9DF0086DA2C /* PGDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 02CB6E18154EB9DF0086DA2C /* PGDatabase.m */; };
@@ -212,6 +213,8 @@
 		02C4DF7815C69E6C00C78DDE /* PGQueryWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGQueryWindowController.h; sourceTree = "<group>"; };
 		02C4DF7915C69E6C00C78DDE /* PGQueryWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGQueryWindowController.m; sourceTree = "<group>"; };
 		02C4DF7A15C69E6C00C78DDE /* PGQueryWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PGQueryWindowController.xib; sourceTree = "<group>"; };
+		02C9205016BEE24800319486 /* PGUUID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGUUID.h; sourceTree = "<group>"; };
+		02C9205116BEE24800319486 /* PGUUID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGUUID.m; sourceTree = "<group>"; };
 		02CB6E12154EB5450086DA2C /* PGDatabaseWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGDatabaseWindowController.h; sourceTree = "<group>"; };
 		02CB6E13154EB5450086DA2C /* PGDatabaseWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGDatabaseWindowController.m; sourceTree = "<group>"; };
 		02CB6E14154EB5450086DA2C /* PGDatabaseWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PGDatabaseWindowController.xib; sourceTree = "<group>"; };
@@ -577,6 +580,8 @@
 				02B83EA7154F25C60013A5F8 /* PGType.h */,
 				02E5B4FE167A4CE0008471B4 /* PGResult.h */,
 				02E5B4FF167A4CE0008471B4 /* PGResult.m */,
+				02C9205016BEE24800319486 /* PGUUID.h */,
+				02C9205116BEE24800319486 /* PGUUID.m */,
 			);
 			name = "PostgreSQL Interface";
 			sourceTree = "<group>";
@@ -710,6 +715,7 @@
 				02362E041695EA1400B9094B /* sql_lexer.c in Sources */,
 				02362E071696FAF000B9094B /* sql_symbol.c in Sources */,
 				021331DD169C4B37002FA927 /* sql_context.c in Sources */,
+				02C9205216BEE24800319486 /* PGUUID.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -810,6 +816,7 @@
 					"$(inherited)",
 					/opt/local/lib/postgresql92,
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "";
@@ -830,6 +837,7 @@
 					/opt/local/lib/postgresql92,
 				);
 				LLVM_LTO = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "";
