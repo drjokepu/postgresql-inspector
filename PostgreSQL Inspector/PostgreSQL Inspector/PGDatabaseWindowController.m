@@ -213,10 +213,14 @@
     return [item isKindOfClass:[PGSchemaObjectGroup class]];
 }
 
+-(NSString*)selectedSchemaName
+{
+    return self.schemaHasBeenLoadedPreviously ? [[schemaPopUpButton selectedItem] title] : nil;
+}
+
 -(void)updateSchemaMenu
 {
-    NSString *selectedSchemaName = self.schemaHasBeenLoadedPreviously ? [[schemaPopUpButton selectedItem] title] : nil;
-    
+    NSString *selectedSchemaName = [self selectedSchemaName];
     [schemaMenu removeAllItems];
     for (PGSchemaIdentifier *schema in database.schemaNames)
     {
@@ -439,6 +443,15 @@
 -(void)createTable:(id)sender
 {
     PGCreateTableWindowController *createTableWindowController = [[PGCreateTableWindowController alloc] init];
+    
+    NSMutableArray *schemaNames = [[NSMutableArray alloc] initWithCapacity:[database.schemaNames count]];
+    for (PGSchemaIdentifier *schema in database.schemaNames)
+        [schemaNames addObject:schema.name];
+    
+    createTableWindowController.initialSchemaName = [self selectedSchemaName];
+    createTableWindowController.initialSchemaNameList = schemaNames;
+    
+    [createTableWindowController useConnection:[self.connection copy]];
     [[createTableWindowController window] makeKeyAndOrderFront:self];
 }
 

@@ -7,9 +7,19 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "PGConnectionDelegate.h"
 #import "PGSelfRetainingWindowController.h"
 
-@interface PGCreateTableWindowController : PGSelfRetainingWindowController
+@class PGConnection;
+
+@interface PGCreateTableWindowController : PGSelfRetainingWindowController <PGConnectionDelegate>
+
+@property (nonatomic, strong) NSString *initialSchemaName;
+@property (nonatomic, strong) NSArray *initialSchemaNameList;
+@property (strong) IBOutlet NSTextField *tableNameTextField;
+@property (strong) IBOutlet NSComboBox *schemaComboBox;
+
+-(void)useConnection:(PGConnection *)theConnection;
 
 -(IBAction)didClickCancel:(id)sender;
 
