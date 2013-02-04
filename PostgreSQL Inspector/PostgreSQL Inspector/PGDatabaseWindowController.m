@@ -120,7 +120,17 @@
 
 -(BOOL)validateMenuItem:(NSMenuItem *)menuItem
 {
-    switch ([menuItem tag])
+    return [self validateItemTag:[menuItem tag]];
+}
+
+-(BOOL)validateToolbarItem:(NSToolbarItem *)theItem
+{
+    return [self validateItemTag:[theItem tag]];
+}
+
+-(BOOL)validateItemTag:(NSInteger)tag
+{
+    switch (tag)
     {
         case 2000:
             return YES;

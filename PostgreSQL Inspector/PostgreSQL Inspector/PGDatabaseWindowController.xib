@@ -69,14 +69,13 @@
 					<bool key="NSToolbarAutosavesConfiguration">NO</bool>
 					<int key="NSToolbarDisplayMode">1</int>
 					<int key="NSToolbarSizeMode">1</int>
-					<object class="NSMutableDictionary" key="NSToolbarIBIdentifiedItems">
-						<string key="NS.key.0">314C6625-4D5F-468E-BC6F-1DCBB3CFB946</string>
-						<object class="NSToolbarItem" key="NS.object.0" id="647662498">
+					<dictionary class="NSMutableDictionary" key="NSToolbarIBIdentifiedItems">
+						<object class="NSToolbarItem" key="314C6625-4D5F-468E-BC6F-1DCBB3CFB946" id="647662498">
 							<object class="NSMutableString" key="NSToolbarItemIdentifier">
 								<characters key="NS.bytes">314C6625-4D5F-468E-BC6F-1DCBB3CFB946</characters>
 							</object>
 							<string key="NSToolbarItemLabel">Query</string>
-							<string key="NSToolbarItemPaletteLabel">Query</string>
+							<string key="NSToolbarItemPaletteLabel">Query Database</string>
 							<string key="NSToolbarItemToolTip"/>
 							<nil key="NSToolbarItemView"/>
 							<object class="NSCustomResource" key="NSToolbarItemImage">
@@ -93,12 +92,36 @@
 							<bool key="NSToolbarIsUserRemovable">YES</bool>
 							<int key="NSToolbarItemVisibilityPriority">0</int>
 						</object>
-					</object>
-					<array key="NSToolbarIBAllowedItems">
+						<object class="NSToolbarItem" key="CA65C113-1372-4B01-83D3-2B6CF4649623" id="886215677">
+							<object class="NSMutableString" key="NSToolbarItemIdentifier">
+								<characters key="NS.bytes">CA65C113-1372-4B01-83D3-2B6CF4649623</characters>
+							</object>
+							<string key="NSToolbarItemLabel">Table Data</string>
+							<string key="NSToolbarItemPaletteLabel">Query Table Or View Data</string>
+							<string key="NSToolbarItemToolTip"/>
+							<nil key="NSToolbarItemView"/>
+							<object class="NSCustomResource" key="NSToolbarItemImage">
+								<string key="NSClassName">NSImage</string>
+								<string key="NSResourceName">query_table</string>
+							</object>
+							<nil key="NSToolbarItemTarget"/>
+							<nil key="NSToolbarItemAction"/>
+							<string key="NSToolbarItemMinSize">{0, 0}</string>
+							<string key="NSToolbarItemMaxSize">{0, 0}</string>
+							<bool key="NSToolbarItemEnabled">YES</bool>
+							<bool key="NSToolbarItemAutovalidates">YES</bool>
+							<int key="NSToolbarItemTag">2001</int>
+							<bool key="NSToolbarIsUserRemovable">YES</bool>
+							<int key="NSToolbarItemVisibilityPriority">0</int>
+						</object>
+					</dictionary>
+					<array class="NSMutableArray" key="NSToolbarIBAllowedItems">
 						<reference ref="647662498"/>
+						<reference ref="886215677"/>
 					</array>
-					<array key="NSToolbarIBDefaultItems">
+					<array class="NSMutableArray" key="NSToolbarIBDefaultItems">
 						<reference ref="647662498"/>
+						<reference ref="886215677"/>
 					</array>
 					<array key="NSToolbarIBSelectableItems" id="0"/>
 				</object>
@@ -797,6 +820,14 @@
 					<int key="connectionID">886</int>
 				</object>
 				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">querySelectedRelation:</string>
+						<reference key="source" ref="1003"/>
+						<reference key="destination" ref="886215677"/>
+					</object>
+					<int key="connectionID">889</int>
+				</object>
+				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
 						<string key="label">delegate</string>
 						<reference key="source" ref="1005"/>
@@ -1437,12 +1468,18 @@
 						<reference key="object" ref="225521749"/>
 						<array class="NSMutableArray" key="children">
 							<reference ref="647662498"/>
+							<reference ref="886215677"/>
 						</array>
 						<reference key="parent" ref="1005"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">885</int>
 						<reference key="object" ref="647662498"/>
+						<reference key="parent" ref="225521749"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">887</int>
+						<reference key="object" ref="886215677"/>
 						<reference key="parent" ref="225521749"/>
 					</object>
 				</array>
@@ -1534,12 +1571,13 @@
 				<string key="812.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="879.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="885.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="887.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 			</dictionary>
 			<dictionary class="NSMutableDictionary" key="unlocalizedProperties"/>
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">886</int>
+			<int key="maxID">889</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1616,6 +1654,7 @@
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
 			<string key="NSAdvanced">{32, 32}</string>
 			<string key="query_database">{32, 32}</string>
+			<string key="query_table">{32, 32}</string>
 		</dictionary>
 	</data>
 </archive>
