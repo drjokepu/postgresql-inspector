@@ -11,15 +11,16 @@
 #import "PGConnectionEntry.h"
 #import "PGConstraint.h"
 #import "PGConstraintColumn.h"
+#import "PGCreateTableWindowController.h"
 #import "PGDatabase.h"
 #import "PGDatabaseManager.h"
+#import "PGQueryWindowController.h"
 #import "PGRelationColumn.h"
 #import "PGSchemaObjectIdentifier.h"
 #import "PGSchemaObjectGroup.h"
 #import "PGSchemaIdentifier.h"
 #import "PGTableIdentifier.h"
 #import "PGTable.h"
-#import "PGQueryWindowController.h"
 
 @interface PGDatabaseWindowController ()
 @property (nonatomic, assign) BOOL schemaHasBeenLoadedPreviously;
@@ -433,6 +434,12 @@
     
     [queryWindowController useConnection:[self.connection copy]];
     [[queryWindowController window] makeKeyAndOrderFront:self];
+}
+
+-(void)createTable:(id)sender
+{
+    PGCreateTableWindowController *createTableWindowController = [[PGCreateTableWindowController alloc] init];
+    [[createTableWindowController window] makeKeyAndOrderFront:self];
 }
 
 @end

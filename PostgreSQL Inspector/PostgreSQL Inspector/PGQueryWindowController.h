@@ -8,10 +8,11 @@
 
 #import <Cocoa/Cocoa.h>
 #import "PGConnectionDelegate.h"
+#import "PGSelfRetainingWindowController.h"
 
 @class PGConnection;
 
-@interface PGQueryWindowController : NSWindowController <NSWindowDelegate, PGConnectionDelegate, NSTextViewDelegate, NSTableViewDataSource, NSTableViewDelegate>
+@interface PGQueryWindowController : PGSelfRetainingWindowController <NSWindowDelegate, PGConnectionDelegate, NSTextViewDelegate, NSTableViewDataSource, NSTableViewDelegate>
 
 @property (nonatomic, strong) NSString *initialQueryString;
 @property (strong) IBOutlet NSTextView *queryTextView;

@@ -67,6 +67,9 @@
 		02801E70154D9BA800FCA1DE /* PGConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 02801E6F154D9BA800FCA1DE /* PGConnection.m */; };
 		02801E79154DC4F200FCA1DE /* PGAuthWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02801E77154DC4F200FCA1DE /* PGAuthWindowController.m */; };
 		02801E7A154DC4F200FCA1DE /* PGAuthWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02801E78154DC4F200FCA1DE /* PGAuthWindowController.xib */; };
+		02A24D9D16BFFC4700EEDBC6 /* PGCreateTableWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02A24D9B16BFFC4700EEDBC6 /* PGCreateTableWindowController.m */; };
+		02A24D9E16BFFC4700EEDBC6 /* PGCreateTableWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02A24D9C16BFFC4700EEDBC6 /* PGCreateTableWindowController.xib */; };
+		02A24DA116C005CC00EEDBC6 /* PGSelfRetainingWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02A24DA016C005CC00EEDBC6 /* PGSelfRetainingWindowController.m */; };
 		02A2EB731684B0CD0067852E /* primary_key.png in Resources */ = {isa = PBXBuildFile; fileRef = 02A2EB721684B0CD0067852E /* primary_key.png */; };
 		02A2EB751684B4B40067852E /* unique_key.png in Resources */ = {isa = PBXBuildFile; fileRef = 02A2EB741684B4B40067852E /* unique_key.png */; };
 		02A2EB771684C66D0067852E /* foreign_key.png in Resources */ = {isa = PBXBuildFile; fileRef = 02A2EB761684C66D0067852E /* foreign_key.png */; };
@@ -205,6 +208,11 @@
 		02801E77154DC4F200FCA1DE /* PGAuthWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGAuthWindowController.m; sourceTree = "<group>"; };
 		02801E78154DC4F200FCA1DE /* PGAuthWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PGAuthWindowController.xib; sourceTree = "<group>"; };
 		02801E7C154DCD5500FCA1DE /* PGAuthWindowControllerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PGAuthWindowControllerDelegate.h; sourceTree = "<group>"; };
+		02A24D9A16BFFC4700EEDBC6 /* PGCreateTableWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGCreateTableWindowController.h; sourceTree = "<group>"; };
+		02A24D9B16BFFC4700EEDBC6 /* PGCreateTableWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGCreateTableWindowController.m; sourceTree = "<group>"; };
+		02A24D9C16BFFC4700EEDBC6 /* PGCreateTableWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PGCreateTableWindowController.xib; sourceTree = "<group>"; };
+		02A24D9F16C005CB00EEDBC6 /* PGSelfRetainingWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGSelfRetainingWindowController.h; sourceTree = "<group>"; };
+		02A24DA016C005CC00EEDBC6 /* PGSelfRetainingWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGSelfRetainingWindowController.m; sourceTree = "<group>"; };
 		02A2EB721684B0CD0067852E /* primary_key.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = primary_key.png; path = ../Content/primary_key.png; sourceTree = "<group>"; };
 		02A2EB741684B4B40067852E /* unique_key.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = unique_key.png; path = ../Content/unique_key.png; sourceTree = "<group>"; };
 		02A2EB761684C66D0067852E /* foreign_key.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = foreign_key.png; path = ../Content/foreign_key.png; sourceTree = "<group>"; };
@@ -483,6 +491,7 @@
 		02751E541549F868007AE07D /* Windows */ = {
 			isa = PBXGroup;
 			children = (
+				02A24DA216C005CF00EEDBC6 /* Base Classes */,
 				02801E7B154DCD3F00FCA1DE /* Delegate */,
 				02801E76154DC4F200FCA1DE /* PGAuthWindowController.h */,
 				02801E77154DC4F200FCA1DE /* PGAuthWindowController.m */,
@@ -493,6 +502,9 @@
 				02751E241549F853007AE07D /* PGConnectionsWindow.h */,
 				02751E251549F853007AE07D /* PGConnectionsWindow.m */,
 				02751E261549F853007AE07D /* PGConnectionsWindow.xib */,
+				02A24D9A16BFFC4700EEDBC6 /* PGCreateTableWindowController.h */,
+				02A24D9B16BFFC4700EEDBC6 /* PGCreateTableWindowController.m */,
+				02A24D9C16BFFC4700EEDBC6 /* PGCreateTableWindowController.xib */,
 				02CB6E12154EB5450086DA2C /* PGDatabaseWindowController.h */,
 				02CB6E13154EB5450086DA2C /* PGDatabaseWindowController.m */,
 				02CB6E14154EB5450086DA2C /* PGDatabaseWindowController.xib */,
@@ -548,6 +560,15 @@
 				02801E7C154DCD5500FCA1DE /* PGAuthWindowControllerDelegate.h */,
 			);
 			name = Delegate;
+			sourceTree = "<group>";
+		};
+		02A24DA216C005CF00EEDBC6 /* Base Classes */ = {
+			isa = PBXGroup;
+			children = (
+				02A24D9F16C005CB00EEDBC6 /* PGSelfRetainingWindowController.h */,
+				02A24DA016C005CC00EEDBC6 /* PGSelfRetainingWindowController.m */,
+			);
+			name = "Base Classes";
 			sourceTree = "<group>";
 		};
 		02A2EB701684B0B20067852E /* Resources */ = {
@@ -667,6 +688,7 @@
 				0258D82C16BFDF6D00C2E2A6 /* query_database@2x.png in Resources */,
 				0258D82F16BFE35000C2E2A6 /* query_table.png in Resources */,
 				0258D83016BFE35000C2E2A6 /* query_table@2x.png in Resources */,
+				02A24D9E16BFFC4700EEDBC6 /* PGCreateTableWindowController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -732,6 +754,8 @@
 				02362E071696FAF000B9094B /* sql_symbol.c in Sources */,
 				021331DD169C4B37002FA927 /* sql_context.c in Sources */,
 				02C9205216BEE24800319486 /* PGUUID.m in Sources */,
+				02A24D9D16BFFC4700EEDBC6 /* PGCreateTableWindowController.m in Sources */,
+				02A24DA116C005CC00EEDBC6 /* PGSelfRetainingWindowController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
