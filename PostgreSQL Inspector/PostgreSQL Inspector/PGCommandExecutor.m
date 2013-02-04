@@ -200,9 +200,9 @@
     switch ((PGType)oid)
     {
         case PGTypeBool:
-            return [[NSNumber alloc] initWithBool:value[0] == 't'];
+            return @(value[0] == 't');
         case PGTypeChar:
-            return [[NSNumber alloc] initWithChar:value[0]];
+            return @(value[0]);
         case PGTypeName:
         case PGTypeVarCharN:
         case PGTypeVarCharU:
@@ -213,15 +213,15 @@
         case PGTypeOid:
             return @(strtoul(value, NULL, 10));
         case PGTypeInt16:
-            return [[NSNumber alloc] initWithShort:(short)strtol(value, NULL, 10)];
+            return @(strtol(value, NULL, 10));
         case PGTypeInt32:
-            return [[NSNumber alloc] initWithLong:strtol(value, NULL, 10)];
+            return @(strtol(value, NULL, 10));
         case PGTypeInt64:
-            return [[NSNumber alloc] initWithLongLong:strtoll(value, NULL, 10)];
+            return @(strtoll(value, NULL, 10));
         case PGTypeSingle:
-            return [[NSNumber alloc] initWithFloat:strtof(value, NULL)];
+            return @(strtof(value, NULL));
         case PGTypeDouble:
-            return [[NSNumber alloc] initWithDouble:strtod(value, NULL)];
+            return @(strtod(value, NULL));
         case PGTypeTimestampZ:
             return [PGCommandExecutor parseTimestampWithTimezone:value];
         case PGTypeUuid:
@@ -276,9 +276,7 @@
         {
             NSString *numericString = nil;
             [scanner scanCharactersFromSet:[NSCharacterSet decimalDigitCharacterSet] intoString:&numericString];
-            const NSInteger value = [numericString integerValue];
-            NSNumber *numberValue = [[NSNumber alloc] initWithInteger:value];
-            [results addObject:numberValue];
+            [results addObject:@([numericString integerValue])];
         }
     } while ([scanner scanString:@"," intoString:NULL]);
     
