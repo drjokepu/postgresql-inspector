@@ -12,7 +12,6 @@
 #import "PGConstraint.h"
 #import "PGConstraintColumn.h"
 #import "PGIndex.h"
-#import "PGOid.h"
 #import "PGRelationColumn.h"
 #import "PGResult.h"
 

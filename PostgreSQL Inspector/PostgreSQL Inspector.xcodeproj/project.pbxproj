@@ -75,7 +75,6 @@
 		02A2EB771684C66D0067852E /* foreign_key.png in Resources */ = {isa = PBXBuildFile; fileRef = 02A2EB761684C66D0067852E /* foreign_key.png */; };
 		02A2EB791684C8D80067852E /* check.png in Resources */ = {isa = PBXBuildFile; fileRef = 02A2EB781684C8D80067852E /* check.png */; };
 		02B172EA156E76F1002C2AA9 /* PGRelation.m in Sources */ = {isa = PBXBuildFile; fileRef = 02B172E9156E76F1002C2AA9 /* PGRelation.m */; };
-		02B8863C1586043F00855F79 /* PGOid.m in Sources */ = {isa = PBXBuildFile; fileRef = 02B8863B1586043F00855F79 /* PGOid.m */; };
 		02B8864015862D4100855F79 /* PGRelationColumn.m in Sources */ = {isa = PBXBuildFile; fileRef = 02B8863F15862D4000855F79 /* PGRelationColumn.m */; };
 		02C4DF7B15C69E6C00C78DDE /* PGQueryWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02C4DF7915C69E6C00C78DDE /* PGQueryWindowController.m */; };
 		02C4DF7C15C69E6C00C78DDE /* PGQueryWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02C4DF7A15C69E6C00C78DDE /* PGQueryWindowController.xib */; };
@@ -222,8 +221,6 @@
 		02B83EA2154F1D510013A5F8 /* PGCommandDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PGCommandDelegate.h; sourceTree = "<group>"; };
 		02B83EA7154F25C60013A5F8 /* PGType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PGType.h; sourceTree = "<group>"; };
 		02B83EAB154F3F590013A5F8 /* PGDatabaseDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PGDatabaseDelegate.h; sourceTree = "<group>"; };
-		02B8863A1586043E00855F79 /* PGOid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGOid.h; sourceTree = "<group>"; };
-		02B8863B1586043F00855F79 /* PGOid.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGOid.m; sourceTree = "<group>"; };
 		02B8863E15862D4000855F79 /* PGRelationColumn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGRelationColumn.h; sourceTree = "<group>"; };
 		02B8863F15862D4000855F79 /* PGRelationColumn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGRelationColumn.m; sourceTree = "<group>"; };
 		02C4DF7815C69E6C00C78DDE /* PGQueryWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGQueryWindowController.h; sourceTree = "<group>"; };
@@ -608,8 +605,6 @@
 				024D4F7015C9422B004508AD /* PGError.h */,
 				024D4F7115C9422C004508AD /* PGError.m */,
 				024D4F7415C943A2004508AD /* PGError+Internal.h */,
-				02B8863A1586043E00855F79 /* PGOid.h */,
-				02B8863B1586043F00855F79 /* PGOid.m */,
 				02B83EA7154F25C60013A5F8 /* PGType.h */,
 				02E5B4FE167A4CE0008471B4 /* PGResult.h */,
 				02E5B4FF167A4CE0008471B4 /* PGResult.m */,
@@ -731,7 +726,6 @@
 				025F61A01551BCF7006B4D23 /* PGSchemaObject.m in Sources */,
 				025F61A31551BE09006B4D23 /* PGTable.m in Sources */,
 				02B172EA156E76F1002C2AA9 /* PGRelation.m in Sources */,
-				02B8863C1586043F00855F79 /* PGOid.m in Sources */,
 				02B8864015862D4100855F79 /* PGRelationColumn.m in Sources */,
 				027641BE1588CC9F003EEDDE /* PGConstraint.m in Sources */,
 				027641C81588DC3F003EEDDE /* PGConstraintColumn.m in Sources */,

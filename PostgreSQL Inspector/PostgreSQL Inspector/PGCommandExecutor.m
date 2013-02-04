@@ -10,7 +10,6 @@
 #import "PGCommand.h"
 #import "PGConnection.h"
 #import "PGError.h"
-#import "PGOid.h"
 #import "PGResult.h"
 #import "PGType.h"
 #import "PGUUID.h"
@@ -163,7 +162,7 @@
         for (int i = 0; i < numberOfColumns; i++)
         {
             [columnNames addObject:[[NSString alloc] initWithUTF8String:PQfname(pgResult, i)]];
-            [columnTypes addObject:[[PGOid alloc] initWithType:(PGType)PQftype(pgResult, i)]];
+            [columnTypes addObject:@(PQftype(pgResult, i))];
         }
         result.columnNames = columnNames;
         result.columnTypes = columnTypes;
@@ -212,7 +211,7 @@
         case PGTypeVarCharNA:
             return [[NSString alloc] initWithUTF8String:value];
         case PGTypeOid:
-            return [[PGOid alloc]initWithType:(PGType)strtoul(value, NULL, 10)];
+            return @(strtoul(value, NULL, 10));
         case PGTypeInt16:
             return [[NSNumber alloc] initWithShort:(short)strtol(value, NULL, 10)];
         case PGTypeInt32:

@@ -7,7 +7,6 @@
 //
 
 #import "PGRelationColumn.h"
-#import "PGOid.h"
 
 @implementation PGRelationColumn
 @synthesize relationId, name, typeId, typeName, typeModifier, length, number, dimensionCount, notNull, defaultValue;

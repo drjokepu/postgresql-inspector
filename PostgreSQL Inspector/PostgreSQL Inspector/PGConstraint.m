@@ -7,7 +7,6 @@
 //
 
 #import "PGConstraint.h"
-#import "PGOid.h"
 #import "PGConstraintColumn.h"
 
 @implementation PGConstraint
