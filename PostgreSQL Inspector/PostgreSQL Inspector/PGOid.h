@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "PGType.h"
 
-@interface PGOid : NSObject
+@interface PGOid : NSObject <NSCopying>
 
 @property (nonatomic, assign) PGType type;
 

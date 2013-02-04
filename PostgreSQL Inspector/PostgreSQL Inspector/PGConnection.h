@@ -16,7 +16,7 @@
 
 @property (nonatomic, strong) PGConnectionEntry *connectionEntry;
 @property (nonatomic, strong) NSOperationQueue *operationQueue;
-@property (nonatomic, weak) id<PGConnectionDelegate> delegate;
+@property (nonatomic, unsafe_unretained) id<PGConnectionDelegate> delegate;
 
 @property (nonatomic, readonly) PGconn *connection;
 @property (nonatomic, readonly) BOOL locked;

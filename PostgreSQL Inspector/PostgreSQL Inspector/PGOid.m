@@ -30,4 +30,9 @@
     return (NSUInteger)type;
 }
 
+-(id)copyWithZone:(NSZone *)zone
+{
+    return [[PGOid alloc] initWithType:type];
+}
+
 @end
