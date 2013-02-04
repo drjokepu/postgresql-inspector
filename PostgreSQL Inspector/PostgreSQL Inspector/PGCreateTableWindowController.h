@@ -12,12 +12,13 @@
 
 @class PGConnection;
 
-@interface PGCreateTableWindowController : PGSelfRetainingWindowController <PGConnectionDelegate>
+@interface PGCreateTableWindowController : PGSelfRetainingWindowController <PGConnectionDelegate, NSTableViewDataSource, NSTableViewDelegate>
 
 @property (nonatomic, strong) NSString *initialSchemaName;
 @property (nonatomic, strong) NSArray *initialSchemaNameList;
 @property (strong) IBOutlet NSTextField *tableNameTextField;
 @property (strong) IBOutlet NSComboBox *schemaComboBox;
+@property (strong) IBOutlet NSTableView *columnsTableView;
 
 -(void)useConnection:(PGConnection *)theConnection;
 

@@ -57,4 +57,21 @@
     [[self window] update];
 }
 
+-(NSInteger)numberOfRowsInTableView:(NSTableView *)tableView
+{
+    if (tableView == self.columnsTableView)
+    {
+        return 0;
+    }
+    else
+    {
+        return 0;
+    }
+}
+
+-(NSView *)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row
+{
+    return nil;
+}
+
 @end
