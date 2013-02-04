@@ -28,6 +28,8 @@
 		02501E31155083B90020896A /* PGScopeBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 02501E30155083B90020896A /* PGScopeBar.m */; };
 		02574216168CB6120062F27D /* PGSQLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 02574215168CB6120062F27D /* PGSQLParser.m */; };
 		0257421F168DC6EB0062F27D /* sql_parse.c in Sources */ = {isa = PBXBuildFile; fileRef = 0257421E168DC6EB0062F27D /* sql_parse.c */; };
+		0258D82B16BFDF6D00C2E2A6 /* query_database.png in Resources */ = {isa = PBXBuildFile; fileRef = 0258D82916BFDF6D00C2E2A6 /* query_database.png */; };
+		0258D82C16BFDF6D00C2E2A6 /* query_database@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0258D82A16BFDF6D00C2E2A6 /* query_database@2x.png */; };
 		025F61A01551BCF7006B4D23 /* PGSchemaObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 025F619F1551BCF7006B4D23 /* PGSchemaObject.m */; };
 		025F61A31551BE09006B4D23 /* PGTable.m in Sources */ = {isa = PBXBuildFile; fileRef = 025F61A21551BE09006B4D23 /* PGTable.m */; };
 		0273B95C167A25CA009CA33D /* PGUserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 0273B95B167A25C9009CA33D /* PGUserDefaults.m */; };
@@ -123,6 +125,8 @@
 		02574215168CB6120062F27D /* PGSQLParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGSQLParser.m; sourceTree = "<group>"; };
 		02574218168CB6530062F27D /* sql_parse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = sql_parse.h; path = parsing/sql_parse.h; sourceTree = "<group>"; };
 		0257421E168DC6EB0062F27D /* sql_parse.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = sql_parse.c; path = parsing/sql_parse.c; sourceTree = "<group>"; };
+		0258D82916BFDF6D00C2E2A6 /* query_database.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = query_database.png; path = ../Content/query_database.png; sourceTree = "<group>"; };
+		0258D82A16BFDF6D00C2E2A6 /* query_database@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "query_database@2x.png"; path = "../Content/query_database@2x.png"; sourceTree = "<group>"; };
 		025F619E1551BCF7006B4D23 /* PGSchemaObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGSchemaObject.h; sourceTree = "<group>"; };
 		025F619F1551BCF7006B4D23 /* PGSchemaObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGSchemaObject.m; sourceTree = "<group>"; };
 		025F61A11551BE09006B4D23 /* PGTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGTable.h; sourceTree = "<group>"; };
@@ -547,8 +551,10 @@
 			children = (
 				02A2EB781684C8D80067852E /* check.png */,
 				02A2EB761684C66D0067852E /* foreign_key.png */,
-				02A2EB741684B4B40067852E /* unique_key.png */,
 				02A2EB721684B0CD0067852E /* primary_key.png */,
+				0258D82916BFDF6D00C2E2A6 /* query_database.png */,
+				0258D82A16BFDF6D00C2E2A6 /* query_database@2x.png */,
+				02A2EB741684B4B40067852E /* unique_key.png */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -651,6 +657,8 @@
 				02A2EB751684B4B40067852E /* unique_key.png in Resources */,
 				02A2EB771684C66D0067852E /* foreign_key.png in Resources */,
 				02A2EB791684C8D80067852E /* check.png in Resources */,
+				0258D82B16BFDF6D00C2E2A6 /* query_database.png in Resources */,
+				0258D82C16BFDF6D00C2E2A6 /* query_database@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
