@@ -313,22 +313,25 @@
 
 -(NSView*)columnsTableViewViewForRow:(NSUInteger)row
 {
-    PGRelationColumn *column = self.selectedTable.columns[row];
-    NSTableCellView *cellView = [self.tableColumnsTableView makeViewWithIdentifier:@"columnCellView" owner:self];
-    
-    [[cellView viewWithTag:7500] setStringValue:column.name];
-    
-    NSMutableArray *typeInfoList = [[NSMutableArray alloc] init];
-    [typeInfoList addObject:column.typeName];
-    if ([self.selectedTable isColumnInPrimaryKey:column.number])
-        [typeInfoList addObject:@"primary key"];
-    if (column.notNull)
-        [typeInfoList addObject:@"not null"];
-    [[cellView viewWithTag:7501] setStringValue:[typeInfoList componentsJoinedByString:@", "]];
-    if (column.defaultValue != [NSNull null])
-        [typeInfoList addObject:[[NSString alloc] initWithFormat:@"default: %@", column.defaultValue]];
-    
-    return cellView;
+    @autoreleasepool
+    {
+        PGRelationColumn *column = self.selectedTable.columns[row];
+        NSTableCellView *cellView = [self.tableColumnsTableView makeViewWithIdentifier:@"columnCellView" owner:self];
+        
+        [[cellView viewWithTag:7500] setStringValue:column.name];
+        
+        NSMutableArray *typeInfoList = [[NSMutableArray alloc] init];
+        [typeInfoList addObject:[column fullType]];
+        if ([self.selectedTable isColumnInPrimaryKey:column.number])
+            [typeInfoList addObject:@"primary key"];
+        if (column.notNull)
+            [typeInfoList addObject:@"not null"];
+        [[cellView viewWithTag:7501] setStringValue:[typeInfoList componentsJoinedByString:@", "]];
+        if (column.defaultValue != [NSNull null])
+            [typeInfoList addObject:[[NSString alloc] initWithFormat:@"default: %@", column.defaultValue]];
+        
+        return cellView;
+    }
 }
 
 -(NSView*)constraintsTableViewViewForRow:(NSUInteger)row

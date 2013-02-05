@@ -23,4 +23,6 @@
 @property (nonatomic, assign) BOOL notNull;
 @property (nonatomic, strong) id defaultValue;
 
+-(NSString*)fullType;
+
 @end

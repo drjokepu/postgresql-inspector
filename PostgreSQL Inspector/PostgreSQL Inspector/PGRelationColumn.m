@@ -11,4 +11,16 @@
 @implementation PGRelationColumn
 @synthesize relationId, name, typeId, typeName, typeModifier, length, number, dimensionCount, notNull, defaultValue;
 
+-(NSString *)fullType
+{
+    if (length <= 0)
+    {
+        return typeName;
+    }
+    else
+    {
+        return [[NSString alloc] initWithFormat:@"%@(%li)", typeName, length];
+    }
+}
+
 @end
