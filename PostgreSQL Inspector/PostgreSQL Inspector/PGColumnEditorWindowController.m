@@ -7,6 +7,7 @@
 //
 
 #import "PGColumnEditorWindowController.h"
+#import "PGRelationColumn.h"
 
 @interface PGColumnEditorWindowController ()
 
@@ -57,6 +58,19 @@
 -(void)didClickAction:(id)sender
 {
     [[NSApplication sharedApplication] endSheet:[self window] returnCode:1];
+}
+
+-(PGRelationColumn *)getColumn
+{
+    PGRelationColumn *column = [[PGRelationColumn alloc] init];
+    column.name = [self.columnNameTextField stringValue];
+    column.typeName = [self.columnTypeComboBox stringValue];
+    if ([[self.columnTypeComboBox stringValue] length] > 0)
+        column.length = [self.columnTypeComboBox integerValue];
+    column.defaultValue = [[self.columnDefaultValueTextField stringValue] length] > 0 ? [self.columnDefaultValueTextField stringValue] : nil;
+    column.notNull = [self.columnNotNullCheckBox state] == NSOnState;
+    
+    return column;
 }
 
 @end

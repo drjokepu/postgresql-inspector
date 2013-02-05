@@ -9,6 +9,8 @@
 #import <Cocoa/Cocoa.h>
 #import "PGColumnEditorAction.h"
 
+@class PGRelationColumn;
+
 @interface PGColumnEditorWindowController : NSWindowController <NSTextFieldDelegate>
 
 @property (nonatomic, assign) PGColumnEditorAction columnEditorAction;
@@ -16,9 +18,13 @@
 @property (strong) IBOutlet NSComboBox *columnTypeComboBox;
 @property (strong) IBOutlet NSTextField *columnLengthTextField;
 @property (strong) IBOutlet NSTextField *columnPrecisionTextField;
+@property (strong) IBOutlet NSTextField *columnDefaultValueTextField;
+@property (strong) IBOutlet NSButton *columnNotNullCheckBox;
 @property (strong) IBOutlet NSButton *actionButton;
 
 -(IBAction)didClickCancel:(id)sender;
 -(IBAction)didClickAction:(id)sender;
+
+-(PGRelationColumn*)getColumn;
 
 @end

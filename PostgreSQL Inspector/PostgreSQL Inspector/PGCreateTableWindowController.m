@@ -9,10 +9,12 @@
 #import "PGCreateTableWindowController.h"
 #import "PGColumnEditorWindowController.h"
 #import "PGConnection.h"
+#import "PGRelationColumn.h"
 
 @interface PGCreateTableWindowController ()
 @property (nonatomic, strong) PGConnection *connection;
 @property (nonatomic, assign) BOOL connectionIsOpen;
+@property (nonatomic, strong) NSMutableArray *tableColumns;
 @property (nonatomic, strong) PGColumnEditorWindowController *columnEditorSheet;
 @end
 
@@ -26,6 +28,8 @@
 -(void)windowDidLoad
 {
     [super windowDidLoad];
+    self.tableColumns = [[NSMutableArray alloc] init];
+    
     if (self.initialSchemaName != nil)
     {
         if (self.initialSchemaNameList != nil)
@@ -63,7 +67,7 @@
 {
     if (tableView == self.columnsTableView)
     {
-        return 0;
+        return [self.tableColumns count];
     }
     else
     {
@@ -73,7 +77,32 @@
 
 -(NSView *)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row
 {
-    return nil;
+    if (tableView == self.columnsTableView)
+    {
+        return [self viewForColumnAtIndex:row];
+    }
+    else
+    {
+        return nil;
+    }
+}
+
+-(NSView*)viewForColumnAtIndex:(NSInteger)columnIndex
+{
+    PGRelationColumn *column = self.tableColumns[columnIndex];
+    NSTableCellView *cellView = [self.columnsTableView makeViewWithIdentifier:@"createTableColumnCellView" owner:self];
+    
+    [[cellView viewWithTag:7500] setStringValue:column.name];
+    
+    NSMutableArray *typeInfoList = [[NSMutableArray alloc] init];
+    [typeInfoList addObject:column.typeName];
+    if (column.notNull)
+        [typeInfoList addObject:@"not null"];
+    [[cellView viewWithTag:7501] setStringValue:[typeInfoList componentsJoinedByString:@", "]];
+    if (column.defaultValue != [NSNull null])
+        [typeInfoList addObject:[[NSString alloc] initWithFormat:@"default: %@", column.defaultValue]];
+    
+    return cellView;
 }
 
 -(void)didClickAddColumn:(id)sender
@@ -95,6 +124,12 @@
 
 -(void)didEndAddColumnSheet:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo
 {
+    if (returnCode == 1)
+    {
+        [self.tableColumns addObject:[self.columnEditorSheet getColumn]];
+        [self.columnsTableView reloadData];
+    }
+    
     [sheet orderOut:self];
     self.columnEditorSheet = nil;
 }
