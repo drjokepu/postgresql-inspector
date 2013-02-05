@@ -23,5 +23,6 @@
 -(void)useConnection:(PGConnection *)theConnection;
 
 -(IBAction)didClickCancel:(id)sender;
+-(IBAction)didClickAddColumn:(id)sender;
 
 @end

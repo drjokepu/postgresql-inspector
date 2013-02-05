@@ -83,6 +83,8 @@
 		02CB6E16154EB5450086DA2C /* PGDatabaseWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02CB6E14154EB5450086DA2C /* PGDatabaseWindowController.xib */; };
 		02CB6E19154EB9DF0086DA2C /* PGDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 02CB6E18154EB9DF0086DA2C /* PGDatabase.m */; };
 		02CB6E1C154EBA960086DA2C /* PGDatabaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 02CB6E1B154EBA950086DA2C /* PGDatabaseManager.m */; };
+		02D4715316C1205D00DD8715 /* PGColumnEditorWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02D4715116C1205D00DD8715 /* PGColumnEditorWindowController.m */; };
+		02D4715416C1205D00DD8715 /* PGColumnEditorWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02D4715216C1205D00DD8715 /* PGColumnEditorWindowController.xib */; };
 		02E5B4FD167A43D5008471B4 /* PGCommandExecutor.m in Sources */ = {isa = PBXBuildFile; fileRef = 02E5B4FC167A43D5008471B4 /* PGCommandExecutor.m */; };
 		02E5B500167A4CE0008471B4 /* PGResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 02E5B4FF167A4CE0008471B4 /* PGResult.m */; };
 /* End PBXBuildFile section */
@@ -236,6 +238,10 @@
 		02CB6E1A154EBA950086DA2C /* PGDatabaseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGDatabaseManager.h; sourceTree = "<group>"; };
 		02CB6E1B154EBA950086DA2C /* PGDatabaseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGDatabaseManager.m; sourceTree = "<group>"; };
 		02CC58F515502EEA00496966 /* icons.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = icons.icns; sourceTree = "<group>"; };
+		02D4715016C1205D00DD8715 /* PGColumnEditorWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGColumnEditorWindowController.h; sourceTree = "<group>"; };
+		02D4715116C1205D00DD8715 /* PGColumnEditorWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGColumnEditorWindowController.m; sourceTree = "<group>"; };
+		02D4715216C1205D00DD8715 /* PGColumnEditorWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PGColumnEditorWindowController.xib; sourceTree = "<group>"; };
+		02D4715516C12DCA00DD8715 /* PGColumnEditorAction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PGColumnEditorAction.h; sourceTree = "<group>"; };
 		02E5B4FB167A43D5008471B4 /* PGCommandExecutor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGCommandExecutor.h; sourceTree = "<group>"; };
 		02E5B4FC167A43D5008471B4 /* PGCommandExecutor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGCommandExecutor.m; sourceTree = "<group>"; };
 		02E5B4FE167A4CE0008471B4 /* PGResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGResult.h; sourceTree = "<group>"; };
@@ -489,19 +495,9 @@
 			isa = PBXGroup;
 			children = (
 				02A24DA216C005CF00EEDBC6 /* Base Classes */,
+				02D4714F16C11F6700DD8715 /* Connections */,
 				02801E7B154DCD3F00FCA1DE /* Delegate */,
-				02801E76154DC4F200FCA1DE /* PGAuthWindowController.h */,
-				02801E77154DC4F200FCA1DE /* PGAuthWindowController.m */,
-				02801E78154DC4F200FCA1DE /* PGAuthWindowController.xib */,
-				02751E211549F853007AE07D /* PGConnectionProgressWindow.h */,
-				02751E221549F853007AE07D /* PGConnectionProgressWindow.m */,
-				02751E231549F853007AE07D /* PGConnectionProgressWindow.xib */,
-				02751E241549F853007AE07D /* PGConnectionsWindow.h */,
-				02751E251549F853007AE07D /* PGConnectionsWindow.m */,
-				02751E261549F853007AE07D /* PGConnectionsWindow.xib */,
-				02A24D9A16BFFC4700EEDBC6 /* PGCreateTableWindowController.h */,
-				02A24D9B16BFFC4700EEDBC6 /* PGCreateTableWindowController.m */,
-				02A24D9C16BFFC4700EEDBC6 /* PGCreateTableWindowController.xib */,
+				02D4714E16C11F4900DD8715 /* Tables */,
 				02CB6E12154EB5450086DA2C /* PGDatabaseWindowController.h */,
 				02CB6E13154EB5450086DA2C /* PGDatabaseWindowController.m */,
 				02CB6E14154EB5450086DA2C /* PGDatabaseWindowController.xib */,
@@ -614,6 +610,36 @@
 			name = "PostgreSQL Interface";
 			sourceTree = "<group>";
 		};
+		02D4714E16C11F4900DD8715 /* Tables */ = {
+			isa = PBXGroup;
+			children = (
+				02D4715516C12DCA00DD8715 /* PGColumnEditorAction.h */,
+				02D4715016C1205D00DD8715 /* PGColumnEditorWindowController.h */,
+				02D4715116C1205D00DD8715 /* PGColumnEditorWindowController.m */,
+				02D4715216C1205D00DD8715 /* PGColumnEditorWindowController.xib */,
+				02A24D9A16BFFC4700EEDBC6 /* PGCreateTableWindowController.h */,
+				02A24D9B16BFFC4700EEDBC6 /* PGCreateTableWindowController.m */,
+				02A24D9C16BFFC4700EEDBC6 /* PGCreateTableWindowController.xib */,
+			);
+			name = Tables;
+			sourceTree = "<group>";
+		};
+		02D4714F16C11F6700DD8715 /* Connections */ = {
+			isa = PBXGroup;
+			children = (
+				02801E76154DC4F200FCA1DE /* PGAuthWindowController.h */,
+				02801E77154DC4F200FCA1DE /* PGAuthWindowController.m */,
+				02801E78154DC4F200FCA1DE /* PGAuthWindowController.xib */,
+				02751E211549F853007AE07D /* PGConnectionProgressWindow.h */,
+				02751E221549F853007AE07D /* PGConnectionProgressWindow.m */,
+				02751E231549F853007AE07D /* PGConnectionProgressWindow.xib */,
+				02751E241549F853007AE07D /* PGConnectionsWindow.h */,
+				02751E251549F853007AE07D /* PGConnectionsWindow.m */,
+				02751E261549F853007AE07D /* PGConnectionsWindow.xib */,
+			);
+			name = Connections;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -684,6 +710,7 @@
 				0258D82F16BFE35000C2E2A6 /* query_table.png in Resources */,
 				0258D83016BFE35000C2E2A6 /* query_table@2x.png in Resources */,
 				02A24D9E16BFFC4700EEDBC6 /* PGCreateTableWindowController.xib in Resources */,
+				02D4715416C1205D00DD8715 /* PGColumnEditorWindowController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -750,6 +777,7 @@
 				02C9205216BEE24800319486 /* PGUUID.m in Sources */,
 				02A24D9D16BFFC4700EEDBC6 /* PGCreateTableWindowController.m in Sources */,
 				02A24DA116C005CC00EEDBC6 /* PGSelfRetainingWindowController.m in Sources */,
+				02D4715316C1205D00DD8715 /* PGColumnEditorWindowController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

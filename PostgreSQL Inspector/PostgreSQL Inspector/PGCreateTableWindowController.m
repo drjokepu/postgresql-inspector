@@ -7,11 +7,13 @@
 //
 
 #import "PGCreateTableWindowController.h"
+#import "PGColumnEditorWindowController.h"
 #import "PGConnection.h"
 
 @interface PGCreateTableWindowController ()
 @property (nonatomic, strong) PGConnection *connection;
 @property (nonatomic, assign) BOOL connectionIsOpen;
+@property (nonatomic, strong) PGColumnEditorWindowController *columnEditorSheet;
 @end
 
 @implementation PGCreateTableWindowController
@@ -72,6 +74,29 @@
 -(NSView *)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row
 {
     return nil;
+}
+
+-(void)didClickAddColumn:(id)sender
+{
+    [self openAddColumnSheet];
+}
+
+-(void)openAddColumnSheet
+{
+    PGColumnEditorWindowController *columnEditorSheet = [[PGColumnEditorWindowController alloc] init];
+    [[NSApplication sharedApplication] beginSheet:[columnEditorSheet window]
+                                   modalForWindow:[self window]
+                                    modalDelegate:self
+                                   didEndSelector:@selector(didEndAddColumnSheet:returnCode:contextInfo:)
+                                      contextInfo:NULL];
+    
+    self.columnEditorSheet = columnEditorSheet;
+}
+
+-(void)didEndAddColumnSheet:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo
+{
+    [sheet orderOut:self];
+    self.columnEditorSheet = nil;
 }
 
 @end
