@@ -108,6 +108,14 @@
     }
 }
 
+-(void)tableViewSelectionDidChange:(NSNotification *)notification
+{
+    if ([notification object] == self.columnsTableView)
+    {
+        [self.removeColumnButton setEnabled:[self.columnsTableView selectedRow] != -1];
+    }
+}
+
 -(void)didClickAddColumn:(id)sender
 {
     [self openAddColumnSheet];
@@ -135,6 +143,16 @@
     
     [sheet orderOut:self];
     self.columnEditorSheet = nil;
+}
+
+-(void)didClickRemoveColumn:(id)sender
+{
+    const NSInteger columnIndex = [self.columnsTableView selectedRow];
+    if (columnIndex != -1)
+    {
+        [self.tableColumns removeObjectAtIndex:columnIndex];
+        [self.columnsTableView reloadData];
+    }
 }
 
 @end

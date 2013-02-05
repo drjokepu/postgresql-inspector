@@ -19,10 +19,12 @@
 @property (strong) IBOutlet NSTextField *tableNameTextField;
 @property (strong) IBOutlet NSComboBox *schemaComboBox;
 @property (strong) IBOutlet NSTableView *columnsTableView;
+@property (strong) IBOutlet NSButton *removeColumnButton;
 
 -(void)useConnection:(PGConnection *)theConnection;
 
 -(IBAction)didClickCancel:(id)sender;
 -(IBAction)didClickAddColumn:(id)sender;
+-(IBAction)didClickRemoveColumn:(id)sender;
 
 @end
