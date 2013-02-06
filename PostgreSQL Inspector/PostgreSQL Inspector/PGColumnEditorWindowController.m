@@ -7,6 +7,7 @@
 //
 
 #import "PGColumnEditorWindowController.h"
+#import "PGDatabase.h"
 #import "PGRelationColumn.h"
 
 @interface PGColumnEditorWindowController ()
@@ -31,6 +32,7 @@
         case PGColumnEditorUpdate:
             [self.actionButton setTitle:@"Update"];
     }
+    [self.columnTypeComboBox addItemsWithObjectValues:[PGDatabase commonTypes]];
     [self validate];
 }
 

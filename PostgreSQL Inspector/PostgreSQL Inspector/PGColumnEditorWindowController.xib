@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="8.00">
 	<data>
-		<int key="IBDocument.SystemTarget">1070</int>
-		<string key="IBDocument.SystemVersion">11G63</string>
+		<int key="IBDocument.SystemTarget">1080</int>
+		<string key="IBDocument.SystemVersion">12C60</string>
 		<string key="IBDocument.InterfaceBuilderVersion">3084</string>
-		<string key="IBDocument.AppKitVersion">1138.51</string>
-		<string key="IBDocument.HIToolboxVersion">569.00</string>
+		<string key="IBDocument.AppKitVersion">1187.34</string>
+		<string key="IBDocument.HIToolboxVersion">625.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin</string>
 			<string key="NS.object.0">3084</string>
@@ -91,6 +91,7 @@
 									</object>
 								</object>
 							</object>
+							<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 						</object>
 						<object class="NSTextField" id="752976866">
 							<reference key="NSNextResponder" ref="1006"/>
@@ -125,6 +126,7 @@
 									<reference key="NSColor" ref="702621752"/>
 								</object>
 							</object>
+							<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 						</object>
 						<object class="NSTextField" id="606956199">
 							<reference key="NSNextResponder" ref="1006"/>
@@ -145,6 +147,7 @@
 								<reference key="NSBackgroundColor" ref="884376418"/>
 								<reference key="NSTextColor" ref="533068199"/>
 							</object>
+							<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 						</object>
 						<object class="NSComboBox" id="182263588">
 							<reference key="NSNextResponder" ref="1006"/>
@@ -172,14 +175,16 @@
 								<object class="NSComboTableView" key="NSTableView" id="1020042071">
 									<reference key="NSNextResponder"/>
 									<int key="NSvFlags">274</int>
-									<string key="NSFrameSize">{15, 0}</string>
+									<string key="NSFrameSize">{13, 21}</string>
 									<reference key="NSSuperview"/>
 									<reference key="NSWindow"/>
 									<string key="NSReuseIdentifierKey">_NS:24</string>
 									<bool key="NSEnabled">YES</bool>
+									<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
+									<bool key="NSControlAllowsExpansionToolTips">YES</bool>
 									<array class="NSMutableArray" key="NSTableColumns">
 										<object class="NSTableColumn">
-											<double key="NSWidth">12</double>
+											<double key="NSWidth">10</double>
 											<double key="NSMinWidth">10</double>
 											<double key="NSMaxWidth">1000</double>
 											<object class="NSTableHeaderCell" key="NSHeaderCell">
@@ -230,7 +235,7 @@
 									</object>
 									<double key="NSRowHeight">19</double>
 									<string key="NSAction">tableViewAction:</string>
-									<int key="NSTvFlags">-767524864</int>
+									<int key="NSTvFlags">-765427712</int>
 									<reference key="NSDelegate" ref="609533861"/>
 									<reference key="NSDataSource" ref="609533861"/>
 									<reference key="NSTarget" ref="609533861"/>
@@ -242,6 +247,7 @@
 									<int key="NSTableViewGroupRowStyle">1</int>
 								</object>
 							</object>
+							<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 						</object>
 						<object class="NSTextField" id="493066280">
 							<reference key="NSNextResponder" ref="1006"/>
@@ -309,6 +315,7 @@
 								<reference key="NSBackgroundColor" ref="97068890"/>
 								<reference key="NSTextColor" ref="51940058"/>
 							</object>
+							<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 						</object>
 						<object class="NSTextField" id="4465497">
 							<reference key="NSNextResponder" ref="1006"/>
@@ -329,6 +336,7 @@
 								<reference key="NSBackgroundColor" ref="884376418"/>
 								<reference key="NSTextColor" ref="533068199"/>
 							</object>
+							<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 						</object>
 						<object class="NSTextField" id="212749594">
 							<reference key="NSNextResponder" ref="1006"/>
@@ -387,6 +395,7 @@
 								<reference key="NSBackgroundColor" ref="97068890"/>
 								<reference key="NSTextColor" ref="51940058"/>
 							</object>
+							<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 						</object>
 						<object class="NSTextField" id="192386483">
 							<reference key="NSNextResponder" ref="1006"/>
@@ -407,6 +416,7 @@
 								<reference key="NSBackgroundColor" ref="884376418"/>
 								<reference key="NSTextColor" ref="533068199"/>
 							</object>
+							<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 						</object>
 						<object class="NSButton" id="203851750">
 							<reference key="NSNextResponder" ref="1006"/>
@@ -430,6 +440,7 @@
 								<int key="NSPeriodicDelay">200</int>
 								<int key="NSPeriodicInterval">25</int>
 							</object>
+							<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 						</object>
 						<object class="NSButton" id="652940240">
 							<reference key="NSNextResponder" ref="1006"/>
@@ -454,6 +465,7 @@
 								<int key="NSPeriodicDelay">200</int>
 								<int key="NSPeriodicInterval">25</int>
 							</object>
+							<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 						</object>
 						<object class="NSTextField" id="341944797">
 							<reference key="NSNextResponder" ref="1006"/>
@@ -474,6 +486,7 @@
 								<reference key="NSBackgroundColor" ref="884376418"/>
 								<reference key="NSTextColor" ref="533068199"/>
 							</object>
+							<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 						</object>
 						<object class="NSTextField" id="218302264">
 							<reference key="NSNextResponder" ref="1006"/>
@@ -495,6 +508,7 @@
 								<reference key="NSBackgroundColor" ref="97068890"/>
 								<reference key="NSTextColor" ref="51940058"/>
 							</object>
+							<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 						</object>
 						<object class="NSButton" id="246837866">
 							<reference key="NSNextResponder" ref="1006"/>
@@ -526,6 +540,7 @@
 								<int key="NSPeriodicDelay">200</int>
 								<int key="NSPeriodicInterval">25</int>
 							</object>
+							<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 						</object>
 					</array>
 					<string key="NSFrameSize">{455, 234}</string>
@@ -915,6 +930,9 @@
 				<string key="20.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="21.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="22.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<array key="23.IBComboBoxObjectValuesKey.objectValues">
+					<string>Item</string>
+				</array>
 				<string key="23.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="37.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="38.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>

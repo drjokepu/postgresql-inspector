@@ -16,6 +16,9 @@
 #import "PGResult.h"
 #import "PGTableIdentifier.h"
 
+static NSArray *commonTypes = nil;
+static void initCommonTypes(void);
+
 @interface PGDatabase()
 
 @end
@@ -123,4 +126,59 @@
     }
 }
 
++(NSArray *)commonTypes
+{
+    if (commonTypes == nil) initCommonTypes();
+    return commonTypes;
+}
+
 @end
+
+static void initCommonTypes(void)
+{
+    commonTypes =
+    @[
+        @"bigint",
+        @"bigserial",
+        @"boolean",
+        @"box",
+        @"bytea",
+        @"character",
+        @"character varying",
+        @"cidr",
+        @"circle",
+        @"date",
+        @"daterange",
+        @"decimal",
+        @"double precision",
+        @"inet",
+        @"int4range",
+        @"int8range",
+        @"integer",
+        @"interval",
+        @"json",
+        @"line",
+        @"lseg",
+        @"macaddr",
+        @"money",
+        @"numeric",
+        @"numrange",
+        @"oid",
+        @"path",
+        @"point",
+        @"polygon",
+        @"real",
+        @"serial",
+        @"smallint",
+        @"smallserial",
+        @"text",
+        @"time",
+        @"time with time zone",
+        @"timestamp",
+        @"timestamp with time zone",
+        @"tsrange",
+        @"tstzrange",
+        @"uuid",
+        @"xml"
+    ];
+}

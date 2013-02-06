@@ -23,5 +23,6 @@
 
 -(id)initWithConnectionEntry:(PGConnectionEntry*)theConnectionEntry;
 -(void)loadSchema:(PGConnection*)connection;
++(NSArray*)commonTypes;
 
 @end
