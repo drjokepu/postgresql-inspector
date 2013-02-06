@@ -87,6 +87,7 @@
 		02D4715416C1205D00DD8715 /* PGColumnEditorWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02D4715216C1205D00DD8715 /* PGColumnEditorWindowController.xib */; };
 		02E5B4FD167A43D5008471B4 /* PGCommandExecutor.m in Sources */ = {isa = PBXBuildFile; fileRef = 02E5B4FC167A43D5008471B4 /* PGCommandExecutor.m */; };
 		02E5B500167A4CE0008471B4 /* PGResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 02E5B4FF167A4CE0008471B4 /* PGResult.m */; };
+		02FA357F16C27A250089C42D /* NSMutableArray+PGMutableArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 02FA357E16C27A250089C42D /* NSMutableArray+PGMutableArray.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -246,6 +247,8 @@
 		02E5B4FC167A43D5008471B4 /* PGCommandExecutor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGCommandExecutor.m; sourceTree = "<group>"; };
 		02E5B4FE167A4CE0008471B4 /* PGResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGResult.h; sourceTree = "<group>"; };
 		02E5B4FF167A4CE0008471B4 /* PGResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGResult.m; sourceTree = "<group>"; };
+		02FA357D16C27A250089C42D /* NSMutableArray+PGMutableArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+PGMutableArray.h"; sourceTree = "<group>"; };
+		02FA357E16C27A250089C42D /* NSMutableArray+PGMutableArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+PGMutableArray.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -324,6 +327,8 @@
 			children = (
 				023DEA52166F7D3800A6E8A1 /* NSDictionary+PGDictionary.h */,
 				023DEA53166F7D3800A6E8A1 /* NSDictionary+PGDictionary.m */,
+				02FA357D16C27A250089C42D /* NSMutableArray+PGMutableArray.h */,
+				02FA357E16C27A250089C42D /* NSMutableArray+PGMutableArray.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -778,6 +783,7 @@
 				02A24D9D16BFFC4700EEDBC6 /* PGCreateTableWindowController.m in Sources */,
 				02A24DA116C005CC00EEDBC6 /* PGSelfRetainingWindowController.m in Sources */,
 				02D4715316C1205D00DD8715 /* PGColumnEditorWindowController.m in Sources */,
+				02FA357F16C27A250089C42D /* NSMutableArray+PGMutableArray.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

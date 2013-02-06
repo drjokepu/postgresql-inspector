@@ -20,11 +20,17 @@
 @property (strong) IBOutlet NSComboBox *schemaComboBox;
 @property (strong) IBOutlet NSTableView *columnsTableView;
 @property (strong) IBOutlet NSButton *removeColumnButton;
+@property (strong) IBOutlet NSPopUpButton *columnActionsPopUpButton;
+@property (strong) IBOutlet NSButton *columnSpaceButton;
+@property (strong) IBOutlet NSMenuItem *columnMoveUpMenuItem;
+@property (strong) IBOutlet NSMenuItem *columnMoveDownMenuItem;
 
 -(void)useConnection:(PGConnection *)theConnection;
 
 -(IBAction)didClickCancel:(id)sender;
 -(IBAction)didClickAddColumn:(id)sender;
 -(IBAction)didClickRemoveColumn:(id)sender;
+-(IBAction)didClickColumnMoveUp:(id)sender;
+-(IBAction)didClickColumnMoveDown:(id)sender;
 
 @end

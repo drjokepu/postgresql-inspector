@@ -7,9 +7,13 @@
 //
 
 #import "PGCreateTableWindowController.h"
+#import "NSMutableArray+PGMutableArray.h"
 #import "PGColumnEditorWindowController.h"
 #import "PGConnection.h"
 #import "PGRelationColumn.h"
+
+static inline BOOL isNotFirstItem(const NSInteger selectedRow);
+static inline BOOL isNotLastItem(const NSInteger selectedRow, const NSInteger rowCount);
 
 @interface PGCreateTableWindowController ()
 @property (nonatomic, strong) PGConnection *connection;
@@ -38,6 +42,10 @@
         if (self.initialSchemaName != nil)
             [self.schemaComboBox setStringValue:self.initialSchemaName];
     }
+    
+    NSButtonCell* spaceButtonCell = [self.columnSpaceButton cell];
+    [spaceButtonCell setHighlightsBy:NSNoCellMask];
+    [spaceButtonCell setShowsStateBy:NSNoCellMask];
 }
 
 -(void)didClickCancel:(id)sender
@@ -112,8 +120,17 @@
 {
     if ([notification object] == self.columnsTableView)
     {
-        [self.removeColumnButton setEnabled:[self.columnsTableView selectedRow] != -1];
+        const NSInteger selectedRow = [self.columnsTableView selectedRow];
+        [self setColumnManipulationButtonsEnabled:selectedRow != -1];
+        [self.columnMoveUpMenuItem setEnabled:isNotFirstItem(selectedRow)];
+        [self.columnMoveDownMenuItem setEnabled:isNotLastItem(selectedRow, [self.tableColumns count])];
     }
+}
+
+-(void)setColumnManipulationButtonsEnabled:(BOOL)enabled
+{
+    [self.removeColumnButton setEnabled:enabled];
+    [self.columnActionsPopUpButton setEnabled:enabled];
 }
 
 -(void)didClickAddColumn:(id)sender
@@ -155,4 +172,36 @@
     }
 }
 
+-(void)didClickColumnMoveUp:(id)sender
+{
+    const NSInteger selectedRow = [self.columnsTableView selectedRow];
+    if (isNotFirstItem(selectedRow))
+    {
+        [self.tableColumns swapObjectAtIndex:selectedRow withObjectAtIndex:selectedRow - 1];
+        [self.columnsTableView reloadData];
+        [self.columnsTableView selectRowIndexes:[[NSIndexSet alloc] initWithIndex:selectedRow - 1] byExtendingSelection:NO];
+    }
+}
+
+-(void)didClickColumnMoveDown:(id)sender
+{
+    const NSInteger selectedRow = [self.columnsTableView selectedRow];
+    if (isNotLastItem(selectedRow, [self.tableColumns count]))
+    {
+        [self.tableColumns swapObjectAtIndex:selectedRow withObjectAtIndex:selectedRow + 1];
+        [self.columnsTableView reloadData];
+        [self.columnsTableView selectRowIndexes:[[NSIndexSet alloc] initWithIndex:selectedRow + 1] byExtendingSelection:NO];
+    }
+}
+
 @end
+
+static inline BOOL isNotFirstItem(const NSInteger selectedRow)
+{
+    return selectedRow > 0;
+}
+
+static inline BOOL isNotLastItem(const NSInteger selectedRow, const NSInteger rowCount)
+{
+    return (selectedRow >= 0) && ((selectedRow + 1) < rowCount);
+}
