@@ -141,6 +141,7 @@ static inline BOOL isNotLastItem(const NSInteger selectedRow, const NSInteger ro
 -(void)openAddColumnSheet
 {
     PGColumnEditorWindowController *columnEditorSheet = [[PGColumnEditorWindowController alloc] init];
+    columnEditorSheet.columnEditorAction = PGColumnEditorAdd;
     [[NSApplication sharedApplication] beginSheet:[columnEditorSheet window]
                                    modalForWindow:[self window]
                                     modalDelegate:self
@@ -170,6 +171,45 @@ static inline BOOL isNotLastItem(const NSInteger selectedRow, const NSInteger ro
         [self.tableColumns removeObjectAtIndex:columnIndex];
         [self.columnsTableView reloadData];
     }
+}
+
+-(void)didClickEditColumn:(id)sender
+{
+    const NSInteger columnIndex = [self.columnsTableView selectedRow];
+    if (columnIndex != -1)
+    {
+        [self openEditColumnSheet:self.tableColumns[columnIndex]];
+    }
+}
+
+-(void)openEditColumnSheet:(PGRelationColumn*)column
+{
+    PGColumnEditorWindowController *columnEditorSheet = [[PGColumnEditorWindowController alloc] init];
+    columnEditorSheet.columnEditorAction = PGColumnEditorUpdate;
+    [columnEditorSheet useColumn:column];
+    [[NSApplication sharedApplication] beginSheet:[columnEditorSheet window]
+                                   modalForWindow:[self window]
+                                    modalDelegate:self
+                                   didEndSelector:@selector(didEndEditColumnSheet:returnCode:contextInfo:)
+                                      contextInfo:NULL];
+    
+    self.columnEditorSheet = columnEditorSheet;
+}
+
+-(void)didEndEditColumnSheet:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo
+{
+    if (returnCode == 1)
+    {
+        const NSInteger columnIndex = [self.columnsTableView selectedRow];
+        if (columnIndex != -1)
+        {
+            self.tableColumns[columnIndex] = [self.columnEditorSheet getColumn];
+            [self.columnsTableView reloadData];
+        }
+    }
+    
+    [sheet orderOut:self];
+    self.columnEditorSheet = nil;
 }
 
 -(void)didClickColumnMoveUp:(id)sender

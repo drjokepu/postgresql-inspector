@@ -25,6 +25,7 @@
 -(IBAction)didClickCancel:(id)sender;
 -(IBAction)didClickAction:(id)sender;
 
+-(void)useColumn:(PGRelationColumn*)column;
 -(PGRelationColumn*)getColumn;
 
 @end

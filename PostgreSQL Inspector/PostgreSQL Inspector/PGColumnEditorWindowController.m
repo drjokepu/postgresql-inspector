@@ -11,10 +11,11 @@
 #import "PGRelationColumn.h"
 
 @interface PGColumnEditorWindowController ()
-
+@property (nonatomic, strong) PGRelationColumn *initialColumn;
 @end
 
 @implementation PGColumnEditorWindowController
+@synthesize initialColumn, columnNameTextField, columnTypeComboBox, columnLengthTextField, columnPrecisionTextField, columnDefaultValueTextField, columnNotNullCheckBox, columnEditorAction, actionButton;
 
 -(NSString *)windowNibName
 {
@@ -24,27 +25,40 @@
 -(void)windowDidLoad
 {
     [super windowDidLoad];
-    switch (self.columnEditorAction)
+    switch (columnEditorAction)
     {
         case PGColumnEditorAdd:
-            [self.actionButton setTitle:@"Add"];
+            [actionButton setTitle:@"Add"];
             break;
         case PGColumnEditorUpdate:
-            [self.actionButton setTitle:@"Update"];
+            [actionButton setTitle:@"Update"];
     }
-    [self.columnTypeComboBox addItemsWithObjectValues:[PGDatabase commonTypes]];
+    [columnTypeComboBox addItemsWithObjectValues:[PGDatabase commonTypes]];
+    [self loadInitialColumnData];
     [self validate];
+}
+
+-(void)loadInitialColumnData
+{
+    if (initialColumn != nil)
+    {
+        [columnNameTextField setStringValue:initialColumn.name];
+        [columnTypeComboBox setStringValue:initialColumn.typeName];
+        if (initialColumn.length > 0) [columnLengthTextField setIntegerValue:initialColumn.length];
+        if (initialColumn.defaultValue != nil) [columnDefaultValueTextField setStringValue:initialColumn.defaultValue];
+        [columnNotNullCheckBox setState:initialColumn.notNull ? NSOnState : NSOffState];
+    }
 }
 
 -(BOOL)isValid
 {
-    return ([[self.columnNameTextField stringValue] length] > 0 &&
-            [[self.columnTypeComboBox stringValue] length] > 0);
+    return ([[columnNameTextField stringValue] length] > 0 &&
+            [[columnTypeComboBox stringValue] length] > 0);
 }
 
 -(void)validate
 {
-    [self.actionButton setEnabled:[self isValid]];
+    [actionButton setEnabled:[self isValid]];
 }
 
 -(void)controlTextDidChange:(NSNotification *)obj
@@ -62,15 +76,20 @@
     [[NSApplication sharedApplication] endSheet:[self window] returnCode:1];
 }
 
+-(void)useColumn:(PGRelationColumn *)column
+{
+    self.initialColumn = column;
+}
+
 -(PGRelationColumn *)getColumn
 {
     PGRelationColumn *column = [[PGRelationColumn alloc] init];
-    column.name = [self.columnNameTextField stringValue];
-    column.typeName = [self.columnTypeComboBox stringValue];
-    if ([[self.columnTypeComboBox stringValue] length] > 0)
-        column.length = [self.columnTypeComboBox integerValue];
-    column.defaultValue = [[self.columnDefaultValueTextField stringValue] length] > 0 ? [self.columnDefaultValueTextField stringValue] : nil;
-    column.notNull = [self.columnNotNullCheckBox state] == NSOnState;
+    column.name = [columnNameTextField stringValue];
+    column.typeName = [columnTypeComboBox stringValue];
+    if ([[columnTypeComboBox stringValue] length] > 0)
+        column.length = [columnTypeComboBox integerValue];
+    column.defaultValue = [[columnDefaultValueTextField stringValue] length] > 0 ? [columnDefaultValueTextField stringValue] : nil;
+    column.notNull = [columnNotNullCheckBox state] == NSOnState;
     
     return column;
 }

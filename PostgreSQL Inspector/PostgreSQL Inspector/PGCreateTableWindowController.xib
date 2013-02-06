@@ -68,7 +68,6 @@
 							<string key="NSFrame">{{13, 41}, {555, 363}}</string>
 							<reference key="NSSuperview" ref="1006"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView" ref="832969615"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<array class="NSMutableArray" key="NSTabViewItems">
 								<object class="NSTabViewItem" id="309142195">
@@ -571,6 +570,7 @@
 														<bool key="NSNoAutoenable">YES</bool>
 														<reference key="NSMenuFont" ref="523109647"/>
 													</object>
+													<int key="NSSelectedIndex">-1</int>
 													<bool key="NSPullDown">YES</bool>
 													<int key="NSPreferredEdge">1</int>
 													<bool key="NSUsesItemFromMenu">YES</bool>
@@ -797,6 +797,14 @@
 						<reference key="destination" ref="683390214"/>
 					</object>
 					<int key="connectionID">90</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">didClickEditColumn:</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="67897702"/>
+					</object>
+					<int key="connectionID">91</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
@@ -1297,7 +1305,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">90</int>
+			<int key="maxID">91</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1309,6 +1317,7 @@
 						<string key="didClickCancel:">id</string>
 						<string key="didClickColumnMoveDown:">id</string>
 						<string key="didClickColumnMoveUp:">id</string>
+						<string key="didClickEditColumn:">id</string>
 						<string key="didClickRemoveColumn:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
@@ -1326,6 +1335,10 @@
 						</object>
 						<object class="IBActionInfo" key="didClickColumnMoveUp:">
 							<string key="name">didClickColumnMoveUp:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="didClickEditColumn:">
+							<string key="name">didClickEditColumn:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="didClickRemoveColumn:">
