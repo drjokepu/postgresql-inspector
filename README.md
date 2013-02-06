@@ -5,8 +5,8 @@ Building
 --------
 
 1. Build the grammar:
-```bash
-   cd PostgreSQL\ Inspector/PostgreSQL\ Inspector/parsing/lemon
-   make
-```
+    
+        cd "PostgreSQL Inspector/PostgreSQL Inspector/parsing/lemon"
+        make
+
 2. Open XCode and build the project.
