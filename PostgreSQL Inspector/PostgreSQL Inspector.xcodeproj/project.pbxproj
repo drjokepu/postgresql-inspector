@@ -74,6 +74,8 @@
 		02A2EB751684B4B40067852E /* unique_key.png in Resources */ = {isa = PBXBuildFile; fileRef = 02A2EB741684B4B40067852E /* unique_key.png */; };
 		02A2EB771684C66D0067852E /* foreign_key.png in Resources */ = {isa = PBXBuildFile; fileRef = 02A2EB761684C66D0067852E /* foreign_key.png */; };
 		02A2EB791684C8D80067852E /* check.png in Resources */ = {isa = PBXBuildFile; fileRef = 02A2EB781684C8D80067852E /* check.png */; };
+		02B0BBD016C7DBD500E240F7 /* PGUniqueKeyEditorWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02B0BBCE16C7DBD500E240F7 /* PGUniqueKeyEditorWindowController.m */; };
+		02B0BBD116C7DBD500E240F7 /* PGUniqueKeyEditorWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02B0BBCF16C7DBD500E240F7 /* PGUniqueKeyEditorWindowController.xib */; };
 		02B172EA156E76F1002C2AA9 /* PGRelation.m in Sources */ = {isa = PBXBuildFile; fileRef = 02B172E9156E76F1002C2AA9 /* PGRelation.m */; };
 		02B8864015862D4100855F79 /* PGRelationColumn.m in Sources */ = {isa = PBXBuildFile; fileRef = 02B8863F15862D4000855F79 /* PGRelationColumn.m */; };
 		02C4DF7B15C69E6C00C78DDE /* PGQueryWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02C4DF7915C69E6C00C78DDE /* PGQueryWindowController.m */; };
@@ -219,6 +221,9 @@
 		02A2EB741684B4B40067852E /* unique_key.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = unique_key.png; path = ../Content/unique_key.png; sourceTree = "<group>"; };
 		02A2EB761684C66D0067852E /* foreign_key.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = foreign_key.png; path = ../Content/foreign_key.png; sourceTree = "<group>"; };
 		02A2EB781684C8D80067852E /* check.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = check.png; path = ../Content/check.png; sourceTree = "<group>"; };
+		02B0BBCD16C7DBD500E240F7 /* PGUniqueKeyEditorWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGUniqueKeyEditorWindowController.h; sourceTree = "<group>"; };
+		02B0BBCE16C7DBD500E240F7 /* PGUniqueKeyEditorWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGUniqueKeyEditorWindowController.m; sourceTree = "<group>"; };
+		02B0BBCF16C7DBD500E240F7 /* PGUniqueKeyEditorWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PGUniqueKeyEditorWindowController.xib; sourceTree = "<group>"; };
 		02B172E8156E76F1002C2AA9 /* PGRelation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGRelation.h; sourceTree = "<group>"; };
 		02B172E9156E76F1002C2AA9 /* PGRelation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGRelation.m; sourceTree = "<group>"; };
 		02B83EA2154F1D510013A5F8 /* PGCommandDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PGCommandDelegate.h; sourceTree = "<group>"; };
@@ -242,7 +247,7 @@
 		02D4715016C1205D00DD8715 /* PGColumnEditorWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGColumnEditorWindowController.h; sourceTree = "<group>"; };
 		02D4715116C1205D00DD8715 /* PGColumnEditorWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGColumnEditorWindowController.m; sourceTree = "<group>"; };
 		02D4715216C1205D00DD8715 /* PGColumnEditorWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PGColumnEditorWindowController.xib; sourceTree = "<group>"; };
-		02D4715516C12DCA00DD8715 /* PGColumnEditorAction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PGColumnEditorAction.h; sourceTree = "<group>"; };
+		02D4715516C12DCA00DD8715 /* PGEditorAction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PGEditorAction.h; sourceTree = "<group>"; };
 		02E5B4FB167A43D5008471B4 /* PGCommandExecutor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGCommandExecutor.h; sourceTree = "<group>"; };
 		02E5B4FC167A43D5008471B4 /* PGCommandExecutor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGCommandExecutor.m; sourceTree = "<group>"; };
 		02E5B4FE167A4CE0008471B4 /* PGResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGResult.h; sourceTree = "<group>"; };
@@ -618,13 +623,16 @@
 		02D4714E16C11F4900DD8715 /* Tables */ = {
 			isa = PBXGroup;
 			children = (
-				02D4715516C12DCA00DD8715 /* PGColumnEditorAction.h */,
+				02D4715516C12DCA00DD8715 /* PGEditorAction.h */,
 				02D4715016C1205D00DD8715 /* PGColumnEditorWindowController.h */,
 				02D4715116C1205D00DD8715 /* PGColumnEditorWindowController.m */,
 				02D4715216C1205D00DD8715 /* PGColumnEditorWindowController.xib */,
 				02A24D9A16BFFC4700EEDBC6 /* PGCreateTableWindowController.h */,
 				02A24D9B16BFFC4700EEDBC6 /* PGCreateTableWindowController.m */,
 				02A24D9C16BFFC4700EEDBC6 /* PGCreateTableWindowController.xib */,
+				02B0BBCD16C7DBD500E240F7 /* PGUniqueKeyEditorWindowController.h */,
+				02B0BBCE16C7DBD500E240F7 /* PGUniqueKeyEditorWindowController.m */,
+				02B0BBCF16C7DBD500E240F7 /* PGUniqueKeyEditorWindowController.xib */,
 			);
 			name = Tables;
 			sourceTree = "<group>";
@@ -716,6 +724,7 @@
 				0258D83016BFE35000C2E2A6 /* query_table@2x.png in Resources */,
 				02A24D9E16BFFC4700EEDBC6 /* PGCreateTableWindowController.xib in Resources */,
 				02D4715416C1205D00DD8715 /* PGColumnEditorWindowController.xib in Resources */,
+				02B0BBD116C7DBD500E240F7 /* PGUniqueKeyEditorWindowController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -784,6 +793,7 @@
 				02A24DA116C005CC00EEDBC6 /* PGSelfRetainingWindowController.m in Sources */,
 				02D4715316C1205D00DD8715 /* PGColumnEditorWindowController.m in Sources */,
 				02FA357F16C27A250089C42D /* NSMutableArray+PGMutableArray.m in Sources */,
+				02B0BBD016C7DBD500E240F7 /* PGUniqueKeyEditorWindowController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

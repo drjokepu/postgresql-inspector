@@ -49,6 +49,8 @@ static inline BOOL isNotLastItem(const NSInteger selectedRow, const NSInteger ro
     NSButtonCell* spaceButtonCell = [self.columnSpaceButton cell];
     [spaceButtonCell setHighlightsBy:NSNoCellMask];
     [spaceButtonCell setShowsStateBy:NSNoCellMask];
+//    [self.columnActionsPopUpButton setButtonType
+    [[self.columnActionsPopUpButton cell] setArrowPosition:NSPopUpArrowAtBottom];
     
     [self validateColumnActions];
     [self validateConstraintActions];
@@ -156,7 +158,7 @@ static inline BOOL isNotLastItem(const NSInteger selectedRow, const NSInteger ro
 -(void)openAddColumnSheet
 {
     PGColumnEditorWindowController *columnEditorSheet = [[PGColumnEditorWindowController alloc] init];
-    columnEditorSheet.columnEditorAction = PGColumnEditorAdd;
+    columnEditorSheet.columnEditorAction = PGEditorAdd;
     [[NSApplication sharedApplication] beginSheet:[columnEditorSheet window]
                                    modalForWindow:[self window]
                                     modalDelegate:self
@@ -200,7 +202,7 @@ static inline BOOL isNotLastItem(const NSInteger selectedRow, const NSInteger ro
 -(void)openEditColumnSheet:(PGRelationColumn*)column
 {
     PGColumnEditorWindowController *columnEditorSheet = [[PGColumnEditorWindowController alloc] init];
-    columnEditorSheet.columnEditorAction = PGColumnEditorUpdate;
+    columnEditorSheet.columnEditorAction = PGEditorUpdate;
     [columnEditorSheet useColumn:column];
     [[NSApplication sharedApplication] beginSheet:[columnEditorSheet window]
                                    modalForWindow:[self window]

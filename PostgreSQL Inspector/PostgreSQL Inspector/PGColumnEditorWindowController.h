@@ -7,13 +7,13 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "PGColumnEditorAction.h"
+#import "PGEditorAction.h"
 
 @class PGRelationColumn;
 
 @interface PGColumnEditorWindowController : NSWindowController <NSTextFieldDelegate>
 
-@property (nonatomic, assign) PGColumnEditorAction columnEditorAction;
+@property (nonatomic, assign) PGEditorAction columnEditorAction;
 @property (strong) IBOutlet NSTextField *columnNameTextField;
 @property (strong) IBOutlet NSComboBox *columnTypeComboBox;
 @property (strong) IBOutlet NSTextField *columnLengthTextField;

@@ -27,10 +27,10 @@
     [super windowDidLoad];
     switch (columnEditorAction)
     {
-        case PGColumnEditorAdd:
+        case PGEditorAdd:
             [actionButton setTitle:@"Add"];
             break;
-        case PGColumnEditorUpdate:
+        case PGEditorUpdate:
             [actionButton setTitle:@"Update"];
     }
     [columnTypeComboBox addItemsWithObjectValues:[PGDatabase commonTypes]];
