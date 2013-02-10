@@ -10,6 +10,7 @@
 #import "NSMutableArray+PGMutableArray.h"
 #import "PGColumnEditorWindowController.h"
 #import "PGConnection.h"
+#import "PGConstraint.h"
 #import "PGRelationColumn.h"
 
 static inline BOOL isNotFirstItem(const NSInteger selectedRow);
@@ -19,6 +20,7 @@ static inline BOOL isNotLastItem(const NSInteger selectedRow, const NSInteger ro
 @property (nonatomic, strong) PGConnection *connection;
 @property (nonatomic, assign) BOOL connectionIsOpen;
 @property (nonatomic, strong) NSMutableArray *tableColumns;
+@property (nonatomic, strong) NSMutableArray *tableConstraints;
 @property (nonatomic, strong) PGColumnEditorWindowController *columnEditorSheet;
 @end
 
@@ -33,6 +35,7 @@ static inline BOOL isNotLastItem(const NSInteger selectedRow, const NSInteger ro
 {
     [super windowDidLoad];
     self.tableColumns = [[NSMutableArray alloc] init];
+    self.tableConstraints = [[NSMutableArray alloc] init];
     
     if (self.initialSchemaName != nil)
     {
@@ -46,6 +49,9 @@ static inline BOOL isNotLastItem(const NSInteger selectedRow, const NSInteger ro
     NSButtonCell* spaceButtonCell = [self.columnSpaceButton cell];
     [spaceButtonCell setHighlightsBy:NSNoCellMask];
     [spaceButtonCell setShowsStateBy:NSNoCellMask];
+    
+    [self validateColumnActions];
+    [self validateConstraintActions];
 }
 
 -(void)didClickCancel:(id)sender
@@ -120,11 +126,20 @@ static inline BOOL isNotLastItem(const NSInteger selectedRow, const NSInteger ro
 {
     if ([notification object] == self.columnsTableView)
     {
-        const NSInteger selectedRow = [self.columnsTableView selectedRow];
-        [self setColumnManipulationButtonsEnabled:selectedRow != -1];
-        [self.columnMoveUpMenuItem setEnabled:isNotFirstItem(selectedRow)];
-        [self.columnMoveDownMenuItem setEnabled:isNotLastItem(selectedRow, [self.tableColumns count])];
+        [self validateColumnActions];
     }
+    else if ([notification object] == self.constraintsTableView)
+    {
+        [self validateConstraintActions];
+    }
+}
+
+-(void)validateColumnActions
+{
+    const NSInteger selectedRow = [self.columnsTableView selectedRow];
+    [self setColumnManipulationButtonsEnabled:selectedRow != -1];
+    [self.columnMoveUpMenuItem setEnabled:isNotFirstItem(selectedRow)];
+    [self.columnMoveDownMenuItem setEnabled:isNotLastItem(selectedRow, [self.tableColumns count])];
 }
 
 -(void)setColumnManipulationButtonsEnabled:(BOOL)enabled
@@ -232,6 +247,21 @@ static inline BOOL isNotLastItem(const NSInteger selectedRow, const NSInteger ro
         [self.columnsTableView reloadData];
         [self.columnsTableView selectRowIndexes:[[NSIndexSet alloc] initWithIndex:selectedRow + 1] byExtendingSelection:NO];
     }
+}
+
+-(BOOL)hasPrimaryKey
+{
+    for (PGConstraint *constraint in self.tableConstraints)
+    {
+        if (constraint.type == PGConstraintTypePrimaryKey)
+            return YES;
+    }
+    return NO;
+}
+
+-(void)validateConstraintActions
+{
+    [self.addPrimaryKeyMenuItem setEnabled:![self hasPrimaryKey]];
 }
 
 @end

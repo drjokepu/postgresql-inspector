@@ -24,6 +24,8 @@
 @property (strong) IBOutlet NSButton *columnSpaceButton;
 @property (strong) IBOutlet NSMenuItem *columnMoveUpMenuItem;
 @property (strong) IBOutlet NSMenuItem *columnMoveDownMenuItem;
+@property (strong) IBOutlet NSTableView *constraintsTableView;
+@property (strong) IBOutlet NSMenuItem *addPrimaryKeyMenuItem;
 
 -(void)useConnection:(PGConnection *)theConnection;
 
