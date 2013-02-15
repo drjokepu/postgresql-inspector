@@ -18,12 +18,9 @@
 @property (nonatomic, strong) NSArray *initialSchemaNameList;
 @property (strong) IBOutlet NSTextField *tableNameTextField;
 @property (strong) IBOutlet NSComboBox *schemaComboBox;
+@property (strong) IBOutlet NSView *columnsView;
 @property (strong) IBOutlet NSTableView *columnsTableView;
-@property (strong) IBOutlet NSButton *removeColumnButton;
-@property (strong) IBOutlet NSPopUpButton *columnActionsPopUpButton;
-@property (strong) IBOutlet NSButton *columnSpaceButton;
-@property (strong) IBOutlet NSMenuItem *columnMoveUpMenuItem;
-@property (strong) IBOutlet NSMenuItem *columnMoveDownMenuItem;
+
 @property (strong) IBOutlet NSTableView *constraintsTableView;
 @property (strong) IBOutlet NSMenuItem *addPrimaryKeyMenuItem;
 

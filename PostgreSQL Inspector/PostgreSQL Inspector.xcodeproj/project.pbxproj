@@ -34,6 +34,7 @@
 		0258D83016BFE35000C2E2A6 /* query_table@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0258D82E16BFE35000C2E2A6 /* query_table@2x.png */; };
 		025F61A01551BCF7006B4D23 /* PGSchemaObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 025F619F1551BCF7006B4D23 /* PGSchemaObject.m */; };
 		025F61A31551BE09006B4D23 /* PGTable.m in Sources */ = {isa = PBXBuildFile; fileRef = 025F61A21551BE09006B4D23 /* PGTable.m */; };
+		0260DE3E16CE769B006A573B /* NSImage+PGImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 0260DE3D16CE769B006A573B /* NSImage+PGImage.m */; };
 		0273B95C167A25CA009CA33D /* PGUserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 0273B95B167A25C9009CA33D /* PGUserDefaults.m */; };
 		0273B960167A2DED009CA33D /* PGCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = 0273B95F167A2DED009CA33D /* PGCommand.m */; };
 		02751E001549F778007AE07D /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02751DFF1549F778007AE07D /* Cocoa.framework */; };
@@ -142,6 +143,8 @@
 		025F619F1551BCF7006B4D23 /* PGSchemaObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGSchemaObject.m; sourceTree = "<group>"; };
 		025F61A11551BE09006B4D23 /* PGTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGTable.h; sourceTree = "<group>"; };
 		025F61A21551BE09006B4D23 /* PGTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGTable.m; sourceTree = "<group>"; };
+		0260DE3C16CE769B006A573B /* NSImage+PGImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSImage+PGImage.h"; sourceTree = "<group>"; };
+		0260DE3D16CE769B006A573B /* NSImage+PGImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSImage+PGImage.m"; sourceTree = "<group>"; };
 		0273B95A167A25C9009CA33D /* PGUserDefaults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGUserDefaults.h; sourceTree = "<group>"; };
 		0273B95B167A25C9009CA33D /* PGUserDefaults.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGUserDefaults.m; sourceTree = "<group>"; };
 		0273B95E167A2DED009CA33D /* PGCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGCommand.h; sourceTree = "<group>"; };
@@ -332,6 +335,8 @@
 			children = (
 				023DEA52166F7D3800A6E8A1 /* NSDictionary+PGDictionary.h */,
 				023DEA53166F7D3800A6E8A1 /* NSDictionary+PGDictionary.m */,
+				0260DE3C16CE769B006A573B /* NSImage+PGImage.h */,
+				0260DE3D16CE769B006A573B /* NSImage+PGImage.m */,
 				02FA357D16C27A250089C42D /* NSMutableArray+PGMutableArray.h */,
 				02FA357E16C27A250089C42D /* NSMutableArray+PGMutableArray.m */,
 			);
@@ -794,6 +799,7 @@
 				02D4715316C1205D00DD8715 /* PGColumnEditorWindowController.m in Sources */,
 				02FA357F16C27A250089C42D /* NSMutableArray+PGMutableArray.m in Sources */,
 				02B0BBD016C7DBD500E240F7 /* PGUniqueKeyEditorWindowController.m in Sources */,
+				0260DE3E16CE769B006A573B /* NSImage+PGImage.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
