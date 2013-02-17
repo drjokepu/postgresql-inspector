@@ -32,6 +32,9 @@ static inline BOOL isNotLastItem(const NSInteger selectedRow, const NSInteger ro
 @property (nonatomic, strong) NSMenuItem *columnMoveUpMenuItem;
 @property (nonatomic, strong) NSMenuItem *columnMoveDownMenuItem;
 
+@property (nonatomic, strong) NSPopUpButton *addConstraintButton;
+@property (nonatomic, strong) NSMenuItem *addPrimaryKeyMenuItem;
+
 @end
 
 @implementation PGCreateTableWindowController
@@ -42,6 +45,9 @@ static inline BOOL isNotLastItem(const NSInteger selectedRow, const NSInteger ro
 @synthesize columnSpaceButton;
 @synthesize columnMoveUpMenuItem;
 @synthesize columnMoveDownMenuItem;
+@synthesize constraintsView;
+@synthesize addConstraintButton;
+@synthesize addPrimaryKeyMenuItem;
 
 -(NSString *)windowNibName
 {
@@ -78,6 +84,8 @@ static inline BOOL isNotLastItem(const NSInteger selectedRow, const NSInteger ro
     const CGFloat baseX = 17;
     const CGFloat baseY = 8;
     
+    // Column Buttons
+    // Add Column
     self.addColumnButton = [[NSButton alloc] initWithFrame:NSMakeRect(baseX, baseY, normalButtonWidth, buttonHeight)];
     [addColumnButton setAction:@selector(didClickAddColumn:)];
     [addColumnButton setTitle:@""];
@@ -85,6 +93,7 @@ static inline BOOL isNotLastItem(const NSInteger selectedRow, const NSInteger ro
     [addColumnButton setImage:[NSImage imageNamed:NSImageNameAddTemplate]];
     [columnsView addSubview:addColumnButton positioned:NSWindowAbove relativeTo:columnsView];
     
+    // Remove Column
     self.removeColumnButton = [[NSButton alloc] initWithFrame:NSMakeRect(baseX + normalButtonWidth - 1, baseY, normalButtonWidth, buttonHeight)];
     [removeColumnButton setAction:@selector(didClickRemoveColumn:)];
     [removeColumnButton setTitle:@""];
@@ -92,31 +101,52 @@ static inline BOOL isNotLastItem(const NSInteger selectedRow, const NSInteger ro
     [removeColumnButton setImage:[NSImage imageNamed:NSImageNameRemoveTemplate]];
     [columnsView addSubview:removeColumnButton positioned:NSWindowAbove relativeTo:columnsView];
     
+    // Column Actions
     self.columnActionsButton = [[NSPopUpButton alloc] initWithFrame:NSMakeRect(baseX + ((normalButtonWidth - 1) * 2), baseY, wideButtonWidth, buttonHeight) pullsDown:YES];
     [columnActionsButton setBezelStyle:NSSmallSquareBezelStyle];
     [columnActionsButton setImagePosition:NSImageOnly];
     [[columnActionsButton cell] setArrowPosition:NSPopUpArrowAtBottom];
     [columnActionsButton addItemWithTitle:@""];
-    [[columnActionsButton itemAtIndex:0] setImage:[[NSImage imageNamed:NSImageNameActionTemplate] imageScaledToSize:NSMakeSize(12, 12) proportionally:YES]];
+    [[columnActionsButton itemAtIndex:0] setImage:[[NSImage imageNamed:NSImageNameActionTemplate] imageScaledToSize:NSMakeSize(10, 10) proportionally:YES]];
     [[columnActionsButton itemAtIndex:0] setOnStateImage:nil];
     [[columnActionsButton itemAtIndex:0] setMixedStateImage:nil];
+    // Edit Column
     self.columnEditColumnMenuItem = [[NSMenuItem alloc] initWithTitle:@"Edit Column…" action:@selector(didClickEditColumn:) keyEquivalent:@""];
     [[columnActionsButton menu] addItem:self.columnEditColumnMenuItem];
     [[columnActionsButton menu] addItem:[NSMenuItem separatorItem]];
-    self.columnMoveUpMenuItem = [[NSMenuItem alloc] initWithTitle:@"Move Up…" action:@selector(didClickColumnMoveUp:) keyEquivalent:@""];
-    [[columnActionsButton menu] addItem:self.columnMoveUpMenuItem];
-    self.columnMoveDownMenuItem = [[NSMenuItem alloc] initWithTitle:@"Move Down…" action:@selector(didClickColumnMoveDown:) keyEquivalent:@""];
-    [[columnActionsButton menu] addItem:self.columnMoveDownMenuItem];
-    
+    // Move Up (column)
+    self.columnMoveUpMenuItem = [[NSMenuItem alloc] initWithTitle:@"Move Up" action:@selector(didClickColumnMoveUp:) keyEquivalent:@""];
+    [[columnActionsButton menu] addItem:columnMoveUpMenuItem];
+    // Move Down (column)
+    self.columnMoveDownMenuItem = [[NSMenuItem alloc] initWithTitle:@"Move Down" action:@selector(didClickColumnMoveDown:) keyEquivalent:@""];
+    [[columnActionsButton menu] addItem:columnMoveDownMenuItem];
     [columnsView addSubview:columnActionsButton positioned:NSWindowAbove relativeTo:columnsView];
 
+    // Space Button (column)
     const CGFloat columnSpaceButtonX = baseX + ((normalButtonWidth - 1) * 2) + wideButtonWidth - 1;
     self.columnSpaceButton = [[NSButton alloc] initWithFrame:NSMakeRect(columnSpaceButtonX, baseY, [self.columnsTableView frame].size.width + baseX - columnSpaceButtonX + 2, buttonHeight)];
     [[columnSpaceButton cell] setHighlightsBy:NSNoCellMask];
     [[columnSpaceButton cell] setShowsStateBy:NSNoCellMask];
     [columnSpaceButton setTitle:@""];
     [columnSpaceButton setBezelStyle:NSSmallSquareBezelStyle];
+    [columnSpaceButton setAutoresizingMask:NSViewWidthSizable];
     [columnsView addSubview:columnSpaceButton positioned:NSWindowAbove relativeTo:columnsView];
+    
+    // Constraint Buttons
+    // Add Constraint
+    self.addConstraintButton = [[NSPopUpButton alloc] initWithFrame:NSMakeRect(baseX, baseY, wideButtonWidth, buttonHeight) pullsDown:YES];
+    [addConstraintButton setBezelStyle:NSSmallSquareBezelStyle];
+    [addConstraintButton setImagePosition:NSImageOnly];
+    [[addConstraintButton cell] setArrowPosition:NSPopUpArrowAtBottom];
+    [addConstraintButton addItemWithTitle:@""];
+    [[addConstraintButton itemAtIndex:0] setImage:[NSImage imageNamed:NSImageNameAddTemplate]];
+    [[addConstraintButton itemAtIndex:0] setOnStateImage:nil];
+    [[addConstraintButton itemAtIndex:0] setMixedStateImage:nil];
+    // Add Primary Key (constraint)
+    self.addPrimaryKeyMenuItem = [[NSMenuItem alloc] initWithTitle:@"Add Primary Key…" action:nil keyEquivalent:@""];
+    [[addConstraintButton menu] addItem:addPrimaryKeyMenuItem];
+    
+    [constraintsView addSubview:addConstraintButton positioned:NSWindowAbove relativeTo:constraintsView];
 }
 
 -(void)didClickCancel:(id)sender

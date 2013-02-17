@@ -20,9 +20,8 @@
 @property (strong) IBOutlet NSComboBox *schemaComboBox;
 @property (strong) IBOutlet NSView *columnsView;
 @property (strong) IBOutlet NSTableView *columnsTableView;
-
+@property (strong) IBOutlet NSView *constraintsView;
 @property (strong) IBOutlet NSTableView *constraintsTableView;
-@property (strong) IBOutlet NSMenuItem *addPrimaryKeyMenuItem;
 
 -(void)useConnection:(PGConnection *)theConnection;
 
