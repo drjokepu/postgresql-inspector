@@ -79,12 +79,14 @@ static inline BOOL isNotLastItem(const NSInteger selectedRow, const NSInteger ro
     const CGFloat baseY = 8;
     
     self.addColumnButton = [[NSButton alloc] initWithFrame:NSMakeRect(baseX, baseY, normalButtonWidth, buttonHeight)];
+    [addColumnButton setAction:@selector(didClickAddColumn:)];
     [addColumnButton setTitle:@""];
     [addColumnButton setBezelStyle:NSSmallSquareBezelStyle];
     [addColumnButton setImage:[NSImage imageNamed:NSImageNameAddTemplate]];
     [columnsView addSubview:addColumnButton positioned:NSWindowAbove relativeTo:columnsView];
     
     self.removeColumnButton = [[NSButton alloc] initWithFrame:NSMakeRect(baseX + normalButtonWidth - 1, baseY, normalButtonWidth, buttonHeight)];
+    [removeColumnButton setAction:@selector(didClickRemoveColumn:)];
     [removeColumnButton setTitle:@""];
     [removeColumnButton setBezelStyle:NSSmallSquareBezelStyle];
     [removeColumnButton setImage:[NSImage imageNamed:NSImageNameRemoveTemplate]];
@@ -98,12 +100,12 @@ static inline BOOL isNotLastItem(const NSInteger selectedRow, const NSInteger ro
     [[columnActionsButton itemAtIndex:0] setImage:[[NSImage imageNamed:NSImageNameActionTemplate] imageScaledToSize:NSMakeSize(12, 12) proportionally:YES]];
     [[columnActionsButton itemAtIndex:0] setOnStateImage:nil];
     [[columnActionsButton itemAtIndex:0] setMixedStateImage:nil];
-    self.columnEditColumnMenuItem = [[NSMenuItem alloc] initWithTitle:@"Edit Column…" action:NULL keyEquivalent:@""];
+    self.columnEditColumnMenuItem = [[NSMenuItem alloc] initWithTitle:@"Edit Column…" action:@selector(didClickEditColumn:) keyEquivalent:@""];
     [[columnActionsButton menu] addItem:self.columnEditColumnMenuItem];
     [[columnActionsButton menu] addItem:[NSMenuItem separatorItem]];
-    self.columnMoveUpMenuItem = [[NSMenuItem alloc] initWithTitle:@"Move Up…" action:NULL keyEquivalent:@""];
+    self.columnMoveUpMenuItem = [[NSMenuItem alloc] initWithTitle:@"Move Up…" action:@selector(didClickColumnMoveUp:) keyEquivalent:@""];
     [[columnActionsButton menu] addItem:self.columnMoveUpMenuItem];
-    self.columnMoveDownMenuItem = [[NSMenuItem alloc] initWithTitle:@"Move Down…" action:NULL keyEquivalent:@""];
+    self.columnMoveDownMenuItem = [[NSMenuItem alloc] initWithTitle:@"Move Down…" action:@selector(didClickColumnMoveDown:) keyEquivalent:@""];
     [[columnActionsButton menu] addItem:self.columnMoveDownMenuItem];
     
     [columnsView addSubview:columnActionsButton positioned:NSWindowAbove relativeTo:columnsView];
@@ -208,7 +210,7 @@ static inline BOOL isNotLastItem(const NSInteger selectedRow, const NSInteger ro
 -(void)setColumnManipulationButtonsEnabled:(BOOL)enabled
 {
     [self.removeColumnButton setEnabled:enabled];
-//    [self.columnActionsPopUpButton setEnabled:enabled];
+    [self.columnActionsButton setEnabled:enabled];
 }
 
 -(void)didClickAddColumn:(id)sender
