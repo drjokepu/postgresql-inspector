@@ -26,10 +26,5 @@
 -(void)useConnection:(PGConnection *)theConnection;
 
 -(IBAction)didClickCancel:(id)sender;
--(IBAction)didClickAddColumn:(id)sender;
--(IBAction)didClickRemoveColumn:(id)sender;
--(IBAction)didClickEditColumn:(id)sender;
--(IBAction)didClickColumnMoveUp:(id)sender;
--(IBAction)didClickColumnMoveDown:(id)sender;
 
 @end

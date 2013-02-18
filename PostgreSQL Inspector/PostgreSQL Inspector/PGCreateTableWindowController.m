@@ -12,10 +12,10 @@
 #import "PGColumnEditorWindowController.h"
 #import "PGConnection.h"
 #import "PGConstraint.h"
+#import "PGConstraintColumn.h"
 #import "PGRelationColumn.h"
-
-static inline BOOL isNotFirstItem(const NSInteger selectedRow);
-static inline BOOL isNotLastItem(const NSInteger selectedRow, const NSInteger rowCount);
+#import "PGUniqueKeyEditorWindowController.h"
+#import "Utils.h"
 
 @interface PGCreateTableWindowController ()
 @property (nonatomic, strong) PGConnection *connection;
@@ -23,6 +23,7 @@ static inline BOOL isNotLastItem(const NSInteger selectedRow, const NSInteger ro
 @property (nonatomic, strong) NSMutableArray *tableColumns;
 @property (nonatomic, strong) NSMutableArray *tableConstraints;
 @property (nonatomic, strong) PGColumnEditorWindowController *columnEditorSheet;
+@property (nonatomic, strong) PGUniqueKeyEditorWindowController *uniqueKeyEditorSheet;
 
 @property (nonatomic, strong) NSButton *addColumnButton;
 @property (nonatomic, strong) NSButton *removeColumnButton;
@@ -143,7 +144,7 @@ static inline BOOL isNotLastItem(const NSInteger selectedRow, const NSInteger ro
     [[addConstraintButton itemAtIndex:0] setOnStateImage:nil];
     [[addConstraintButton itemAtIndex:0] setMixedStateImage:nil];
     // Add Primary Key (constraint)
-    self.addPrimaryKeyMenuItem = [[NSMenuItem alloc] initWithTitle:@"Add Primary Key…" action:nil keyEquivalent:@""];
+    self.addPrimaryKeyMenuItem = [[NSMenuItem alloc] initWithTitle:@"Add Primary Key…" action:@selector(didClickAddPrimaryKey:) keyEquivalent:@""];
     [[addConstraintButton menu] addItem:addPrimaryKeyMenuItem];
     
     [constraintsView addSubview:addConstraintButton positioned:NSWindowAbove relativeTo:constraintsView];
@@ -344,6 +345,37 @@ static inline BOOL isNotLastItem(const NSInteger selectedRow, const NSInteger ro
     }
 }
 
+-(void)didClickAddPrimaryKey:(id)sender
+{
+    [self openUniqueKeyEditorSheet:YES];
+}
+
+-(void)openUniqueKeyEditorSheet:(BOOL)isPrimaryKey
+{
+    PGUniqueKeyEditorWindowController *uniqueKeyEditorSheet = [[PGUniqueKeyEditorWindowController alloc] init];
+    uniqueKeyEditorSheet.isPrimaryKey = isPrimaryKey;
+    uniqueKeyEditorSheet.availableColumns = self.tableColumns;
+    [[NSApplication sharedApplication] beginSheet:[uniqueKeyEditorSheet window]
+                                   modalForWindow:[self window]
+                                    modalDelegate:self
+                                   didEndSelector:@selector(didEndUniqueKeyEditorSheet:returnCode:contextInfo:)
+                                      contextInfo:NULL];
+    
+    self.uniqueKeyEditorSheet = uniqueKeyEditorSheet;
+}
+
+-(void)didEndUniqueKeyEditorSheet:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo
+{
+    if (returnCode == 1)
+    {
+        [self.tableConstraints addObject:[self.uniqueKeyEditorSheet getConstraint]];
+        [self.constraintsTableView reloadData];
+    }
+    
+    [sheet orderOut:self];
+    self.uniqueKeyEditorSheet = nil;
+}
+
 -(BOOL)hasPrimaryKey
 {
     for (PGConstraint *constraint in self.tableConstraints)
@@ -360,13 +392,3 @@ static inline BOOL isNotLastItem(const NSInteger selectedRow, const NSInteger ro
 }
 
 @end
-
-static inline BOOL isNotFirstItem(const NSInteger selectedRow)
-{
-    return selectedRow > 0;
-}
-
-static inline BOOL isNotLastItem(const NSInteger selectedRow, const NSInteger rowCount)
-{
-    return (selectedRow >= 0) && ((selectedRow + 1) < rowCount);
-}

@@ -8,6 +8,16 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface PGUniqueKeyEditorWindowController : NSWindowController
+@class PGConstraint;
+
+@interface PGUniqueKeyEditorWindowController : NSWindowController <NSTableViewDataSource, NSTableViewDelegate>
+
+@property (nonatomic, assign) BOOL isPrimaryKey;
+@property (nonatomic, strong) NSArray *availableColumns;
+
+-(IBAction)didClickCancel:(id)sender;
+-(IBAction)didClickAction:(id)sender;
+
+-(PGConstraint*)getConstraint;
 
 @end
