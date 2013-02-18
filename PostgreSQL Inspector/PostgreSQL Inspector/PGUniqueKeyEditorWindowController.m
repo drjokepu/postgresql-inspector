@@ -17,6 +17,7 @@
 @interface PGUniqueKeyEditorWindowController ()
 
 @property (strong) NSMutableArray *keyColumns;
+@property (strong) IBOutlet NSTextField *constraintNameTextField;
 @property (strong) IBOutlet NSTableView *tableColumnsTableView;
 @property (strong) IBOutlet NSTableView *keyColumnsTableView;
 @property (strong) IBOutlet NSButton *tableColumnsSpaceButton;
@@ -190,6 +191,7 @@
 {
     PGConstraint *constraint = [[PGConstraint alloc] init];
     constraint.type = isPrimaryKey ? PGConstraintTypePrimaryKey : PGConstraintTypeUniqueKey;
+    constraint.name = [self.constraintNameTextField stringValue];
     
     NSMutableArray *constraintColumns = [[NSMutableArray alloc] initWithCapacity:[keyColumns count]];
     for (PGRelationColumn *keyColumn in keyColumns)

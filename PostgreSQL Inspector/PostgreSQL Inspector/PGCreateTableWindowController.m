@@ -13,6 +13,7 @@
 #import "PGConnection.h"
 #import "PGConstraint.h"
 #import "PGConstraintColumn.h"
+#import "PGDatabaseWindowController.h"
 #import "PGRelationColumn.h"
 #import "PGUniqueKeyEditorWindowController.h"
 #import "Utils.h"
@@ -179,6 +180,10 @@
     {
         return [self.tableColumns count];
     }
+    else if (tableView == self.constraintsTableView)
+    {
+        return [self.tableConstraints count];
+    }
     else
     {
         return 0;
@@ -190,6 +195,10 @@
     if (tableView == self.columnsTableView)
     {
         return [self viewForColumnAtIndex:row];
+    }
+    else if (tableView == self.constraintsTableView)
+    {
+        return [self viewForConstraintAtIndex:row];
     }
     else
     {
@@ -216,6 +225,19 @@
         
         return cellView;
     }
+}
+
+-(NSView*)viewForConstraintAtIndex:(NSUInteger)row
+{
+    PGConstraint *constraint = self.tableConstraints[row];
+    NSTableCellView *cellView = [self.constraintsTableView makeViewWithIdentifier:@"constraintCellView" owner:self];
+    
+    [[cellView viewWithTag:7000] setImage:[PGDatabaseWindowController imageForConstraintType:constraint.type]];
+    [[cellView viewWithTag:7001] setStringValue:constraint.name];
+    [[cellView viewWithTag:7002] setStringValue:[constraint constraintTypeDescription]];
+    [[cellView viewWithTag:7003] setStringValue:[PGDatabaseWindowController constraintUIDefinition:constraint inColumns:self.tableColumns]];
+    
+    return cellView;
 }
 
 -(void)tableViewSelectionDidChange:(NSNotification *)notification

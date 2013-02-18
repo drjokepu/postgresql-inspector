@@ -7,9 +7,10 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "PGConstraintType.h"
 #import "PGDatabaseDelegate.h"
 
-@class PGConnection, PGDatabase, PGTable, PGSchemaObject, PGQueryWindowController;
+@class PGConnection, PGConstraint, PGDatabase, PGTable, PGSchemaObject, PGQueryWindowController;
 
 @interface PGDatabaseWindowController : NSWindowController <NSWindowDelegate, NSOutlineViewDataSource, NSOutlineViewDelegate, PGDatabaseDelegate, NSTableViewDataSource>
 
@@ -28,5 +29,8 @@
 -(IBAction)queryDatabase:(id)sender;
 -(IBAction)querySelectedRelation:(id)sender;
 -(IBAction)createTable:(id)sender;
+
++(NSImage*)imageForConstraintType:(PGConstraintType)constraintType;
++(NSString*)constraintUIDefinition:(PGConstraint *)constraint inColumns:(NSArray*)columns;
 
 @end

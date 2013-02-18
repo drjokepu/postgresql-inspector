@@ -376,13 +376,23 @@
 
 -(NSString*)constraintUIDefinition:(PGConstraint *)constraint
 {
+    return [PGDatabaseWindowController constraintUIDefinition:constraint inTable:self.selectedTable];
+}
+
++(NSString*)constraintUIDefinition:(PGConstraint *)constraint inTable:(PGTable*)table;
+{
+    return [PGDatabaseWindowController constraintUIDefinition:constraint inColumns:table.columns];
+}
+
++(NSString*)constraintUIDefinition:(PGConstraint *)constraint inColumns:(NSArray*)columns
+{
     switch (constraint.type)
     {
         case PGConstraintTypePrimaryKey:
         case PGConstraintTypeUniqueKey:
-            return [PGDatabaseWindowController listOfColumnsNamesOfConstraint:constraint inTable:self.selectedTable];
+            return [PGDatabaseWindowController listOfColumnsNamesOfConstraint:constraint inColumns:columns];
         case PGConstraintTypeForeignKey:
-            return [PGDatabaseWindowController foreignKeyUIDescription:constraint inTable:self.selectedTable];
+            return [PGDatabaseWindowController foreignKeyUIDescription:constraint inColumns:columns];
         case PGConstraintTypeCheck:
             return constraint.src;
         default:
@@ -392,8 +402,13 @@
 
 +(NSString*)foreignKeyUIDescription:(PGConstraint*)constraint inTable:(PGTable*)table
 {
+    return [PGDatabaseWindowController listOfColumnsNamesOfConstraint:constraint inColumns:table.columns];
+}
+
++(NSString*)foreignKeyUIDescription:(PGConstraint*)constraint inColumns:(NSArray*)columns
+{
     NSString *columnList = [PGDatabaseWindowController listOfColumnsNamesOfConstraint:constraint
-                                                                              inTable:table];
+                                                                            inColumns:columns];
     if ([constraint.relationNamespaceName isEqualToString:@"public"])
     {
         return [NSString stringWithFormat:@"%@, referencing %@", columnList, constraint.relationName];
@@ -406,12 +421,17 @@
 
 +(NSString*)listOfColumnsNamesOfConstraint:(PGConstraint*)constraint inTable:(PGTable*)table
 {
+    return [PGDatabaseWindowController listOfColumnsNamesOfConstraint:constraint inColumns:table.columns];
+}
+
++(NSString*)listOfColumnsNamesOfConstraint:(PGConstraint*)constraint inColumns:(NSArray*)columns
+{
     if (constraint == nil || [constraint.columns count] == 0) return @"";
     
     NSMutableArray *columnNames = [[NSMutableArray alloc] initWithCapacity:[constraint.columns count]];
     for (NSUInteger i = 0; i < [constraint.columns count]; i++)
     {
-        [columnNames addObject:((PGRelationColumn*)table.columns[i]).name];
+        [columnNames addObject:((PGRelationColumn*)columns[i]).name];
     }
     return [columnNames componentsJoinedByString:@", "];
 }
