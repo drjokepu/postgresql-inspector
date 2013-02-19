@@ -43,6 +43,7 @@
 @property (nonatomic, strong) IBOutlet NSPopUpButton *addConstraintButton;
 @property (nonatomic, strong) NSMenuItem *addPrimaryKeyMenuItem;
 @property (strong) IBOutlet NSButton *removeConstraintButton;
+@property (strong) IBOutlet NSPopUpButton *constraintActionsButton;
 
 -(IBAction)didClickCancel:(id)sender;
 -(IBAction)didClickAddColumn:(id)sender;
@@ -61,6 +62,7 @@
 @synthesize constraintsView;
 @synthesize addConstraintButton;
 @synthesize addPrimaryKeyMenuItem;
+@synthesize constraintActionsButton;
 
 -(NSString *)windowNibName
 {
@@ -116,58 +118,11 @@
     self.addPrimaryKeyMenuItem = [[NSMenuItem alloc] initWithTitle:@"Add Primary Key…" action:@selector(didClickAddPrimaryKey:) keyEquivalent:@""];
     [[addConstraintButton menu] addItem:addPrimaryKeyMenuItem];
     [[addConstraintButton menu] addItem:[[NSMenuItem alloc] initWithTitle:@"Add Unique Key…" action:@selector(didClickAddUniqueKey:) keyEquivalent:@""]];
-}
-
--(void)createButtons
-{
-    const CGFloat buttonHeight = 23;
-    const CGFloat normalButtonWidth = 26;
-    const CGFloat wideButtonWidth = 32;
-    const CGFloat baseX = 17;
-    const CGFloat baseY = 8;
     
-    // Column Buttons
-    // Add Column
-    self.addColumnButton = [[NSButton alloc] initWithFrame:NSMakeRect(baseX, baseY, normalButtonWidth, buttonHeight)];
-    [addColumnButton setAction:@selector(didClickAddColumn:)];
-    [addColumnButton setTitle:@""];
-    [addColumnButton setBezelStyle:NSSmallSquareBezelStyle];
-    [addColumnButton setImage:[NSImage imageNamed:NSImageNameAddTemplate]];
-    [columnsView addSubview:addColumnButton positioned:NSWindowAbove relativeTo:columnsView];
-    
-    // Remove Column
-    self.removeColumnButton = [[NSButton alloc] initWithFrame:NSMakeRect(baseX + normalButtonWidth - 1, baseY, normalButtonWidth, buttonHeight)];
-    [removeColumnButton setAction:@selector(didClickRemoveColumn:)];
-    [removeColumnButton setTitle:@""];
-    [removeColumnButton setBezelStyle:NSSmallSquareBezelStyle];
-    [removeColumnButton setImage:[NSImage imageNamed:NSImageNameRemoveTemplate]];
-    [columnsView addSubview:removeColumnButton positioned:NSWindowAbove relativeTo:columnsView];
-    
-    // Column Actions
-    self.columnActionsButton = [[NSPopUpButton alloc] initWithFrame:NSMakeRect(baseX + ((normalButtonWidth - 1) * 2), baseY, wideButtonWidth, buttonHeight) pullsDown:YES];
-    [columnActionsButton setBezelStyle:NSSmallSquareBezelStyle];
-    [columnActionsButton setImagePosition:NSImageOnly];
-    [[columnActionsButton cell] setArrowPosition:NSPopUpArrowAtBottom];
-    
-
-    // Space Button (column)
-//    const CGFloat columnSpaceButtonX = baseX + ((normalButtonWidth - 1) * 2) + wideButtonWidth - 1;
-//    self.columnSpaceButton = [[NSButton alloc] initWithFrame:NSMakeRect(columnSpaceButtonX, baseY, [self.columnsTableView frame].size.width + baseX - columnSpaceButtonX + 2, buttonHeight)];
-//    [[columnSpaceButton cell] setHighlightsBy:NSNoCellMask];
-//    [[columnSpaceButton cell] setShowsStateBy:NSNoCellMask];
-//    [columnSpaceButton setTitle:@""];
-//    [columnSpaceButton setBezelStyle:NSSmallSquareBezelStyle];
-//    [columnSpaceButton setAutoresizingMask:NSViewWidthSizable];
-//    [columnsView addSubview:columnSpaceButton positioned:NSWindowAbove relativeTo:columnsView];
-    
-    // Constraint Buttons
-    // Add Constraint
-//    self.addConstraintButton = [[NSPopUpButton alloc] initWithFrame:NSMakeRect(baseX, baseY, wideButtonWidth, buttonHeight) pullsDown:YES];
-//    [addConstraintButton setBezelStyle:NSSmallSquareBezelStyle];
-//    [addConstraintButton setImagePosition:NSImageOnly];
-    
-    
-    [constraintsView addSubview:addConstraintButton positioned:NSWindowAbove relativeTo:constraintsView];
+    [constraintActionsButton addItemWithTitle:@""];
+    [[constraintActionsButton itemAtIndex:0] setImage:[[NSImage imageNamed:NSImageNameActionTemplate] imageScaledToSize:NSMakeSize(10, 10) proportionally:YES]];
+    [[constraintActionsButton itemAtIndex:0] setOnStateImage:nil];
+    [[constraintActionsButton itemAtIndex:0] setMixedStateImage:nil];
 }
 
 -(void)didClickCancel:(id)sender
