@@ -147,6 +147,7 @@
     // Add Primary Key (constraint)
     self.addPrimaryKeyMenuItem = [[NSMenuItem alloc] initWithTitle:@"Add Primary Key…" action:@selector(didClickAddPrimaryKey:) keyEquivalent:@""];
     [[addConstraintButton menu] addItem:addPrimaryKeyMenuItem];
+    [[addConstraintButton menu] addItem:[[NSMenuItem alloc] initWithTitle:@"Add Unique Key…" action:@selector(didClickAddUniqueKey:) keyEquivalent:@""]];
     
     [constraintsView addSubview:addConstraintButton positioned:NSWindowAbove relativeTo:constraintsView];
 }
@@ -439,6 +440,11 @@
 -(void)didClickAddPrimaryKey:(id)sender
 {
     [self openUniqueKeyEditorSheet:YES];
+}
+
+-(void)didClickAddUniqueKey:(id)sender
+{
+    [self openUniqueKeyEditorSheet:NO];
 }
 
 -(void)openUniqueKeyEditorSheet:(BOOL)isPrimaryKey
