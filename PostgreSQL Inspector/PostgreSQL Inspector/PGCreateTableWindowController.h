@@ -16,15 +16,7 @@
 
 @property (nonatomic, strong) NSString *initialSchemaName;
 @property (nonatomic, strong) NSArray *initialSchemaNameList;
-@property (strong) IBOutlet NSTextField *tableNameTextField;
-@property (strong) IBOutlet NSComboBox *schemaComboBox;
-@property (strong) IBOutlet NSView *columnsView;
-@property (strong) IBOutlet NSTableView *columnsTableView;
-@property (strong) IBOutlet NSView *constraintsView;
-@property (strong) IBOutlet NSTableView *constraintsTableView;
 
 -(void)useConnection:(PGConnection *)theConnection;
-
--(IBAction)didClickCancel:(id)sender;
 
 @end
