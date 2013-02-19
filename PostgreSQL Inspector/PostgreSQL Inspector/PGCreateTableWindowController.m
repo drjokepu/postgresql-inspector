@@ -42,10 +42,12 @@
 
 @property (nonatomic, strong) IBOutlet NSPopUpButton *addConstraintButton;
 @property (nonatomic, strong) NSMenuItem *addPrimaryKeyMenuItem;
+@property (strong) IBOutlet NSButton *removeConstraintButton;
 
 -(IBAction)didClickCancel:(id)sender;
 -(IBAction)didClickAddColumn:(id)sender;
 -(IBAction)didClickRemoveColumn:(id)sender;
+-(IBAction)didClickRemoveConstraint:(id)sender;
 
 @end
 
@@ -487,6 +489,15 @@
     
     [sheet orderOut:self];
     self.uniqueKeyEditorSheet = nil;
+}
+
+-(void)didClickRemoveConstraint:(id)sender
+{
+    const NSInteger selectedConstraintIndex = [self.constraintsTableView selectedRow];
+    if (selectedConstraintIndex == -1) return;
+    
+    [self.tableConstraints removeObjectAtIndex:selectedConstraintIndex];
+    [self.constraintsTableView reloadData];
 }
 
 -(BOOL)hasPrimaryKey
