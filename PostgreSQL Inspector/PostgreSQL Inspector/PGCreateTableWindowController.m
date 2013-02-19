@@ -229,15 +229,18 @@
 
 -(NSView*)viewForConstraintAtIndex:(NSUInteger)row
 {
-    PGConstraint *constraint = self.tableConstraints[row];
-    NSTableCellView *cellView = [self.constraintsTableView makeViewWithIdentifier:@"constraintCellView" owner:self];
-    
-    [[cellView viewWithTag:7000] setImage:[PGDatabaseWindowController imageForConstraintType:constraint.type]];
-    [[cellView viewWithTag:7001] setStringValue:constraint.name];
-    [[cellView viewWithTag:7002] setStringValue:[constraint constraintTypeDescription]];
-    [[cellView viewWithTag:7003] setStringValue:[PGDatabaseWindowController constraintUIDefinition:constraint inColumns:self.tableColumns]];
-    
-    return cellView;
+    @autoreleasepool
+    {
+        PGConstraint *constraint = self.tableConstraints[row];
+        NSTableCellView *cellView = [self.constraintsTableView makeViewWithIdentifier:@"createTableConstraintCellView" owner:self];
+        
+        [[cellView viewWithTag:7000] setImage:[PGDatabaseWindowController imageForConstraintType:constraint.type]];
+        [[cellView viewWithTag:7001] setStringValue:constraint.name];
+        [[cellView viewWithTag:7002] setStringValue:[constraint constraintTypeDescription]];
+        [[cellView viewWithTag:7003] setStringValue:[PGConstraint constraintUIDefinition:constraint inColumns:self.tableColumns]];
+        
+        return cellView;
+    }
 }
 
 -(void)tableViewSelectionDidChange:(NSNotification *)notification
@@ -301,8 +304,50 @@
     const NSInteger columnIndex = [self.columnsTableView selectedRow];
     if (columnIndex != -1)
     {
+        [self removeColumnFromDependants:[self.tableColumns[columnIndex] name]];
         [self.tableColumns removeObjectAtIndex:columnIndex];
         [self.columnsTableView reloadData];
+        [self.constraintsTableView reloadData];
+    }
+}
+
+
+-(void)removeColumnFromDependants:(NSString*)columnName
+{
+    [self removeColumnFromConstraints:columnName];
+}
+
+-(void)removeColumnFromConstraints:(NSString*)columnName
+{
+    NSMutableIndexSet *indexesOfConstraintsToBeRemoved = [[NSMutableIndexSet alloc] init];
+    
+    for (NSUInteger constraintIndex = 0; constraintIndex < [self.tableConstraints count]; constraintIndex++)
+    {
+        const PGConstraint *constraint = self.tableConstraints[constraintIndex];
+        NSMutableIndexSet *indexesOfColumnsToBeRemoved = [[NSMutableIndexSet alloc] init];
+        for (NSUInteger columnIndex = 0; columnIndex < [constraint.columns count]; columnIndex++)
+        {
+            const PGConstraintColumn *constraintColumn = constraint.columns[columnIndex];
+            if (constraintColumn.columnNumber == -1 && [constraintColumn.columnName isEqualToString:columnName])
+            {
+                [indexesOfColumnsToBeRemoved addIndex:columnIndex];
+            }
+        }
+        
+        if ([indexesOfColumnsToBeRemoved count] > 0)
+        {
+            [constraint.columns removeObjectsAtIndexes:indexesOfColumnsToBeRemoved];
+        }
+        
+        if (constraint.needsColumns && [constraint.columns count] == 0)
+        {
+            [indexesOfConstraintsToBeRemoved addIndex:constraintIndex];
+        }
+    }
+    
+    if ([indexesOfConstraintsToBeRemoved count] > 0)
+    {
+        [self.tableConstraints removeObjectsAtIndexes:indexesOfConstraintsToBeRemoved];
     }
 }
 
@@ -336,13 +381,37 @@
         const NSInteger columnIndex = [self.columnsTableView selectedRow];
         if (columnIndex != -1)
         {
-            self.tableColumns[columnIndex] = [self.columnEditorSheet getColumn];
+            PGRelationColumn *oldColumn = self.tableColumns[columnIndex];
+            PGRelationColumn *newColumn = [self.columnEditorSheet getColumn];
+            self.tableColumns[columnIndex] = newColumn;
+            [self renameColumnInDependants:oldColumn.name to:newColumn.name];
             [self.columnsTableView reloadData];
+            [self.constraintsTableView reloadData];
         }
     }
     
     [sheet orderOut:self];
     self.columnEditorSheet = nil;
+}
+
+-(void)renameColumnInDependants:(NSString*)oldName to:(NSString*)newName
+{
+    if ([oldName isEqualToString:newName]) return;
+    [self renameColumnInConstraints:oldName to:newName];
+}
+
+-(void)renameColumnInConstraints:(NSString*)oldName to:(NSString*)newName
+{
+    for (PGConstraint *constraint in self.tableConstraints)
+    {
+        for (PGConstraintColumn *constraintColumn in constraint.columns)
+        {
+            if (constraintColumn.columnNumber == -1 && [constraintColumn.columnName isEqualToString:oldName])
+            {
+                constraintColumn.columnName = newName;
+            }
+        }
+    }
 }
 
 -(void)didClickColumnMoveUp:(id)sender

@@ -197,7 +197,8 @@
     for (PGRelationColumn *keyColumn in keyColumns)
     {
         PGConstraintColumn *constraintColumn = [[PGConstraintColumn alloc] init];
-        constraintColumn.columnNumber = [availableColumns indexOfObject:keyColumn];
+        constraintColumn.columnNumber = -1;
+        constraintColumn.columnName = keyColumn.name;
         [constraintColumns addObject:constraintColumn];
     }
     constraint.columns = constraintColumns;

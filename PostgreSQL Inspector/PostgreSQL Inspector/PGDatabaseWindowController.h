@@ -31,6 +31,5 @@
 -(IBAction)createTable:(id)sender;
 
 +(NSImage*)imageForConstraintType:(PGConstraintType)constraintType;
-+(NSString*)constraintUIDefinition:(PGConstraint *)constraint inColumns:(NSArray*)columns;
 
 @end

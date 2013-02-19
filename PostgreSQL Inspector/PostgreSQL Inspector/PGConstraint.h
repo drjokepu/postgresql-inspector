@@ -31,9 +31,11 @@
 @property (nonatomic, assign) BOOL noInherit;
 @property (nonatomic, strong) NSMutableArray *columns;
 @property (nonatomic, strong) NSString *src;
+@property (readonly) BOOL needsColumns;
 
 -(NSString*) constraintTypeDescription;
 -(NSString*) referencedTableDescription;
 +(NSString*) describeContraintType:(PGConstraintType)constraintType;
++(NSString*)constraintUIDefinition:(PGConstraint *)constraint inColumns:(NSArray*)columns;
 
 @end

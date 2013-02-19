@@ -11,6 +11,7 @@
 @interface PGConstraintColumn : NSObject
 
 @property (nonatomic, assign) NSInteger columnNumber;
+@property (nonatomic, strong) NSString *columnName;
 
 @property (nonatomic, assign) NSUInteger foreignKeyReferencedColumnNumber;
 @property (nonatomic, assign) NSInteger foreignKeyPKFKEqualityOperator;
