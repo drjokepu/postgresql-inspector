@@ -39,6 +39,7 @@
 @property (nonatomic, strong) NSMenuItem *columnEditColumnMenuItem;
 @property (nonatomic, strong) NSMenuItem *columnMoveUpMenuItem;
 @property (nonatomic, strong) NSMenuItem *columnMoveDownMenuItem;
+@property (nonatomic, strong) NSMenuItem *constraintEditMenuItem;
 
 @property (nonatomic, strong) IBOutlet NSPopUpButton *addConstraintButton;
 @property (nonatomic, strong) NSMenuItem *addPrimaryKeyMenuItem;
@@ -63,6 +64,7 @@
 @synthesize addConstraintButton;
 @synthesize addPrimaryKeyMenuItem;
 @synthesize constraintActionsButton;
+@synthesize constraintEditMenuItem;
 
 -(NSString *)windowNibName
 {
@@ -123,6 +125,8 @@
     [[constraintActionsButton itemAtIndex:0] setImage:[[NSImage imageNamed:NSImageNameActionTemplate] imageScaledToSize:NSMakeSize(10, 10) proportionally:YES]];
     [[constraintActionsButton itemAtIndex:0] setOnStateImage:nil];
     [[constraintActionsButton itemAtIndex:0] setMixedStateImage:nil];
+    self.constraintEditMenuItem = [[NSMenuItem alloc] initWithTitle:@"Edit Constraint…" action:@selector(didClickEditConstraint:) keyEquivalent:@""];
+    [[constraintActionsButton menu] addItem:constraintEditMenuItem];
 }
 
 -(void)didClickCancel:(id)sender
@@ -412,19 +416,22 @@
 
 -(void)didClickAddPrimaryKey:(id)sender
 {
-    [self openUniqueKeyEditorSheet:YES];
+    [self openUniqueKeyEditorSheet:YES withConstraint:nil];
 }
 
 -(void)didClickAddUniqueKey:(id)sender
 {
-    [self openUniqueKeyEditorSheet:NO];
+    [self openUniqueKeyEditorSheet:NO withConstraint:nil];
 }
 
--(void)openUniqueKeyEditorSheet:(BOOL)isPrimaryKey
+-(void)openUniqueKeyEditorSheet:(BOOL)isPrimaryKey withConstraint:(PGConstraint*)constraint
 {
     PGUniqueKeyEditorWindowController *uniqueKeyEditorSheet = [[PGUniqueKeyEditorWindowController alloc] init];
     uniqueKeyEditorSheet.isPrimaryKey = isPrimaryKey;
     uniqueKeyEditorSheet.availableColumns = self.tableColumns;
+    if (constraint != nil)
+        [uniqueKeyEditorSheet useConstraint:constraint];
+    
     [[NSApplication sharedApplication] beginSheet:[uniqueKeyEditorSheet window]
                                    modalForWindow:[self window]
                                     modalDelegate:self
@@ -453,6 +460,31 @@
     
     [self.tableConstraints removeObjectAtIndex:selectedConstraintIndex];
     [self.constraintsTableView reloadData];
+}
+
+-(void)didClickEditConstraint:(id)sender
+{
+    const NSInteger selectedConstraintIndex = [self.constraintsTableView selectedRow];
+    if (selectedConstraintIndex == -1) return;
+    [self editConstraint:self.tableConstraints[selectedConstraintIndex]];
+}
+
+-(void)editConstraint:(PGConstraint*)constraint
+{
+    switch (constraint.type)
+    {
+        case PGConstraintTypePrimaryKey:
+        case PGConstraintTypeUniqueKey:
+            [self editUniqueConstraint:constraint];
+            break;
+        default:
+            break;
+    }
+}
+
+-(void)editUniqueConstraint:(PGConstraint*)constraint
+{
+    [self openUniqueKeyEditorSheet:constraint.type == PGConstraintTypePrimaryKey withConstraint:constraint];
 }
 
 -(BOOL)hasPrimaryKey

@@ -485,7 +485,7 @@
 												<string key="NSFrame">{{98, 5}, {426, 23}}</string>
 												<reference key="NSSuperview" ref="832969615"/>
 												<reference key="NSWindow"/>
-												<reference key="NSNextKeyView" ref="13779565"/>
+												<reference key="NSNextKeyView" ref="485889978"/>
 												<string key="NSReuseIdentifierKey">_NS:22</string>
 												<bool key="NSEnabled">YES</bool>
 												<object class="NSButtonCell" key="NSCell" id="578484725">
@@ -548,7 +548,6 @@
 														<array class="NSMutableArray" key="NSMenuItems"/>
 														<reference key="NSMenuFont" ref="523109647"/>
 													</object>
-													<int key="NSSelectedIndex">-1</int>
 													<bool key="NSPullDown">YES</bool>
 													<int key="NSPreferredEdge">1</int>
 													<bool key="NSUsesItemFromMenu">YES</bool>
@@ -730,7 +729,6 @@
 														<array class="NSMutableArray" key="NSMenuItems"/>
 														<reference key="NSMenuFont" ref="523109647"/>
 													</object>
-													<int key="NSSelectedIndex">-1</int>
 													<bool key="NSPullDown">YES</bool>
 													<int key="NSPreferredEdge">1</int>
 													<bool key="NSUsesItemFromMenu">YES</bool>
@@ -801,7 +799,6 @@
 														<array class="NSMutableArray" key="NSMenuItems"/>
 														<reference key="NSMenuFont" ref="523109647"/>
 													</object>
-													<int key="NSSelectedIndex">-1</int>
 													<bool key="NSPullDown">YES</bool>
 													<int key="NSPreferredEdge">1</int>
 													<bool key="NSUsesItemFromMenu">YES</bool>
@@ -815,7 +812,7 @@
 												<int key="NSvFlags">268</int>
 												<string key="NSFrame">{{104, 5}, {420, 23}}</string>
 												<reference key="NSSuperview" ref="465987055"/>
-												<reference key="NSNextKeyView" ref="13779565"/>
+												<reference key="NSNextKeyView" ref="485889978"/>
 												<string key="NSReuseIdentifierKey">_NS:22</string>
 												<bool key="NSEnabled">YES</bool>
 												<object class="NSButtonCell" key="NSCell" id="544507162">
@@ -858,7 +855,6 @@
 							<string key="NSFrame">{{492, 13}, {81, 32}}</string>
 							<reference key="NSSuperview" ref="1006"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="1056362826">

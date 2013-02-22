@@ -26,11 +26,12 @@
 @property (strong) NSMenuItem *keyColumnMoveUpMenuItem;
 @property (strong) NSMenuItem *keyColumnMoveDownMenuItem;
 @property (strong) IBOutlet NSButton *actionButton;
+@property (strong) PGConstraint *initialConstraint;
 
 @end
 
 @implementation PGUniqueKeyEditorWindowController
-@synthesize isPrimaryKey, availableColumns, keyColumns;
+@synthesize isPrimaryKey, availableColumns, keyColumns, initialConstraint, columnEditorAction;
 
 -(NSString *)windowNibName
 {
@@ -40,6 +41,15 @@
 - (void)windowDidLoad
 {
     [super windowDidLoad];
+    switch (columnEditorAction)
+    {
+        case PGEditorAdd:
+            [self.actionButton setTitle:@"Add"];
+            break;
+        case PGEditorUpdate:
+            [self.actionButton setTitle:@"Update"];
+    }
+    
     self.keyColumns = [[NSMutableArray alloc] init];
     
     [[self.tableColumnsSpaceButton cell] setHighlightsBy:NSNoCellMask];
@@ -64,8 +74,32 @@
     self.keyColumnMoveDownMenuItem = [[NSMenuItem alloc] initWithTitle:@"Move Down" action:@selector(didClickColumnMoveDown:) keyEquivalent:@""];
     [[self.keyColumnActionsButton menu] addItem:self.keyColumnMoveDownMenuItem];
     
+    [self loadInitialConstraintData];
+    
     [self validateActionButton];
     [self validateKeyColumnActions];
+}
+
+-(void)loadInitialConstraintData
+{
+    if (initialConstraint != nil)
+    {
+        [self.constraintNameTextField setStringValue:initialConstraint.name];
+        for (PGConstraintColumn *constraintColumn in initialConstraint.columns)
+        {
+            if (constraintColumn.columnNumber < 0)
+            {
+                for (PGRelationColumn *relationColumn in self.availableColumns)
+                {
+                    if ([relationColumn.name isEqualToString:constraintColumn.columnName])
+                    {
+                        [keyColumns addObject:relationColumn];
+                        break;
+                    }
+                }
+            }
+        }
+    }
 }
 
 -(void)didClickCancel:(id)sender
@@ -204,6 +238,11 @@
     constraint.columns = constraintColumns;
     
     return constraint;
+}
+
+-(void)useConstraint:(PGConstraint *)constraint
+{
+    self.initialConstraint = constraint;
 }
 
 @end
