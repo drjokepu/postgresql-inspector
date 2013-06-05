@@ -2,10 +2,10 @@
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1080</int>
-		<string key="IBDocument.SystemVersion">12C60</string>
+		<string key="IBDocument.SystemVersion">12E55</string>
 		<string key="IBDocument.InterfaceBuilderVersion">3084</string>
-		<string key="IBDocument.AppKitVersion">1187.34</string>
-		<string key="IBDocument.HIToolboxVersion">625.00</string>
+		<string key="IBDocument.AppKitVersion">1187.39</string>
+		<string key="IBDocument.HIToolboxVersion">626.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin</string>
 			<string key="NS.object.0">3084</string>
@@ -178,7 +178,6 @@
 												<int key="NSvFlags">266</int>
 												<string key="NSFrame">{{159, 258}, {304, 26}}</string>
 												<reference key="NSSuperview" ref="907867074"/>
-												<reference key="NSNextKeyView" ref="13779565"/>
 												<string key="NSReuseIdentifierKey">_NS:9</string>
 												<bool key="NSEnabled">YES</bool>
 												<object class="NSComboBoxCell" key="NSCell" id="2478454">
@@ -482,10 +481,10 @@
 											<object class="NSButton" id="648272464">
 												<reference key="NSNextResponder" ref="832969615"/>
 												<int key="NSvFlags">268</int>
-												<string key="NSFrame">{{98, 5}, {426, 23}}</string>
+												<string key="NSFrame">{{103, 5}, {421, 23}}</string>
 												<reference key="NSSuperview" ref="832969615"/>
 												<reference key="NSWindow"/>
-												<reference key="NSNextKeyView" ref="485889978"/>
+												<reference key="NSNextKeyView" ref="13779565"/>
 												<string key="NSReuseIdentifierKey">_NS:22</string>
 												<bool key="NSEnabled">YES</bool>
 												<object class="NSButtonCell" key="NSCell" id="578484725">
@@ -507,7 +506,7 @@
 											<object class="NSPopUpButton" id="498524320">
 												<reference key="NSNextResponder" ref="832969615"/>
 												<int key="NSvFlags">268</int>
-												<string key="NSFrame">{{67, 5}, {32, 23}}</string>
+												<string key="NSFrame">{{67, 5}, {37, 23}}</string>
 												<reference key="NSSuperview" ref="832969615"/>
 												<reference key="NSWindow"/>
 												<reference key="NSNextKeyView" ref="648272464"/>
@@ -520,7 +519,7 @@
 													<string key="NSCellIdentifier">_NS:9</string>
 													<reference key="NSControlView" ref="498524320"/>
 													<int key="NSButtonFlags">-2033696768</int>
-													<int key="NSButtonFlags2">162</int>
+													<int key="NSButtonFlags2">34</int>
 													<string key="NSAlternateContents"/>
 													<string key="NSKeyEquivalent"/>
 													<int key="NSPeriodicDelay">400</int>
@@ -548,6 +547,7 @@
 														<array class="NSMutableArray" key="NSMenuItems"/>
 														<reference key="NSMenuFont" ref="523109647"/>
 													</object>
+													<int key="NSSelectedIndex">-1</int>
 													<bool key="NSPullDown">YES</bool>
 													<int key="NSPreferredEdge">1</int>
 													<bool key="NSUsesItemFromMenu">YES</bool>
@@ -3241,7 +3241,7 @@
 						<reference key="object" ref="498524320"/>
 						<array class="NSMutableArray" key="children">
 							<reference ref="956643081"/>
-							<object class="IBNSLayoutConstraint" id="221082932">
+							<object class="IBNSLayoutConstraint" id="277551856">
 								<reference key="firstItem" ref="498524320"/>
 								<int key="firstAttribute">7</int>
 								<int key="relation">0</int>
@@ -3249,7 +3249,7 @@
 								<int key="secondAttribute">0</int>
 								<float key="multiplier">1</float>
 								<object class="IBLayoutConstant" key="constant">
-									<double key="value">32</double>
+									<double key="value">37</double>
 								</object>
 								<float key="priority">1000</float>
 								<reference key="containingView" ref="498524320"/>
@@ -3473,11 +3473,6 @@
 						<reference key="parent" ref="832969615"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">270</int>
-						<reference key="object" ref="221082932"/>
-						<reference key="parent" ref="498524320"/>
-					</object>
-					<object class="IBObjectRecord">
 						<int key="objectID">334</int>
 						<reference key="object" ref="573615805"/>
 						<array class="NSMutableArray" key="children">
@@ -3586,6 +3581,11 @@
 						<int key="objectID">359</int>
 						<reference key="object" ref="618253044"/>
 						<reference key="parent" ref="832969615"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">360</int>
+						<reference key="object" ref="277551856"/>
+						<reference key="parent" ref="498524320"/>
 					</object>
 				</array>
 			</object>
@@ -3782,7 +3782,7 @@
 				<boolean value="NO" key="25.IBNSViewMetadataTranslatesAutoresizingMaskIntoConstraints"/>
 				<string key="25.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<array class="NSMutableArray" key="256.IBNSViewMetadataConstraints">
-					<reference ref="221082932"/>
+					<reference ref="277551856"/>
 				</array>
 				<boolean value="NO" key="256.IBNSViewMetadataTranslatesAutoresizingMaskIntoConstraints"/>
 				<string key="256.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -3791,7 +3791,6 @@
 				<string key="26.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<boolean value="NO" key="27.IBNSViewMetadataTranslatesAutoresizingMaskIntoConstraints"/>
 				<string key="27.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="270.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="276.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="277.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="278.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -3858,6 +3857,7 @@
 				<string key="359.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<boolean value="NO" key="36.IBNSViewMetadataTranslatesAutoresizingMaskIntoConstraints"/>
 				<string key="36.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="360.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="37.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<boolean value="NO" key="39.IBNSViewMetadataTranslatesAutoresizingMaskIntoConstraints"/>
 				<string key="39.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -3917,7 +3917,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">359</int>
+			<int key="maxID">360</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">

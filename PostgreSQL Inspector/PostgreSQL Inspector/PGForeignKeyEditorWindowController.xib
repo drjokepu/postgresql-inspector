@@ -215,7 +215,7 @@
 											<string key="NSFrameSize">{484, 208}</string>
 											<reference key="NSSuperview" ref="614921313"/>
 											<reference key="NSWindow"/>
-											<reference key="NSNextKeyView" ref="417571836"/>
+											<reference key="NSNextKeyView" ref="918665456"/>
 											<string key="NSReuseIdentifierKey">_NS:13</string>
 											<bool key="NSEnabled">YES</bool>
 											<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
@@ -389,7 +389,7 @@
 							<string key="NSFrame">{{155, 164}, {486, 226}}</string>
 							<reference key="NSSuperview" ref="1006"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView" ref="614921313"/>
+							<reference key="NSNextKeyView" ref="417571836"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<string key="NSAntiCompressionPriority">{750, 750}</string>
 							<int key="NSsFlags">133682</int>
@@ -418,8 +418,8 @@
 								<reference key="NSSupport" ref="692104998"/>
 								<string key="NSCellIdentifier">_NS:9</string>
 								<reference key="NSControlView" ref="756162023"/>
-								<int key="NSButtonFlags">-2038284288</int>
-								<int key="NSButtonFlags2">129</int>
+								<int key="NSButtonFlags">-2038153216</int>
+								<int key="NSButtonFlags2">1</int>
 								<string key="NSAlternateContents"/>
 								<string type="base64-UTF8" key="NSKeyEquivalent">DQ</string>
 								<int key="NSPeriodicDelay">200</int>
@@ -995,6 +995,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 									<int key="NSvFlags">266</int>
 									<string key="NSFrameSize">{230, 17}</string>
 									<reference key="NSSuperview" ref="918665456"/>
+									<reference key="NSNextKeyView" ref="349943384"/>
 									<string key="NSAntiCompressionPriority">{250, 750}</string>
 									<bool key="NSEnabled">YES</bool>
 									<object class="NSTextFieldCell" key="NSCell" id="67789519">
