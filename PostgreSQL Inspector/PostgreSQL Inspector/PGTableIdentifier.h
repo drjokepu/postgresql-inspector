@@ -8,6 +8,16 @@
 
 #import "PGSchemaObjectIdentifier.h"
 
+#define TABLE_IDENTIFIER_TYPE_TABLE 'r'
+#define TABLE_IDENTIFIER_TYPE_VIEW 'v'
+
 @interface PGTableIdentifier : PGSchemaObjectIdentifier
+
+@property (nonatomic, assign) char type;
+@property (nonatomic, assign) NSInteger schemaOid;
+@property (nonatomic, strong) NSString *schemaName;
+
+-(NSString*)fullName;
+-(NSString*)shortName;
 
 @end

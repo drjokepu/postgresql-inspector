@@ -13,18 +13,22 @@
 #import "PGConnection.h"
 #import "PGConstraint.h"
 #import "PGConstraintColumn.h"
+#import "PGDatabase.h"
 #import "PGDatabaseWindowController.h"
+#import "PGForeignKeyEditorWindowController.h"
 #import "PGRelationColumn.h"
 #import "PGUniqueKeyEditorWindowController.h"
 #import "Utils.h"
 
 @interface PGCreateTableWindowController ()
 @property (nonatomic, strong) PGConnection *connection;
+@property (nonatomic, strong) PGDatabase *database;
 @property (nonatomic, assign) BOOL connectionIsOpen;
 @property (nonatomic, strong) NSMutableArray *tableColumns;
 @property (nonatomic, strong) NSMutableArray *tableConstraints;
 @property (nonatomic, strong) PGColumnEditorWindowController *columnEditorSheet;
 @property (nonatomic, strong) PGUniqueKeyEditorWindowController *uniqueKeyEditorSheet;
+@property (nonatomic, strong) PGForeignKeyEditorWindowController *foreignKeyEditorSheet;
 
 @property (strong) IBOutlet NSTextField *tableNameTextField;
 @property (strong) IBOutlet NSComboBox *schemaComboBox;
@@ -65,6 +69,15 @@
 @synthesize addPrimaryKeyMenuItem;
 @synthesize constraintActionsButton;
 @synthesize constraintEditMenuItem;
+
+-(void)dealloc
+{
+    if (self.connection != nil)
+    {
+        [self.connection close];
+        self.connection = nil;
+    }
+}
 
 -(NSString *)windowNibName
 {
@@ -120,6 +133,7 @@
     self.addPrimaryKeyMenuItem = [[NSMenuItem alloc] initWithTitle:@"Add Primary Key…" action:@selector(didClickAddPrimaryKey:) keyEquivalent:@""];
     [[addConstraintButton menu] addItem:addPrimaryKeyMenuItem];
     [[addConstraintButton menu] addItem:[[NSMenuItem alloc] initWithTitle:@"Add Unique Key…" action:@selector(didClickAddUniqueKey:) keyEquivalent:@""]];
+    [[addConstraintButton menu] addItem:[[NSMenuItem alloc] initWithTitle:@"Add Foreign Key…" action:@selector(didClickAddForeignKey:) keyEquivalent:@""]];
     
     [constraintActionsButton addItemWithTitle:@""];
     [[constraintActionsButton itemAtIndex:0] setImage:[[NSImage imageNamed:NSImageNameActionTemplate] imageScaledToSize:NSMakeSize(10, 10) proportionally:YES]];
@@ -134,10 +148,11 @@
     [self close];
 }
 
--(void)useConnection:(PGConnection *)theConnection
+-(void)useConnection:(PGConnection *)theConnection database:(PGDatabase *)theDatabase
 {
     self.connection = theConnection;
     self.connection.delegate = self;
+    self.database = theDatabase;
     [self performSelectorInBackground:@selector(openConnection:) withObject:theConnection];
 }
 
@@ -424,6 +439,11 @@
     [self openUniqueKeyEditorSheet:NO withConstraint:nil];
 }
 
+-(void)didClickAddForeignKey:(id)sender
+{
+    [self openForeignKeyEditorSheetWithConstraint:nil];
+}
+
 -(void)openUniqueKeyEditorSheet:(BOOL)isPrimaryKey withConstraint:(PGConstraint*)constraint
 {
     PGUniqueKeyEditorWindowController *uniqueKeyEditorSheet = [[PGUniqueKeyEditorWindowController alloc] init];
@@ -450,7 +470,36 @@
     }
     
     [sheet orderOut:self];
+    [sheet close];
     self.uniqueKeyEditorSheet = nil;
+}
+
+-(void)openForeignKeyEditorSheetWithConstraint:(PGConstraint*)constraint
+{
+    PGForeignKeyEditorWindowController *foreignKeyEditorSheet = [[PGForeignKeyEditorWindowController alloc] init];
+    foreignKeyEditorSheet.availableColumns = self.tableColumns;
+    [foreignKeyEditorSheet useConstraint:constraint database:self.database connection:self.connection tableColumns:self.tableColumns];
+    
+    [[NSApplication sharedApplication] beginSheet:[foreignKeyEditorSheet window]
+                                   modalForWindow:[self window]
+                                    modalDelegate:self
+                                   didEndSelector:@selector(didEndForeignKeyEditorSheet:returnCode:contextInfo:)
+                                      contextInfo:NULL];
+    
+    self.foreignKeyEditorSheet = foreignKeyEditorSheet;
+}
+
+-(void)didEndForeignKeyEditorSheet:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo
+{
+    if (returnCode == 1)
+    {
+        [self.tableConstraints addObject:[self.foreignKeyEditorSheet getConstraint]];
+        [self.constraintsTableView reloadData];
+    }
+    
+    [sheet orderOut:self];
+    [sheet close];
+    self.foreignKeyEditorSheet = nil;
 }
 
 -(void)didClickRemoveConstraint:(id)sender
@@ -477,6 +526,9 @@
         case PGConstraintTypeUniqueKey:
             [self editUniqueConstraint:constraint];
             break;
+        case PGConstraintTypeForeignKey:
+            [self editForeignKey:constraint];
+            break;
         default:
             break;
     }
@@ -485,6 +537,11 @@
 -(void)editUniqueConstraint:(PGConstraint*)constraint
 {
     [self openUniqueKeyEditorSheet:constraint.type == PGConstraintTypePrimaryKey withConstraint:constraint];
+}
+
+-(void)editForeignKey:(PGConstraint*)constraint
+{
+    [self openForeignKeyEditorSheetWithConstraint:constraint];
 }
 
 -(BOOL)hasPrimaryKey

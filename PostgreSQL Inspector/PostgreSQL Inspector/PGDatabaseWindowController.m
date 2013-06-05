@@ -237,7 +237,7 @@
     else
     {
         self.schemaHasBeenLoadedPreviously = YES;
-        if ([database.schemaNames count] > 0)
+        if ([database.schemaNames count] > 0 && database.publicSchemaIndex >= -1)
             [schemaPopUpButton selectItemAtIndex:database.publicSchemaIndex];
         [self selectDefaultSchema];
     }
@@ -417,7 +417,7 @@
     createTableWindowController.initialSchemaName = [self selectedSchemaName];
     createTableWindowController.initialSchemaNameList = schemaNames;
     
-    [createTableWindowController useConnection:[self.connection copy]];
+    [createTableWindowController useConnection:[self.connection copy] database:database];
     [[createTableWindowController window] makeKeyAndOrderFront:self];
 }
 

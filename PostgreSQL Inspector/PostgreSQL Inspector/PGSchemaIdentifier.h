@@ -13,4 +13,8 @@
 @property (nonatomic, strong) NSMutableArray *tableNames;
 @property (nonatomic, strong) NSMutableArray *viewNames;
 
+-(BOOL)publicSchema;
++(BOOL)publicSchema:(NSString*)schemaName;
+-(BOOL)systemSchema;
+
 @end

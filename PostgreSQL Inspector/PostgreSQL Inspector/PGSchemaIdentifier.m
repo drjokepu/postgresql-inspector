@@ -41,4 +41,19 @@
     self.viewNames = [[NSMutableArray alloc] init];
 }
 
+-(BOOL)publicSchema
+{
+    return [PGSchemaIdentifier publicSchema:self.name];
+}
+
++(BOOL)publicSchema:(NSString *)schemaName
+{
+    return [schemaName isEqualToString:@"public"];
+}
+
+-(BOOL)systemSchema
+{
+    return [self.name hasPrefix:@"pg_"] || [self.name isEqualToString:@"information_schema"];
+}
+
 @end

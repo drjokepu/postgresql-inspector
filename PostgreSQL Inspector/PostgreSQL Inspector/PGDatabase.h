@@ -18,8 +18,8 @@
 @property (nonatomic, strong) NSArray *schemaNames;
 @property (nonatomic, strong) NSDictionary *schemaNameLookup;
 @property (nonatomic, strong) NSArray *schemaObjectGroups;
-@property (nonatomic, assign) NSUInteger publicSchemaIndex;
-@property (nonatomic, unsafe_unretained) id<PGDatabaseDelegate> delegate;
+@property (nonatomic, assign) NSInteger publicSchemaIndex;
+@property (nonatomic, weak) id<PGDatabaseDelegate> delegate;
 
 -(id)initWithConnectionEntry:(PGConnectionEntry*)theConnectionEntry;
 -(void)loadSchema:(PGConnection*)connection;

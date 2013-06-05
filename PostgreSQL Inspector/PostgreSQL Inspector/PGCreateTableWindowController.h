@@ -10,13 +10,13 @@
 #import "PGConnectionDelegate.h"
 #import "PGSelfRetainingWindowController.h"
 
-@class PGConnection;
+@class PGConnection, PGDatabase;
 
 @interface PGCreateTableWindowController : PGSelfRetainingWindowController <PGConnectionDelegate, NSTableViewDataSource, NSTableViewDelegate>
 
 @property (nonatomic, strong) NSString *initialSchemaName;
 @property (nonatomic, strong) NSArray *initialSchemaNameList;
 
--(void)useConnection:(PGConnection *)theConnection;
+-(void)useConnection:(PGConnection *)theConnection database:(PGDatabase*)theDatabase;
 
 @end

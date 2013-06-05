@@ -12,7 +12,6 @@
 		02081124169472B100A6F2B0 /* PGSQLParsingResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 02081123169472B000A6F2B0 /* PGSQLParsingResult.m */; };
 		0208112716947F7700A6F2B0 /* PGSQLToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 0208112616947F7700A6F2B0 /* PGSQLToken.m */; };
 		021331DD169C4B37002FA927 /* sql_context.c in Sources */ = {isa = PBXBuildFile; fileRef = 021331DC169C4B37002FA927 /* sql_context.c */; };
-		021E3D981670FED400935EF1 /* libpq.5.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 021E3D971670FED400935EF1 /* libpq.5.5.dylib */; };
 		021E3D991670FF4F00935EF1 /* libpq.5.5.dylib in Resources */ = {isa = PBXBuildFile; fileRef = 021E3D971670FED400935EF1 /* libpq.5.5.dylib */; };
 		021EF6A7154F41E800800157 /* PGSchemaObjectIdentifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 021EF6A6154F41E800800157 /* PGSchemaObjectIdentifier.m */; };
 		021EF6AA154F425C00800157 /* PGTableIdentifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 021EF6A9154F425C00800157 /* PGTableIdentifier.m */; };
@@ -23,6 +22,8 @@
 		02362E071696FAF000B9094B /* sql_symbol.c in Sources */ = {isa = PBXBuildFile; fileRef = 02362E051696FAF000B9094B /* sql_symbol.c */; };
 		023DEA54166F7D3800A6E8A1 /* NSDictionary+PGDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = 023DEA53166F7D3800A6E8A1 /* NSDictionary+PGDictionary.m */; };
 		0241C54E1691E496002EEDB7 /* PGUUIDFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0241C54D1691E496002EEDB7 /* PGUUIDFormatter.m */; };
+		0247AC5B17578F1E008D5614 /* libpq.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0247AC5A17578F1E008D5614 /* libpq.a */; };
+		0248ECEE175F782400BAE112 /* PGActionBlockWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 0248ECED175F782400BAE112 /* PGActionBlockWrapper.m */; };
 		024D4F7215C9422C004508AD /* PGError.m in Sources */ = {isa = PBXBuildFile; fileRef = 024D4F7115C9422C004508AD /* PGError.m */; };
 		02501E2D155081750020896A /* icons.icns in Resources */ = {isa = PBXBuildFile; fileRef = 02CC58F515502EEA00496966 /* icons.icns */; };
 		02501E31155083B90020896A /* PGScopeBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 02501E30155083B90020896A /* PGScopeBar.m */; };
@@ -68,6 +69,8 @@
 		02801E70154D9BA800FCA1DE /* PGConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 02801E6F154D9BA800FCA1DE /* PGConnection.m */; };
 		02801E79154DC4F200FCA1DE /* PGAuthWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02801E77154DC4F200FCA1DE /* PGAuthWindowController.m */; };
 		02801E7A154DC4F200FCA1DE /* PGAuthWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02801E78154DC4F200FCA1DE /* PGAuthWindowController.xib */; };
+		02A12D1717049232003E93A9 /* PGForeignKeyEditorWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02A12D1517049232003E93A9 /* PGForeignKeyEditorWindowController.m */; };
+		02A12D1817049232003E93A9 /* PGForeignKeyEditorWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02A12D1617049232003E93A9 /* PGForeignKeyEditorWindowController.xib */; };
 		02A24D9D16BFFC4700EEDBC6 /* PGCreateTableWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02A24D9B16BFFC4700EEDBC6 /* PGCreateTableWindowController.m */; };
 		02A24D9E16BFFC4700EEDBC6 /* PGCreateTableWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02A24D9C16BFFC4700EEDBC6 /* PGCreateTableWindowController.xib */; };
 		02A24DA116C005CC00EEDBC6 /* PGSelfRetainingWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02A24DA016C005CC00EEDBC6 /* PGSelfRetainingWindowController.m */; };
@@ -128,6 +131,9 @@
 		023DEA53166F7D3800A6E8A1 /* NSDictionary+PGDictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+PGDictionary.m"; sourceTree = "<group>"; };
 		0241C54C1691E496002EEDB7 /* PGUUIDFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGUUIDFormatter.h; sourceTree = "<group>"; };
 		0241C54D1691E496002EEDB7 /* PGUUIDFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGUUIDFormatter.m; sourceTree = "<group>"; };
+		0247AC5A17578F1E008D5614 /* libpq.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpq.a; path = ../../../../../../opt/local/lib/postgresql92/libpq.a; sourceTree = "<group>"; };
+		0248ECEC175F782400BAE112 /* PGActionBlockWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGActionBlockWrapper.h; sourceTree = "<group>"; };
+		0248ECED175F782400BAE112 /* PGActionBlockWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGActionBlockWrapper.m; sourceTree = "<group>"; };
 		024D4F7015C9422B004508AD /* PGError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGError.h; sourceTree = "<group>"; };
 		024D4F7115C9422C004508AD /* PGError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGError.m; sourceTree = "<group>"; };
 		024D4F7415C943A2004508AD /* PGError+Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PGError+Internal.h"; sourceTree = "<group>"; };
@@ -217,6 +223,9 @@
 		02801E77154DC4F200FCA1DE /* PGAuthWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGAuthWindowController.m; sourceTree = "<group>"; };
 		02801E78154DC4F200FCA1DE /* PGAuthWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PGAuthWindowController.xib; sourceTree = "<group>"; };
 		02801E7C154DCD5500FCA1DE /* PGAuthWindowControllerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PGAuthWindowControllerDelegate.h; sourceTree = "<group>"; };
+		02A12D1417049232003E93A9 /* PGForeignKeyEditorWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGForeignKeyEditorWindowController.h; sourceTree = "<group>"; };
+		02A12D1517049232003E93A9 /* PGForeignKeyEditorWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGForeignKeyEditorWindowController.m; sourceTree = "<group>"; };
+		02A12D1617049232003E93A9 /* PGForeignKeyEditorWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PGForeignKeyEditorWindowController.xib; sourceTree = "<group>"; };
 		02A24D9A16BFFC4700EEDBC6 /* PGCreateTableWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGCreateTableWindowController.h; sourceTree = "<group>"; };
 		02A24D9B16BFFC4700EEDBC6 /* PGCreateTableWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGCreateTableWindowController.m; sourceTree = "<group>"; };
 		02A24D9C16BFFC4700EEDBC6 /* PGCreateTableWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PGCreateTableWindowController.xib; sourceTree = "<group>"; };
@@ -270,7 +279,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				021E3D981670FED400935EF1 /* libpq.5.5.dylib in Frameworks */,
+				0247AC5B17578F1E008D5614 /* libpq.a in Frameworks */,
 				02751E581549F8C2007AE07D /* Security.framework in Frameworks */,
 				02751E001549F778007AE07D /* Cocoa.framework in Frameworks */,
 			);
@@ -345,6 +354,8 @@
 				0260DE3D16CE769B006A573B /* NSImage+PGImage.m */,
 				02FA357D16C27A250089C42D /* NSMutableArray+PGMutableArray.h */,
 				02FA357E16C27A250089C42D /* NSMutableArray+PGMutableArray.m */,
+				0248ECEC175F782400BAE112 /* PGActionBlockWrapper.h */,
+				0248ECED175F782400BAE112 /* PGActionBlockWrapper.m */,
 				02CD310816D1A76D006638DF /* Utils.h */,
 				02CD310616D1A75F006638DF /* Utils.c */,
 			);
@@ -408,6 +419,7 @@
 		02751DF01549F778007AE07D = {
 			isa = PBXGroup;
 			children = (
+				0247AC5A17578F1E008D5614 /* libpq.a */,
 				02CC58F515502EEA00496966 /* icons.icns */,
 				02751E051549F778007AE07D /* PostgreSQL Inspector */,
 				02A2EB701684B0B20067852E /* Resources */,
@@ -645,6 +657,9 @@
 				02A24D9A16BFFC4700EEDBC6 /* PGCreateTableWindowController.h */,
 				02A24D9B16BFFC4700EEDBC6 /* PGCreateTableWindowController.m */,
 				02A24D9C16BFFC4700EEDBC6 /* PGCreateTableWindowController.xib */,
+				02A12D1417049232003E93A9 /* PGForeignKeyEditorWindowController.h */,
+				02A12D1517049232003E93A9 /* PGForeignKeyEditorWindowController.m */,
+				02A12D1617049232003E93A9 /* PGForeignKeyEditorWindowController.xib */,
 				02B0BBCD16C7DBD500E240F7 /* PGUniqueKeyEditorWindowController.h */,
 				02B0BBCE16C7DBD500E240F7 /* PGUniqueKeyEditorWindowController.m */,
 				02B0BBCF16C7DBD500E240F7 /* PGUniqueKeyEditorWindowController.xib */,
@@ -740,6 +755,7 @@
 				02A24D9E16BFFC4700EEDBC6 /* PGCreateTableWindowController.xib in Resources */,
 				02D4715416C1205D00DD8715 /* PGColumnEditorWindowController.xib in Resources */,
 				02B0BBD116C7DBD500E240F7 /* PGUniqueKeyEditorWindowController.xib in Resources */,
+				02A12D1817049232003E93A9 /* PGForeignKeyEditorWindowController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -812,6 +828,8 @@
 				0260DE3E16CE769B006A573B /* NSImage+PGImage.m in Sources */,
 				02CD310716D1A75F006638DF /* Utils.c in Sources */,
 				02EF237B16D3DCD8003A8D52 /* PGSpaceButton.m in Sources */,
+				02A12D1717049232003E93A9 /* PGForeignKeyEditorWindowController.m in Sources */,
+				0248ECEE175F782400BAE112 /* PGActionBlockWrapper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

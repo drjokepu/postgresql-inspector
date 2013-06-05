@@ -14,6 +14,7 @@
 @property (nonatomic, strong) NSString *columnName;
 
 @property (nonatomic, assign) NSUInteger foreignKeyReferencedColumnNumber;
+@property (nonatomic, strong) NSString *foreignKeyReferencedColumnName;
 @property (nonatomic, assign) NSInteger foreignKeyPKFKEqualityOperator;
 @property (nonatomic, assign) NSInteger foreignKeyPKPKEqualityOperator;
 @property (nonatomic, assign) NSInteger foreignKeyFKFKEqualityOperator;

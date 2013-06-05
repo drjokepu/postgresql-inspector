@@ -10,7 +10,6 @@
 #import "PGEditorAction.h"
 
 @class PGConstraint;
-
 @interface PGUniqueKeyEditorWindowController : NSWindowController <NSTableViewDataSource, NSTableViewDelegate>
 
 @property (nonatomic, assign) PGEditorAction columnEditorAction;

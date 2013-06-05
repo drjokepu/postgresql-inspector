@@ -30,4 +30,14 @@
     return self;
 }
 
+-(NSString *)description
+{
+    return name;
+}
+
+-(NSString *)debugDescription
+{
+    return name;
+}
+
 @end

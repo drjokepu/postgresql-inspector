@@ -33,6 +33,7 @@ static void initCommonTypes(void);
 {
     if ((self = [super init]))
     {
+        self.publicSchemaIndex = -1;
         self.connectionEntry = theConnectionEntry;
         self.schemaObjectGroups =
             [[NSArray alloc] initWithObjects:
@@ -63,7 +64,7 @@ static void initCommonTypes(void);
     command.connection = connection;
     command.commandText =
         @"select nspname, oid from pg_catalog.pg_namespace order by nspname;"
-         "select c.relname, c.relkind, c.oid, n.nspname from pg_catalog.pg_class c inner join pg_catalog.pg_namespace n on n.oid = c.relnamespace order by c.relname";
+         "select c.relname, c.relkind, c.oid, n.nspname, n.oid from pg_catalog.pg_class c inner join pg_catalog.pg_namespace n on n.oid = c.relnamespace order by c.relname";
 
     [command execAsyncWithCallback:^(PGResult *result) {
         switch (result.index)
@@ -90,8 +91,8 @@ static void initCommonTypes(void);
     for (NSUInteger i = 0; i < result.rowCount; i++)
     {
         NSString *schemaName = [[result.rows objectAtIndex:i] objectAtIndex:0];
-        NSInteger oid = [[[result.rows objectAtIndex:i] objectAtIndex:1] integerValue];
-        if ([schemaName isEqualToString:@"public"]) publicSchemaIndex = i;
+        const NSInteger oid = [[[result.rows objectAtIndex:i] objectAtIndex:1] integerValue];
+        if ([PGSchemaIdentifier publicSchema:schemaName]) publicSchemaIndex = i;
         
         if (![self hideSystemSchemas] || ![self isSystemSchema:schemaName])
         {
@@ -111,16 +112,22 @@ static void initCommonTypes(void);
         NSArray *row = [result.rows objectAtIndex:i];
         NSString *relName = [row objectAtIndex:0];
         NSNumber *relKind = [row objectAtIndex:1];
-        NSInteger relOid = [[row objectAtIndex:2] integerValue];
+        const NSInteger relOid = [[row objectAtIndex:2] integerValue];
         NSString *schemaName = [row objectAtIndex:3];
+        const NSInteger schemaOid = [[row objectAtIndex:4] integerValue];
         
-        switch ([relKind charValue])
+        PGTableIdentifier *tableIdenfifier = [[PGTableIdentifier alloc] initWithName:relName oid:relOid];
+        tableIdenfifier.type = [relKind charValue];
+        tableIdenfifier.schemaName = schemaName;
+        tableIdenfifier.schemaOid = schemaOid;
+        
+        switch (tableIdenfifier.type)
         {
-            case 'r':
-                [[[schemaNameLookup valueForKey:schemaName] tableNames] addObject:[[PGTableIdentifier alloc] initWithName:relName oid:relOid]];
+            case TABLE_IDENTIFIER_TYPE_TABLE:
+                [[schemaNameLookup[schemaName] tableNames] addObject:tableIdenfifier];
                 break;
-            case 'v':
-                [[[schemaNameLookup valueForKey:schemaName] viewNames] addObject:[[PGTableIdentifier alloc] initWithName:relName oid:relOid]];
+            case TABLE_IDENTIFIER_TYPE_VIEW:
+                [[schemaNameLookup[schemaName] viewNames] addObject:tableIdenfifier];
                 break;
         }
     }
