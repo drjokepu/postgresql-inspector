@@ -20,6 +20,7 @@
 #import "PGSchemaObjectIdentifier.h"
 #import "PGSchemaObjectGroup.h"
 #import "PGSchemaIdentifier.h"
+#import "PGSchemaWindowController.h"
 #import "PGTableIdentifier.h"
 #import "PGTable.h"
 
@@ -425,6 +426,15 @@
     
     [createTableWindowController useConnection:[self.connection copy] database:database];
     [[createTableWindowController window] makeKeyAndOrderFront:self];
+}
+
+-(void)createSchema:(id)sender
+{
+    PGSchemaWindowController *schemaWindowController = [[PGSchemaWindowController alloc] init];
+    schemaWindowController.editorAction = PGEditorAdd;
+    
+    [schemaWindowController useConnection:[self.connection copy] database:database];
+    [[schemaWindowController window] makeKeyAndOrderFront:self];
 }
 
 @end

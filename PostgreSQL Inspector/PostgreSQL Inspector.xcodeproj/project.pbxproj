@@ -91,6 +91,9 @@
 		02CB6E1C154EBA960086DA2C /* PGDatabaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 02CB6E1B154EBA950086DA2C /* PGDatabaseManager.m */; };
 		02CD310716D1A75F006638DF /* Utils.c in Sources */ = {isa = PBXBuildFile; fileRef = 02CD310616D1A75F006638DF /* Utils.c */; };
 		02D28CC01760D67A00FB9696 /* PGRole.m in Sources */ = {isa = PBXBuildFile; fileRef = 02D28CBF1760D67A00FB9696 /* PGRole.m */; };
+		02D28CC61760E89D00FB9696 /* PGSchemaWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02D28CC41760E89D00FB9696 /* PGSchemaWindowController.m */; };
+		02D28CC71760E89D00FB9696 /* PGSchemaWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02D28CC51760E89D00FB9696 /* PGSchemaWindowController.xib */; };
+		02D28CCA1760EC9400FB9696 /* PGSchema.m in Sources */ = {isa = PBXBuildFile; fileRef = 02D28CC91760EC9300FB9696 /* PGSchema.m */; };
 		02D4715316C1205D00DD8715 /* PGColumnEditorWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02D4715116C1205D00DD8715 /* PGColumnEditorWindowController.m */; };
 		02D4715416C1205D00DD8715 /* PGColumnEditorWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02D4715216C1205D00DD8715 /* PGColumnEditorWindowController.xib */; };
 		02E5B4FD167A43D5008471B4 /* PGCommandExecutor.m in Sources */ = {isa = PBXBuildFile; fileRef = 02E5B4FC167A43D5008471B4 /* PGCommandExecutor.m */; };
@@ -263,6 +266,11 @@
 		02CD310816D1A76D006638DF /* Utils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
 		02D28CBE1760D67A00FB9696 /* PGRole.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGRole.h; sourceTree = "<group>"; };
 		02D28CBF1760D67A00FB9696 /* PGRole.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGRole.m; sourceTree = "<group>"; };
+		02D28CC31760E89D00FB9696 /* PGSchemaWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGSchemaWindowController.h; sourceTree = "<group>"; };
+		02D28CC41760E89D00FB9696 /* PGSchemaWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGSchemaWindowController.m; sourceTree = "<group>"; };
+		02D28CC51760E89D00FB9696 /* PGSchemaWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PGSchemaWindowController.xib; sourceTree = "<group>"; };
+		02D28CC81760EC9300FB9696 /* PGSchema.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGSchema.h; sourceTree = "<group>"; };
+		02D28CC91760EC9300FB9696 /* PGSchema.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGSchema.m; sourceTree = "<group>"; };
 		02D4715016C1205D00DD8715 /* PGColumnEditorWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGColumnEditorWindowController.h; sourceTree = "<group>"; };
 		02D4715116C1205D00DD8715 /* PGColumnEditorWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGColumnEditorWindowController.m; sourceTree = "<group>"; };
 		02D4715216C1205D00DD8715 /* PGColumnEditorWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PGColumnEditorWindowController.xib; sourceTree = "<group>"; };
@@ -413,6 +421,8 @@
 				02B8863F15862D4000855F79 /* PGRelationColumn.m */,
 				02D28CBE1760D67A00FB9696 /* PGRole.h */,
 				02D28CBF1760D67A00FB9696 /* PGRole.m */,
+				02D28CC81760EC9300FB9696 /* PGSchema.h */,
+				02D28CC91760EC9300FB9696 /* PGSchema.m */,
 				025F619E1551BCF7006B4D23 /* PGSchemaObject.h */,
 				025F619F1551BCF7006B4D23 /* PGSchemaObject.m */,
 				025F61A11551BE09006B4D23 /* PGTable.h */,
@@ -543,9 +553,13 @@
 				02CB6E12154EB5450086DA2C /* PGDatabaseWindowController.h */,
 				02CB6E13154EB5450086DA2C /* PGDatabaseWindowController.m */,
 				02CB6E14154EB5450086DA2C /* PGDatabaseWindowController.xib */,
+				02D4715516C12DCA00DD8715 /* PGEditorAction.h */,
 				02C4DF7815C69E6C00C78DDE /* PGQueryWindowController.h */,
 				02C4DF7915C69E6C00C78DDE /* PGQueryWindowController.m */,
 				02C4DF7A15C69E6C00C78DDE /* PGQueryWindowController.xib */,
+				02D28CC31760E89D00FB9696 /* PGSchemaWindowController.h */,
+				02D28CC41760E89D00FB9696 /* PGSchemaWindowController.m */,
+				02D28CC51760E89D00FB9696 /* PGSchemaWindowController.xib */,
 			);
 			name = Windows;
 			sourceTree = "<group>";
@@ -655,7 +669,6 @@
 		02D4714E16C11F4900DD8715 /* Tables */ = {
 			isa = PBXGroup;
 			children = (
-				02D4715516C12DCA00DD8715 /* PGEditorAction.h */,
 				02D4715016C1205D00DD8715 /* PGColumnEditorWindowController.h */,
 				02D4715116C1205D00DD8715 /* PGColumnEditorWindowController.m */,
 				02D4715216C1205D00DD8715 /* PGColumnEditorWindowController.xib */,
@@ -761,6 +774,7 @@
 				02D4715416C1205D00DD8715 /* PGColumnEditorWindowController.xib in Resources */,
 				02B0BBD116C7DBD500E240F7 /* PGUniqueKeyEditorWindowController.xib in Resources */,
 				02A12D1817049232003E93A9 /* PGForeignKeyEditorWindowController.xib in Resources */,
+				02D28CC71760E89D00FB9696 /* PGSchemaWindowController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -836,6 +850,8 @@
 				02A12D1717049232003E93A9 /* PGForeignKeyEditorWindowController.m in Sources */,
 				0248ECEE175F782400BAE112 /* PGActionBlockWrapper.m in Sources */,
 				02D28CC01760D67A00FB9696 /* PGRole.m in Sources */,
+				02D28CC61760E89D00FB9696 /* PGSchemaWindowController.m in Sources */,
+				02D28CCA1760EC9400FB9696 /* PGSchema.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
