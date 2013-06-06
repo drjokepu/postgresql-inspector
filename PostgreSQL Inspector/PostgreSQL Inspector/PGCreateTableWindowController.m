@@ -49,11 +49,14 @@
 @property (nonatomic, strong) NSMenuItem *addPrimaryKeyMenuItem;
 @property (strong) IBOutlet NSButton *removeConstraintButton;
 @property (strong) IBOutlet NSPopUpButton *constraintActionsButton;
+@property (strong) IBOutlet NSButton *actionButton;
+@property (strong) IBOutlet NSButton *viewSqlButton;
 
 -(IBAction)didClickCancel:(id)sender;
 -(IBAction)didClickAddColumn:(id)sender;
 -(IBAction)didClickRemoveColumn:(id)sender;
 -(IBAction)didClickRemoveConstraint:(id)sender;
+-(IBAction)didChangeTableName:(id)sender;
 
 @end
 
@@ -104,6 +107,7 @@
 
     [self validateColumnActions];
     [self validateConstraintActions];
+    [self validateActionButtons];
 }
 
 -(void)configurePullDownMenus
@@ -146,6 +150,24 @@
 -(void)didClickCancel:(id)sender
 {
     [self close];
+}
+
+-(void)didChangeTableName:(id)sender
+{
+    [self validateActionButtons];
+}
+
+-(void)validateActionButtons
+{
+    const BOOL isValid = [self isTableValid];
+    [self.actionButton setEnabled:isValid];
+    [self.viewSqlButton setEnabled:isValid];
+}
+
+-(BOOL)isTableValid
+{
+    return ([[self.tableNameTextField stringValue] length] > 0 &&
+            [self.tableColumns count] > 0);
 }
 
 -(void)useConnection:(PGConnection *)theConnection database:(PGDatabase *)theDatabase
@@ -286,6 +308,7 @@
     {
         [self.tableColumns addObject:[self.columnEditorSheet getColumn]];
         [self.columnsTableView reloadData];
+        [self validateActionButtons];
     }
     
     [sheet orderOut:self];
@@ -301,6 +324,7 @@
         [self.tableColumns removeObjectAtIndex:columnIndex];
         [self.columnsTableView reloadData];
         [self.constraintsTableView reloadData];
+        [self validateActionButtons];
     }
 }
 
