@@ -45,4 +45,13 @@
     return NO;
 }
 
+-(NSString *)ddl
+{
+    NSMutableString *str = [[NSMutableString alloc] init];
+    [str appendString:@"create table "];
+    [str appendString:[self schemaQualifiedName]];
+    
+    return [[NSString alloc] initWithString:str];
+}
+
 @end

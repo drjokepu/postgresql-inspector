@@ -13,7 +13,7 @@
 @interface PGTable : PGRelation
 
 -(BOOL)isColumnInPrimaryKey:(NSInteger)columnNumber;
-
+-(NSString*)ddl;
 +(void)load:(NSInteger)oid fromConnection:(PGConnection*)connection callback:(void(^)(PGTable* table))asyncCallback;
 
 @end
