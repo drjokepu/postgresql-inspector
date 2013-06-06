@@ -15,6 +15,7 @@
 @interface PGQueryWindowController : PGSelfRetainingWindowController <NSWindowDelegate, PGConnectionDelegate, NSTextViewDelegate, NSTableViewDataSource, NSTableViewDelegate>
 
 @property (nonatomic, strong) NSString *initialQueryString;
+@property (nonatomic, assign) BOOL autoExecuteQuery;
 @property (strong) IBOutlet NSTextView *queryTextView;
 @property (strong) IBOutlet NSPopUpButton *resultSelectorPopUpButton;
 @property (strong) IBOutlet NSTableView *resultsTableView;

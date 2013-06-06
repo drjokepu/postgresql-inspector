@@ -401,6 +401,7 @@
     PGQueryWindowController *queryWindowController = [[PGQueryWindowController alloc] init];
     
     queryWindowController.initialQueryString = [[NSString alloc] initWithFormat:@"select t.* from %@ t;", [relation schemaQualifiedName]];
+    queryWindowController.autoExecuteQuery = YES;
     
     [queryWindowController useConnection:[self.connection copy]];
     [[queryWindowController window] makeKeyAndOrderFront:self];

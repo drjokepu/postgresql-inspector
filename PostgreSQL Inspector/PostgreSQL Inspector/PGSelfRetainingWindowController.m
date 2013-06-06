@@ -14,7 +14,10 @@ static NSMutableArray *windowList = nil;
 
 +(void)initialize
 {
-    windowList = [[NSMutableArray alloc] init];
+    if (windowList == nil)
+    {
+        windowList = [[NSMutableArray alloc] init];
+    }
 }
 
 -(void)windowDidLoad

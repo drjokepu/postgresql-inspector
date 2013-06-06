@@ -16,6 +16,7 @@
 #import "PGDatabase.h"
 #import "PGDatabaseWindowController.h"
 #import "PGForeignKeyEditorWindowController.h"
+#import "PGQueryWindowController.h"
 #import "PGRelationColumn.h"
 #import "PGUniqueKeyEditorWindowController.h"
 #import "Utils.h"
@@ -53,6 +54,7 @@
 @property (strong) IBOutlet NSButton *viewSqlButton;
 
 -(IBAction)didClickCancel:(id)sender;
+-(IBAction)didClickViewSql:(id)sender;
 -(IBAction)didClickAddColumn:(id)sender;
 -(IBAction)didClickRemoveColumn:(id)sender;
 -(IBAction)didClickRemoveConstraint:(id)sender;
@@ -613,6 +615,24 @@
 -(void)validateConstraintActions
 {
     [self.addPrimaryKeyMenuItem setEnabled:![self hasPrimaryKey]];
+}
+
+-(void)didClickViewSql:(id)sender
+{
+    [self viewSql];
+}
+
+-(void)viewSql
+{
+    NSString *sqlText = @"";
+    
+    PGQueryWindowController *queryWindowController = [[PGQueryWindowController alloc] init];
+    
+    queryWindowController.initialQueryString = sqlText;
+    queryWindowController.autoExecuteQuery = NO;
+    
+    [queryWindowController useConnection:[self.connection copy]];
+    [[queryWindowController window] makeKeyAndOrderFront:self];
 }
 
 @end

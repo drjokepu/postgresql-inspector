@@ -34,7 +34,7 @@ static const NSInteger executeQueryTag = 4001;
 @end
 
 @implementation PGQueryWindowController
-@synthesize connection, connectionIsOpen, initialQueryString, queryTextView, queryInProgress, completionInProgress, previousTextLength;
+@synthesize autoExecuteQuery, connection, connectionIsOpen, initialQueryString, queryTextView, queryInProgress, completionInProgress, previousTextLength;
 
 -(NSString *)windowNibName
 {
@@ -54,7 +54,11 @@ static const NSInteger executeQueryTag = 4001;
     if ([self.initialQueryString length] > 0)
     {
         [self highlightSyntax];
-        [self executeQuery:self];
+        
+        if (autoExecuteQuery)
+        {
+            [self executeQuery:self];
+        }
     }
 }
 

@@ -893,7 +893,7 @@
 							</object>
 							<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 						</object>
-						<object class="NSButton" id="915930734">
+						<object class="NSButton" id="263533845">
 							<reference key="NSNextResponder" ref="1006"/>
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{14, 13}, {98, 32}}</string>
@@ -902,13 +902,13 @@
 							<reference key="NSNextKeyView" ref="13779565"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<bool key="NSEnabled">YES</bool>
-							<object class="NSButtonCell" key="NSCell" id="180270628">
+							<object class="NSButtonCell" key="NSCell" id="78000753">
 								<int key="NSCellFlags">67108864</int>
 								<int key="NSCellFlags2">134217728</int>
 								<string key="NSContents">View SQL</string>
 								<reference key="NSSupport" ref="523109647"/>
 								<string key="NSCellIdentifier">_NS:9</string>
-								<reference key="NSControlView" ref="915930734"/>
+								<reference key="NSControlView" ref="263533845"/>
 								<int key="NSButtonFlags">-2038284288</int>
 								<int key="NSButtonFlags2">129</int>
 								<string key="NSAlternateContents"/>
@@ -1079,7 +1079,7 @@
 					<object class="IBOutletConnection" key="connection">
 						<string key="label">viewSqlButton</string>
 						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="915930734"/>
+						<reference key="destination" ref="263533845"/>
 					</object>
 					<int key="connectionID">367</int>
 				</object>
@@ -1090,6 +1090,14 @@
 						<reference key="destination" ref="795739877"/>
 					</object>
 					<int key="connectionID">368</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">didClickViewSql:</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="263533845"/>
+					</object>
+					<int key="connectionID">369</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
@@ -1270,7 +1278,7 @@
 								<int key="contentType">3</int>
 							</object>
 							<object class="IBNSLayoutConstraint" id="331947155">
-								<reference key="firstItem" ref="915930734"/>
+								<reference key="firstItem" ref="263533845"/>
 								<int key="firstAttribute">3</int>
 								<int key="relation">0</int>
 								<reference key="secondItem" ref="485889978"/>
@@ -1285,11 +1293,11 @@
 								<float key="scoringTypeFloat">24</float>
 								<int key="contentType">3</int>
 							</object>
-							<object class="IBNSLayoutConstraint" id="120807875">
+							<object class="IBNSLayoutConstraint" id="167948050">
 								<reference key="firstItem" ref="1006"/>
 								<int key="firstAttribute">4</int>
 								<int key="relation">0</int>
-								<reference key="secondItem" ref="915930734"/>
+								<reference key="secondItem" ref="263533845"/>
 								<int key="secondAttribute">4</int>
 								<float key="multiplier">1</float>
 								<object class="IBNSLayoutSymbolicConstant" key="constant">
@@ -1301,8 +1309,8 @@
 								<float key="scoringTypeFloat">29</float>
 								<int key="contentType">3</int>
 							</object>
-							<object class="IBNSLayoutConstraint" id="1069504588">
-								<reference key="firstItem" ref="915930734"/>
+							<object class="IBNSLayoutConstraint" id="742343702">
+								<reference key="firstItem" ref="263533845"/>
 								<int key="firstAttribute">5</int>
 								<int key="relation">0</int>
 								<reference key="secondItem" ref="1006"/>
@@ -1365,7 +1373,7 @@
 								<float key="scoringTypeFloat">40</float>
 								<int key="contentType">3</int>
 							</object>
-							<reference ref="915930734"/>
+							<reference ref="263533845"/>
 						</array>
 						<reference key="parent" ref="1005"/>
 					</object>
@@ -3661,25 +3669,25 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">361</int>
-						<reference key="object" ref="915930734"/>
+						<reference key="object" ref="263533845"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="180270628"/>
+							<reference ref="78000753"/>
 						</array>
 						<reference key="parent" ref="1006"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">362</int>
-						<reference key="object" ref="180270628"/>
-						<reference key="parent" ref="915930734"/>
+						<reference key="object" ref="78000753"/>
+						<reference key="parent" ref="263533845"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">363</int>
-						<reference key="object" ref="1069504588"/>
+						<reference key="object" ref="742343702"/>
 						<reference key="parent" ref="1006"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">364</int>
-						<reference key="object" ref="120807875"/>
+						<reference key="object" ref="167948050"/>
 						<reference key="parent" ref="1006"/>
 					</object>
 					<object class="IBObjectRecord">
@@ -3803,8 +3811,8 @@
 					<reference ref="667159228"/>
 					<reference ref="67315900"/>
 					<reference ref="178608757"/>
-					<reference ref="1069504588"/>
-					<reference ref="120807875"/>
+					<reference ref="742343702"/>
+					<reference ref="167948050"/>
 					<reference ref="331947155"/>
 					<reference ref="656461306"/>
 					<reference ref="55597174"/>
@@ -4024,7 +4032,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">368</int>
+			<int key="maxID">369</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -4045,6 +4053,7 @@
 						<string key="didClickCancel:">id</string>
 						<string key="didClickRemoveColumn:">id</string>
 						<string key="didClickRemoveConstraint:">id</string>
+						<string key="didClickViewSql:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
 						<object class="IBActionInfo" key="didChangeTableName:">
@@ -4065,6 +4074,10 @@
 						</object>
 						<object class="IBActionInfo" key="didClickRemoveConstraint:">
 							<string key="name">didClickRemoveConstraint:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="didClickViewSql:">
+							<string key="name">didClickViewSql:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 					</dictionary>
