@@ -12,7 +12,7 @@
 @class PGConstraint;
 @interface PGUniqueKeyEditorWindowController : NSWindowController <NSTableViewDataSource, NSTableViewDelegate>
 
-@property (nonatomic, assign) PGEditorAction columnEditorAction;
+@property (nonatomic, assign) PGEditorAction constraintEditorAction;
 @property (nonatomic, assign) BOOL isPrimaryKey;
 @property (nonatomic, strong) NSArray *availableColumns;
 
@@ -20,6 +20,7 @@
 -(IBAction)didClickAction:(id)sender;
 
 -(PGConstraint*)getConstraint;
+-(void)updateConstraint;
 -(void)useConstraint:(PGConstraint*)constraint;
 
 @end

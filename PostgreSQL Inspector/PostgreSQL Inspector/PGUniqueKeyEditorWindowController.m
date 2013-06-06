@@ -31,7 +31,7 @@
 @end
 
 @implementation PGUniqueKeyEditorWindowController
-@synthesize isPrimaryKey, availableColumns, keyColumns, initialConstraint, columnEditorAction;
+@synthesize isPrimaryKey, availableColumns, keyColumns, initialConstraint, constraintEditorAction;
 
 -(NSString *)windowNibName
 {
@@ -41,7 +41,7 @@
 - (void)windowDidLoad
 {
     [super windowDidLoad];
-    switch (columnEditorAction)
+    switch (constraintEditorAction)
     {
         case PGEditorAdd:
             [self.actionButton setTitle:@"Add"];
@@ -217,13 +217,25 @@
     {
         [self.keyColumns swapObjectAtIndex:selectedRow withObjectAtIndex:selectedRow + 1];
         [self.keyColumnsTableView reloadData];
-        [self.keyColumnsTableView selectRowIndexes:[[NSIndexSet alloc] initWithIndex:selectedRow + 1] byExtendingSelection:NO];
+        [self.keyColumnsTableView selectRowIndexes:[[NSIndexSet alloc] initWithIndex:selectedRow + 1]
+                              byExtendingSelection:NO];
     }
 }
 
 -(PGConstraint *)getConstraint
 {
     PGConstraint *constraint = [[PGConstraint alloc] init];
+    [self populateConstraintWithDetails:constraint];
+    return constraint;
+}
+
+-(void)updateConstraint
+{
+    [self populateConstraintWithDetails:initialConstraint];
+}
+
+-(void)populateConstraintWithDetails:(PGConstraint *)constraint
+{
     constraint.type = isPrimaryKey ? PGConstraintTypePrimaryKey : PGConstraintTypeUniqueKey;
     constraint.name = [self.constraintNameTextField stringValue];
     
@@ -236,8 +248,6 @@
         [constraintColumns addObject:constraintColumn];
     }
     constraint.columns = constraintColumns;
-    
-    return constraint;
 }
 
 -(void)useConstraint:(PGConstraint *)constraint

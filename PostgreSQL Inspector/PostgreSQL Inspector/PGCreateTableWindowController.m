@@ -449,8 +449,16 @@
     PGUniqueKeyEditorWindowController *uniqueKeyEditorSheet = [[PGUniqueKeyEditorWindowController alloc] init];
     uniqueKeyEditorSheet.isPrimaryKey = isPrimaryKey;
     uniqueKeyEditorSheet.availableColumns = self.tableColumns;
-    if (constraint != nil)
+    
+    if (constraint == nil)
+    {
+        uniqueKeyEditorSheet.constraintEditorAction = PGEditorAdd;
+    }
+    else
+    {
         [uniqueKeyEditorSheet useConstraint:constraint];
+        uniqueKeyEditorSheet.constraintEditorAction = PGEditorUpdate;
+    }
     
     [[NSApplication sharedApplication] beginSheet:[uniqueKeyEditorSheet window]
                                    modalForWindow:[self window]
@@ -465,7 +473,14 @@
 {
     if (returnCode == 1)
     {
-        [self.tableConstraints addObject:[self.uniqueKeyEditorSheet getConstraint]];
+        if (self.uniqueKeyEditorSheet.constraintEditorAction == PGEditorAdd)
+        {
+            [self.tableConstraints addObject:[self.uniqueKeyEditorSheet getConstraint]];
+        }
+        else
+        {
+            [self.uniqueKeyEditorSheet updateConstraint];
+        }
         [self.constraintsTableView reloadData];
     }
     
