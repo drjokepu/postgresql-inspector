@@ -11,6 +11,7 @@
 #import "PGConnection.h"
 #import "PGConstraint.h"
 #import "PGConstraintColumn.h"
+#import "PGRelationColumn.h"
 
 @interface PGTable()
 @end
@@ -48,8 +49,48 @@
 -(NSString *)ddl
 {
     NSMutableString *str = [[NSMutableString alloc] init];
-    [str appendString:@"create table "];
-    [str appendString:[self schemaQualifiedName]];
+    
+    @autoreleasepool
+    {
+        [str appendString:@"create table "];
+        [str appendString:[self schemaQualifiedName]];
+        [str appendString:@"\n(\n"];
+        
+        BOOL first = YES;
+        
+        // columns
+        for (PGRelationColumn *relationColumn in self.columns)
+        {
+            if (first)
+            {
+                first = NO;
+            }
+            else
+            {
+                [str appendString:@",\n"];
+            }
+            [str appendString:@"    "];
+            [str appendString:[relationColumn createTableDdl]];
+        }
+    
+        // constraints
+        for (PGConstraint *constraint in self.constraints)
+        {
+            if (first)
+            {
+                first = NO;
+            }
+            else
+            {
+                [str appendString:@",\n"];
+            }
+            [str appendString:@"    "];
+            [str appendString:[constraint createTableDdl]];
+        }
+        
+        [str appendString:@"\n);\n"];
+        [str appendFormat:@"alter table %@ owner to %@;\n", [self schemaQualifiedName], self.ownerName];
+    }
     
     return [[NSString alloc] initWithString:str];
 }

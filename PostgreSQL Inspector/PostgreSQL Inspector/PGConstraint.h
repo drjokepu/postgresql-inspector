@@ -35,7 +35,8 @@
 
 -(NSString*) constraintTypeDescription;
 -(NSString*) referencedTableDescription;
-+(NSString*) describeContraintType:(PGConstraintType)constraintType;
-+(NSString*)constraintUIDefinition:(PGConstraint *)constraint inColumns:(NSArray*)columns;
+-(NSString*) createTableDdl;
++(NSString*) describeConstraintType:(PGConstraintType)constraintType;
++(NSString*) constraintUIDefinition:(PGConstraint *)constraint inColumns:(NSArray*)columns;
 
 @end

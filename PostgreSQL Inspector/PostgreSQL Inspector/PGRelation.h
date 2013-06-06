@@ -15,6 +15,7 @@
 @property (nonatomic, assign) NSInteger namespace;
 @property (nonatomic, assign) NSInteger tablespace;
 @property (nonatomic, assign) NSInteger owner;
+@property (nonatomic, strong) NSString *ownerName;
 @property (nonatomic, assign) NSUInteger tuples;
 @property (nonatomic, assign) char kind;
 @property (nonatomic, strong) NSString *schemaName;
@@ -24,5 +25,6 @@
 
 -(void)loadRelationFromCatalog:(PGConnection*)connection asyncCallback:(void(^)(void))asyncCallback;
 -(NSString*)schemaQualifiedName;
++(NSString*)schemaQualifiedNameWithSchemaName:(NSString*)schemaName relationName:(NSString*)name;
 
 @end

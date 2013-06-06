@@ -8,13 +8,15 @@
 
 #import "PGConstraint.h"
 #import "PGConstraintColumn.h"
+#import "PGRelation.h"
 #import "PGRelationColumn.h"
+#import "PGSchemaObject.h"
 
 @implementation PGConstraint
 
 -(NSString *)constraintTypeDescription
 {
-    return [PGConstraint describeContraintType:self.type];
+    return [PGConstraint describeConstraintType:self.type];
 }
 
 -(NSString *)referencedTableDescription
@@ -33,7 +35,7 @@
     return YES;
 }
 
-+(NSString *)describeContraintType:(PGConstraintType)constraintType
++(NSString *)describeConstraintType:(PGConstraintType)constraintType
 {
     switch (constraintType)
     {
@@ -104,6 +106,114 @@
         }
     }
     return [columnNames componentsJoinedByString:@", "];
+}
+
+-(NSString *)createTableDdl
+{
+    NSMutableString *str = [[NSMutableString alloc] init];
+    @autoreleasepool
+    {
+        if ([self.name length] > 0)
+        {
+            [str appendFormat:@"constraint %@ ", [PGSchemaObject escapeIdentifier:self.name]];
+        }
+        [self createTableDdlConstraintTypeSpecificPart:str];
+    }
+    return str;
+}
+
+-(void)createTableDdlConstraintTypeSpecificPart:(NSMutableString *)str
+{
+    switch (self.type)
+    {
+        case PGConstraintTypePrimaryKey:
+            [self createTableDdlPrimaryKeySpecificPart:str];
+            break;
+        case PGConstraintTypeUniqueKey:
+            [self createTableDdlUniqueKeySpecificPart:str];
+            break;
+        case PGConstraintTypeForeignKey:
+            [self createTableDdlForeignKeySpecificPart:str];
+            break;
+        default:
+            break;
+    }
+}
+
+-(void)createTableDdlPrimaryKeySpecificPart:(NSMutableString *)str
+{
+    [str appendString:@"primary key ("];
+    [self ddlColumnList:str];
+    [str appendString:@")"];
+}
+
+-(void)createTableDdlUniqueKeySpecificPart:(NSMutableString *)str
+{
+    [str appendString:@"unique key ("];
+    [self ddlColumnList:str];
+    [str appendString:@")"];
+}
+
+-(void)createTableDdlForeignKeySpecificPart:(NSMutableString *)str
+{
+    [str appendString:@"foreign key ("];
+    [self ddlColumnList:str];
+    [str appendFormat:@")\n        references %@ (", [PGRelation schemaQualifiedNameWithSchemaName:self.relationNamespaceName
+                                                                                      relationName:self.relationName]];
+    [self ddlReferencedColumnList:str];
+    [str appendFormat:@")\n        on update %@ on delete %@", [PGConstraint foreignKeyActionDdl:self.foreignKeyUpdateAction], [PGConstraint foreignKeyActionDdl:self.foreignKeyDeleteAction]];
+}
+
+-(void)ddlColumnList:(NSMutableString*)str
+{
+    BOOL first = YES;
+    for (PGConstraintColumn *constraintColumn in self.columns)
+    {
+        if (first)
+        {
+            first = NO;
+        }
+        else
+        {
+            [str appendString:@", "];
+        }
+        [str appendString:[PGSchemaObject escapeIdentifier:constraintColumn.columnName]];
+    }
+}
+
+-(void)ddlReferencedColumnList:(NSMutableString*)str
+{
+    BOOL first = YES;
+    for (PGConstraintColumn *constraintColumn in self.columns)
+    {
+        if (first)
+        {
+            first = NO;
+        }
+        else
+        {
+            [str appendString:@", "];
+        }
+        [str appendString:[PGSchemaObject escapeIdentifier:constraintColumn.foreignKeyReferencedColumnName]];
+    }
+}
+
++(NSString*)foreignKeyActionDdl:(PGForeignKeyAction)action
+{
+    switch (action)
+    {
+        case PGForeignKeyActionCascade:
+            return @"cascade";
+        case PGForeignKeyActionRestrict:
+            return @"restrict";
+        case PGForeignKeyActionSetNull:
+            return @"set null";
+        case PGForeignKeyActionSetDefault:
+            return @"set default";
+        case PGForeignKeyActionNone:
+        default:
+            return @"no action";
+    }
 }
 
 @end

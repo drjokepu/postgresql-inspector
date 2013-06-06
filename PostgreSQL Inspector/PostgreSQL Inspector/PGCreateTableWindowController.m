@@ -641,13 +641,16 @@
 
 -(void)viewSql
 {
-    PGQueryWindowController *queryWindowController = [[PGQueryWindowController alloc] init];
-    
-    queryWindowController.initialQueryString = [[self getTable] ddl];
-    queryWindowController.autoExecuteQuery = NO;
-    
-    [queryWindowController useConnection:[self.connection copy]];
-    [[queryWindowController window] makeKeyAndOrderFront:self];
+    @autoreleasepool
+    {
+        PGQueryWindowController *queryWindowController = [[PGQueryWindowController alloc] init];
+        
+        queryWindowController.initialQueryString = [[self getTable] ddl];
+        queryWindowController.autoExecuteQuery = NO;
+        
+        [queryWindowController useConnection:[self.connection copy]];
+        [[queryWindowController window] makeKeyAndOrderFront:self];
+    }
 }
 
 -(PGTable*)getTable
@@ -655,6 +658,9 @@
     PGTable *table = [[PGTable alloc] init];
     table.schemaName = [[self.schemaPopUpButton selectedItem] title];
     table.name = [self.tableNameTextField stringValue];
+    table.ownerName = @"postgres";
+    table.columns = [[NSMutableArray alloc] initWithArray:self.tableColumns];
+    table.constraints = [[NSMutableArray alloc] initWithArray:self.tableConstraints];
     
     return table;
 }

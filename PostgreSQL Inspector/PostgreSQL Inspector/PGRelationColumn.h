@@ -24,5 +24,6 @@
 @property (nonatomic, strong) id defaultValue;
 
 -(NSString*)fullType;
+-(NSString*)createTableDdl;
 
 @end
