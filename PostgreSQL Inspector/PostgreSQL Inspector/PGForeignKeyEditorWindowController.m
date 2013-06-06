@@ -156,6 +156,7 @@ static NSInteger matrixIndexForAction(const PGForeignKeyAction action) __attribu
     NSMutableArray *mutableTableNameList = [[NSMutableArray alloc] init];
     
     // and now we can populate the NSPopUpButton
+    NSInteger selectedTableIndex = -1;
     for (NSInteger i = 0; i < [sortedSchemaNames count]; i++)
     {
         PGSchemaIdentifier *schemaName = sortedSchemaNames[i];
@@ -163,13 +164,27 @@ static NSInteger matrixIndexForAction(const PGForeignKeyAction action) __attribu
         for (PGTableIdentifier *table in [database.schemaNameLookup[schemaName.name] tableNames])
         {
             [mutableTableList addObject:table];
+            const NSUInteger tableNameIndex = [mutableTableNameList count];
             [mutableTableNameList addObject:[table shortName]];
+            if (selectedTableIndex < 0 &&
+                initialConstraint != nil &&
+                [initialConstraint.relationNamespaceName isEqualToString:table.schemaName] &&
+                [initialConstraint.relationName isEqualToString:table.name])
+            {
+                selectedTableIndex = (NSInteger)tableNameIndex;
+            }
         }
     }
     
     [targetTableListPopUpButton removeAllItems];
     [targetTableListPopUpButton addItemsWithTitles:mutableTableNameList];
     self.tableList = mutableTableList;
+    
+    if (selectedTableIndex >= 0)
+    {
+        [targetTableListPopUpButton selectItemAtIndex:selectedTableIndex];
+    }
+    
     [self populateTargetTableColumnList];
 }
 
