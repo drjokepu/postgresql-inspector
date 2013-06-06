@@ -16,6 +16,7 @@
 #import "PGDatabaseManager.h"
 #import "PGQueryWindowController.h"
 #import "PGRelationColumn.h"
+#import "PGRole.h"
 #import "PGSchemaObjectIdentifier.h"
 #import "PGSchemaObjectGroup.h"
 #import "PGSchemaIdentifier.h"
@@ -156,6 +157,8 @@
                 return [[self selectedSchema].tableNames count];
             case PGSchemaObjectGroupTypeViews:
                 return [[self selectedSchema].viewNames count];
+            case PGSchemaObjectGroupTypeRoles:
+                return [self.database.roles count];
             default:
                 return 0;
         }
@@ -183,9 +186,11 @@
         switch ([item groupType])
         {
             case PGSchemaObjectGroupTypeTables:
-                return [[self selectedSchema].tableNames objectAtIndex:index];
+                return [self selectedSchema].tableNames[index];
             case PGSchemaObjectGroupTypeViews:
-                return [[self selectedSchema].viewNames objectAtIndex:index];
+                return [self selectedSchema].viewNames[index];
+            case PGSchemaObjectGroupTypeRoles:
+                return self.database.roles[index];
             default:
                 return nil;
         }

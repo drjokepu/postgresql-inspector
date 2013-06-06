@@ -90,6 +90,7 @@
 		02CB6E19154EB9DF0086DA2C /* PGDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 02CB6E18154EB9DF0086DA2C /* PGDatabase.m */; };
 		02CB6E1C154EBA960086DA2C /* PGDatabaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 02CB6E1B154EBA950086DA2C /* PGDatabaseManager.m */; };
 		02CD310716D1A75F006638DF /* Utils.c in Sources */ = {isa = PBXBuildFile; fileRef = 02CD310616D1A75F006638DF /* Utils.c */; };
+		02D28CC01760D67A00FB9696 /* PGRole.m in Sources */ = {isa = PBXBuildFile; fileRef = 02D28CBF1760D67A00FB9696 /* PGRole.m */; };
 		02D4715316C1205D00DD8715 /* PGColumnEditorWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02D4715116C1205D00DD8715 /* PGColumnEditorWindowController.m */; };
 		02D4715416C1205D00DD8715 /* PGColumnEditorWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02D4715216C1205D00DD8715 /* PGColumnEditorWindowController.xib */; };
 		02E5B4FD167A43D5008471B4 /* PGCommandExecutor.m in Sources */ = {isa = PBXBuildFile; fileRef = 02E5B4FC167A43D5008471B4 /* PGCommandExecutor.m */; };
@@ -260,6 +261,8 @@
 		02CC58F515502EEA00496966 /* icons.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = icons.icns; sourceTree = "<group>"; };
 		02CD310616D1A75F006638DF /* Utils.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Utils.c; sourceTree = "<group>"; };
 		02CD310816D1A76D006638DF /* Utils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
+		02D28CBE1760D67A00FB9696 /* PGRole.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGRole.h; sourceTree = "<group>"; };
+		02D28CBF1760D67A00FB9696 /* PGRole.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGRole.m; sourceTree = "<group>"; };
 		02D4715016C1205D00DD8715 /* PGColumnEditorWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGColumnEditorWindowController.h; sourceTree = "<group>"; };
 		02D4715116C1205D00DD8715 /* PGColumnEditorWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGColumnEditorWindowController.m; sourceTree = "<group>"; };
 		02D4715216C1205D00DD8715 /* PGColumnEditorWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PGColumnEditorWindowController.xib; sourceTree = "<group>"; };
@@ -402,16 +405,18 @@
 				027641C01588CD8B003EEDDE /* PGConstraintType.h */,
 				027641C11588CF56003EEDDE /* PGForeignKeyAction.h */,
 				027641C21588D00F003EEDDE /* PGForeignKeyMatchType.h */,
-				025F619E1551BCF7006B4D23 /* PGSchemaObject.h */,
-				025F619F1551BCF7006B4D23 /* PGSchemaObject.m */,
-				02B172E8156E76F1002C2AA9 /* PGRelation.h */,
-				02B172E9156E76F1002C2AA9 /* PGRelation.m */,
-				025F61A11551BE09006B4D23 /* PGTable.h */,
-				025F61A21551BE09006B4D23 /* PGTable.m */,
-				02B8863E15862D4000855F79 /* PGRelationColumn.h */,
-				02B8863F15862D4000855F79 /* PGRelationColumn.m */,
 				0279A7E41681DDFB005AEE91 /* PGIndex.h */,
 				0279A7E51681DDFB005AEE91 /* PGIndex.m */,
+				02B172E8156E76F1002C2AA9 /* PGRelation.h */,
+				02B172E9156E76F1002C2AA9 /* PGRelation.m */,
+				02B8863E15862D4000855F79 /* PGRelationColumn.h */,
+				02B8863F15862D4000855F79 /* PGRelationColumn.m */,
+				02D28CBE1760D67A00FB9696 /* PGRole.h */,
+				02D28CBF1760D67A00FB9696 /* PGRole.m */,
+				025F619E1551BCF7006B4D23 /* PGSchemaObject.h */,
+				025F619F1551BCF7006B4D23 /* PGSchemaObject.m */,
+				025F61A11551BE09006B4D23 /* PGTable.h */,
+				025F61A21551BE09006B4D23 /* PGTable.m */,
 			);
 			name = "Schema Objects";
 			sourceTree = "<group>";
@@ -830,6 +835,7 @@
 				02EF237B16D3DCD8003A8D52 /* PGSpaceButton.m in Sources */,
 				02A12D1717049232003E93A9 /* PGForeignKeyEditorWindowController.m in Sources */,
 				0248ECEE175F782400BAE112 /* PGActionBlockWrapper.m in Sources */,
+				02D28CC01760D67A00FB9696 /* PGRole.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

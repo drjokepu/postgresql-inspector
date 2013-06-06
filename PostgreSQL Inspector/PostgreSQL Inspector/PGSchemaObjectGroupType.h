@@ -12,7 +12,8 @@
 typedef enum
 {
     PGSchemaObjectGroupTypeTables,
-    PGSchemaObjectGroupTypeViews
+    PGSchemaObjectGroupTypeViews,
+    PGSchemaObjectGroupTypeRoles
 } PGSchemaObjectGroupType;
 
 #endif

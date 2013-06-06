@@ -18,6 +18,7 @@
 @property (nonatomic, strong) NSArray *schemaNames;
 @property (nonatomic, strong) NSDictionary *schemaNameLookup;
 @property (nonatomic, strong) NSArray *schemaObjectGroups;
+@property (nonatomic, strong) NSArray *roles;
 @property (nonatomic, assign) NSInteger publicSchemaIndex;
 @property (nonatomic, weak) id<PGDatabaseDelegate> delegate;
 
