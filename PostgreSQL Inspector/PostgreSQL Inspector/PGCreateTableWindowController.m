@@ -18,6 +18,8 @@
 #import "PGForeignKeyEditorWindowController.h"
 #import "PGQueryWindowController.h"
 #import "PGRelationColumn.h"
+#import "PGSchemaIdentifier.h"
+#import "PGTable.h"
 #import "PGUniqueKeyEditorWindowController.h"
 #import "Utils.h"
 
@@ -32,7 +34,7 @@
 @property (nonatomic, strong) PGForeignKeyEditorWindowController *foreignKeyEditorSheet;
 
 @property (strong) IBOutlet NSTextField *tableNameTextField;
-@property (strong) IBOutlet NSComboBox *schemaComboBox;
+@property (strong) IBOutlet NSPopUpButton *schemaPopUpButton;
 @property (strong) IBOutlet NSView *columnsView;
 @property (strong) IBOutlet NSTableView *columnsTableView;
 @property (strong) IBOutlet NSView *constraintsView;
@@ -94,15 +96,7 @@
     [super windowDidLoad];
     self.tableColumns = [[NSMutableArray alloc] init];
     self.tableConstraints = [[NSMutableArray alloc] init];
-    
-    if (self.initialSchemaName != nil)
-    {
-        if (self.initialSchemaNameList != nil)
-            [self.schemaComboBox addItemsWithObjectValues:self.initialSchemaNameList];
-        
-        if (self.initialSchemaName != nil)
-            [self.schemaComboBox setStringValue:self.initialSchemaName];
-    }
+    [self populateSchemaList];
     
     [self configurePullDownMenus];
     //[self createButtons];
@@ -110,6 +104,29 @@
     [self validateColumnActions];
     [self validateConstraintActions];
     [self validateActionButtons];
+}
+
+
+-(void)populateSchemaList
+{
+    if (self.initialSchemaNameList != nil)
+    {
+        NSMutableArray *filteredSchemaNameList = [[NSMutableArray alloc] init];
+        for (NSString *schemaName in self.initialSchemaNameList)
+        {
+            if (![PGSchemaIdentifier systemSchema:schemaName])
+            {
+                [filteredSchemaNameList addObject:schemaName];
+            }
+        }
+        
+        [self.schemaPopUpButton addItemsWithTitles:filteredSchemaNameList];
+    }
+    
+    if (self.initialSchemaName != nil)
+    {
+        [self.schemaPopUpButton selectItemWithTitle:self.initialSchemaName];
+    }
 }
 
 -(void)configurePullDownMenus

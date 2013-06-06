@@ -16,5 +16,6 @@
 -(BOOL)publicSchema;
 +(BOOL)publicSchema:(NSString*)schemaName;
 -(BOOL)systemSchema;
++(BOOL)systemSchema:(NSString*)schemaName;
 
 @end

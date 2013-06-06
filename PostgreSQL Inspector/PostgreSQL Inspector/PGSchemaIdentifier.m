@@ -53,7 +53,12 @@
 
 -(BOOL)systemSchema
 {
-    return [self.name hasPrefix:@"pg_"] || [self.name isEqualToString:@"information_schema"];
+    return [PGSchemaIdentifier systemSchema:self.name];
+}
+
++(BOOL)systemSchema:(NSString *)schemaName
+{
+    return [schemaName hasPrefix:@"pg_"] || [schemaName isEqualToString:@"information_schema"];
 }
 
 @end
