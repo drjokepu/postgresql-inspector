@@ -12,7 +12,7 @@
 @class PGConnection, PGConstraint, PGDatabase;
 @interface PGForeignKeyEditorWindowController : NSWindowController <NSTableViewDelegate, NSTableViewDataSource>
 
-@property (nonatomic, assign) PGEditorAction columnEditorAction;
+@property (nonatomic, assign) PGEditorAction constraintEditorAction;
 @property (nonatomic, strong) NSArray *availableColumns;
 
 -(IBAction)didClickCancel:(id)sender;
@@ -20,6 +20,7 @@
 -(IBAction)didSelectTargetTable:(id)sender;
 
 -(PGConstraint*)getConstraint;
+-(void)updateConstraint;
 -(void)useConstraint:(PGConstraint*)constraint database:(PGDatabase*)theDatabase connection:(PGConnection *)theConnection tableColumns:(NSArray*)theTableColumns;
 
 @end

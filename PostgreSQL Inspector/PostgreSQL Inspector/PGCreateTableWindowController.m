@@ -495,6 +495,15 @@
     foreignKeyEditorSheet.availableColumns = self.tableColumns;
     [foreignKeyEditorSheet useConstraint:constraint database:self.database connection:self.connection tableColumns:self.tableColumns];
     
+    if (constraint == nil)
+    {
+        foreignKeyEditorSheet.constraintEditorAction = PGEditorAdd;
+    }
+    else
+    {
+        foreignKeyEditorSheet.constraintEditorAction = PGEditorUpdate;
+    }
+    
     [[NSApplication sharedApplication] beginSheet:[foreignKeyEditorSheet window]
                                    modalForWindow:[self window]
                                     modalDelegate:self
@@ -508,7 +517,15 @@
 {
     if (returnCode == 1)
     {
-        [self.tableConstraints addObject:[self.foreignKeyEditorSheet getConstraint]];
+        if (self.foreignKeyEditorSheet.constraintEditorAction == PGEditorAdd)
+        {
+            [self.tableConstraints addObject:[self.foreignKeyEditorSheet getConstraint]];
+        }
+        else
+        {
+            [self.foreignKeyEditorSheet updateConstraint];
+        }
+        
         [self.constraintsTableView reloadData];
     }
     

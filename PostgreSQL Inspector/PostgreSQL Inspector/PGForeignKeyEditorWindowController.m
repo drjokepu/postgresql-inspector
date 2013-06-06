@@ -16,11 +16,15 @@
 #import "PGTable.h"
 #import "PGTableIdentifier.h"
 
+static PGForeignKeyAction actionForMatrixIndex(const NSInteger index) __attribute__ ((pure));
+static NSInteger matrixIndexForAction(const PGForeignKeyAction action) __attribute__ ((pure));
+
 @interface PGForeignKeyEditorWindowController ()
 {
     NSMutableArray *actionBlockWrappers;
 }
 
+@property (nonatomic, strong) PGConstraint *initialConstraint;
 @property (nonatomic, strong) PGConnection *connection;
 @property (nonatomic, strong) PGDatabase *database;
 @property (nonatomic, strong) NSArray *tableColumns;
@@ -41,7 +45,7 @@
 @end
 
 @implementation PGForeignKeyEditorWindowController
-@synthesize columnEditorAction, connection, database, keyColumns, tableCache, tableColumns, tableColumnsTableView, tableList, targetTable, targetTableListPopUpButton;
+@synthesize constraintEditorAction, connection, database, initialConstraint, keyColumns, tableCache, tableColumns, tableColumnsTableView, tableList, targetTable, targetTableListPopUpButton;
 
 -(NSString *)windowNibName
 {
@@ -51,7 +55,7 @@
 -(void)windowDidLoad
 {
     [super windowDidLoad];
-    switch (columnEditorAction)
+    switch (constraintEditorAction)
     {
         case PGEditorAdd:
             [self.actionButton setTitle:@"Add"];
@@ -64,6 +68,17 @@
     self.keyColumns = [[NSArray alloc] init];
     self->actionBlockWrappers = [[NSMutableArray alloc] init];
     [self populateTableList];
+    [self loadInitialConstraintData];
+}
+
+-(void)loadInitialConstraintData
+{
+    if (initialConstraint != nil)
+    {
+        [self.constraintNameTextField setStringValue:initialConstraint.name];
+        [self setOnUpdateAction:initialConstraint.foreignKeyUpdateAction];
+        [self setOnDeleteAction:initialConstraint.foreignKeyDeleteAction];
+    }
 }
 
 -(void)didSelectTargetTable:(id)sender
@@ -84,6 +99,17 @@
 -(PGConstraint *)getConstraint
 {
     PGConstraint *constraint = [[PGConstraint alloc] init];
+    [self populateConstraintWithData:constraint];
+    return constraint;
+}
+
+-(void)updateConstraint
+{
+    [self populateConstraintWithData:initialConstraint];
+}
+
+-(void)populateConstraintWithData:(PGConstraint*)constraint
+{
     constraint.type = PGConstraintTypeForeignKey;
     constraint.name = [[NSString alloc] initWithString:[self.constraintNameTextField stringValue]];
     constraint.columns = [[NSMutableArray alloc] initWithArray:keyColumns];
@@ -91,8 +117,6 @@
     constraint.relationName = targetTable.name;
     constraint.foreignKeyUpdateAction = [self onUpdateAction];
     constraint.foreignKeyDeleteAction = [self onDeleteAction];
-    
-    return constraint;
 }
 
 -(void)useConstraint:(PGConstraint *)constraint database:(PGDatabase *)theDatabase connection:(PGConnection *)theConnection tableColumns:(NSArray *)theTableColumns
@@ -100,6 +124,7 @@
     self.connection = theConnection;
     self.database = theDatabase;
     self.tableColumns = theTableColumns;
+    self.initialConstraint = constraint;
 }
 
 -(void)populateTableList
@@ -165,7 +190,23 @@
 -(void)populateTargetTableColumnListWithTable:(PGTable*)table
 {
     self.targetTable = table;
+    [self populateKeyColumns];
     [tableColumnsTableView reloadData];
+}
+
+-(void)populateKeyColumns
+{
+    if (constraintEditorAction == PGEditorAdd ||
+        ![initialConstraint.relationNamespaceName isEqualToString:targetTable.schemaName] ||
+        ![initialConstraint.relationName isEqualToString:targetTable.name] ||
+        initialConstraint.columns == nil)
+    {
+        self.keyColumns = [[NSArray alloc] init];
+    }
+    else
+    {
+        self.keyColumns = initialConstraint.columns;
+    }
 }
 
 -(NSInteger)numberOfRowsInTableView:(NSTableView *)tableView
@@ -222,7 +263,20 @@
             }
         }
         
-        [popUpButton selectItem:blankMenuItem];
+        if ([keyColumns count] == 0)
+        {
+            [popUpButton selectItem:blankMenuItem];
+        }
+        else
+        {
+            for (PGConstraintColumn *constraintColumn in keyColumns)
+            {
+                if ([constraintColumn.columnName isEqualToString:column.name])
+                {
+                    [popUpButton selectItemWithTitle:constraintColumn.foreignKeyReferencedColumnName];
+                }
+            }
+        }
         [popUpButton setAction:@selector(action)];
         
         __weak PGForeignKeyEditorWindowController *weakSelf = self;
@@ -283,9 +337,29 @@
     return [PGForeignKeyEditorWindowController getActionFromMatrix:self.onDeleteMatrix];
 }
 
+-(void)setOnUpdateAction:(PGForeignKeyAction)action
+{
+    [PGForeignKeyEditorWindowController setAction:action inMatrix:self.onUpdateMatrix];
+}
+
+-(void)setOnDeleteAction:(PGForeignKeyAction)action
+{
+    [PGForeignKeyEditorWindowController setAction:action inMatrix:self.onDeleteMatrix];
+}
+
 +(PGForeignKeyAction)getActionFromMatrix:(NSMatrix *)matrix
 {
-    switch ([matrix selectedRow])
+    return actionForMatrixIndex([matrix selectedRow]);
+}
+
++(void)setAction:(PGForeignKeyAction)action inMatrix:(NSMatrix*)matrix
+{
+    [matrix selectCellAtRow:matrixIndexForAction(action) column:0];
+}
+
+static PGForeignKeyAction actionForMatrixIndex(const NSInteger index)
+{
+    switch (index)
     {
         case 1:
             return PGForeignKeyActionRestrict;
@@ -298,6 +372,24 @@
         case 0:
         default:
             return PGForeignKeyActionNone;
+    }
+}
+
+static NSInteger matrixIndexForAction(const PGForeignKeyAction action)
+{
+    switch (action)
+    {
+        case PGForeignKeyActionRestrict:
+            return 1;
+        case PGForeignKeyActionCascade:
+            return 2;
+        case PGForeignKeyActionSetNull:
+            return 3;
+        case PGForeignKeyActionSetDefault:
+            return 4;
+        case PGForeignKeyActionNone:
+        default:
+            return 0;
     }
 }
 
