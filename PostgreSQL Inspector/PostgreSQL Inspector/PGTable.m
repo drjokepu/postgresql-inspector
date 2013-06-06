@@ -89,7 +89,7 @@
         }
         
         [str appendString:@"\n);\n"];
-        [str appendFormat:@"alter table %@ owner to %@;\n", [self schemaQualifiedName], self.ownerName];
+        [str appendFormat:@"alter table %@ owner to %@;", [self schemaQualifiedName], [PGSchemaObject escapeIdentifier:self.ownerName]];
     }
     
     return [[NSString alloc] initWithString:str];

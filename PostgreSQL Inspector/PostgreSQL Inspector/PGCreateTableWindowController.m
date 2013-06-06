@@ -11,6 +11,7 @@
 #import "NSMutableArray+PGMutableArray.h"
 #import "PGColumnEditorWindowController.h"
 #import "PGConnection.h"
+#import "PGConnectionEntry.h"
 #import "PGConstraint.h"
 #import "PGConstraintColumn.h"
 #import "PGDatabase.h"
@@ -18,6 +19,7 @@
 #import "PGForeignKeyEditorWindowController.h"
 #import "PGQueryWindowController.h"
 #import "PGRelationColumn.h"
+#import "PGRole.h"
 #import "PGSchemaIdentifier.h"
 #import "PGTable.h"
 #import "PGUniqueKeyEditorWindowController.h"
@@ -35,6 +37,7 @@
 
 @property (strong) IBOutlet NSTextField *tableNameTextField;
 @property (strong) IBOutlet NSPopUpButton *schemaPopUpButton;
+@property (strong) IBOutlet NSPopUpButton *ownerPopUpButton;
 @property (strong) IBOutlet NSView *columnsView;
 @property (strong) IBOutlet NSTableView *columnsTableView;
 @property (strong) IBOutlet NSView *constraintsView;
@@ -97,10 +100,8 @@
     self.tableColumns = [[NSMutableArray alloc] init];
     self.tableConstraints = [[NSMutableArray alloc] init];
     [self populateSchemaList];
-    
+    [self populateOwnerList];
     [self configurePullDownMenus];
-    //[self createButtons];
-
     [self validateColumnActions];
     [self validateConstraintActions];
     [self validateActionButtons];
@@ -126,6 +127,25 @@
     if (self.initialSchemaName != nil)
     {
         [self.schemaPopUpButton selectItemWithTitle:self.initialSchemaName];
+    }
+}
+
+-(void)populateOwnerList
+{
+    NSInteger selectedRoleIndex = -1;
+    NSMutableArray *ownerList = [[NSMutableArray alloc] initWithCapacity:[self.database.roles count]];
+    for (PGRole *role in self.database.roles)
+    {
+        if ([role.name isEqualToString:self.database.connectionEntry.username])
+        {
+            selectedRoleIndex = (NSInteger)[ownerList count];
+        }
+        [ownerList addObject:role.name];
+    }
+    [self.ownerPopUpButton addItemsWithTitles:ownerList];
+    if (selectedRoleIndex >= 0)
+    {
+        [self.ownerPopUpButton selectItemAtIndex:selectedRoleIndex];
     }
 }
 
@@ -658,7 +678,7 @@
     PGTable *table = [[PGTable alloc] init];
     table.schemaName = [[self.schemaPopUpButton selectedItem] title];
     table.name = [self.tableNameTextField stringValue];
-    table.ownerName = @"postgres";
+    table.ownerName = [[self.ownerPopUpButton selectedItem] title];
     table.columns = [[NSMutableArray alloc] initWithArray:self.tableColumns];
     table.constraints = [[NSMutableArray alloc] initWithArray:self.tableConstraints];
     
