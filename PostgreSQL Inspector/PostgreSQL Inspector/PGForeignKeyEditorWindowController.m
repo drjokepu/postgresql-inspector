@@ -69,6 +69,7 @@ static NSInteger matrixIndexForAction(const PGForeignKeyAction action) __attribu
     self->actionBlockWrappers = [[NSMutableArray alloc] init];
     [self populateTableList];
     [self loadInitialConstraintData];
+    [self validateActionButton];
 }
 
 -(void)loadInitialConstraintData
@@ -79,6 +80,11 @@ static NSInteger matrixIndexForAction(const PGForeignKeyAction action) __attribu
         [self setOnUpdateAction:initialConstraint.foreignKeyUpdateAction];
         [self setOnDeleteAction:initialConstraint.foreignKeyDeleteAction];
     }
+}
+
+-(void)validateActionButton
+{
+    [self.actionButton setEnabled:[keyColumns count] > 0];
 }
 
 -(void)didSelectTargetTable:(id)sender
@@ -191,6 +197,7 @@ static NSInteger matrixIndexForAction(const PGForeignKeyAction action) __attribu
 {
     self.targetTable = table;
     [self populateKeyColumns];
+    [self validateActionButton];
     [tableColumnsTableView reloadData];
 }
 
@@ -325,6 +332,7 @@ static NSInteger matrixIndexForAction(const PGForeignKeyAction action) __attribu
     }
     
     self.keyColumns = constraintColumns;
+    [self validateActionButton];
 }
 
 -(PGForeignKeyAction)onUpdateAction
