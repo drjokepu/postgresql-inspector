@@ -73,7 +73,7 @@
                         [self emptyQuery];
                         break;
                     case PGRES_COMMAND_OK:
-                        [self commandOk];
+                        [self commandOk:result index:resultIndex++];
                         break;
                     case PGRES_TUPLES_OK:
                         [self tuplesOk:result index:resultIndex++];
@@ -100,8 +100,20 @@
 {
 }
 
--(void)commandOk
+-(void)commandOk:(PGresult*)pgResult index:(NSUInteger)index
 {
+    @autoreleasepool
+    {
+        if (self.onTuplesOk != nil)
+        {
+            __block void (^onTuplesOk)(PGResult *result) = self.onTuplesOk;
+            __block PGResult *result = [PGCommandExecutor getResult:pgResult withIndex:index];
+            
+            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                onTuplesOk(result);
+            }];
+        }
+    }
 }
 
 -(void)noMoreResults
@@ -189,7 +201,7 @@
             }
         }
         result.rows = rows;
-        
+        result.commandStatus = [[NSString alloc] initWithUTF8String:PQcmdStatus(pgResult)];
         return result;
     }
 }

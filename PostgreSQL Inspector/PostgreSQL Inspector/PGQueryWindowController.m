@@ -30,6 +30,7 @@ static const NSInteger executeQueryTag = 4001;
 @property (nonatomic, assign) NSUInteger previousTextLength;
 @property (nonatomic, strong) NSFont *textEditorFont;
 @property (nonatomic, strong) NSFont *cellFont;
+@property (strong) IBOutlet NSTextField *commandStatusLabel;
 
 @end
 
@@ -222,6 +223,7 @@ static const NSInteger executeQueryTag = 4001;
         [self.resultsTableView addTableColumn:column];
     }
     
+    [self.commandStatusLabel setStringValue:result.commandStatus];
     [self.resultsTableView reloadData];
     [self resizeColumns];
 }

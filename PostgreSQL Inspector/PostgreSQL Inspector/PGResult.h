@@ -15,5 +15,6 @@
 @property (nonatomic, strong) NSArray *columnNames;
 @property (nonatomic, strong) NSArray *columnTypes;
 @property (nonatomic, strong) NSArray *rows;
+@property (nonatomic, strong) NSString *commandStatus;
 
 @end
