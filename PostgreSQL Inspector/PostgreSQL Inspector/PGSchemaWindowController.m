@@ -12,6 +12,7 @@
 #import "PGConnection.h"
 #import "PGConnectionEntry.h"
 #import "PGDatabase.h"
+#import "PGError.h"
 #import "PGQueryWindowController.h"
 #import "PGProgressSheet.h"
 #import "PGResult.h"
@@ -23,7 +24,6 @@
 @property (nonatomic, strong) PGConnection *connection;
 @property (nonatomic, strong) PGDatabase *database;
 @property (nonatomic, assign) BOOL connectionIsOpen;
-@property (nonatomic, strong) PGProgressSheet *progressSheet;
 
 @property (strong) IBOutlet NSButton *actionButton;
 @property (strong) IBOutlet NSButton *viewSqlButton;
@@ -38,7 +38,7 @@
 @end
 
 @implementation PGSchemaWindowController
-@synthesize actionButton, connection, connectionIsOpen, database, editorAction, progressSheet, viewSqlButton;
+@synthesize actionButton, connection, connectionIsOpen, database, editorAction, viewSqlButton;
 
 -(NSString *)windowNibName
 {
@@ -59,8 +59,8 @@
         [actionButton setTitle:@"Alter"];
         [self.window setTitle:@"Alter Schema"];
     }
+        
     [self populateOwnerList];
-    [self validateActionButtons];
 }
 
 -(void)populateOwnerList
@@ -101,14 +101,6 @@
 
 -(void)didChangeName:(id)sender
 {
-    [self validateActionButtons];
-}
-
--(void)validateActionButtons
-{
-    const BOOL isValid = [self isSchemaValid];
-    [actionButton setEnabled:isValid];
-    [viewSqlButton setEnabled:isValid];
 }
 
 -(BOOL)isSchemaValid
@@ -135,36 +127,6 @@
     [[self window] update];
 }
 
-/*
- 
- -(void)openAddColumnSheet
- {
- PGColumnEditorWindowController *columnEditorSheet = [[PGColumnEditorWindowController alloc] init];
- columnEditorSheet.columnEditorAction = PGEditorAdd;
- [[NSApplication sharedApplication] beginSheet:[columnEditorSheet window]
- modalForWindow:[self window]
- modalDelegate:self
- didEndSelector:@selector(didEndAddColumnSheet:returnCode:contextInfo:)
- contextInfo:NULL];
- 
- self.columnEditorSheet = columnEditorSheet;
- }
- 
- -(void)didEndAddColumnSheet:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo
- {
- if (returnCode == 1)
- {
- [self.tableColumns addObject:[self.columnEditorSheet getColumn]];
- [self.columnsTableView reloadData];
- [self validateActionButtons];
- }
- 
- [sheet orderOut:self];
- self.columnEditorSheet = nil;
- }
- 
- */
-
 -(void)openProgressSheet
 {
     PGProgressSheet *newProgressSheet = [[PGProgressSheet alloc] init];
@@ -181,9 +143,9 @@
 
 -(void)closeProgressSheet
 {
-    if (progressSheet != nil)
+    if (self.progressSheet != nil)
     {
-        [[NSApplication sharedApplication] endSheet:[progressSheet window]];
+        [[NSApplication sharedApplication] endSheet:[self.progressSheet window]];
     }
 }
 
@@ -192,10 +154,21 @@
     [self viewSql];
 }
 
+-(void)showMissingNameErrorMessage
+{
+    [self showError:@"Schema name is required." informativeText:@"provide a schema name" callback:nil];
+}
+
 -(void)viewSql
 {
     @autoreleasepool
     {
+        if (![self isSchemaValid])
+        {
+            [self showMissingNameErrorMessage];
+            return;
+        }
+        
         PGSchema *schema = [self getSchema];
         NSString *ddl = nil;
         
@@ -218,7 +191,13 @@
 }
 
 -(void)createSchema
-{    
+{
+    if (![self isSchemaValid])
+    {
+        [self showMissingNameErrorMessage];
+        return;
+    }
+    
     [self openProgressSheet];
     [[PGAppDelegate sharedBackgroundQueue] addOperationWithBlock:^{
         PGCommand *command = [[PGCommand alloc] init];
@@ -230,7 +209,8 @@
                 [self close];
             }];
         } errorCallback:^(PGError *error) {
-            
+            [self closeProgressSheet];
+            [self showError:@"Cannot create schema." informativeText:error.sqlErrorMessage callback:nil];
         }];
 
     }];

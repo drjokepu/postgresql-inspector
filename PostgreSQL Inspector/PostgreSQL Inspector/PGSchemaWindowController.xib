@@ -59,6 +59,7 @@
 							<string key="NSFrame">{{377, 13}, {81, 32}}</string>
 							<reference key="NSSuperview" ref="1006"/>
 							<reference key="NSWindow"/>
+							<reference key="NSNextKeyView"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="102610117">
@@ -896,6 +897,7 @@
 				<string key="11.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="12.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="13.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<dictionary class="NSMutableDictionary" key="14.IBAttributePlaceholdersKey"/>
 				<boolean value="NO" key="14.IBNSViewMetadataTranslatesAutoresizingMaskIntoConstraints"/>
 				<string key="14.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="15.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -1000,7 +1002,7 @@
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="actionButton">NSButton</string>
-						<string key="nameTextField">NSTextField</string>
+						<string key="nameTextField">NSextField</string>
 						<string key="ownerPopUpButton">NSPopUpButton</string>
 						<string key="viewSqlButton">NSButton</string>
 					</dictionary>
@@ -1011,7 +1013,7 @@
 						</object>
 						<object class="IBToOneOutletInfo" key="nameTextField">
 							<string key="name">nameTextField</string>
-							<string key="candidateClassName">NSTextField</string>
+							<string key="candidateClassName">NSextField</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="ownerPopUpButton">
 							<string key="name">ownerPopUpButton</string>

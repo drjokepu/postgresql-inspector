@@ -16,6 +16,9 @@
 #import <libpq-fe.h>
 
 @interface PGCommandExecutor ()
+{
+    BOOL failed;
+}
 
 @end
 
@@ -103,7 +106,7 @@
 
 -(void)noMoreResults
 {
-    if (self.onNoMoreResults != nil)
+    if (self.onNoMoreResults != nil && !self->failed)
     {
         [[NSOperationQueue mainQueue] addOperationWithBlock:self.onNoMoreResults];
     }
@@ -146,6 +149,7 @@
                 self.onError(error);
             }];
         }
+        self->failed = YES;
     }
 }
 
