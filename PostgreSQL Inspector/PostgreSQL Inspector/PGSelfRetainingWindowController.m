@@ -7,6 +7,7 @@
 //
 
 #import "PGSelfRetainingWindowController.h"
+#import "PGDatabase.h"
 
 static NSMutableArray *windowList = nil;
 
@@ -61,6 +62,13 @@ static NSMutableArray *windowList = nil;
     NSString *firstChar = [str substringToIndex:1];
     NSString *tail = [str substringFromIndex:1];
     return [NSString stringWithFormat:@"%@%@", [firstChar uppercaseString], tail];
+}
+
+-(void)broadcastSchemaChangedNotification:(PGDatabase *)database
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"databaseSchemaChanged"
+                                                        object:self
+                                                      userInfo:@{ @"database" : database }];
 }
 
 @end

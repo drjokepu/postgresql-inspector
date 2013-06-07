@@ -621,6 +621,24 @@
 									<reference key="NSOnImage" ref="35465992"/>
 									<reference key="NSMixedImage" ref="502551668"/>
 								</object>
+								<object class="NSMenuItem" id="818258497">
+									<reference key="NSMenu" ref="554165394"/>
+									<bool key="NSIsDisabled">YES</bool>
+									<bool key="NSIsSeparator">YES</bool>
+									<string key="NSTitle"/>
+									<string key="NSKeyEquiv"/>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="35465992"/>
+									<reference key="NSMixedImage" ref="502551668"/>
+								</object>
+								<object class="NSMenuItem" id="944036349">
+									<reference key="NSMenu" ref="554165394"/>
+									<string key="NSTitle">Refresh Schema</string>
+									<string key="NSKeyEquiv"/>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="35465992"/>
+									<reference key="NSMixedImage" ref="502551668"/>
+								</object>
 							</array>
 						</object>
 					</object>
@@ -1135,6 +1153,14 @@
 						<reference key="destination" ref="156398694"/>
 					</object>
 					<int key="connectionID">571</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">refreshSchema:</string>
+						<reference key="source" ref="1014"/>
+						<reference key="destination" ref="944036349"/>
+					</object>
+					<int key="connectionID">574</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -1709,6 +1735,8 @@
 						<array class="NSMutableArray" key="children">
 							<reference ref="1041648425"/>
 							<reference ref="156398694"/>
+							<reference ref="818258497"/>
+							<reference ref="944036349"/>
 						</array>
 						<reference key="parent" ref="713826891"/>
 					</object>
@@ -1720,6 +1748,16 @@
 					<object class="IBObjectRecord">
 						<int key="objectID">570</int>
 						<reference key="object" ref="156398694"/>
+						<reference key="parent" ref="554165394"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">572</int>
+						<reference key="object" ref="818258497"/>
+						<reference key="parent" ref="554165394"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">573</int>
+						<reference key="object" ref="944036349"/>
 						<reference key="parent" ref="554165394"/>
 					</object>
 				</array>
@@ -1809,6 +1847,8 @@
 				<string key="566.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="57.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="570.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="572.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="573.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="58.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="81.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="83.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -1818,7 +1858,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">571</int>
+			<int key="maxID">574</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1861,6 +1901,7 @@
 						<string key="didChangeSchemaPopUpButtonValue:">id</string>
 						<string key="queryDatabase:">id</string>
 						<string key="querySelectedRelation:">id</string>
+						<string key="refreshSchema:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
 						<object class="IBActionInfo" key="createSchema:">
@@ -1881,6 +1922,10 @@
 						</object>
 						<object class="IBActionInfo" key="querySelectedRelation:">
 							<string key="name">querySelectedRelation:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="refreshSchema:">
+							<string key="name">refreshSchema:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 					</dictionary>

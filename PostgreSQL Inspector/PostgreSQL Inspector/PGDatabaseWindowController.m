@@ -413,6 +413,11 @@
     [[queryWindowController window] makeKeyAndOrderFront:self];
 }
 
+-(void)refreshSchema:(id)sender
+{
+    [database loadSchema:connection];
+}
+
 -(void)createTable:(id)sender
 {
     PGCreateTableWindowController *createTableWindowController = [[PGCreateTableWindowController alloc] init];
