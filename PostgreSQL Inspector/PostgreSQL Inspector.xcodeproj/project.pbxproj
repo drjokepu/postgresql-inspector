@@ -69,6 +69,8 @@
 		02801E70154D9BA800FCA1DE /* PGConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 02801E6F154D9BA800FCA1DE /* PGConnection.m */; };
 		02801E79154DC4F200FCA1DE /* PGAuthWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02801E77154DC4F200FCA1DE /* PGAuthWindowController.m */; };
 		02801E7A154DC4F200FCA1DE /* PGAuthWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02801E78154DC4F200FCA1DE /* PGAuthWindowController.xib */; };
+		029991001761DCA800BC137F /* PGProgressSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 029990FE1761DCA800BC137F /* PGProgressSheet.m */; };
+		029991011761DCA800BC137F /* PGProgressSheet.xib in Resources */ = {isa = PBXBuildFile; fileRef = 029990FF1761DCA800BC137F /* PGProgressSheet.xib */; };
 		02A12D1717049232003E93A9 /* PGForeignKeyEditorWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02A12D1517049232003E93A9 /* PGForeignKeyEditorWindowController.m */; };
 		02A12D1817049232003E93A9 /* PGForeignKeyEditorWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02A12D1617049232003E93A9 /* PGForeignKeyEditorWindowController.xib */; };
 		02A24D9D16BFFC4700EEDBC6 /* PGCreateTableWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02A24D9B16BFFC4700EEDBC6 /* PGCreateTableWindowController.m */; };
@@ -227,6 +229,9 @@
 		02801E77154DC4F200FCA1DE /* PGAuthWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGAuthWindowController.m; sourceTree = "<group>"; };
 		02801E78154DC4F200FCA1DE /* PGAuthWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PGAuthWindowController.xib; sourceTree = "<group>"; };
 		02801E7C154DCD5500FCA1DE /* PGAuthWindowControllerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PGAuthWindowControllerDelegate.h; sourceTree = "<group>"; };
+		029990FD1761DCA800BC137F /* PGProgressSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGProgressSheet.h; sourceTree = "<group>"; };
+		029990FE1761DCA800BC137F /* PGProgressSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGProgressSheet.m; sourceTree = "<group>"; };
+		029990FF1761DCA800BC137F /* PGProgressSheet.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PGProgressSheet.xib; sourceTree = "<group>"; };
 		02A12D1417049232003E93A9 /* PGForeignKeyEditorWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGForeignKeyEditorWindowController.h; sourceTree = "<group>"; };
 		02A12D1517049232003E93A9 /* PGForeignKeyEditorWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGForeignKeyEditorWindowController.m; sourceTree = "<group>"; };
 		02A12D1617049232003E93A9 /* PGForeignKeyEditorWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PGForeignKeyEditorWindowController.xib; sourceTree = "<group>"; };
@@ -554,6 +559,9 @@
 				02CB6E13154EB5450086DA2C /* PGDatabaseWindowController.m */,
 				02CB6E14154EB5450086DA2C /* PGDatabaseWindowController.xib */,
 				02D4715516C12DCA00DD8715 /* PGEditorAction.h */,
+				029990FD1761DCA800BC137F /* PGProgressSheet.h */,
+				029990FE1761DCA800BC137F /* PGProgressSheet.m */,
+				029990FF1761DCA800BC137F /* PGProgressSheet.xib */,
 				02C4DF7815C69E6C00C78DDE /* PGQueryWindowController.h */,
 				02C4DF7915C69E6C00C78DDE /* PGQueryWindowController.m */,
 				02C4DF7A15C69E6C00C78DDE /* PGQueryWindowController.xib */,
@@ -775,6 +783,7 @@
 				02B0BBD116C7DBD500E240F7 /* PGUniqueKeyEditorWindowController.xib in Resources */,
 				02A12D1817049232003E93A9 /* PGForeignKeyEditorWindowController.xib in Resources */,
 				02D28CC71760E89D00FB9696 /* PGSchemaWindowController.xib in Resources */,
+				029991011761DCA800BC137F /* PGProgressSheet.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -852,6 +861,7 @@
 				02D28CC01760D67A00FB9696 /* PGRole.m in Sources */,
 				02D28CC61760E89D00FB9696 /* PGSchemaWindowController.m in Sources */,
 				02D28CCA1760EC9400FB9696 /* PGSchema.m in Sources */,
+				029991001761DCA800BC137F /* PGProgressSheet.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

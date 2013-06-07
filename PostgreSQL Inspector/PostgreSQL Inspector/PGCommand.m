@@ -33,6 +33,15 @@
     [executor execute];
 }
 
+-(void)execNonQueryWithCallback:(void (^)(void))completedCallback errorCallback:(void (^)(PGError *))errorCallback
+{
+    PGCommandExecutor *executor = [[PGCommandExecutor alloc] initWithCommand:self];
+    executor.rowByRow = NO;
+    executor.onNoMoreResults = completedCallback;
+    executor.onError = errorCallback;
+    [executor execute];
+}
+
 @end
 
 

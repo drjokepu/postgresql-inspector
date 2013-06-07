@@ -17,5 +17,6 @@
 
 -(void)execAsyncWithCallback:(void(^)(PGResult *result))resultCallback;
 -(void)execAsyncWithCallback:(void(^)(PGResult *result))resultCallback noMoreResultsCallback:(void(^)(void))noMoreResultsCallback errorCallback:(void(^)(PGError *error))errorCallback;
+-(void)execNonQueryWithCallback:(void(^)(void))completedCallback errorCallback:(void(^)(PGError *error))errorCallback;
 
 @end
