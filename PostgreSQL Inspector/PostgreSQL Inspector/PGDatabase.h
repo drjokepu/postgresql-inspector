@@ -20,7 +20,7 @@
 @property (nonatomic, strong) NSArray *schemaObjectGroups;
 @property (nonatomic, strong) NSArray *roles;
 @property (nonatomic, assign) NSInteger publicSchemaIndex;
-@property (nonatomic, weak) id<PGDatabaseDelegate> delegate;
+@property (nonatomic, unsafe_unretained) id<PGDatabaseDelegate> delegate;
 
 -(id)initWithConnectionEntry:(PGConnectionEntry*)theConnectionEntry;
 -(void)loadSchema:(PGConnection*)connection;

@@ -101,6 +101,13 @@
     uuidBytes[15] = cfBytes.byte15;
 }
 
+-(id)copyWithZone:(NSZone *)zone
+{
+    uuid_t cfBytes;
+    [self getUUIDBytes:cfBytes];
+    return [[PGUUID alloc] initWithUUIDBytes:cfBytes];
+}
+
 @end
 
 bool system_has_NSUUID(void)

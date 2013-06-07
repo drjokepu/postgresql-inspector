@@ -10,7 +10,7 @@
 
 bool system_has_NSUUID(void);
 
-@interface PGUUID : NSObject
+@interface PGUUID : NSObject <NSCopying>
 
 +(id)UUID;
 -(id)init;

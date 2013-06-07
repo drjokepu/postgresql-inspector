@@ -14,7 +14,7 @@
 
 -(NSString *)stringForObjectValue:(id)obj
 {
-    if ([obj isKindOfClass:[NSUUID class]] || [obj isKindOfClass:[PGUUID class]])
+    if ((system_has_NSUUID() && [obj isKindOfClass:[NSUUID class]]) || [obj isKindOfClass:[PGUUID class]])
     {
         NSString *str = [obj UUIDString];
         if (![PGUserDefaults uppercaseUUIDs])
