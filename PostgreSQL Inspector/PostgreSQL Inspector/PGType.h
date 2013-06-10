@@ -45,6 +45,7 @@ typedef enum
     PGTypeMacAddress        = 829,
     PGTypeInet              = 869,
     PGTypeNet               = 650,
+    PGTypeNameA             = 1003,
     PGTypeInt16AU           = 1005,
     PGTypeInt32A            = 1007,
     PGTypeTextA             = 1009,

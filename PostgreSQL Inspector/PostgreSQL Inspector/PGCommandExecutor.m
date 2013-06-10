@@ -15,6 +15,10 @@
 #import "PGUUID.h"
 #import <libpq-fe.h>
 
+static NSMutableCharacterSet *quotedStringControlCharacterSet = nil;
+static void setupQuotedStringControlCharacterSet(void);
+static NSUInteger min_nsuinteger(NSUInteger a, NSUInteger b) __attribute__ ((pure));
+
 @interface PGCommandExecutor ()
 {
     BOOL failed;
@@ -25,6 +29,11 @@
 @implementation PGCommandExecutor
 @synthesize command;
 @synthesize rowByRow;
+
++(void)initialize
+{
+    setupQuotedStringControlCharacterSet();
+}
 
 -(id)initWithCommand:(PGCommand *)theCommand
 {
@@ -224,8 +233,10 @@
         case PGTypeVarCharU:
         case PGTypeNodeTree:
         case PGTypeJson:
-        case PGTypeVarCharNA:
             return [[NSString alloc] initWithUTF8String:value];
+        case PGTypeNameA:
+        case PGTypeVarCharNA:
+            return [PGCommandExecutor parseArrayOfStrings:[[NSString alloc] initWithUTF8String:value]];
         case PGTypeOid:
             return @(strtoul(value, NULL, 10));
         case PGTypeInt16:
@@ -252,7 +263,7 @@
         case PGTypeOidAU:
             return [PGCommandExecutor parseArrayOfIntegers:[[NSString alloc] initWithUTF8String:value]];
         default:
-//            fprintf(stderr, "Unknown OID: %i, value = %s\n", oid, value);
+            fprintf(stderr, "Unknown OID: %i, value = %s\n", oid, value);
             return [[NSString alloc] initWithUTF8String:value];;
     }
 }
@@ -299,4 +310,60 @@
     return results;
 }
 
++(NSArray*)parseArrayOfStrings:(NSString *)text
+{
+    if ([text length] == 0) return [[NSArray alloc] init];
+    
+    NSMutableArray *results = [[NSMutableArray alloc] init];
+    NSScanner *scanner = [[NSScanner alloc] initWithString:text];
+    [scanner scanString:@"{" intoString:NULL];
+    
+    do
+    {
+        @autoreleasepool
+        {
+            if ([scanner scanString:@"\"" intoString:nil]) // quoted
+            {
+                NSMutableString *value = [[NSMutableString alloc] init];
+                while ([scanner scanString:@"\"" intoString:nil])
+                {
+                    NSString *part = nil;
+                    [scanner scanUpToCharactersFromSet:quotedStringControlCharacterSet intoString:&part];
+                    [value appendString:part];
+                    if ([text characterAtIndex:[scanner scanLocation]] == '\\')
+                    {
+                        [scanner scanString:@"\\" intoString:nil];
+                        if (![scanner isAtEnd])
+                        {
+                            const unichar escapedChar = [text characterAtIndex:[scanner scanLocation]];
+                            [value appendFormat:@"%c", escapedChar];
+                            [scanner setScanLocation:[scanner scanLocation] + 1];
+                        }
+                    }
+                }
+            }
+            else // not quoted
+            {
+                NSString *value = nil;
+                [scanner scanUpToString:@"," intoString:&value];
+                [results addObject:value];
+            }
+            
+        }
+    } while ([scanner scanString:@"," intoString:NULL]);
+    
+    return results;
+}
+
 @end
+
+static void setupQuotedStringControlCharacterSet(void)
+{
+    quotedStringControlCharacterSet = [[NSMutableCharacterSet alloc] init];
+    [quotedStringControlCharacterSet addCharactersInString:@"\\\""];
+}
+
+static NSUInteger min_nsuinteger(NSUInteger a, NSUInteger b)
+{
+    return a < b ? a : b;
+}

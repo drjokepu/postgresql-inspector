@@ -24,6 +24,7 @@
 @property (strong) IBOutlet NSMenu *schemaMenu;
 @property (strong) IBOutlet NSTableView *tableColumnsTableView;
 @property (strong) IBOutlet NSTableView *constraintsTableView;
+@property (strong) IBOutlet NSTableView *indexesTableView;
 
 -(IBAction)didChangeSchemaPopUpButtonValue:(id)sender;
 -(IBAction)queryDatabase:(id)sender;

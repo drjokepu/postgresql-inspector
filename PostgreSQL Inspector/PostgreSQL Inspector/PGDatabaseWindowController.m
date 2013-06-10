@@ -14,6 +14,7 @@
 #import "PGCreateTableWindowController.h"
 #import "PGDatabase.h"
 #import "PGDatabaseManager.h"
+#import "PGIndex.h"
 #import "PGQueryWindowController.h"
 #import "PGRelationColumn.h"
 #import "PGRole.h"
@@ -33,8 +34,7 @@
 @synthesize outlineView;
 @synthesize schemaPopUpButton;
 @synthesize schemaMenu;
-@synthesize tableColumnsTableView;
-@synthesize constraintsTableView;
+@synthesize tableColumnsTableView, constraintsTableView, indexesTableView;
 
 @synthesize connection, database;
 
@@ -282,9 +282,11 @@
 -(NSInteger)numberOfRowsInTableView:(NSTableView *)tableView
 {
     if (tableView == tableColumnsTableView)
-        return self.selectedTable.columns.count;
+        return [self.selectedTable.columns count];
     else if (tableView == constraintsTableView)
-        return self.selectedTable.constraints.count;
+        return [self.selectedTable.constraints count];
+    else if (tableView == indexesTableView)
+        return [self.selectedTable.indexes count];
     else
         return 0;
 }
@@ -295,6 +297,8 @@
         return [self columnsTableViewViewForRow:(NSUInteger)row];
     else if (tableView == constraintsTableView)
         return [self constraintsTableViewViewForRow:(NSUInteger)row];
+    else if (tableView == indexesTableView)
+        return [self indexesTableViewViewForRow:(NSUInteger)row];
     else
         return nil;
 }
@@ -342,15 +346,33 @@
 
 -(NSView*)constraintsTableViewViewForRow:(NSUInteger)row
 {
-    PGConstraint *constraint = self.selectedTable.constraints[row];
-    NSTableCellView *cellView = [self.constraintsTableView makeViewWithIdentifier:@"constraintCellView" owner:self];
-    
-    [[cellView viewWithTag:7000] setImage:[PGDatabaseWindowController imageForConstraintType:constraint.type]];
-    [[cellView viewWithTag:7001] setStringValue:constraint.name];
-    [[cellView viewWithTag:7002] setStringValue:[constraint constraintTypeDescription]];
-    [[cellView viewWithTag:7003] setStringValue:[self constraintUIDefinition:constraint]];
-    
-    return cellView;
+    @autoreleasepool
+    {
+        PGConstraint *constraint = self.selectedTable.constraints[row];
+        NSTableCellView *cellView = [self.constraintsTableView makeViewWithIdentifier:@"constraintCellView" owner:self];
+        
+        [[cellView viewWithTag:7000] setImage:[PGDatabaseWindowController imageForConstraintType:constraint.type]];
+        [[cellView viewWithTag:7001] setStringValue:constraint.name];
+        [[cellView viewWithTag:7002] setStringValue:[constraint constraintTypeDescription]];
+        [[cellView viewWithTag:7003] setStringValue:[self constraintUIDefinition:constraint]];
+        
+        return cellView;
+    }
+}
+
+-(NSView*)indexesTableViewViewForRow:(NSUInteger)row
+{
+    NSLog(@"indexesTableViewViewForRow:%lu", row);
+    @autoreleasepool
+    {
+        PGIndex *index = self.selectedTable.indexes[row];
+        NSTableCellView *cellView = [self.indexesTableView makeViewWithIdentifier:@"indexCellView" owner:self];
+
+        [[cellView viewWithTag:4320] setStringValue:index.name];
+        [[cellView viewWithTag:4321] setStringValue:[index indexUIDefinition]];
+        
+        return cellView;
+    }
 }
 
 +(NSImage*)imageForConstraintType:(PGConstraintType)constraintType

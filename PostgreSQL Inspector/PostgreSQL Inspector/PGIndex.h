@@ -22,5 +22,8 @@
 @property (nonatomic, assign) BOOL deferrable;
 @property (nonatomic, assign) BOOL deferred;
 @property (nonatomic, assign) NSUInteger tablespace;
+@property (nonatomic, strong) NSArray *columnNames;
+
+-(NSString*)indexUIDefinition;
 
 @end

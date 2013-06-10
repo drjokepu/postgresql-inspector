@@ -10,6 +10,9 @@
 
 @implementation PGIndex
 
-
+-(NSString *)indexUIDefinition
+{
+    return [NSString stringWithFormat:@"%lu", [self.columnNames count]];
+}
 
 @end
