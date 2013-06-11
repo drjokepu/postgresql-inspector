@@ -277,6 +277,7 @@
 {
     [tableColumnsTableView reloadData];
     [constraintsTableView reloadData];
+    [indexesTableView reloadData];
 }
 
 -(NSInteger)numberOfRowsInTableView:(NSTableView *)tableView
@@ -362,7 +363,6 @@
 
 -(NSView*)indexesTableViewViewForRow:(NSUInteger)row
 {
-    NSLog(@"indexesTableViewViewForRow:%lu", row);
     @autoreleasepool
     {
         PGIndex *index = self.selectedTable.indexes[row];

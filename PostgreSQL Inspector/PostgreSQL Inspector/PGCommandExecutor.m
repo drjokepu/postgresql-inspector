@@ -15,8 +15,9 @@
 #import "PGUUID.h"
 #import <libpq-fe.h>
 
-static NSMutableCharacterSet *quotedStringControlCharacterSet = nil;
-static void setupQuotedStringControlCharacterSet(void);
+static NSCharacterSet *quotedStringControlCharacterSet = nil;
+static NSCharacterSet *unquotedStringControlCharacterSet = nil;
+static void setupCharacterSets(void);
 static NSUInteger min_nsuinteger(NSUInteger a, NSUInteger b) __attribute__ ((pure));
 
 @interface PGCommandExecutor ()
@@ -32,7 +33,7 @@ static NSUInteger min_nsuinteger(NSUInteger a, NSUInteger b) __attribute__ ((pur
 
 +(void)initialize
 {
-    setupQuotedStringControlCharacterSet();
+    setupCharacterSets();
 }
 
 -(id)initWithCommand:(PGCommand *)theCommand
@@ -345,8 +346,11 @@ static NSUInteger min_nsuinteger(NSUInteger a, NSUInteger b) __attribute__ ((pur
             else // not quoted
             {
                 NSString *value = nil;
-                [scanner scanUpToString:@"," intoString:&value];
-                [results addObject:value];
+                [scanner scanUpToCharactersFromSet:unquotedStringControlCharacterSet intoString:&value];
+                if (value != nil)
+                {
+                    [results addObject:value];
+                }
             }
             
         }
@@ -357,10 +361,15 @@ static NSUInteger min_nsuinteger(NSUInteger a, NSUInteger b) __attribute__ ((pur
 
 @end
 
-static void setupQuotedStringControlCharacterSet(void)
+static void setupCharacterSets(void)
 {
-    quotedStringControlCharacterSet = [[NSMutableCharacterSet alloc] init];
-    [quotedStringControlCharacterSet addCharactersInString:@"\\\""];
+    NSMutableCharacterSet *_quotedStringControlCharacterSet = [[NSMutableCharacterSet alloc] init];
+    [_quotedStringControlCharacterSet addCharactersInString:@"\\\""];
+    quotedStringControlCharacterSet = _quotedStringControlCharacterSet;
+    
+    NSMutableCharacterSet *_unquotedStringControlCharacterSet = [[NSMutableCharacterSet alloc] init];
+    [_unquotedStringControlCharacterSet addCharactersInString:@",}"];
+    unquotedStringControlCharacterSet = _unquotedStringControlCharacterSet;
 }
 
 static NSUInteger min_nsuinteger(NSUInteger a, NSUInteger b)
