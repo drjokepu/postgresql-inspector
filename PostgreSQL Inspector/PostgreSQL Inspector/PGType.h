@@ -73,6 +73,7 @@ typedef enum
     PGTypeRegType           = 2206,
     PGTypeRegTypeA          = 2211,
     PGTypeUuid              = 2950,
+    PGTypeHStore            = 16665
     // To be continued ...
 } PGType;
 

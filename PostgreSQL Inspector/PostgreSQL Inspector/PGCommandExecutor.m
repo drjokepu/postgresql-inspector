@@ -234,9 +234,12 @@ static NSUInteger min_nsuinteger(NSUInteger a, NSUInteger b) __attribute__ ((pur
         case PGTypeVarCharU:
         case PGTypeNodeTree:
         case PGTypeJson:
+        case PGTypeRegProc:
+        case PGTypeHStore:
             return [[NSString alloc] initWithUTF8String:value];
         case PGTypeNameA:
         case PGTypeVarCharNA:
+        case PGTypeTextA:
             return [PGCommandExecutor parseArrayOfStrings:[[NSString alloc] initWithUTF8String:value]];
         case PGTypeOid:
             return @(strtoul(value, NULL, 10));
@@ -265,7 +268,7 @@ static NSUInteger min_nsuinteger(NSUInteger a, NSUInteger b) __attribute__ ((pur
             return [PGCommandExecutor parseArrayOfIntegers:[[NSString alloc] initWithUTF8String:value]];
         default:
             fprintf(stderr, "Unknown OID: %i, value = %s\n", oid, value);
-            return [[NSString alloc] initWithUTF8String:value];;
+            return [[NSString alloc] initWithUTF8String:value];
     }
 }
 

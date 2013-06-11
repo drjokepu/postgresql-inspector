@@ -394,9 +394,24 @@ static const NSInteger executeQueryTag = 4001;
 
 -(id)resultValueForTableColumn:(NSInteger)column row:(NSInteger)row
 {
-    const PGResult *result = [self selectedResult];
-    const id value = [result rows][row][column];
-    return value;
+    @autoreleasepool
+    {
+        const PGResult *result = [self selectedResult];
+        const id value = [result rows][row][column];
+        return [self formatCellObject:value];
+    }
+}
+
+-(id)formatCellObject:(id)cellValue
+{
+    if ([cellValue isKindOfClass:[NSArray class]])
+    {
+        return [NSString stringWithFormat:@"{%@}", [((NSArray*)cellValue) componentsJoinedByString:@", "]];
+    }
+    else
+    {
+        return cellValue;
+    }
 }
 
 -(PGResult*)selectedResult
